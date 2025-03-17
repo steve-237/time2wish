@@ -29,7 +29,7 @@
 - Personalized gift and message ideas based on contact preferences.
 - Auto-generated birthday messages.
 
-###User Interface:
+### User Interface:
 
 - Dashboard displaying upcoming birthdays.
 - Search and filter options for managing contacts.
