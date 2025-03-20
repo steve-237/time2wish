@@ -1,8 +1,8 @@
-<div class="h-screen bg-cover bg-center flex items-center justify-center" 
+<div class="h-screen bg-cover bg-center bg-fixed flex items-center justify-center p-4"
      style="background-image: url('https://images.unsplash.com/photo-1482731910308-31e96e5d1d28?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
-    <div class="bg-white rounded-2xl shadow-lg flex max-w-4xl w-full">
-        <!-- Section gauche -->
-        <div class="bg-blue-500 text-white p-8 rounded-l-2xl w-1/2 flex flex-col justify-center">
+    <div class="bg-white rounded-2xl shadow-lg flex flex-col-reverse md:flex-row max-w-4xl w-full mx-4 md:mx-0">
+        <!-- Section gauche (en bas sur mobile, à gauche sur desktop) -->
+        <div class="bg-blue-500 text-white p-8 rounded-b-2xl md:rounded-l-2xl md:rounded-br-none md:w-1/2 flex flex-col justify-center">
             <h1 class="text-3xl font-bold mb-4 text-center">time2wish</h1>
             <p class="text-sm text-justify">
                 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Id vel, laboriosam voluptatum repudiandae recusandae obcaecati, quo quas asperiores atque perspiciatis laudantium nostrum! Consectetur cupiditate natus blanditiis eveniet, dolores dicta quo.
@@ -11,13 +11,14 @@
                 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Id vel, laboriosam voluptatum repudiandae recusandae obcaecati, quo quas asperiores atque perspiciatis laudantium nostrum! Consectetur cupiditate natus blanditiis eveniet, dolores dicta quo.
             </p>
         </div>
-        <!-- Section droite -->
-        <div class="p-8 w-1/2 flex flex-col items-center justify-center">
-            <h2 class="text-xl font-semibold mb-4 mt-auto">Login</h2>
+        <!-- Section droite (en haut sur mobile, à droite sur desktop) -->
+        <div class="p-8 md:w-1/2 flex flex-col items-center justify-center">
+            <img src="time2wish-logo.png" width="160" height="160" alt="logo time2wish" class="mb-4">
+            <h2 class="text-xl font-semibold mb-4">Login</h2>
             <div class="w-full">
-                <div class="flex space-x-2 mb-3">
-                    <input type="email" placeholder="Email" class="w-1/2 p-2 border border-gray-300 rounded">
-                    <div class="relative w-1/2">
+                <div class="flex flex-col space-y-3 md:flex-row md:space-x-2 md:space-y-0 mb-3">
+                    <input type="email" placeholder="Email" class="w-full md:w-1/2 p-2 border border-gray-300 rounded">
+                    <div class="relative w-full md:w-1/2">
                         <input [type]="showPassword ? 'text' : 'password'" placeholder="Password" class="w-full p-2 border border-gray-300 rounded">
                         <span class="absolute inset-y-0 right-3 flex items-center cursor-pointer" (click)="togglePassword()">
                             <i class="fa" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
@@ -29,8 +30,8 @@
                     <a href="#" class="text-blue-500 text-sm">Forgotten password ?</a>
                 </div>
             </div>
-            <div class="mt-auto text-sm mb-4">
-                <span>Don't have an account yet?</span>
+            <div class="text-sm mb-4">
+                <span>Don't have an account yet? </span>
                 <a href="#" class="text-blue-500">Sign up</a>
             </div>
         </div>
