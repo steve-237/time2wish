@@ -1,12 +1,11 @@
 <div class="flex bg-gray-200">
   <!-- Sidebar -->
   <aside
-    class="w-16 bg-white h-screen flex flex-col items-center transition-all duration-300 ease-in-out"
+    class="sticky top-0 left-0 h-screen w-16 bg-white flex flex-col items-center transition-all duration-100 ease-in-out"
     [class.w-20]="!expanded"
-    [class.w-50]="expanded"
+    [class.w-45]="expanded"
   >
     <div class="flex flex-col p-3">
-      <!-- Bouton Menu -->
       <button
         class="flex items-center p-3 hover:bg-gray-100 transition-colors"
         (click)="toggleSidebar()"
@@ -17,7 +16,6 @@
         >
       </button>
 
-      <!-- Bouton Paramètres -->
       <button
         class="flex items-center p-3 hover:bg-gray-100 transition-colors"
       >
@@ -27,7 +25,6 @@
         >
       </button>
 
-      <!-- Bouton Ajouter Utilisateur (version améliorée) -->
       <button
         class="flex items-center p-3 hover:bg-gray-100 transition-colors"
       >
@@ -59,9 +56,14 @@
           <mat-icon>notifications</mat-icon>
         </button>
 
-        <!-- Changement de vue -->
+        <!-- Changement de vue (vue sous forme de cards) -->
         <button mat-icon-button>
           <mat-icon>view_module</mat-icon>
+        </button>
+
+        <!-- Changement de vue (vue sous forme de table)-->
+        <button mat-icon-button>
+          <mat-icon> table_chart</mat-icon>
         </button>
 
         <!-- Langue -->
@@ -316,8 +318,9 @@
       <div class="flex items-center justify-between text-gray-600">
         <mat-paginator
           class="w-full"
-          [pageSizeOptions]="[5, 10, 25, 100]"
+          [pageSizeOptions]="[10, 15, 25, 100]"
           showFirstLastButtons
+          aria-label="Select page"
         ></mat-paginator>
       </div>
     </div>
