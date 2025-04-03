@@ -1,11 +1,42 @@
 <div class="flex bg-gray-200">
   <!-- Sidebar -->
   <aside
-    class="w-16 bg-gray-800 h-screen flex flex-col items-center p-2 space-y-4 text-white"
+    class="w-16 bg-white h-screen flex flex-col items-center transition-all duration-300 ease-in-out"
+    [class.w-20]="!expanded"
+    [class.w-50]="expanded"
   >
-    <button class="p-2"><i class="fa fa-bars"></i></button>
-    <button class="p-2"><i class="fa fa-cog"></i></button>
-    <button class="p-2"><i class="fa fa-plus"></i></button>
+    <div class="flex flex-col p-3">
+      <!-- Bouton Menu -->
+      <button
+        class="flex items-center p-3 hover:bg-gray-100 transition-colors"
+        (click)="toggleSidebar()"
+      >
+        <mat-icon class="!h-8 !text-2xl">menu</mat-icon>
+        <span class="ml-3 whitespace-nowrap" [class.hidden]="!expanded"
+          >Menu</span
+        >
+      </button>
+
+      <!-- Bouton Paramètres -->
+      <button
+        class="flex items-center p-3 hover:bg-gray-100 transition-colors"
+      >
+        <mat-icon class="!h-8 !text-2xl">settings</mat-icon>
+        <span class="ml-3 whitespace-nowrap" [class.hidden]="!expanded"
+          >Parameters</span
+        >
+      </button>
+
+      <!-- Bouton Ajouter Utilisateur (version améliorée) -->
+      <button
+        class="flex items-center p-3 hover:bg-gray-100 transition-colors"
+      >
+        <mat-icon class="!h-8 !text-2xl">person_add</mat-icon>
+        <span class="ml-3 whitespace-nowrap" [class.hidden]="!expanded"
+          >Add user</span
+        >
+      </button>
+    </div>
   </aside>
 
   <!-- Main Content -->

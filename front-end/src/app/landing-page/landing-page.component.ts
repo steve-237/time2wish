@@ -31,13 +31,18 @@ export class LandingPageComponent {
   displayedColumns: string[] = ['photo', 'name', 'city', 'category', 'date', 'action'];
 
   currentDate: Date = new Date();
+  expanded = false;
 
   ngOnInit() {
     setInterval(() => {
       this.currentDate = new Date();
     }, 60000);
   }
-  
+
+  toggleSidebar() {
+    this.expanded = !this.expanded;
+  }
+
   mockData = [
     { 
       photo: 'https://randomuser.me/api/portraits/women/44.jpg',
