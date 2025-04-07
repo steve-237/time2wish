@@ -16,18 +16,14 @@
         >
       </button>
 
-      <button
-        class="flex items-center p-3 hover:bg-gray-100 transition-colors"
-      >
+      <button class="flex items-center p-3 hover:bg-gray-100 transition-colors">
         <mat-icon class="!h-8 !text-2xl">settings</mat-icon>
         <span class="ml-3 whitespace-nowrap" [class.hidden]="!expanded"
           >Parameters</span
         >
       </button>
 
-      <button
-        class="flex items-center p-3 hover:bg-gray-100 transition-colors"
-      >
+      <button class="flex items-center p-3 hover:bg-gray-100 transition-colors">
         <mat-icon class="!h-8 !text-2xl">person_add</mat-icon>
         <span class="ml-3 whitespace-nowrap" [class.hidden]="!expanded"
           >Add user</span
@@ -39,15 +35,19 @@
   <!-- Main Content -->
   <main class="flex-1 p-4">
     <div
-      class="flex items-center justify-between shadow-md rounded-lg p-4 bg-white"
+      class="flex items-center justify-between shadow-md rounded-lg p-2 bg-white"
     >
       <!-- Partie gauche - Logo -->
       <div class="flex items-center">
-        <img src="assets/logo.png" alt="Logo" class="h-8 mr-4" />
+        <img src="time2wish-logo.png" alt="Logo" class="h-16 ml-7" />
       </div>
 
       <!-- Champ de recherche -->
-      <input type="text" placeholder="Search..." />
+      <mat-form-field appearance="outline" class="w-28 md:w-auto">
+        <mat-label>Search</mat-label>
+        <input matInput placeholder="Search..." type="text">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
 
       <!-- Partie droite - Icônes -->
       <div class="flex items-center gap-4">
@@ -56,15 +56,17 @@
           <mat-icon>notifications</mat-icon>
         </button>
 
-        <!-- Changement de vue (vue sous forme de cards) -->
-        <button mat-icon-button>
+        @if(viewMode === 'table') {
+        <!-- Changement de vue (vue sous forme de table)-->
+        <button mat-icon-button (click)="toggleView('cards')">
           <mat-icon>view_module</mat-icon>
         </button>
-
-        <!-- Changement de vue (vue sous forme de table)-->
-        <button mat-icon-button>
-          <mat-icon> table_chart</mat-icon>
+        } @else {
+        <!-- Changement de vue (vue sous forme de cards) -->
+        <button mat-icon-button (click)="toggleView('table')">
+          <mat-icon>table_chart</mat-icon>
         </button>
+        }
 
         <!-- Langue -->
         <button mat-icon-button [matMenuTriggerFor]="languageMenu">
@@ -148,6 +150,8 @@
     </div>
 
     <div class="bg-white shadow-md rounded-lg p-4 mt-4">
+      @if(viewMode === 'table') 
+      {
       <div
         class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6"
       >
@@ -323,6 +327,55 @@
           aria-label="Select page"
         ></mat-paginator>
       </div>
+
+      } @else {
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+        <mat-card
+          *ngFor="let item of dataSource.data"
+          class="hover:shadow-lg transition-shadow"
+        >
+          <div class="flex items-center p-4">
+            <img
+              [src]="item.photo"
+              class="w-16 h-16 rounded-full object-cover mr-4"
+              alt="Profile"
+            />
+            <div>
+              <mat-card-title class="!text-lg !mb-1">{{
+                item.name
+              }}</mat-card-title>
+              <mat-card-subtitle class="!text-sm">{{
+                item.city
+              }}</mat-card-subtitle>
+            </div>
+          </div>
+
+          <mat-card-content class="px-4 pb-4">
+            <div class="flex justify-between text-sm text-gray-600 mb-2">
+              <span>Category:</span>
+              <span class="font-medium">{{ item.category }}</span>
+            </div>
+            <div class="flex justify-between text-sm text-gray-600">
+              <span>Date:</span>
+              <span class="font-medium">{{
+                item.date | date : "dd.MM.yyyy"
+              }}</span>
+            </div>
+          </mat-card-content>
+
+          <mat-card-actions class="flex justify-end p-4 pt-0">
+            <button mat-icon-button color="primary">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+      
+      }
     </div>
   </main>
 </div>
