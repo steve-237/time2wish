@@ -20,7 +20,7 @@ import { RouterLink } from '@angular/router';
     RouterLink,
   ],
   templateUrl: './password-reset.component.html',
-  styleUrls: ['./password-reset.component.scss'],
+  styleUrls: ['./password-reset.component.css'],
 })
 export class PasswordResetComponent {
   resetForm: FormGroup;
