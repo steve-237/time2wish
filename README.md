@@ -43,8 +43,8 @@
 
 ## Technical Requirements
 
-- Frontend: Angular 17+ with TypeScript.
-- Backend: Node.js with Express or Firebase (serverless approach) or Spring Boot.
+- Frontend: Angular 19+ with TypeScript. (On going...)
+- Backend: Node.js with Express or Firebase (serverless approach) or Spring Boot. (Open...)
 - Database: Firebase Firestore or MongoDB or Postgres.
 - Notifications: Web Push Notifications or Firebase Cloud Messaging.
 - Third-Party APIs: Messaging services (Twilio, SendGrid integration) or others.
