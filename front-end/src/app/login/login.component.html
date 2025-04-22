@@ -30,6 +30,7 @@
         quo.
       </p>
     </div>
+
     <!-- Section droite (en haut sur mobile, à droite sur desktop) -->
     <div class="p-8 md:w-1/2 flex flex-col items-center justify-center">
       <img
@@ -37,55 +38,46 @@
         width="160"
         height="160"
         alt="logo time2wish"
-        class="mb-4"
       />
       <h2 class="text-xl font-semibold mb-4">Login</h2>
-      <div class="w-full">
-        <div
-          class="flex flex-col space-y-3 md:flex-row md:space-x-2 md:space-y-0 mb-3"
-        >
-          <input
-            type="email"
-            placeholder="Email"
-            class="w-full md:w-1/2 p-2 border border-gray-300 rounded"
-          />
-          <div class="relative w-full md:w-1/2">
-            <input
-              [type]="showPassword ? 'text' : 'password'"
-              placeholder="Password"
-              class="w-full p-2 border border-gray-300 rounded"
-            />
-            <span
-              class="absolute inset-y-0 right-3 flex items-center cursor-pointer"
-              (click)="togglePassword()"
-            >
-              <i
-                class="fa"
-                [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"
-              ></i>
-            </span>
-          </div>
-        </div>
-        <button
-          class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
-          (click)="onLogin()"
-        >
+
+      <form class="w-full">
+        <!-- Email Field -->
+        <mat-form-field appearance="outline" class="w-full mb-4">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" placeholder="Email" required>
+          <mat-icon matPrefix>email</mat-icon>
+        </mat-form-field>
+
+        <!-- Password Field -->
+        <mat-form-field appearance="outline" class="w-full mb-4">
+          <mat-label>Password</mat-label>
+          <mat-icon matPrefix>lock</mat-icon>
+          <input matInput [type]="hidePassword ? 'password' : 'text'" required>
+          <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword">
+            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <!-- Login Button -->
+        <button mat-raised-button color="primary" class="w-full py-2" (click)="onLogin()">
           Login
         </button>
-        <div class="w-full text-center mb-4">
+
+        <div class="w-full text-center my-4">
           <a
             routerLink="/password-reset"
             class="text-blue-500 hover:underline text-sm"
             >Forgotten password ?</a
           >
         </div>
-      </div>
-      <div class="text-sm mb-4">
+      </form>
+
+      <div class="text-sm">
         <span>Don't have an account yet? </span>
         <a
           class="text-blue-500 hover:underline"
           [routerLink]="['/register']"
-          routerLinkActive="router-link-active"
           >Sign up</a
         >
       </div>

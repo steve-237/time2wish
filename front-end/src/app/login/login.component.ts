@@ -27,15 +27,13 @@ import { Router, RouterLink } from '@angular/router';
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
-  showPassword = false;
+  
+  hidePassword = true;
 
   router = inject(Router);
-
-  togglePassword() {
-    this.showPassword = !this.showPassword;
-  }
 
   onLogin() {
     this.router.navigate(['/landing-page']);
   }
+
 }
