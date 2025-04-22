@@ -10,11 +10,14 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatBadgeModule } from '@angular/material/badge';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
+import {MatListModule} from '@angular/material/list';
 import {
   MatCardModule,
   MatCardTitle,
   MatCardSubtitle,
 } from '@angular/material/card';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import {MatToolbarModule} from '@angular/material/toolbar';
 
 @Component({
   selector: 'app-landing-page',
@@ -32,7 +35,19 @@ import {
     MatCardModule,
     MatCardTitle,
     MatCardSubtitle,
-    MatInputModule
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatMenuModule,
+    MatBadgeModule,
+    MatCardModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatListModule,
+    MatButtonToggleModule,
+    MatToolbarModule
   ],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.css',
@@ -40,7 +55,7 @@ import {
 export class LandingPageComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  activeButton: boolean = false;
+  activeButton: 'coming' | 'passed' = 'coming';
   displayedColumns: string[] = [
     'photo',
     'name',
@@ -194,7 +209,5 @@ export class LandingPageComponent {
 
   dataSource = new MatTableDataSource(this.mockData);
 
-  toggleActiveButton(state: boolean): void {
-    this.activeButton = state;
-  }
+
 }

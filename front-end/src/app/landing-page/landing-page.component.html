@@ -5,135 +5,163 @@
     [class.w-20]="!expanded"
     [class.w-45]="expanded"
   >
-    <div class="flex flex-col p-3">
-      <button
-        class="flex items-center p-3 hover:bg-gray-100 transition-colors"
-        (click)="toggleSidebar()"
-      >
-        <mat-icon class="!h-8 !text-2xl">menu</mat-icon>
-        <span class="ml-3 whitespace-nowrap" [class.hidden]="!expanded"
-          >Menu</span
-        >
-      </button>
+    <mat-nav-list>
+      <!-- Menu Button -->
+      <mat-list-item (click)="toggleSidebar()" class="hover:bg-gray-100 !h-12">
+        <div class="flex items-center w-full">
+          <mat-icon class="!w-8 !h-8 !text-2xl flex items-center justify-center"
+            >menu</mat-icon
+          >
+          <span class="ml-3" [class.hidden]="!expanded">Menu</span>
+        </div>
+      </mat-list-item>
 
-      <button class="flex items-center p-3 hover:bg-gray-100 transition-colors">
-        <mat-icon class="!h-8 !text-2xl">settings</mat-icon>
-        <span class="ml-3 whitespace-nowrap" [class.hidden]="!expanded"
-          >Parameters</span
-        >
-      </button>
+      <!-- Parameters Button -->
+      <mat-list-item class="hover:bg-gray-100 !h-12">
+        <div class="flex items-center w-full">
+          <mat-icon class="!w-8 !h-8 !text-2xl flex items-center justify-center"
+            >settings</mat-icon
+          >
+          <span class="ml-3" [class.hidden]="!expanded">Parameters</span>
+        </div>
+      </mat-list-item>
 
-      <button class="flex items-center p-3 hover:bg-gray-100 transition-colors">
-        <mat-icon class="!h-8 !text-2xl">person_add</mat-icon>
-        <span class="ml-3 whitespace-nowrap" [class.hidden]="!expanded"
-          >Add user</span
-        >
-      </button>
-    </div>
+      <!-- Add User Button -->
+      <mat-list-item class="hover:bg-gray-100 !h-12">
+        <div class="flex items-center w-full">
+          <mat-icon class="!w-8 !h-8 !text-2xl flex items-center justify-center"
+            >person_add</mat-icon
+          >
+          <span class="ml-3" [class.hidden]="!expanded">Add user</span>
+        </div>
+      </mat-list-item>
+    </mat-nav-list>
   </aside>
 
   <!-- Main Content -->
   <main class="flex-1 p-4">
-    <div
-      class="flex items-center justify-between shadow-md rounded-lg p-2 bg-white"
-    >
-      <!-- Partie gauche - Logo -->
-      <div class="flex items-center">
-        <img src="time2wish-logo.png" alt="Logo" class="h-16 ml-7" />
+    <mat-toolbar color="primary" class="!rounded-lg !shadow-md !p-4 !h-auto">
+      <div class="flex items-center justify-between w-full">
+        <!-- Logo -->
+        <div class="flex items-center">
+          <img
+            src="time2wish-logo.png"
+            alt="Logo"
+            class="h-12 md:h-16 ml-2 md:ml-7"
+          />
+        </div>
+
+        <!-- Champ de recherche - Centré et responsive -->
+        <mat-form-field appearance="outline" class="!mx-4 !w-full max-w-xl !rounded-full">
+          <mat-label>Search</mat-label>
+          <input matInput placeholder="Search...">
+          <mat-icon matSuffix class="!text-gray-400">search</mat-icon>
+        </mat-form-field>
+
+        <!-- Groupe d'icônes -->
+        <div class="flex items-center gap-1 md:gap-4">
+          <!-- Notification avec badge -->
+          <button
+            mat-icon-button
+            [matBadge]="3"
+            matBadgeColor="warn"
+            matBadgeSize="large"
+            class="!w-10 !h-10 !flex !items-center !justify-center relative"
+          >
+            <mat-icon class="!text-gray-700">notifications</mat-icon>
+          </button>
+
+          @if(viewMode === 'table') {
+          <!-- Changement de vue (vue sous forme de table)-->
+          <button mat-icon-button (click)="toggleView('cards')">
+            <mat-icon>view_module</mat-icon>
+          </button>
+          } @else {
+          <!-- Changement de vue (vue sous forme de cards) -->
+          <button mat-icon-button (click)="toggleView('table')">
+            <mat-icon>table_chart</mat-icon>
+          </button>
+          }
+
+          <!-- Menu Langue -->
+          <button
+            mat-icon-button
+            [matMenuTriggerFor]="languageMenu"
+            class="!w-10 !h-10 flex items-center justify-center"
+          >
+            <mat-icon class="!text-gray-700">language</mat-icon>
+          </button>
+          <mat-menu #languageMenu="matMenu">
+            <button mat-menu-item>
+              <span>Français</span>
+            </button>
+            <button mat-menu-item>
+              <span>English</span>
+            </button>
+          </mat-menu>
+
+          <!-- Aide -->
+          <button
+            mat-icon-button
+            class="!w-10 !h-10 flex items-center justify-center"
+          >
+            <mat-icon class="!text-gray-700">help_outline</mat-icon>
+          </button>
+
+          <!-- Menu Profil -->
+          <button
+            mat-icon-button
+            [matMenuTriggerFor]="profileMenu"
+            class="!w-10 !h-10 flex items-center justify-center"
+          >
+            <mat-icon class="!text-gray-700">account_circle</mat-icon>
+          </button>
+          <mat-menu #profileMenu="matMenu">
+            <button mat-menu-item>
+              <mat-icon>person</mat-icon>
+              <span>Profil</span>
+            </button>
+            <button mat-menu-item>
+              <mat-icon>logout</mat-icon>
+              <span>Déconnexion</span>
+            </button>
+          </mat-menu>
+        </div>
       </div>
-
-      <!-- Champ de recherche -->
-      <mat-form-field appearance="outline" class="w-28 md:w-auto">
-        <mat-label>Search</mat-label>
-        <input matInput placeholder="Search..." type="text">
-        <mat-icon matSuffix>search</mat-icon>
-      </mat-form-field>
-
-      <!-- Partie droite - Icônes -->
-      <div class="flex items-center gap-4">
-        <!-- Notification -->
-        <button mat-icon-button [matBadge]="3" matBadgeColor="warn">
-          <mat-icon>notifications</mat-icon>
-        </button>
-
-        @if(viewMode === 'table') {
-        <!-- Changement de vue (vue sous forme de table)-->
-        <button mat-icon-button (click)="toggleView('cards')">
-          <mat-icon>view_module</mat-icon>
-        </button>
-        } @else {
-        <!-- Changement de vue (vue sous forme de cards) -->
-        <button mat-icon-button (click)="toggleView('table')">
-          <mat-icon>table_chart</mat-icon>
-        </button>
-        }
-
-        <!-- Langue -->
-        <button mat-icon-button [matMenuTriggerFor]="languageMenu">
-          <mat-icon>language</mat-icon>
-        </button>
-        <mat-menu #languageMenu="matMenu">
-          <button mat-menu-item>
-            <span>Français</span>
-          </button>
-          <button mat-menu-item>
-            <span>English</span>
-          </button>
-        </mat-menu>
-
-        <!-- Aide -->
-        <button mat-icon-button>
-          <mat-icon>help_outline</mat-icon>
-        </button>
-
-        <!-- Profil -->
-        <button mat-icon-button [matMenuTriggerFor]="profileMenu">
-          <mat-icon>account_circle</mat-icon>
-        </button>
-        <mat-menu #profileMenu="matMenu">
-          <button mat-menu-item>
-            <mat-icon>person</mat-icon>
-            <span>Profil</span>
-          </button>
-          <button mat-menu-item>
-            <mat-icon>settings</mat-icon>
-            <span>Paramètres</span>
-          </button>
-          <button mat-menu-item>
-            <mat-icon>logout</mat-icon>
-            <span>Déconnexion</span>
-          </button>
-        </mat-menu>
-      </div>
-    </div>
+    </mat-toolbar>
 
     <div
       class="bg-white flex shadow-md justify-center gap-5 rounded-lg p-4 mt-4"
     >
-      <div class="flex items-center gap-0 rounded-full bg-gray-200 p-1 w-fit">
-        <button
-          class="px-4 py-2 rounded-full font-medium transition-colors"
-          [class.bg-white]="!activeButton"
-          [class.text-gray-800]="!activeButton"
-          [class.shadow-sm]="!activeButton"
-          [class.bg-gray-200]="activeButton"
-          [class.text-gray-600]="activeButton"
-          (click)="toggleActiveButton(false)"
+      <mat-button-toggle-group
+        [(value)]="activeButton"
+        class="!border-none rounded-full bg-gray-200 p-1"
+      >
+        <mat-button-toggle
+          value="coming"
+          class="!rounded-full !font-medium !px-4 !py-2 !border-none !transition-all"
+          [class.!bg-white]="activeButton === 'coming'"
+          [class.!text-gray-800]="activeButton === 'coming'"
+          [class.!shadow-sm]="activeButton === 'coming'"
+          [class.!bg-gray-200]="activeButton !== 'coming'"
+          [class.!text-gray-600]="activeButton !== 'coming'"
         >
           Coming anniversary
-        </button>
-        <button
-          class="px-4 py-2 rounded-full font-medium transition-colors"
-          [class.bg-white]="activeButton"
-          [class.text-gray-800]="activeButton"
-          [class.shadow-sm]="activeButton"
-          [class.bg-gray-200]="!activeButton"
-          [class.text-gray-600]="!activeButton"
-          (click)="toggleActiveButton(true)"
+        </mat-button-toggle>
+
+        <mat-button-toggle
+          value="passed"
+          class="!rounded-full !font-medium !px-4 !py-2 !border-none !transition-all"
+          [class.!bg-white]="activeButton === 'passed'"
+          [class.!text-gray-800]="activeButton === 'passed'"
+          [class.!shadow-sm]="activeButton === 'passed'"
+          [class.!bg-gray-200]="activeButton !== 'passed'"
+          [class.!text-gray-600]="activeButton !== 'passed'"
         >
           Passed anniversary
-        </button>
-      </div>
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+
       <div class="flex items-center gap-2">
         <mat-icon class="text-gray-500">calendar_today</mat-icon>
         <span class="font-medium text-gray-800">{{
@@ -150,8 +178,7 @@
     </div>
 
     <div class="bg-white shadow-md rounded-lg p-4 mt-4">
-      @if(viewMode === 'table') 
-      {
+      @if(viewMode === 'table') {
       <div
         class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6"
       >
@@ -172,7 +199,11 @@
 
         <!-- Right side - Utility actions -->
         <div class="flex flex-wrap gap-2">
-          <input placeholder="Search..." />
+          <mat-form-field appearance="outline" class="w-full h-3 md:w-auto">
+            <mat-label>Search</mat-label>
+            <input matInput placeholder="Search..." type="text" />
+            <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
 
           <button mat-button class="flex items-center gap-1">
             <mat-icon>ads_click</mat-icon>
@@ -374,7 +405,7 @@
           </mat-card-actions>
         </mat-card>
       </div>
-      
+
       }
     </div>
   </main>
