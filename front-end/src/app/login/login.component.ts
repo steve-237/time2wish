@@ -1,11 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -27,7 +22,6 @@ import { Router, RouterLink } from '@angular/router';
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
-  
   hidePassword = true;
 
   router = inject(Router);
@@ -35,5 +29,4 @@ export class LoginComponent {
   onLogin() {
     this.router.navigate(['/landing-page']);
   }
-
 }

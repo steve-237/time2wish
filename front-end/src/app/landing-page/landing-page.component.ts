@@ -94,6 +94,7 @@ export class LandingPageComponent {
 
   mockData = [
     {
+      id: 0,
       photo: 'https://randomuser.me/api/portraits/women/44.jpg',
       name: 'Sophie Martin',
       city: 'Paris',
@@ -101,6 +102,7 @@ export class LandingPageComponent {
       date: new Date('2023-05-15'),
     },
     {
+      id: 1,
       photo: 'https://randomuser.me/api/portraits/men/32.jpg',
       name: 'Jean Dupont',
       city: 'Lyon',
@@ -108,6 +110,7 @@ export class LandingPageComponent {
       date: new Date('2023-06-20'),
     },
     {
+      id: 2,
       photo: 'https://randomuser.me/api/portraits/women/68.jpg',
       name: 'Marie Leroy',
       city: 'Marseille',
@@ -115,6 +118,7 @@ export class LandingPageComponent {
       date: new Date('2023-07-10'),
     },
     {
+      id: 3,
       photo: 'https://randomuser.me/api/portraits/men/75.jpg',
       name: 'Pierre Bernard',
       city: 'Toulouse',
@@ -122,6 +126,7 @@ export class LandingPageComponent {
       date: new Date('2023-08-05'),
     },
     {
+      id: 4,
       photo: 'https://randomuser.me/api/portraits/women/25.jpg',
       name: 'Julie Petit',
       city: 'Nice',
@@ -129,6 +134,7 @@ export class LandingPageComponent {
       date: new Date('2023-09-12'),
     },
     {
+      id: 5,
       photo: 'https://randomuser.me/api/portraits/women/25.jpg',
       name: 'Camille Petit',
       city: 'Nice',
@@ -136,6 +142,7 @@ export class LandingPageComponent {
       date: new Date('2023-09-18'),
     },
     {
+      id: 6,
       photo: 'https://randomuser.me/api/portraits/men/55.jpg',
       name: 'Nicolas Moreau',
       city: 'Bordeaux',
@@ -143,6 +150,7 @@ export class LandingPageComponent {
       date: new Date('2023-10-22'),
     },
     {
+      id: 7,
       photo: 'https://randomuser.me/api/portraits/women/33.jpg',
       name: 'Amélie Laurent',
       city: 'Lille',
@@ -150,6 +158,7 @@ export class LandingPageComponent {
       date: new Date('2023-11-30'),
     },
     {
+      id: 8,
       photo: 'https://randomuser.me/api/portraits/men/12.jpg',
       name: 'Pierre Garnier',
       city: 'Strasbourg',
@@ -157,6 +166,7 @@ export class LandingPageComponent {
       date: new Date('2024-01-15'),
     },
     {
+      id: 9,
       photo: 'https://randomuser.me/api/portraits/women/87.jpg',
       name: 'Juliette Roux',
       city: 'Nantes',
@@ -164,6 +174,7 @@ export class LandingPageComponent {
       date: new Date('2024-02-20'),
     },
     {
+      id: 10,
       photo: 'https://randomuser.me/api/portraits/men/90.jpg',
       name: 'Antoine Fournier',
       city: 'Montpellier',
@@ -171,6 +182,7 @@ export class LandingPageComponent {
       date: new Date('2024-03-10'),
     },
     {
+      id: 11,
       photo: 'https://randomuser.me/api/portraits/women/56.jpg',
       name: 'Clara Mercier',
       city: 'Rennes',
@@ -178,6 +190,7 @@ export class LandingPageComponent {
       date: new Date('2024-04-05'),
     },
     {
+      id: 12,
       photo: 'https://randomuser.me/api/portraits/men/43.jpg',
       name: 'Lucas Lambert',
       city: 'Grenoble',
@@ -185,6 +198,7 @@ export class LandingPageComponent {
       date: new Date('2024-05-18'),
     },
     {
+      id: 13,
       photo: 'https://randomuser.me/api/portraits/women/22.jpg',
       name: 'Chloé Girard',
       city: 'Dijon',
@@ -192,6 +206,7 @@ export class LandingPageComponent {
       date: new Date('2024-06-22'),
     },
     {
+      id: 14,
       photo: 'https://randomuser.me/api/portraits/men/67.jpg',
       name: 'Hugo Blanc',
       city: 'Angers',
@@ -199,6 +214,7 @@ export class LandingPageComponent {
       date: new Date('2024-07-30'),
     },
     {
+      id: 15,
       photo: 'https://randomuser.me/api/portraits/women/91.jpg',
       name: 'Zoé Chevalier',
       city: 'Clermont-Ferrand',
