@@ -52,9 +52,12 @@
         </div>
 
         <!-- Champ de recherche - Centré et responsive -->
-        <mat-form-field appearance="outline" class="!mx-4 !w-full max-w-xl !rounded-full">
+        <mat-form-field
+          appearance="outline"
+          class="!mx-4 !w-full max-w-xl !rounded-full"
+        >
           <mat-label>Search</mat-label>
-          <input matInput placeholder="Search...">
+          <input matInput placeholder="Search..." />
           <mat-icon matSuffix class="!text-gray-400">search</mat-icon>
         </mat-form-field>
 
@@ -362,10 +365,8 @@
       } @else {
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-        <mat-card
-          *ngFor="let item of dataSource.data"
-          class="hover:shadow-lg transition-shadow"
-        >
+        @for (item of dataSource.data; track item.id) {
+        <mat-card class="hover:shadow-lg transition-shadow">
           <div class="flex items-center p-4">
             <img
               [src]="item.photo"
@@ -404,6 +405,7 @@
             </button>
           </mat-card-actions>
         </mat-card>
+        }
       </div>
 
       }
