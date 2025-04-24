@@ -5,7 +5,7 @@
     [class.w-20]="!expanded"
     [class.w-45]="expanded"
   >
-    <mat-nav-list>
+    <mat-nav-list class="!mt-5">
       <!-- Menu Button -->
       <mat-list-item (click)="toggleSidebar()" class="hover:bg-gray-100 !h-12">
         <div class="flex items-center w-full">
@@ -92,7 +92,7 @@
             [matMenuTriggerFor]="languageMenu"
             class="!w-10 !h-10 flex items-center justify-center"
           >
-            <mat-icon class="!text-gray-700">language</mat-icon>
+            <mat-icon class="!text-gray-700">translate</mat-icon>
           </button>
           <mat-menu #languageMenu="matMenu">
             <button mat-menu-item>
