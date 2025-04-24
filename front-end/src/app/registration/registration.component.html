@@ -1,109 +1,100 @@
-<div class="flex bg-gray-200 min-h-screen">
-  <!-- Main Content - Centré verticalement -->
-  <main class="flex-1 flex items-center justify-center p-4">
-    <mat-card class="w-full max-w-md p-6">
-      <mat-card-header class="mb-6 justify-center">
-        <mat-card-title class="text-2xl font-bold text-center"
-          >Create Account</mat-card-title
-        >
-        <mat-card-subtitle class="text-center"
-          >Register to manage birthdays</mat-card-subtitle
-        >
-      </mat-card-header>
+<mat-card class="w-full max-w-md p-4">
+  <mat-card-header class="mb-6 justify-center">
+    <mat-card-title class="text-2xl font-bold text-center"
+      >Create Account</mat-card-title
+    >
+    <mat-card-subtitle class="text-center"
+      >Register to manage birthdays</mat-card-subtitle
+    >
+  </mat-card-header>
 
-      <mat-card-content>
-        <form [formGroup]="registrationForm" class="space-y-4">
-          <!-- Photo optionnelle -->
-          <div class="flex flex-col items-center">
-            <img
-              [src]="previewImage || 'assets/images/default-avatar.png'"
-              class="w-20 h-20 rounded-full object-cover mb-2 cursor-pointer border-2 border-gray-300"
-              (click)="fileInput.click()"
-            />
-            <input
-              #fileInput
-              type="file"
-              class="hidden"
-              accept="image/*"
-              (change)="onFileSelected($event)"
-            />
-            <button
-              mat-button
-              type="button"
-              (click)="fileInput.click()"
-              class="!text-sm"
-            >
-              <mat-icon class="!text-base">add_a_photo</mat-icon>
-              Add profile photo (optional)
-            </button>
-          </div>
-
-          <!-- Email -->
-          <mat-form-field appearance="outline" class="w-full">
-            <mat-label>Email</mat-label>
-            <input matInput formControlName="email" type="email" required />
-            <mat-icon matPrefix>email</mat-icon>
-            <mat-error
-              *ngIf="registrationForm.get('email')?.hasError('required')"
-            >
-              Email is required
-            </mat-error>
-            <mat-error *ngIf="registrationForm.get('email')?.hasError('email')">
-              Please enter a valid email
-            </mat-error>
-          </mat-form-field>
-
-          <!-- Mot de passe -->
-          <mat-form-field appearance="outline" class="w-full">
-            <mat-label>Password</mat-label>
-            <input
-              matInput
-              formControlName="password"
-              [type]="hidePassword ? 'password' : 'text'"
-              required
-              minlength="6"
-            />
-            <mat-icon matPrefix>lock</mat-icon>
-            <button
-              mat-icon-button
-              matSuffix
-              (click)="hidePassword = !hidePassword"
-            >
-              <mat-icon>{{
-                hidePassword ? "visibility_off" : "visibility"
-              }}</mat-icon>
-            </button>
-            <mat-hint>At least 6 characters</mat-hint>
-            <mat-error
-              *ngIf="registrationForm.get('password')?.hasError('required')"
-            >
-              Password is required
-            </mat-error>
-            <mat-error
-              *ngIf="registrationForm.get('password')?.hasError('minlength')"
-            >
-              Minimum 6 characters
-            </mat-error>
-          </mat-form-field>
-        </form>
-      </mat-card-content>
-
-      <mat-card-actions class="flex flex-col items-center space-y-2">
-        <button
-          mat-raised-button
-          color="primary"
-          class="w-full py-2"
-          (click)="onSubmit()"
-          [disabled]="!registrationForm.valid"
-        >
-          <mat-icon>person_add</mat-icon>
-          Create Account
+  <mat-card-content>
+    <form [formGroup]="registrationForm" class="space-y-4">
+      <!-- Photo optionnelle -->
+      <div class="flex flex-col items-center">
+        @if(previewImage) {
+          <img
+          [src]="previewImage"
+          class="w-20 h-20 rounded-full object-cover mb-2 cursor-pointer border-2 border-gray-300"
+          (click)="fileInput.click()"
+        />
+        } @else {
+          <mat-icon matPrefix class="!text-6xl !h-15 !w-15 !mb-2">account_circle</mat-icon>
+        }
+        
+        <input
+          #fileInput
+          type="file"
+          class="hidden"
+          accept="image/*"
+          (change)="onFileSelected($event)"
+        />
+        <button mat-button type="button" (click)="fileInput.click()" class="!text-sm !flex !items-center">
+          <mat-icon class="!text-base !flex !items-center">add_a_photo</mat-icon>
+          <span>Add profile photo (optional)</span>
         </button>
-      </mat-card-actions>
-      <div class="text-center text-sm mt-2">
-        <span>Already have an account? </span>
-        <a routerLink="/login" class="text-blue-600 hover:underline">Login</a>
       </div>
-    </mat-card>
-  </main>
-</div>
+
+      <!-- Email -->
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" type="email" required />
+        <mat-icon matPrefix>email</mat-icon>
+        <mat-error
+          *ngIf="registrationForm.get('email')?.hasError('required')"
+        >
+          Email is required
+        </mat-error>
+        <mat-error *ngIf="registrationForm.get('email')?.hasError('email')">
+          Please enter a valid email
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Mot de passe -->
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Password</mat-label>
+        <input
+          matInput
+          formControlName="password"
+          [type]="hidePassword ? 'password' : 'text'"
+          required
+          minlength="6"
+        />
+        <mat-icon matPrefix>lock</mat-icon>
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="hidePassword = !hidePassword"
+        >
+          <mat-icon>{{
+            hidePassword ? "visibility_off" : "visibility"
+          }}</mat-icon>
+        </button>
+        <mat-hint>At least 6 characters</mat-hint>
+        <mat-error
+          *ngIf="registrationForm.get('password')?.hasError('required')"
+        >
+          Password is required
+        </mat-error>
+        <mat-error
+          *ngIf="registrationForm.get('password')?.hasError('minlength')"
+        >
+          Minimum 6 characters
+        </mat-error>
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+
+  <mat-card-actions class="flex flex-col items-center space-y-2">
+    <button
+      mat-raised-button
+      color="primary"
+      class="w-full py-2"
+      (click)="onSubmit()"
+      [disabled]="!registrationForm.valid"
+    >
+      <mat-icon>person_add</mat-icon>
+      Create Account
+    </button>
+  </mat-card-actions>
+</mat-card>
