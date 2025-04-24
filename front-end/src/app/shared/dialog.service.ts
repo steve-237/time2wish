@@ -13,7 +13,7 @@ export class DialogService {
       width: config.width || '400px',
       data: config.data || null,
       disableClose: false,
-      autoFocus: true,
+      autoFocus: false,
     });
   }
 }
