@@ -6,6 +6,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { Router, RouterLink } from '@angular/router';
+import { PasswordResetComponent } from '../password-reset/password-reset.component';
+import { RegistrationComponent } from '../registration/registration.component';
+import { DialogService } from '../shared/dialog.service';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +29,17 @@ export class LoginComponent {
 
   router = inject(Router);
 
+  constructor(private dialog: DialogService) {}
+
   onLogin() {
     this.router.navigate(['/landing-page']);
+  }
+
+  openPasswordReset() {
+    this.dialog.open(PasswordResetComponent);
+  }
+
+  openRegister() {
+    this.dialog.open(RegistrationComponent);
   }
 }
