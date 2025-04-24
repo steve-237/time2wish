@@ -64,22 +64,16 @@
           Login
         </button>
 
-        <div class="w-full text-center my-4">
-          <a
-            routerLink="/password-reset"
-            class="text-blue-500 hover:underline text-sm"
-            >Forgotten password ?</a
-          >
+        <div class="text-sm text-center mt-4">
+          <a (click)="openPasswordReset()" class="text-blue-500 cursor-pointer hover:underline">
+            Forgotten password?
+          </a>
         </div>
       </form>
 
-      <div class="text-sm">
-        <span>Don't have an account yet? </span>
-        <a
-          class="text-blue-500 hover:underline"
-          [routerLink]="['/register']"
-          >Sign up</a
-        >
+      <div class="text-sm text-center mt-2">
+        <span>Don't have an account yet?</span>
+        <a (click)="openRegister()" class="text-blue-500 cursor-pointer hover:underline"> Sign up</a>
       </div>
     </div>
   </div>
