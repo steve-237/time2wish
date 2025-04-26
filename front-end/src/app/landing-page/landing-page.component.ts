@@ -10,14 +10,16 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatBadgeModule } from '@angular/material/badge';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
-import {MatListModule} from '@angular/material/list';
+import { MatListModule } from '@angular/material/list';
 import {
   MatCardModule,
   MatCardTitle,
   MatCardSubtitle,
 } from '@angular/material/card';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import {MatToolbarModule} from '@angular/material/toolbar';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { NewBirthdayComponent } from '../new-birthday/new-birthday.component';
+import { DialogService } from '../shared/dialog.service';
 
 @Component({
   selector: 'app-landing-page',
@@ -47,7 +49,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     MatPaginatorModule,
     MatListModule,
     MatButtonToggleModule,
-    MatToolbarModule
+    MatToolbarModule,
   ],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.css',
@@ -70,6 +72,8 @@ export class LandingPageComponent {
   currentDate: Date = new Date();
   expanded = false;
 
+  constructor(private dialog: DialogService) {}
+
   ngOnInit() {
     setInterval(() => {
       this.currentDate = new Date();
@@ -90,6 +94,10 @@ export class LandingPageComponent {
 
   toggleView(mode: 'table' | 'cards') {
     this.viewMode = mode;
+  }
+
+  onAddBirthday() {
+    this.dialog.open(NewBirthdayComponent, { width: 'auto' });
   }
 
   mockData = [
@@ -224,6 +232,4 @@ export class LandingPageComponent {
   ];
 
   dataSource = new MatTableDataSource(this.mockData);
-
-
 }

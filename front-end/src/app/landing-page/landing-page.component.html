@@ -29,7 +29,7 @@
       <!-- Add User Button -->
       <mat-list-item class="hover:bg-gray-100 !h-12">
         <div class="flex items-center w-full">
-          <mat-icon class="!w-8 !h-8 !text-2xl flex items-center justify-center"
+          <mat-icon (click)="onAddBirthday()" class="!w-8 !h-8 !text-2xl flex items-center justify-center"
             >person_add</mat-icon
           >
           <span class="ml-3" [class.hidden]="!expanded">Add user</span>
