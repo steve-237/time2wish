@@ -20,6 +20,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NewBirthdayComponent } from '../new-birthday/new-birthday.component';
 import { DialogService } from '../shared/dialog.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-landing-page',
@@ -50,6 +51,7 @@ import { DialogService } from '../shared/dialog.service';
     MatListModule,
     MatButtonToggleModule,
     MatToolbarModule,
+    FormsModule
   ],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.css',
@@ -71,6 +73,11 @@ export class LandingPageComponent {
 
   currentDate: Date = new Date();
   expanded = false;
+  showMainSearch = false;
+  showTableSearch = false;
+  searchQuery = '';
+  tableSearchQuery = '';
+  showSearchBar = false;
 
   constructor(private dialog: DialogService) {}
 
@@ -82,6 +89,27 @@ export class LandingPageComponent {
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+  }
+
+  toggleMainSearch() {
+    this.showMainSearch = !this.showMainSearch;
+    if (!this.showMainSearch) this.searchQuery = '';
+  }
+
+  toggleTableSearch() {
+    this.showTableSearch = !this.showTableSearch;
+    if (!this.showTableSearch) this.tableSearchQuery = '';
+  }
+
+  performSearch() {
+    console.log('Recherche principale:', this.searchQuery);
+  }
+
+  toggleSearch() {
+    this.showSearchBar = !this.showSearchBar;
+    if (!this.showSearchBar) {
+      this.searchQuery = ''; // Réinitialiser la recherche quand on ferme
+    }
   }
 
   onPageChange(event: any) {
