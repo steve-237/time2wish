@@ -1,106 +1,135 @@
-<mat-card class="max-w-2xl mx-auto p-4" style="max-height: 90vh; overflow-y: auto;">
-    <!-- En-tête -->
-    <mat-card-header class="mb-6">
-      <mat-card-title class="!text-2xl !font-bold flex items-center gap-2">
-        <mat-icon>person_add</mat-icon>
-        Ajouter un profil d'anniversaire
-      </mat-card-title>
-      <mat-card-subtitle>Remplissez les informations de la personne</mat-card-subtitle>
-    </mat-card-header>
+<mat-card
+  class="max-w-2xl mx-auto p-4"
+  style="max-height: 90vh; overflow-y: auto"
+>
+  <!-- En-tête -->
+  <mat-card-header class="mb-6">
+    <mat-card-title class="!text-2xl !font-bold flex items-center gap-2">
+      <mat-icon>person_add</mat-icon>
+      Ajouter un profil d'anniversaire
+    </mat-card-title>
+    <mat-card-subtitle
+      >Remplissez les informations de la personne</mat-card-subtitle
+    >
+  </mat-card-header>
 
-    <mat-divider></mat-divider>
+  <mat-divider></mat-divider>
 
-    <mat-card-content class="mt-6">
-      <form [formGroup]="profileForm" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- Photo de profil -->
-        <div class="md:col-span-2 flex flex-col items-center">
-          <div class="relative mb-4">
-            <img [src]="profileImage || 'assets/default-avatar.png'" 
-                 alt="Profile photo"
-                 class="w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg">
-            <input #fileInput type="file" accept="image/*" hidden (change)="onFileSelected($event)">
-          </div>
-          <button mat-stroked-button type="button" (click)="fileInput.click()">
-            <mat-icon>add_a_photo</mat-icon>
-            Changer la photo
-          </button>
-        </div>
+  <mat-card-content class="mt-6">
+    <form
+      [formGroup]="profileForm"
+      class="grid grid-cols-1 md:grid-cols-2 gap-6"
+    >
+      <!-- Photo de profil -->
+      <div class="md:col-span-2 flex flex-col items-center">
+        <div class="relative mb-4"></div>
 
-        <!-- Nom complet -->
-        <mat-form-field appearance="outline" class="w-full">
-          <mat-label>Nom complet</mat-label>
-          <input matInput formControlName="fullName" required>
-          <mat-icon matPrefix>person</mat-icon>
-          <mat-error *ngIf="profileForm.get('fullName')?.hasError('required')">
-            Le nom est obligatoire
-          </mat-error>
-        </mat-form-field>
+        @if(profileImage) {
+        <img
+          [src]="profileImage"
+          alt="Profile photo"
+          class="w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg mb-4"
+        />
+         } @else {
+        <mat-icon matPrefix class="!text-6xl !h-15 !w-15 !mb-2"
+          >account_circle</mat-icon
+        >
+        }
 
-        <!-- Date d'anniversaire -->
-        <mat-form-field appearance="outline" class="w-full">
-          <mat-label>Date d'anniversaire</mat-label>
-          <input matInput [matDatepicker]="picker" formControlName="birthdate">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-          <mat-icon matPrefix>cake</mat-icon>
-        </mat-form-field>
+        <input
+          #fileInput
+          type="file"
+          accept="image/*"
+          hidden
+          (change)="onFileSelected($event)"
+        />
 
-        <!-- Relation -->
-        <mat-form-field appearance="outline" class="w-full">
-          <mat-label>Relation</mat-label>
-          <mat-select formControlName="relation">
-            <mat-option value="family">Famille</mat-option>
-            <mat-option value="friend">Ami</mat-option>
-            <mat-option value="colleague">Collègue</mat-option>
-            <mat-option value="other">Autre</mat-option>
-          </mat-select>
-          <mat-icon matPrefix>group</mat-icon>
-        </mat-form-field>
+        <button mat-stroked-button type="button" (click)="fileInput.click()">
+          <mat-icon>add_a_photo</mat-icon>
+          Changer la photo
+        </button>
+      </div>
 
-        <!-- Email -->
-        <mat-form-field appearance="outline" class="w-full">
-          <mat-label>Email (optionnel)</mat-label>
-          <input matInput formControlName="email" type="email">
-          <mat-icon matPrefix>email</mat-icon>
-        </mat-form-field>
+      <!-- Nom complet -->
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Nom complet</mat-label>
+        <input matInput formControlName="fullName" required />
+        <mat-icon matPrefix>person</mat-icon>
+        <mat-error *ngIf="profileForm.get('fullName')?.hasError('required')">
+          Le nom est obligatoire
+        </mat-error>
+      </mat-form-field>
 
-        <!-- Téléphone -->
-        <mat-form-field appearance="outline" class="w-full">
-          <mat-label>Téléphone (optionnel)</mat-label>
-          <input matInput formControlName="phone">
-          <mat-icon matPrefix>phone</mat-icon>
-        </mat-form-field>
+      <!-- Date d'anniversaire -->
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Date d'anniversaire</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="birthdate" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-icon matPrefix>cake</mat-icon>
+      </mat-form-field>
 
-        <!-- Notes -->
-        <mat-form-field appearance="outline" class="md:col-span-2 w-full">
-          <mat-label>Notes (idées cadeaux, préférences...)</mat-label>
-          <textarea matInput formControlName="notes" rows="3"></textarea>
-          <mat-icon matPrefix>note</mat-icon>
-        </mat-form-field>
+      <!-- Relation -->
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Relation</mat-label>
+        <mat-select formControlName="relation">
+          <mat-option value="family">Famille</mat-option>
+          <mat-option value="friend">Ami</mat-option>
+          <mat-option value="colleague">Collègue</mat-option>
+          <mat-option value="other">Autre</mat-option>
+        </mat-select>
+        <mat-icon matPrefix>group</mat-icon>
+      </mat-form-field>
 
-        <!-- Rappels -->
-        <div class="md:col-span-2">
-          <mat-slide-toggle formControlName="enableReminders" color="primary">
-            Activer les rappels d'anniversaire
-          </mat-slide-toggle>
-          <p class="text-sm text-gray-500 mt-1">
-            Recevoir une notification 7 jours avant l'anniversaire
-          </p>
-        </div>
-      </form>
-    </mat-card-content>
+      <!-- Email -->
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Email (optionnel)</mat-label>
+        <input matInput formControlName="email" type="email" />
+        <mat-icon matPrefix>email</mat-icon>
+      </mat-form-field>
 
-    <mat-divider class="mb-6"></mat-divider>
+      <!-- Téléphone -->
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Téléphone (optionnel)</mat-label>
+        <input matInput formControlName="phone" />
+        <mat-icon matPrefix>phone</mat-icon>
+      </mat-form-field>
 
-    <!-- Actions -->
-    <mat-card-actions class="flex justify-end gap-2">
-      <button mat-stroked-button color="primary">
-        <mat-icon>cancel</mat-icon>
-        Annuler
-      </button>
-      <button mat-raised-button color="primary" (click)="saveProfile()" [disabled]="!profileForm.valid">
-        <mat-icon>save</mat-icon>
-        Enregistrer
-      </button>
-    </mat-card-actions>
-  </mat-card>
+      <!-- Notes -->
+      <mat-form-field appearance="outline" class="md:col-span-2 w-full">
+        <mat-label>Notes (idées cadeaux, préférences...)</mat-label>
+        <textarea matInput formControlName="notes" rows="3"></textarea>
+        <mat-icon matPrefix>note</mat-icon>
+      </mat-form-field>
+
+      <!-- Rappels -->
+      <div class="md:col-span-2">
+        <mat-slide-toggle formControlName="enableReminders" color="primary">
+          Activer les rappels d'anniversaire
+        </mat-slide-toggle>
+        <p class="text-sm text-gray-500 mt-1">
+          Recevoir une notification 7 jours avant l'anniversaire
+        </p>
+      </div>
+    </form>
+  </mat-card-content>
+
+  <mat-divider class="mb-6"></mat-divider>
+
+  <!-- Actions -->
+  <mat-card-actions class="flex justify-end gap-2">
+    <button mat-stroked-button color="primary">
+      <mat-icon>cancel</mat-icon>
+      Annuler
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="saveProfile()"
+      [disabled]="!profileForm.valid"
+    >
+      <mat-icon>save</mat-icon>
+      Enregistrer
+    </button>
+  </mat-card-actions>
+</mat-card>
