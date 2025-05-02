@@ -21,7 +21,6 @@ import { Router, RouterLink } from '@angular/router';
     MatIconModule,
     MatButtonModule,
     ReactiveFormsModule,
-    RouterLink
   ],
   templateUrl: './registration.component.html',
   styleUrl: './registration.component.css',
