@@ -29,7 +29,9 @@
       <!-- Add User Button -->
       <mat-list-item class="hover:bg-gray-100 !h-12">
         <div class="flex items-center w-full">
-          <mat-icon (click)="onAddBirthday()" class="!w-8 !h-8 !text-2xl flex items-center justify-center"
+          <mat-icon
+            (click)="onAddBirthday()"
+            class="!w-8 !h-8 !text-2xl flex items-center justify-center"
             >person_add</mat-icon
           >
           <span class="ml-3" [class.hidden]="!expanded">Add user</span>
@@ -51,18 +53,57 @@
           />
         </div>
 
-        <!-- Champ de recherche - Centré et responsive -->
-        <mat-form-field
-          appearance="outline"
-          class="!mx-4 !w-full max-w-xl !rounded-full"
+        <div
+          class="group flex items-center w-full max-w-2xl rounded-full bg-gray-200 transition-all duration-300 focus-within:bg-white focus-within:shadow-md border border-gray-300"
         >
-          <mat-label>Search</mat-label>
-          <input matInput placeholder="Search..." />
-          <mat-icon matSuffix class="!text-gray-400">search</mat-icon>
-        </mat-form-field>
+          <!-- Icône de recherche -->
+          <button
+            mat-icon-button
+            class="!w-10 !h-10 flex items-center justify-center m-2"
+          >
+            <mat-icon class="">search</mat-icon>
+          </button>
+
+          <!-- Champ de recherche -->
+          <input
+            matInput
+            placeholder="Search for birthdays"
+            class="flex-1 bg-transparent border-none focus:outline-none py-2"
+          />
+
+          <!-- Icône filtre -->
+          <button
+            mat-icon-button
+            class="!w-10 !h-10 flex items-center justify-center m-2"
+          >
+            <mat-icon class="text-gray-500">tune</mat-icon>
+          </button>
+        </div>
 
         <!-- Groupe d'icônes -->
         <div class="flex items-center gap-1 md:gap-4">
+          <!-- Barre de recherche -->
+
+          <!-- Barre de recherche flottante -->
+          <!-- <div
+            [class]="
+              showSearchBar
+                ? 'opacity-100 translate-y-0'
+                : 'opacity-0 -translate-y-4'
+            "
+            class="fixed top-8 left-1/2 transform -translate-x-1/2 w-full max-w-2xl z-50 transition-all duration-300 ease-in-out"
+          >
+            <mat-form-field appearance="outline" class="w-full !bg-white [&_.mat-mdc-form-field-subscript-wrapper]:!hidden">
+              <input
+                matInput
+                [(ngModel)]="searchQuery"
+                placeholder="Rechercher..."
+                autofocus
+              />
+              <mat-icon matPrefix class="!text-gray-400">search</mat-icon>
+            </mat-form-field>
+          </div> -->
+
           <!-- Notification avec badge -->
           <button
             mat-icon-button
@@ -201,13 +242,7 @@
         </div>
 
         <!-- Right side - Utility actions -->
-        <div class="flex flex-wrap gap-2">
-          <mat-form-field appearance="outline" class="w-full h-3 md:w-auto">
-            <mat-label>Search</mat-label>
-            <input matInput placeholder="Search..." type="text" />
-            <mat-icon matSuffix>search</mat-icon>
-          </mat-form-field>
-
+        <div class="flex justify-center flex-wrap gap-2">
           <button mat-button class="flex items-center gap-1">
             <mat-icon>ads_click</mat-icon>
             Customize Columns
