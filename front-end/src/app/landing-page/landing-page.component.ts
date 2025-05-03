@@ -105,13 +105,6 @@ export class LandingPageComponent {
     console.log('Recherche principale:', this.searchQuery);
   }
 
-  toggleSearch() {
-    this.showSearchBar = !this.showSearchBar;
-    if (!this.showSearchBar) {
-      this.searchQuery = ''; // Réinitialiser la recherche quand on ferme
-    }
-  }
-
   onPageChange(event: any) {
     console.log('Page changed:', event);
   }
