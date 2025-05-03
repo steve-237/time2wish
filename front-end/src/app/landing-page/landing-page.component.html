@@ -53,24 +53,31 @@
           />
         </div>
 
-        <div class="flex justify-center items-center w-full p-4 bg-gray-50">
-          <div
-            class="group flex items-center w-full max-w-2xl rounded-full border-t border-b border-gray-300
-                   bg-gray-100 transition-all duration-300 group-focus-within:bg-white group-focus-within:shadow-md" 
+        <div
+          class="group flex items-center w-full max-w-2xl rounded-full bg-gray-200 transition-all duration-300 focus-within:bg-white focus-within:shadow-md border border-gray-300"
+        >
+          <!-- Icône de recherche -->
+          <button
+            mat-icon-button
+            class="!w-10 !h-10 flex items-center justify-center m-2"
           >
-            <button
-              mat-icon-button
-              class="!w-10 !h-10 flex items-center justify-center m-2"
-            >
-              <mat-icon class="text-gray-500">search</mat-icon>
-            </button>
-            <input 
-              matInput
-              placeholder="Search"
-              class="flex-1 bg-transparent border-0 focus:outline-none py-2 m-2
-                     "
-            />
-          </div>
+            <mat-icon class="">search</mat-icon>
+          </button>
+
+          <!-- Champ de recherche -->
+          <input
+            matInput
+            placeholder="Search for birthdays"
+            class="flex-1 bg-transparent border-none focus:outline-none py-2"
+          />
+
+          <!-- Icône filtre -->
+          <button
+            mat-icon-button
+            class="!w-10 !h-10 flex items-center justify-center m-2"
+          >
+            <mat-icon class="text-gray-500">tune</mat-icon>
+          </button>
         </div>
 
         <!-- Groupe d'icônes -->
@@ -96,12 +103,6 @@
               <mat-icon matPrefix class="!text-gray-400">search</mat-icon>
             </mat-form-field>
           </div> -->
-
-          
-
-          <button mat-icon-button (click)="toggleSearch()">
-            <mat-icon>{{ showSearchBar ? "close" : "search" }}</mat-icon>
-          </button>
 
           <!-- Notification avec badge -->
           <button
@@ -242,8 +243,6 @@
 
         <!-- Right side - Utility actions -->
         <div class="flex justify-center flex-wrap gap-2">
-          
-
           <button mat-button class="flex items-center gap-1">
             <mat-icon>ads_click</mat-icon>
             Customize Columns
