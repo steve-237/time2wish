@@ -16,7 +16,7 @@
 
 ### Birthday Management:
 
-- Add contacts with names, birthdates, and relationships.
+- Add contacts with photo, names, birthdates, relationships and comment about the preferences of the contact.
 - Categorize contacts (friends, family, colleagues, etc.).
 
 ### Notifications & Reminders:
