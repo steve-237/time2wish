@@ -13,33 +13,39 @@
 
 - Sign up and log in via email.
 - User profile management (photo, name, notification settings).
+- ...
 
 ### Birthday Management:
 
 - Add contacts with photo, names, birthdates, relationships and comment about the preferences of the contact.
 - Categorize contacts (friends, family, colleagues, etc.).
+- ...
 
 ### Notifications & Reminders:
 
 - Custom notifications before birthdays (one day, one week, etc.).
 - Multiple reminder options.
+- ...
 
 ### Gift & Wish Suggestions:
 
 - Personalized gift and message ideas based on contact preferences.
 - Auto-generated birthday messages.
+- ...
 
 ### User Interface:
 
 - Dashboard displaying upcoming birthdays.
 - Search and filter options for managing contacts.
 - Customizable themes (colors, backgrounds).
+- ...
 
 ### Additional Features:
 
 - Import contacts from an address book.
 - Share birthday reminders with other users.
 - Countdown feature for major events.
+- ...
 
 ## Technical Requirements
 
