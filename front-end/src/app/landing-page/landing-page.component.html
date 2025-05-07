@@ -163,11 +163,11 @@
           <mat-menu #profileMenu="matMenu">
             <button mat-menu-item>
               <mat-icon>person</mat-icon>
-              <span>Profil</span>
+              <span (click)="onProfil()">Profil</span>
             </button>
             <button mat-menu-item>
               <mat-icon>logout</mat-icon>
-              <span>Déconnexion</span>
+              <span [routerLink]="['/login']" routerLinkActive="router-link-active" >Déconnexion</span>
             </button>
           </mat-menu>
         </div>
