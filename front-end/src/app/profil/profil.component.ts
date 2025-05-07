@@ -32,7 +32,7 @@ export class ProfilComponent {
     public dialogRef: MatDialogRef<ProfilComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    this.profileImage = '';
+    this.profileImage = 'time2wish-logo.png';
     this.profileForm = this.fb.group({
       name: ['this.data?.name', Validators.required],
       email: ['this.data?.email', [Validators.required, Validators.email]],
