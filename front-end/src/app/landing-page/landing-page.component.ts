@@ -21,6 +21,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { NewBirthdayComponent } from '../new-birthday/new-birthday.component';
 import { DialogService } from '../shared/dialog.service';
 import { FormsModule } from '@angular/forms';
+import { ProfilComponent } from '../profil/profil.component';
+import { RouterOutlet, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-landing-page',
@@ -51,7 +53,8 @@ import { FormsModule } from '@angular/forms';
     MatListModule,
     MatButtonToggleModule,
     MatToolbarModule,
-    FormsModule
+    FormsModule,
+    RouterLink
   ],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.css',
@@ -119,6 +122,10 @@ export class LandingPageComponent {
 
   onAddBirthday() {
     this.dialog.open(NewBirthdayComponent, { width: 'auto' });
+  }
+
+  onProfil() {
+    this.dialog.open(ProfilComponent, { width: 'auto' });
   }
 
   mockData = [

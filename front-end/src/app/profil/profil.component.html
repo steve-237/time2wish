@@ -1,0 +1,69 @@
+<div class="profile-modal p-6">
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-xl font-bold flex items-center gap-2">
+        <mat-icon>person</mat-icon>
+        Mon Profil
+      </h2>
+      <button mat-icon-button (click)="dialogRef.close()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  
+    <!-- Photo de profil -->
+    <div class="flex flex-col items-center mb-6">
+      <div class="relative">
+        <img [src]="profileImage" 
+             class="w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg">
+        <button mat-icon-button 
+                class="absolute bottom-0 right-0 bg-blue-500 text-white"
+                (click)="fileInput.click()">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <input #fileInput type="file" accept="image/*" hidden (change)="onFileSelected($event)">
+      </div>
+    </div>
+  
+    <!-- Formulaire -->
+    <form [formGroup]="profileForm" class="space-y-4">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Nom complet</mat-label>
+        <input matInput formControlName="name">
+        <mat-error *ngIf="profileForm.get('name')?.hasError('required')">
+          Le nom est obligatoire
+        </mat-error>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" type="email">
+        <mat-error *ngIf="profileForm.get('email')?.hasError('required')">
+          L'email est obligatoire
+        </mat-error>
+        <mat-error *ngIf="profileForm.get('email')?.hasError('email')">
+          Email invalide
+        </mat-error>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Bio</mat-label>
+        <textarea matInput formControlName="bio" rows="3"></textarea>
+      </mat-form-field>
+  
+      <mat-slide-toggle formControlName="notifications" color="primary">
+        Recevoir les notifications
+      </mat-slide-toggle>
+  
+      <div class="flex justify-end gap-3 pt-4">
+        <button mat-stroked-button type="button" (click)="dialogRef.close()">
+          Annuler
+        </button>
+        <button mat-raised-button 
+                color="primary"
+                (click)="saveProfile()"
+                [disabled]="!profileForm.valid">
+          Enregistrer
+        </button>
+      </div>
+    </form>
+  </div>
