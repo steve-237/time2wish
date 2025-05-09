@@ -23,6 +23,7 @@ import { DialogService } from '../shared/dialog.service';
 import { FormsModule } from '@angular/forms';
 import { ProfilComponent } from '../profil/profil.component';
 import { RouterOutlet, RouterLink } from '@angular/router';
+import { NotificationComponent } from '../notification/notification.component';
 
 @Component({
   selector: 'app-landing-page',
@@ -126,6 +127,10 @@ export class LandingPageComponent {
 
   onProfil() {
     this.dialog.open(ProfilComponent, { width: 'auto' });
+  }
+
+  onNotification() {
+    this.dialog.open(NotificationComponent, { width: 'auto' });
   }
 
   mockData = [
