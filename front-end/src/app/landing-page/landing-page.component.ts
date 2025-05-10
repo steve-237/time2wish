@@ -25,6 +25,7 @@ import { ProfilComponent } from '../profil/profil.component';
 import { RouterOutlet, RouterLink } from '@angular/router';
 import { NotificationComponent } from '../notification/notification.component';
 import { InformationComponent } from '../information/information.component';
+import { SettingComponent } from '../setting/setting.component';
 
 @Component({
   selector: 'app-landing-page',
@@ -136,6 +137,10 @@ export class LandingPageComponent {
 
   onInformation() {
     this.dialog.open(InformationComponent, { width: 'auto' });
+  }
+
+  onSetting() {
+    this.dialog.open(SettingComponent, { width: 'auto' });
   }
 
   mockData = [

@@ -12,17 +12,17 @@
           <mat-icon class="!w-8 !h-8 !text-2xl flex items-center justify-center"
             >menu</mat-icon
           >
-          <span class="ml-3" [class.hidden]="!expanded">Menu</span>
+          <span [class.hidden]="!expanded">Menu</span>
         </div>
       </mat-list-item>
 
       <!-- Parameters Button -->
       <mat-list-item class="hover:bg-gray-100 !h-12">
-        <div class="flex items-center w-full">
+        <div class="flex items-center w-full" (click)="onSetting()">
           <mat-icon class="!w-8 !h-8 !text-2xl flex items-center justify-center"
             >settings</mat-icon
           >
-          <span class="ml-3" [class.hidden]="!expanded">Parameters</span>
+          <span [class.hidden]="!expanded">Parameters</span>
         </div>
       </mat-list-item>
 
@@ -34,7 +34,7 @@
             class="!w-8 !h-8 !text-2xl flex items-center justify-center"
             >person_add</mat-icon
           >
-          <span class="ml-3" [class.hidden]="!expanded">Add user</span>
+          <span [class.hidden]="!expanded">Add user</span>
         </div>
       </mat-list-item>
     </mat-nav-list>
