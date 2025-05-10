@@ -1,0 +1,75 @@
+<div class="settings-modal p-4 max-w-xl mx-auto">
+    <h2 class="text-xl font-bold flex items-center gap-2 mb-6">
+      <mat-icon>settings</mat-icon>
+      Paramètres de l'application
+    </h2>
+  
+    <mat-accordion class="w-full">
+  
+      <!-- Section Notifications -->
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title class="flex items-center gap-2">
+            <mat-icon>notifications</mat-icon>
+            Notifications
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+  
+        <div class="space-y-4 p-2">
+          <mat-slide-toggle color="primary">
+            Activer les notifications
+          </mat-slide-toggle>
+  
+          <mat-slide-toggle color="primary" class="mr-12">
+            Rappels d'anniversaires
+          </mat-slide-toggle>
+  
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Heure des rappels</mat-label>
+            <mat-select>
+              <mat-option value="morning">Matin (8h)</mat-option>
+              <mat-option value="afternoon">Après-midi (14h)</mat-option>
+              <mat-option value="evening">Soir (19h)</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </mat-expansion-panel>
+  
+      <!-- Section Apparence -->
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title class="flex items-center gap-2">
+            <mat-icon>palette</mat-icon>
+            Apparence
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+  
+        <div class="space-y-4 p-2">
+          <mat-radio-group class="flex flex-col gap-2">
+            <mat-radio-button value="light">Thème clair</mat-radio-button>
+            <mat-radio-button value="dark">Thème sombre</mat-radio-button>
+            <mat-radio-button value="system">Système</mat-radio-button>
+          </mat-radio-group>
+  
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Taille de texte</mat-label>
+            <mat-select>
+              <mat-option value="small">Petit</mat-option>
+              <mat-option value="medium">Moyen</mat-option>
+              <mat-option value="large">Grand</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  
+    <!-- Actions -->
+    <div class="flex justify-end gap-2 mt-6">
+      <button mat-stroked-button (click)="closeModal()">
+        Annuler
+      </button>
+      <button mat-raised-button color="primary">
+        Enregistrer
+      </button>
+    </div>
+  </div>
