@@ -40,26 +40,33 @@
     </mat-nav-list>
 
     <!-- Logo et nom d'application en bas -->
-    <div class="w-full p-4 mt-auto"> <!-- mt-auto pousse le contenu vers le bas -->
+    <div class="w-full p-4 mt-auto">
+      <!-- mt-auto pousse le contenu vers le bas -->
       <div class="flex flex-col items-center">
         <div class="flex items-center justify-center gap-2">
-          <img src="time2wish-logo.png" 
-               alt="Logo" 
-               class="h-10 w-10 object-contain transition-transform duration-300"
-               [class.translate-x-1]="!expanded">
-          
-          <span class="text-lg font-semibold whitespace-nowrap transition-all duration-300"
-                [class.opacity-0]="!expanded"
-                [class.w-0]="!expanded"
-                [class.overflow-hidden]="!expanded">
+          <img
+            src="time2wish-logo.png"
+            alt="Logo"
+            class="h-10 w-10 object-contain transition-transform duration-300"
+            [class.translate-x-1]="!expanded"
+          />
+
+          <span
+            class="text-lg font-semibold whitespace-nowrap transition-all duration-300"
+            [class.opacity-0]="!expanded"
+            [class.w-0]="!expanded"
+            [class.overflow-hidden]="!expanded"
+          >
             Time2Wish
           </span>
         </div>
-        
-        <div class="text-xs text-gray-500 whitespace-nowrap transition-all duration-300 mt-1"
-             [class.opacity-0]="!expanded"
-             [class.h-0]="!expanded"
-             [class.overflow-hidden]="!expanded">
+
+        <div
+          class="text-xs text-gray-500 whitespace-nowrap transition-all duration-300 mt-1"
+          [class.opacity-0]="!expanded"
+          [class.h-0]="!expanded"
+          [class.overflow-hidden]="!expanded"
+        >
           Version 1.0.0
         </div>
       </div>
@@ -129,6 +136,18 @@
               <mat-icon matPrefix class="!text-gray-400">search</mat-icon>
             </mat-form-field>
           </div> -->
+
+          <!-- Bouton changement de thème -->
+          <button
+            mat-icon-button
+            (click)="toggleTheme()"
+            class="!w-10 !h-10 flex items-center justify-center"
+            matTooltip="Changer le thème"
+          >
+            <mat-icon class="!text-gray-700">
+              {{ isDarkTheme ? "light_mode" : "dark_mode" }}
+            </mat-icon>
+          </button>
 
           <!-- Notification avec badge -->
           <button

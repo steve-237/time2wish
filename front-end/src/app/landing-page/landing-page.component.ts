@@ -22,10 +22,11 @@ import { NewBirthdayComponent } from '../new-birthday/new-birthday.component';
 import { DialogService } from '../shared/dialog.service';
 import { FormsModule } from '@angular/forms';
 import { ProfilComponent } from '../profil/profil.component';
-import { RouterOutlet, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { NotificationComponent } from '../notification/notification.component';
 import { InformationComponent } from '../information/information.component';
 import { SettingComponent } from '../setting/setting.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-landing-page',
@@ -57,7 +58,8 @@ import { SettingComponent } from '../setting/setting.component';
     MatButtonToggleModule,
     MatToolbarModule,
     FormsModule,
-    RouterLink
+    RouterLink,
+    MatTooltipModule,
   ],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.css',
@@ -84,6 +86,7 @@ export class LandingPageComponent {
   searchQuery = '';
   tableSearchQuery = '';
   showSearchBar = false;
+  isDarkTheme = false;
 
   constructor(private dialog: DialogService) {}
 
@@ -141,6 +144,19 @@ export class LandingPageComponent {
 
   onSetting() {
     this.dialog.open(SettingComponent, { width: 'auto' });
+  }
+
+  toggleTheme() {
+    this.isDarkTheme = !this.isDarkTheme;
+
+    if (this.isDarkTheme) {
+      document.documentElement.classList.add('dark');
+      // Ou utiliser votre service de thème si vous en avez un
+      // this.themeService.setDarkTheme();
+    } else {
+      document.documentElement.classList.remove('dark');
+      // this.themeService.setLightTheme();
+    }
   }
 
   mockData = [
