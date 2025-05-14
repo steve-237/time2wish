@@ -9,7 +9,7 @@
       <!-- Menu Button -->
       <mat-list-item (click)="toggleSidebar()" class="hover:bg-gray-100 !h-12">
         <div class="flex items-center w-full">
-          <mat-icon class="!w-8 !h-8 !text-2xl flex items-center justify-center"
+          <mat-icon class="!w-8 !h-8 !text-2xl flex items-center justify-center" matTooltip="Menu"
             >menu</mat-icon
           >
           <span [class.hidden]="!expanded">Menu</span>
@@ -19,7 +19,7 @@
       <!-- Parameters Button -->
       <mat-list-item class="hover:bg-gray-100 !h-12">
         <div class="flex items-center w-full" (click)="onSetting()">
-          <mat-icon class="!w-8 !h-8 !text-2xl flex items-center justify-center"
+          <mat-icon class="!w-8 !h-8 !text-2xl flex items-center justify-center" matTooltip="Setting"
             >settings</mat-icon
           >
           <span [class.hidden]="!expanded">Parameters</span>
@@ -32,6 +32,7 @@
           <mat-icon
             (click)="onAddBirthday()"
             class="!w-8 !h-8 !text-2xl flex items-center justify-center"
+            matTooltip="Add new birthday"
             >person_add</mat-icon
           >
           <span [class.hidden]="!expanded">Add user</span>
@@ -94,7 +95,7 @@
             mat-icon-button
             class="!w-10 !h-10 flex items-center justify-center m-2"
           >
-            <mat-icon class="">search</mat-icon>
+            <mat-icon matTooltip="Search">search</mat-icon>
           </button>
 
           <!-- Champ de recherche -->
@@ -109,7 +110,7 @@
             mat-icon-button
             class="!w-10 !h-10 flex items-center justify-center m-2"
           >
-            <mat-icon class="text-gray-500">tune</mat-icon>
+            <mat-icon class="text-gray-500" matTooltip="Filter">tune</mat-icon>
           </button>
         </div>
 
@@ -142,7 +143,7 @@
             mat-icon-button
             (click)="toggleTheme()"
             class="!w-10 !h-10 flex items-center justify-center"
-            matTooltip="Changer le thème"
+            matTooltip="Change Theme"
           >
             <mat-icon class="!text-gray-700">
               {{ isDarkTheme ? "light_mode" : "dark_mode" }}
@@ -157,18 +158,19 @@
             matBadgeSize="large"
             class="!w-10 !h-10 !flex !items-center !justify-center relative"
             (click)="onNotification()"
+            matTooltip="Notifications"
           >
             <mat-icon class="!text-gray-700">notifications</mat-icon>
           </button>
 
           @if(viewMode === 'table') {
           <!-- Changement de vue (vue sous forme de table)-->
-          <button mat-icon-button (click)="toggleView('cards')">
+          <button mat-icon-button (click)="toggleView('cards')" matTooltip="View birthdays as Cards">
             <mat-icon>view_module</mat-icon>
           </button>
           } @else {
           <!-- Changement de vue (vue sous forme de cards) -->
-          <button mat-icon-button (click)="toggleView('table')">
+          <button mat-icon-button (click)="toggleView('table')" matTooltip="View birthdays as table">
             <mat-icon>table_chart</mat-icon>
           </button>
           }
@@ -178,6 +180,7 @@
             mat-icon-button
             [matMenuTriggerFor]="languageMenu"
             class="!w-10 !h-10 flex items-center justify-center"
+            matTooltip="Language"
           >
             <mat-icon class="!text-gray-700">translate</mat-icon>
           </button>
@@ -195,6 +198,7 @@
             mat-icon-button
             class="!w-10 !h-10 flex items-center justify-center"
             (click)="onInformation()"
+            matTooltip="informations"
           >
             <mat-icon class="!text-gray-700">help_outline</mat-icon>
           </button>
@@ -204,6 +208,7 @@
             mat-icon-button
             [matMenuTriggerFor]="profileMenu"
             class="!w-10 !h-10 flex items-center justify-center"
+            matTooltip="Profile"
           >
             <mat-icon class="!text-gray-700">account_circle</mat-icon>
           </button>
@@ -422,12 +427,12 @@
               <div class="flex gap-2">
                 <!-- Bouton Édition -->
                 <button mat-icon-button color="primary">
-                  <mat-icon>edit</mat-icon>
+                  <mat-icon matTooltip="Edit birthday">edit</mat-icon>
                 </button>
 
                 <!-- Bouton Suppression -->
                 <button mat-icon-button color="warn">
-                  <mat-icon>delete</mat-icon>
+                  <mat-icon matTooltip="Delete birthday">delete</mat-icon>
                 </button>
               </div>
             </td>
@@ -484,10 +489,10 @@
 
           <mat-card-actions class="flex justify-end p-4 pt-0">
             <button mat-icon-button color="primary">
-              <mat-icon>edit</mat-icon>
+              <mat-icon matTooltip="Edit birthday">edit</mat-icon>
             </button>
             <button mat-icon-button color="warn">
-              <mat-icon>delete</mat-icon>
+              <mat-icon matTooltip="Delete birthday">delete</mat-icon>
             </button>
           </mat-card-actions>
         </mat-card>
