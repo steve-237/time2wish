@@ -432,7 +432,7 @@
 
                 <!-- Bouton Suppression -->
                 <button mat-icon-button color="warn">
-                  <mat-icon matTooltip="Delete birthday">delete</mat-icon>
+                  <mat-icon matTooltip="Delete birthday" (click)="deleteBirthday(element.id)">delete</mat-icon>
                 </button>
               </div>
             </td>
@@ -492,7 +492,7 @@
               <mat-icon matTooltip="Edit birthday">edit</mat-icon>
             </button>
             <button mat-icon-button color="warn">
-              <mat-icon matTooltip="Delete birthday">delete</mat-icon>
+              <mat-icon matTooltip="Delete birthday" (click)="deleteBirthday(item.id.toString())">delete</mat-icon>
             </button>
           </mat-card-actions>
         </mat-card>

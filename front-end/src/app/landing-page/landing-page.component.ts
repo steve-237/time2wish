@@ -27,6 +27,7 @@ import { NotificationComponent } from '../notification/notification.component';
 import { InformationComponent } from '../information/information.component';
 import { SettingComponent } from '../setting/setting.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { ConfirmDeleteComponent } from '../confirm-delete/confirm-delete.component';
 
 @Component({
   selector: 'app-landing-page',
@@ -157,6 +158,18 @@ export class LandingPageComponent {
       document.documentElement.classList.remove('dark');
       // this.themeService.setLightTheme();
     }
+  }
+
+  deleteBirthday(birthdayId: string): void {
+    const dialogRef = this.dialog.open(ConfirmDeleteComponent);
+    
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Logique de suppression ici
+        console.log('Suppression confirmée pour', birthdayId);
+        // this.birthdayService.delete(birthdayId).subscribe(...);
+      }
+    });
   }
 
   mockData = [
