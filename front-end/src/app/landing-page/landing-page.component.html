@@ -9,7 +9,9 @@
       <!-- Menu Button -->
       <mat-list-item (click)="toggleSidebar()" class="hover:bg-gray-100 !h-12">
         <div class="flex items-center w-full">
-          <mat-icon class="!w-8 !h-8 !text-2xl flex items-center justify-center" matTooltip="Menu"
+          <mat-icon
+            class="!w-8 !h-8 !text-2xl flex items-center justify-center"
+            matTooltip="Menu"
             >menu</mat-icon
           >
           <span [class.hidden]="!expanded">Menu</span>
@@ -19,7 +21,9 @@
       <!-- Parameters Button -->
       <mat-list-item class="hover:bg-gray-100 !h-12">
         <div class="flex items-center w-full" (click)="onSetting()">
-          <mat-icon class="!w-8 !h-8 !text-2xl flex items-center justify-center" matTooltip="Setting"
+          <mat-icon
+            class="!w-8 !h-8 !text-2xl flex items-center justify-center"
+            matTooltip="Setting"
             >settings</mat-icon
           >
           <span [class.hidden]="!expanded">Parameters</span>
@@ -165,12 +169,20 @@
 
           @if(viewMode === 'table') {
           <!-- Changement de vue (vue sous forme de table)-->
-          <button mat-icon-button (click)="toggleView('cards')" matTooltip="View birthdays as Cards">
+          <button
+            mat-icon-button
+            (click)="toggleView('cards')"
+            matTooltip="View birthdays as Cards"
+          >
             <mat-icon>view_module</mat-icon>
           </button>
           } @else {
           <!-- Changement de vue (vue sous forme de cards) -->
-          <button mat-icon-button (click)="toggleView('table')" matTooltip="View birthdays as table">
+          <button
+            mat-icon-button
+            (click)="toggleView('table')"
+            matTooltip="View birthdays as table"
+          >
             <mat-icon>table_chart</mat-icon>
           </button>
           }
@@ -179,17 +191,39 @@
           <button
             mat-icon-button
             [matMenuTriggerFor]="languageMenu"
+            mat-icon-button
+            [matBadge]="''"
+            matBadgeColor="warn"
+            matBadgeSize="small"
+            matBadgePosition="above after"
+            matBadgeOverlap="true"
             class="!w-10 !h-10 flex items-center justify-center"
             matTooltip="Language"
           >
             <mat-icon class="!text-gray-700">translate</mat-icon>
+            <div class="absolute top-0 right-0 transform translate-x-1/4 -translate-y-1/4 w-4 h-4  shadow-xs">
+              <img [src]="'https://flagcdn.com/w20/' + currentLanguage + '.png'" 
+                   [alt]="currentLanguage"
+                   class="object-cover">
+            </div>
           </button>
           <mat-menu #languageMenu="matMenu">
-            <button mat-menu-item>
-              <span>Français</span>
-            </button>
-            <button mat-menu-item>
-              <span>English</span>
+            <button
+              mat-menu-item
+              *ngFor="let lang of languages"
+              (click)="changeLanguage(lang.code)"
+              [class.bg-blue-50]="currentLanguage === lang.code"
+            >
+              <span class="flex items-center gap-2">
+                <img
+                  [src]="lang.flag"
+                  width="20"
+                  height="15"
+                  [alt]="lang.code"
+                  class="rounded-sm"
+                />
+                <span class="text-sm">{{ lang.name }}</span>
+              </span>
             </button>
           </mat-menu>
 
@@ -432,7 +466,11 @@
 
                 <!-- Bouton Suppression -->
                 <button mat-icon-button color="warn">
-                  <mat-icon matTooltip="Delete birthday" (click)="deleteBirthday(element.id)">delete</mat-icon>
+                  <mat-icon
+                    matTooltip="Delete birthday"
+                    (click)="deleteBirthday(element.id)"
+                    >delete</mat-icon
+                  >
                 </button>
               </div>
             </td>
@@ -492,7 +530,11 @@
               <mat-icon matTooltip="Edit birthday">edit</mat-icon>
             </button>
             <button mat-icon-button color="warn">
-              <mat-icon matTooltip="Delete birthday" (click)="deleteBirthday(item.id.toString())">delete</mat-icon>
+              <mat-icon
+                matTooltip="Delete birthday"
+                (click)="deleteBirthday(item.id.toString())"
+                >delete</mat-icon
+              >
             </button>
           </mat-card-actions>
         </mat-card>
