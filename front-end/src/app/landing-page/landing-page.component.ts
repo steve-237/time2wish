@@ -61,6 +61,7 @@ import { ConfirmDeleteComponent } from '../confirm-delete/confirm-delete.compone
     FormsModule,
     RouterLink,
     MatTooltipModule,
+    MatBadgeModule,
   ],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.css',
@@ -77,6 +78,24 @@ export class LandingPageComponent {
     'date',
     'action',
   ];
+
+  languages = [
+    { code: 'fr', name: 'Français', flag: 'https://flagcdn.com/w20/fr.png' },
+    { code: 'us', name: 'English', flag: 'https://flagcdn.com/w20/us.png' },
+    { code: 'es', name: 'Español', flag: 'https://flagcdn.com/w20/es.png' },
+    { code: 'de', name: 'Español', flag: 'https://flagcdn.com/w20/de.png' },
+  ];
+
+  get flagBadge() {
+    return {
+      content: '',
+      color: 'warn',
+      size: 'small',
+      hidden: false,
+      overlap: true,
+      position: 'above after'
+    };
+  }
 
   viewMode: 'table' | 'cards' = 'table';
 
@@ -162,14 +181,21 @@ export class LandingPageComponent {
 
   deleteBirthday(birthdayId: string): void {
     const dialogRef = this.dialog.open(ConfirmDeleteComponent);
-    
-    dialogRef.afterClosed().subscribe(result => {
+
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         // Logique de suppression ici
         console.log('Suppression confirmée pour', birthdayId);
         // this.birthdayService.delete(birthdayId).subscribe(...);
       }
     });
+  }
+
+  currentLanguage = 'fr';
+
+  changeLanguage(lang: string) {
+    this.currentLanguage = lang;
+    // Implémentez votre changement de langue ici
   }
 
   mockData = [
