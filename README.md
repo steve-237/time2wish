@@ -38,6 +38,7 @@
 - Dashboard displaying upcoming birthdays.
 - Search and filter options for managing contacts.
 - Customizable themes (colors, backgrounds).
+- Multiple language
 - ...
 
 ### Additional Features:
