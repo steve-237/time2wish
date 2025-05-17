@@ -76,6 +76,7 @@ export class LandingPageComponent {
     'city',
     'category',
     'date',
+    'status',
     'action',
   ];
 
@@ -217,6 +218,34 @@ export class LandingPageComponent {
 
   get dataSource() {
     return new MatTableDataSource(this.filteredBirthdays);
+  }
+
+  getBirthdayStatus(birthdayDate: Date): { text: string, icon: string, color: string } {
+    const today = new Date();
+    const date = new Date(birthdayDate);
+    date.setFullYear(today.getFullYear());
+    
+    const diffDays = Math.ceil((date.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+  
+    if (diffDays > 0) {
+      return { 
+        text: `In ${diffDays} days`, 
+        icon: 'event_upcoming', 
+        color: 'text-green-500' 
+      };
+    } else if (diffDays === 0) {
+      return { 
+        text: 'Today', 
+        icon: 'event_available', 
+        color: 'text-blue-500' 
+      };
+    } else {
+      return { 
+        text: 'Passed', 
+        icon: 'event_busy', 
+        color: 'text-gray-400' 
+      };
+    }
   }
 
   mockData = [
