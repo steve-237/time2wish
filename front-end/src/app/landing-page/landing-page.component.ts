@@ -198,6 +198,27 @@ export class LandingPageComponent {
     // Implémentez votre changement de langue ici
   }
 
+  get filteredBirthdays() {
+    return this.mockData.filter(birthday => {
+      const birthdayDate = new Date(birthday.date);
+      birthdayDate.setFullYear(this.currentDate.getFullYear());
+      
+      if (this.activeButton === 'coming') {
+        return birthdayDate >= this.currentDate;
+      } else {
+        return birthdayDate < this.currentDate;
+      }
+    });
+  }
+
+  get hasBirthdays() {
+    return this.filteredBirthdays.length > 0;
+  }
+
+  get dataSource() {
+    return new MatTableDataSource(this.filteredBirthdays);
+  }
+
   mockData = [
     {
       id: 0,
@@ -328,6 +349,4 @@ export class LandingPageComponent {
       date: new Date('2024-08-15'),
     },
   ];
-
-  dataSource = new MatTableDataSource(this.mockData);
 }
