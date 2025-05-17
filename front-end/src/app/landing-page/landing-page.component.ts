@@ -84,7 +84,7 @@ export class LandingPageComponent {
     { code: 'fr', name: 'Français', flag: 'https://flagcdn.com/w20/fr.png' },
     { code: 'us', name: 'English', flag: 'https://flagcdn.com/w20/us.png' },
     { code: 'es', name: 'Español', flag: 'https://flagcdn.com/w20/es.png' },
-    { code: 'de', name: 'Español', flag: 'https://flagcdn.com/w20/de.png' },
+    { code: 'de', name: 'Deutsch', flag: 'https://flagcdn.com/w20/de.png' },
   ];
 
   get flagBadge() {
