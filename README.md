@@ -1,59 +1,117 @@
-# Time2Wish - Birthday Reminder Application
+# 🎉 Time2Wish – Birthday Reminder Application
 
-### Main Objective:
-- Develop a web application using Angular that allows users to receive birthday reminders for their loved ones and organize personalized wishes.
+> A smart and stylish way to never forget the special moments of your loved ones.
 
-### Application Name: Time2Wish
-### Target Audience: 
-- Anyone who wants to stay organized and celebrate birthdays in a memorable way.
+---
 
-## Main Features
+## 🧭 Overview
 
-### User Management:
+**Time2Wish** is a modern web application built with Angular that helps users remember birthdays, organize meaningful wishes, and celebrate those they care about.  
+It’s more than just a reminder app — it’s your personal assistant for creating unforgettable moments.
 
-- Sign up and log in via email.
-- User profile management (photo, name, notification settings).
-- ...
+---
 
-### Birthday Management:
+## 👥 Target Audience
 
-- Add contacts with photo, names, birthdates, relationships and comment about the preferences of the contact.
-- Categorize contacts (friends, family, colleagues, etc.).
-- ...
+Time2Wish is designed for anyone who wants to:
 
-### Notifications & Reminders:
+- Stay organized and never miss a birthday.
+- Make birthdays more memorable with personalized messages and gift ideas.
+- Share joy and celebration with friends, family, and colleagues.
 
-- Custom notifications before birthdays (one day, one week, etc.).
-- Multiple reminder options.
-- ...
+---
 
-### Gift & Wish Suggestions:
+## ✨ Key Features
+
+### 🔐 User Management
+
+- Email-based sign-up and login.
+- User profile management:
+  - Photo
+  - Name
+  - Notification preferences
+- Secure authentication and user sessions.
+
+### 🎂 Birthday Management
+
+- Add and manage contacts with:
+  - Photo, name, date of birth
+  - Relationship type (friend, family, colleague, etc.)
+  - Personal notes (gift ideas, preferences)
+- Categorize contacts into custom groups.
+- Search, filter, and sort contact list.
+
+### ⏰ Notifications & Reminders
+
+- Custom reminder options (1 day, 1 week, or custom settings).
+- Multiple notification channels (planned).
+- Smart alerts for upcoming birthdays.
+
+### 🎁 Gift & Wish Suggestions
 
 - Personalized gift and message ideas based on contact preferences.
-- Auto-generated birthday messages.
-- ...
+- Auto-generated birthday messages with editable templates.
+- Quick-send message feature.
 
-### User Interface:
+### 🖥️ User Interface
 
-- Dashboard displaying upcoming birthdays.
-- Search and filter options for managing contacts.
+- Clean dashboard showing upcoming birthdays.
+- Countdown timers for big events.
 - Customizable themes (colors, backgrounds).
-- Multiple language
-- ...
+- Multilingual support (i18n ready).
+- Responsive and accessible UI.
 
-### Additional Features:
+### ➕ Additional Features
 
-- Import contacts from an address book.
-- Share birthday reminders with other users.
-- Countdown feature for major events.
-- ...
+- Import contacts from address books (Google, Outlook – planned).
+- Share reminders with family or friends.
+- Export to calendar formats (e.g. `.ics` file).
+- Birthday archive and wish history.
 
-## Technical Requirements
+---
 
-- Frontend: Angular 19+ with TypeScript. (On going...)
-- Backend: Node.js with Express or Firebase (serverless approach) or Spring Boot. (Open...)
-- Database: Firebase Firestore or MongoDB or Postgres. (Open...)
-- Notifications: Web Push Notifications or Firebase Cloud Messaging. (Open...)
-- Third-Party APIs: Messaging services (Twilio, SendGrid integration) or others. (Open...)
+## 🛠️ Technical Stack
 
+| Layer         | Technologies                                | Status          |
+|---------------|---------------------------------------------|-----------------|
+| **Frontend**  | Angular 19+ with TypeScript                 | 🚧 In Progress  |
+| **Backend**   | Node.js + Express / Firebase / Spring Boot | 🟡 To be decided |
+| **Database**  | Firestore / MongoDB / PostgreSQL            | 🟡 To be decided |
+| **Notifications** | Web Push API / Firebase Cloud Messaging | 🟡 To be decided |
+| **APIs**      | Twilio / SendGrid or similar messaging APIs | 🟡 To be decided |
 
+---
+
+## 🚀 Project Status
+
+The project is currently in early-stage development. Core architecture and features are being built.
+
+> 🔧 Contributions and ideas are welcome!
+
+---
+
+## 📌 Future Enhancements (Roadmap)
+
+- ✅ PWA support for mobile use
+- 🧠 AI-powered birthday message generator
+- 📅 Calendar integrations (Google, Outlook)
+- 🎁 Group gift reminders and planning
+- 🗂️ Birthday history and wish archive
+
+---
+
+## 🙌 Contribution
+
+Want to contribute or support the project?
+
+- 🐛 [Open an issue](#) to report bugs or suggest features.
+- 🚀 Submit a pull request.
+- 💬 Share feedback and ideas.
+
+---
+
+## 📄 License
+
+_This project will be released under an open-source license (TBD)._
+
+---
