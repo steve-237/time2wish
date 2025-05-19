@@ -1,4 +1,4 @@
-<div class="flex bg-gray-200">
+<div class="flex bg-gray-200" *transloco="let t">
   <!-- Sidebar -->
   <aside
     class="sticky top-0 left-0 h-screen w-16 bg-white flex flex-col items-center transition-all duration-100 ease-in-out"
@@ -105,7 +105,7 @@
           <!-- Champ de recherche -->
           <input
             matInput
-            placeholder="Search for birthdays"
+            placeholder="{{t('placeholder_search_bar')}}"
             class="flex-1 bg-transparent border-none focus:outline-none py-2"
           />
 

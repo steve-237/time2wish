@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatDividerModule } from '@angular/material/divider';
@@ -28,6 +28,7 @@ import { InformationComponent } from '../information/information.component';
 import { SettingComponent } from '../setting/setting.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ConfirmDeleteComponent } from '../confirm-delete/confirm-delete.component';
+import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-landing-page',
@@ -62,12 +63,14 @@ import { ConfirmDeleteComponent } from '../confirm-delete/confirm-delete.compone
     RouterLink,
     MatTooltipModule,
     MatBadgeModule,
+    TranslocoModule
   ],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.css',
 })
 export class LandingPageComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  protected translocoService = inject(TranslocoService);
 
   activeButton: 'coming' | 'passed' = 'coming';
   displayedColumns: string[] = [
@@ -196,7 +199,7 @@ export class LandingPageComponent {
 
   changeLanguage(lang: string) {
     this.currentLanguage = lang;
-    // Implémentez votre changement de langue ici
+    this.translocoService.setActiveLang(lang);
   }
 
   get filteredBirthdays() {
