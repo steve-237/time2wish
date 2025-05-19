@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NotificationService } from '../shared/notification.service';
+import { NotificationService } from '../../shared/services/notification/notification.service';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';

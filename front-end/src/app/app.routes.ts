@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
-import { LandingPageComponent } from './landing-page/landing-page.component';
-import { LoginComponent } from './login/login.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { RegistrationComponent } from './registration/registration.component';
-import { PasswordResetComponent } from './password-reset/password-reset.component';
+import { LandingPageComponent } from './pages/landing-page/landing-page.component';
+import { LoginComponent } from './pages/login/login.component';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { RegistrationComponent } from './pages/registration/registration.component';
+import { PasswordResetComponent } from './pages/password-reset/password-reset.component';
 
 export const routes: Routes = [
   { path: 'landing-page', component: LandingPageComponent },
