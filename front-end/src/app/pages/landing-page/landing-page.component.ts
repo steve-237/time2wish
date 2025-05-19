@@ -86,7 +86,6 @@ export class LandingPageComponent {
   languages = [
     { code: 'fr', name: 'Français', flag: 'https://flagcdn.com/w20/fr.png' },
     { code: 'us', name: 'English', flag: 'https://flagcdn.com/w20/us.png' },
-    { code: 'es', name: 'Español', flag: 'https://flagcdn.com/w20/es.png' },
     { code: 'de', name: 'Deutsch', flag: 'https://flagcdn.com/w20/de.png' },
   ];
 
