@@ -8,7 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { Router } from '@angular/router';
 import { PasswordResetComponent } from '../password-reset/password-reset.component';
 import { RegistrationComponent } from '../registration/registration.component';
-import { DialogService } from '../shared/dialog.service';
+import { DialogService } from '../../shared/services/dialog/dialog.service';
 
 @Component({
   selector: 'app-login',
