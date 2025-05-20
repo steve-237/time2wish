@@ -29,6 +29,9 @@ import { SettingComponent } from '../setting/setting.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ConfirmDeleteComponent } from '../confirm-delete/confirm-delete.component';
 import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
+import { BirthdayService } from '../../core/services/birthday/birthday.service';
+import { BehaviorSubject, Observable, Subscription, combineLatest, map } from 'rxjs';
+import { Birthday } from '../../models/birthday.model';
 
 @Component({
   selector: 'app-landing-page',
@@ -63,7 +66,7 @@ import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
     RouterLink,
     MatTooltipModule,
     MatBadgeModule,
-    TranslocoModule
+    TranslocoModule,
   ],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.css',
@@ -96,7 +99,7 @@ export class LandingPageComponent {
       size: 'small',
       hidden: false,
       overlap: true,
-      position: 'above after'
+      position: 'above after',
     };
   }
 
@@ -111,16 +114,34 @@ export class LandingPageComponent {
   showSearchBar = false;
   isDarkTheme = false;
 
+  private birthdayService = inject(BirthdayService);
+  birthdays = this.birthdayService.birthdays$;
+  private activeButton$ = new BehaviorSubject<'coming' | 'passed'>('coming');
+
+  private dataSourceSub?: Subscription;
+
   constructor(private dialog: DialogService) {}
 
   ngOnInit() {
     setInterval(() => {
       this.currentDate = new Date();
     }, 60000);
+
+    this.birthdayService.fetchBirthdays();
   }
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+  ngAfterViewInit(): void {
+    this.dataSourceSub = this.dataSource$.subscribe((dataSource) => {
+      dataSource.paginator = this.paginator;
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.dataSourceSub?.unsubscribe();
+  }
+
+  setActiveButton(mode: 'coming' | 'passed') {
+    this.activeButton$.next(mode);
   }
 
   toggleMainSearch() {
@@ -182,12 +203,14 @@ export class LandingPageComponent {
     }
   }
 
-  deleteBirthday(birthdayId: string): void {
+  deleteBirthday(birthdayId: number): void {
     const dialogRef = this.dialog.open(ConfirmDeleteComponent);
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         // Logique de suppression ici
+
+        this.birthdayService.deleteBirthday(birthdayId);
         console.log('Suppression confirmée pour', birthdayId);
         // this.birthdayService.delete(birthdayId).subscribe(...);
       }
@@ -201,183 +224,62 @@ export class LandingPageComponent {
     this.translocoService.setActiveLang(lang);
   }
 
-  get filteredBirthdays() {
-    return this.mockData.filter(birthday => {
-      const birthdayDate = new Date(birthday.date);
-      birthdayDate.setFullYear(this.currentDate.getFullYear());
-      
-      if (this.activeButton === 'coming') {
-        return birthdayDate >= this.currentDate;
-      } else {
-        return birthdayDate < this.currentDate;
-      }
-    });
-  }
+  filteredBirthdays$ = combineLatest([
+    this.birthdays,
+    this.activeButton$
+  ]).pipe(
+    map(([birthdays, active]) => {
+      const now = new Date();
+      return birthdays.filter(birthday => {
+        const birthdayDate = new Date(birthday.date);
+        birthdayDate.setFullYear(now.getFullYear());
+  
+        return active === 'coming'
+          ? birthdayDate >= now
+          : birthdayDate < now;
+      });
+    })
+  );
 
-  get hasBirthdays() {
-    return this.filteredBirthdays.length > 0;
-  }
+  hasBirthdays$ = this.filteredBirthdays$.pipe(
+    map((birthdays) => birthdays.length > 0)
+  );
 
-  get dataSource() {
-    return new MatTableDataSource(this.filteredBirthdays);
-  }
+  dataSource$ = this.filteredBirthdays$.pipe(
+    map((birthdays) => new MatTableDataSource(birthdays))
+  );
 
-  getBirthdayStatus(birthdayDate: Date): { text: string, icon: string, color: string } {
+  getBirthdayStatus(birthdayDate: Date): {
+    text: string;
+    icon: string;
+    color: string;
+  } {
     const today = new Date();
     const date = new Date(birthdayDate);
     date.setFullYear(today.getFullYear());
-    
-    const diffDays = Math.ceil((date.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
-  
+
+    const diffDays = Math.ceil(
+      (date.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
+    );
+
     if (diffDays > 0) {
-      return { 
-        text: `In ${diffDays} days`, 
-        icon: 'event_upcoming', 
-        color: 'text-green-500' 
+      return {
+        text: `In ${diffDays} days`,
+        icon: 'event_upcoming',
+        color: 'text-green-500',
       };
     } else if (diffDays === 0) {
-      return { 
-        text: 'Today', 
-        icon: 'event_available', 
-        color: 'text-blue-500' 
+      return {
+        text: 'Today',
+        icon: 'event_available',
+        color: 'text-blue-500',
       };
     } else {
-      return { 
-        text: 'Passed', 
-        icon: 'event_busy', 
-        color: 'text-gray-400' 
+      return {
+        text: 'Passed',
+        icon: 'event_busy',
+        color: 'text-gray-400',
       };
     }
   }
-
-  mockData = [
-    {
-      id: 0,
-      photo: 'https://randomuser.me/api/portraits/women/44.jpg',
-      name: 'Sophie Martin',
-      city: 'Paris',
-      category: 'Family',
-      date: new Date('2023-05-15'),
-    },
-    {
-      id: 1,
-      photo: 'https://randomuser.me/api/portraits/men/32.jpg',
-      name: 'Jean Dupont',
-      city: 'Lyon',
-      category: 'Friend',
-      date: new Date('2023-06-20'),
-    },
-    {
-      id: 2,
-      photo: 'https://randomuser.me/api/portraits/women/68.jpg',
-      name: 'Marie Leroy',
-      city: 'Marseille',
-      category: 'Colleague',
-      date: new Date('2023-07-10'),
-    },
-    {
-      id: 3,
-      photo: 'https://randomuser.me/api/portraits/men/75.jpg',
-      name: 'Pierre Bernard',
-      city: 'Toulouse',
-      category: 'Family',
-      date: new Date('2023-08-05'),
-    },
-    {
-      id: 4,
-      photo: 'https://randomuser.me/api/portraits/women/25.jpg',
-      name: 'Julie Petit',
-      city: 'Nice',
-      category: 'Friend',
-      date: new Date('2023-09-12'),
-    },
-    {
-      id: 5,
-      photo: 'https://randomuser.me/api/portraits/women/25.jpg',
-      name: 'Camille Petit',
-      city: 'Nice',
-      category: 'Friend',
-      date: new Date('2023-09-18'),
-    },
-    {
-      id: 6,
-      photo: 'https://randomuser.me/api/portraits/men/55.jpg',
-      name: 'Nicolas Moreau',
-      city: 'Bordeaux',
-      category: 'Family',
-      date: new Date('2023-10-22'),
-    },
-    {
-      id: 7,
-      photo: 'https://randomuser.me/api/portraits/women/33.jpg',
-      name: 'Amélie Laurent',
-      city: 'Lille',
-      category: 'Colleague',
-      date: new Date('2023-11-30'),
-    },
-    {
-      id: 8,
-      photo: 'https://randomuser.me/api/portraits/men/12.jpg',
-      name: 'Pierre Garnier',
-      city: 'Strasbourg',
-      category: 'Business',
-      date: new Date('2024-01-15'),
-    },
-    {
-      id: 9,
-      photo: 'https://randomuser.me/api/portraits/women/87.jpg',
-      name: 'Juliette Roux',
-      city: 'Nantes',
-      category: 'Friend',
-      date: new Date('2024-02-20'),
-    },
-    {
-      id: 10,
-      photo: 'https://randomuser.me/api/portraits/men/90.jpg',
-      name: 'Antoine Fournier',
-      city: 'Montpellier',
-      category: 'Family',
-      date: new Date('2024-03-10'),
-    },
-    {
-      id: 11,
-      photo: 'https://randomuser.me/api/portraits/women/56.jpg',
-      name: 'Clara Mercier',
-      city: 'Rennes',
-      category: 'Colleague',
-      date: new Date('2024-04-05'),
-    },
-    {
-      id: 12,
-      photo: 'https://randomuser.me/api/portraits/men/43.jpg',
-      name: 'Lucas Lambert',
-      city: 'Grenoble',
-      category: 'Business',
-      date: new Date('2024-05-18'),
-    },
-    {
-      id: 13,
-      photo: 'https://randomuser.me/api/portraits/women/22.jpg',
-      name: 'Chloé Girard',
-      city: 'Dijon',
-      category: 'Friend',
-      date: new Date('2024-06-22'),
-    },
-    {
-      id: 14,
-      photo: 'https://randomuser.me/api/portraits/men/67.jpg',
-      name: 'Hugo Blanc',
-      city: 'Angers',
-      category: 'Family',
-      date: new Date('2024-07-30'),
-    },
-    {
-      id: 15,
-      photo: 'https://randomuser.me/api/portraits/women/91.jpg',
-      name: 'Zoé Chevalier',
-      city: 'Clermont-Ferrand',
-      category: 'Colleague',
-      date: new Date('2024-08-15'),
-    },
-  ];
 }

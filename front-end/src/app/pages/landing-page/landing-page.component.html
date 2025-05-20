@@ -106,7 +106,7 @@
           <!-- Champ de recherche -->
           <input
             matInput
-            placeholder="{{t('placeholder_search_bar')}}"
+            placeholder="{{ t('placeholder_search_bar') }}"
             class="flex-1 bg-transparent border-none focus:outline-none py-2"
           />
 
@@ -256,6 +256,7 @@
       >
         <mat-button-toggle
           value="coming"
+          (click)="setActiveButton('coming')"
           class="!rounded-full !font-medium !px-4 !py-2 !border-none !transition-all"
           [class.!bg-white]="activeButton === 'coming'"
           [class.!text-gray-800]="activeButton === 'coming'"
@@ -268,6 +269,7 @@
 
         <mat-button-toggle
           value="passed"
+          (click)="setActiveButton('passed')"
           class="!rounded-full !font-medium !px-4 !py-2 !border-none !transition-all"
           [class.!bg-white]="activeButton === 'passed'"
           [class.!text-gray-800]="activeButton === 'passed'"
@@ -332,7 +334,11 @@
       <div
         class="shadow-sm rounded-lg overflow-hidden border border-gray-200 mb-6"
       >
-        <table mat-table [dataSource]="dataSource" class="w-full">
+        <table
+          mat-table
+          [dataSource]="(dataSource$ | async) ?? []"
+          class="w-full"
+        >
           <!-- Photo Column -->
           <ng-container matColumnDef="photo">
             <th
@@ -429,12 +435,25 @@
 
           <!-- Nouvelle colonne Status -->
           <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef class="bg-gray-50 font-semibold text-gray-700">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              class="bg-gray-50 font-semibold text-gray-700"
+            >
               Status
             </th>
-            <td mat-cell *matCellDef="let element" class="text-gray-600 border-t border-gray-200">
-              <div class="flex items-center gap-1" [ngClass]="getBirthdayStatus(element.date).color">
-                <mat-icon class="!text-base">{{ getBirthdayStatus(element.date).icon }}</mat-icon>
+            <td
+              mat-cell
+              *matCellDef="let element"
+              class="text-gray-600 border-t border-gray-200"
+            >
+              <div
+                class="flex items-center gap-1"
+                [ngClass]="getBirthdayStatus(element.date).color"
+              >
+                <mat-icon class="!text-base">{{
+                  getBirthdayStatus(element.date).icon
+                }}</mat-icon>
                 <span>{{ getBirthdayStatus(element.date).text }}</span>
               </div>
             </td>
@@ -476,7 +495,7 @@
           <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         </table>
 
-        @if(!hasBirthdays) {
+        @if(!(hasBirthdays$ | async)) {
         <div class="p-8 text-center text-gray-500">
           <mat-icon class="!text-4xl !w-12 !h-12 mb-2">event_busy</mat-icon>
           <p class="text-lg">
@@ -491,7 +510,7 @@
       </div>
 
       <!-- Pagination -->
-      @if(hasBirthdays) {
+      @if(hasBirthdays$ | async) {
       <div class="flex items-center justify-between text-gray-600">
         <mat-paginator
           class="w-full"
@@ -502,74 +521,80 @@
       </div>
       } } @else {
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-        @if(hasBirthdays) {
-          @for (item of dataSource.data; track item.id) {
-            <mat-card class="hover:shadow-lg transition-shadow">
-              <div class="flex items-center p-4">
-                <img
-                  [src]="item.photo"
-                  class="w-16 h-16 rounded-full object-cover mr-4"
-                  alt="Profile"
-                />
-                <div>
-                  <mat-card-title class="!text-lg !mb-1">{{
-                    item.name
-                  }}</mat-card-title>
-                  <mat-card-subtitle class="!text-sm">{{
-                    item.city
-                  }}</mat-card-subtitle>
-                </div>
-              </div>
-    
-              <mat-card-content class="px-4 pb-4">
-                <div class="flex justify-between text-sm text-gray-600 mb-2">
-                  <span>Category:</span>
-                  <span class="font-medium">{{ item.category }}</span>
-                </div>
-                <div class="flex justify-between text-sm text-gray-600">
-                  <span>Date:</span>
-                  <span class="font-medium">{{
-                    item.date | date : "dd.MM.yyyy"
-                  }}</span>
-                </div>
-
-                <div class="flex justify-between items-center text-sm mt-3">
-                  <span>Status:</span>
-                  <span class="font-medium flex items-center gap-1" [ngClass]="getBirthdayStatus(item.date).color">
-                    <mat-icon class="!text-base">{{ getBirthdayStatus(item.date).icon }}</mat-icon>
-                    {{ getBirthdayStatus(item.date).text }}
-                  </span>
-                </div>
-              </mat-card-content>
-    
-              <mat-card-actions class="flex justify-end p-4 pt-0">
-                <button mat-icon-button color="primary">
-                  <mat-icon matTooltip="Edit birthday">edit</mat-icon>
-                </button>
-                <button mat-icon-button color="warn">
-                  <mat-icon
-                    matTooltip="Delete birthday"
-                    (click)="deleteBirthday(item.id.toString())"
-                    >delete</mat-icon
-                  >
-                </button>
-              </mat-card-actions>
-            </mat-card>
-            }
-        } @else {
-          <div class="p-8 text-center text-gray-500">
-            <mat-icon class="!text-4xl !w-12 !h-12 mb-2">event_busy</mat-icon>
-            <p class="text-lg">
-              {{
-                activeButton === "coming"
-                  ? "No coming anniversary"
-                  : "No passed anniversary"
-              }}
-            </p>
+      <div
+        *ngIf="dataSource$ | async as dataSource"
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4"
+      >
+        @if(hasBirthdays$ | async) { @for (item of dataSource.data; track
+        item.id) {
+        <mat-card class="hover:shadow-lg transition-shadow">
+          <div class="flex items-center p-4">
+            <img
+              [src]="item.photo"
+              class="w-16 h-16 rounded-full object-cover mr-4"
+              alt="Profile"
+            />
+            <div>
+              <mat-card-title class="!text-lg !mb-1">{{
+                item.name
+              }}</mat-card-title>
+              <mat-card-subtitle class="!text-sm">{{
+                item.city
+              }}</mat-card-subtitle>
+            </div>
           </div>
+
+          <mat-card-content class="px-4 pb-4">
+            <div class="flex justify-between text-sm text-gray-600 mb-2">
+              <span>Category:</span>
+              <span class="font-medium">{{ item.category }}</span>
+            </div>
+            <div class="flex justify-between text-sm text-gray-600">
+              <span>Date:</span>
+              <span class="font-medium">{{
+                item.date | date : "dd.MM.yyyy"
+              }}</span>
+            </div>
+
+            <div class="flex justify-between items-center text-sm mt-3">
+              <span>Status:</span>
+              <span
+                class="font-medium flex items-center gap-1"
+                [ngClass]="getBirthdayStatus(item.date).color"
+              >
+                <mat-icon class="!text-base">{{
+                  getBirthdayStatus(item.date).icon
+                }}</mat-icon>
+                {{ getBirthdayStatus(item.date).text }}
+              </span>
+            </div>
+          </mat-card-content>
+
+          <mat-card-actions class="flex justify-end p-4 pt-0">
+            <button mat-icon-button color="primary">
+              <mat-icon matTooltip="Edit birthday">edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn">
+              <mat-icon
+                matTooltip="Delete birthday"
+                (click)="deleteBirthday(item.id)"
+                >delete</mat-icon
+              >
+            </button>
+          </mat-card-actions>
+        </mat-card>
+        } } @else {
+        <div class="p-8 text-center text-gray-500">
+          <mat-icon class="!text-4xl !w-12 !h-12 mb-2">event_busy</mat-icon>
+          <p class="text-lg">
+            {{
+              activeButton === "coming"
+                ? "No coming anniversary"
+                : "No passed anniversary"
+            }}
+          </p>
+        </div>
         }
-        
       </div>
 
       }
