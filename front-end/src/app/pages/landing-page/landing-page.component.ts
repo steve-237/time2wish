@@ -96,7 +96,8 @@ export class LandingPageComponent {
     { code: 'us', name: 'English', flag: 'https://flagcdn.com/w20/us.png' },
     { code: 'de', name: 'Deutsch', flag: 'https://flagcdn.com/w20/de.png' },
   ];
-  dataSource: any;
+
+  dataSource = new MatTableDataSource<Birthday>();
 
   get flagBadge() {
     return {
@@ -140,9 +141,9 @@ export class LandingPageComponent {
   }
 
   ngAfterViewInit(): void {
-    setInterval(() => {
-      this.filteredBirthdays$.subscribe((birthdays) => {
-        this.dataSource = new MatTableDataSource<Birthday>(birthdays);
+    this.dataSourceSub = this.filteredBirthdays$.subscribe((birthdays) => {
+      this.dataSource.data = birthdays;
+      setTimeout(() => {
         this.dataSource.paginator = this.paginator;
       });
     });
