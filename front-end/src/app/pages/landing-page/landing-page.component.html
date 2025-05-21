@@ -251,31 +251,30 @@
       class="bg-white flex shadow-md justify-center gap-5 rounded-lg p-4 mt-4"
     >
       <mat-button-toggle-group
-        [(value)]="activeButton"
+        [value]="activeButton$ | async"
+        (change)="setActiveButton($event.value)"
         class="!border-none rounded-full bg-gray-200 p-1"
       >
         <mat-button-toggle
           value="coming"
-          (click)="setActiveButton('coming')"
           class="!rounded-full !font-medium !px-4 !py-2 !border-none !transition-all"
-          [class.!bg-white]="activeButton === 'coming'"
-          [class.!text-gray-800]="activeButton === 'coming'"
-          [class.!shadow-sm]="activeButton === 'coming'"
-          [class.!bg-gray-200]="activeButton !== 'coming'"
-          [class.!text-gray-600]="activeButton !== 'coming'"
+          [class.!bg-white]="(activeButton$ | async) === 'coming'"
+          [class.!text-gray-800]="(activeButton$ | async) === 'coming'"
+          [class.!shadow-sm]="(activeButton$ | async) === 'coming'"
+          [class.!bg-gray-200]="(activeButton$ | async) !== 'coming'"
+          [class.!text-gray-600]="(activeButton$ | async) !== 'coming'"
         >
           Coming anniversary
         </mat-button-toggle>
 
         <mat-button-toggle
           value="passed"
-          (click)="setActiveButton('passed')"
           class="!rounded-full !font-medium !px-4 !py-2 !border-none !transition-all"
-          [class.!bg-white]="activeButton === 'passed'"
-          [class.!text-gray-800]="activeButton === 'passed'"
-          [class.!shadow-sm]="activeButton === 'passed'"
-          [class.!bg-gray-200]="activeButton !== 'passed'"
-          [class.!text-gray-600]="activeButton !== 'passed'"
+          [class.!bg-white]="(activeButton$ | async) === 'passed'"
+          [class.!text-gray-800]="(activeButton$ | async) === 'passed'"
+          [class.!shadow-sm]="(activeButton$ | async) === 'passed'"
+          [class.!bg-gray-200]="(activeButton$ | async) !== 'passed'"
+          [class.!text-gray-600]="(activeButton$ | async) !== 'passed'"
         >
           Passed anniversary
         </mat-button-toggle>
@@ -336,7 +335,7 @@
       >
         <table
           mat-table
-          [dataSource]="(dataSource$ | async) ?? []"
+          [dataSource]="dataSource"
           class="w-full"
         >
           <!-- Photo Column -->
@@ -500,7 +499,7 @@
           <mat-icon class="!text-4xl !w-12 !h-12 mb-2">event_busy</mat-icon>
           <p class="text-lg">
             {{
-              activeButton === "coming"
+              (activeButton$ | async) === "coming"
                 ? "No coming anniversary"
                 : "No passed anniversary"
             }}
@@ -522,7 +521,6 @@
       } } @else {
 
       <div
-        *ngIf="dataSource$ | async as dataSource"
         class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4"
       >
         @if(hasBirthdays$ | async) { @for (item of dataSource.data; track
@@ -588,7 +586,7 @@
           <mat-icon class="!text-4xl !w-12 !h-12 mb-2">event_busy</mat-icon>
           <p class="text-lg">
             {{
-              activeButton === "coming"
+              (activeButton$ | async) === "coming"
                 ? "No coming anniversary"
                 : "No passed anniversary"
             }}

@@ -1,4 +1,4 @@
-import { Component, inject, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatDividerModule } from '@angular/material/divider';
@@ -30,7 +30,13 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { ConfirmDeleteComponent } from '../confirm-delete/confirm-delete.component';
 import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
 import { BirthdayService } from '../../core/services/birthday/birthday.service';
-import { BehaviorSubject, Observable, Subscription, combineLatest, map } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+  Subscription,
+  combineLatest,
+  map,
+} from 'rxjs';
 import { Birthday } from '../../models/birthday.model';
 
 @Component({
@@ -75,7 +81,6 @@ export class LandingPageComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   protected translocoService = inject(TranslocoService);
 
-  activeButton: 'coming' | 'passed' = 'coming';
   displayedColumns: string[] = [
     'photo',
     'name',
@@ -91,6 +96,7 @@ export class LandingPageComponent {
     { code: 'us', name: 'English', flag: 'https://flagcdn.com/w20/us.png' },
     { code: 'de', name: 'Deutsch', flag: 'https://flagcdn.com/w20/de.png' },
   ];
+  dataSource: any;
 
   get flagBadge() {
     return {
@@ -116,11 +122,14 @@ export class LandingPageComponent {
 
   private birthdayService = inject(BirthdayService);
   birthdays = this.birthdayService.birthdays$;
-  private activeButton$ = new BehaviorSubject<'coming' | 'passed'>('coming');
+  private activeButtonSubject = new BehaviorSubject<'coming' | 'passed'>(
+    'coming'
+  );
+  activeButton$ = this.activeButtonSubject.asObservable();
 
   private dataSourceSub?: Subscription;
 
-  constructor(private dialog: DialogService) {}
+  constructor(private dialog: DialogService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
     setInterval(() => {
@@ -131,8 +140,11 @@ export class LandingPageComponent {
   }
 
   ngAfterViewInit(): void {
-    this.dataSourceSub = this.dataSource$.subscribe((dataSource) => {
-      dataSource.paginator = this.paginator;
+    setInterval(() => {
+      this.filteredBirthdays$.subscribe((birthdays) => {
+        this.dataSource = new MatTableDataSource<Birthday>(birthdays);
+        this.dataSource.paginator = this.paginator;
+      });
     });
   }
 
@@ -141,7 +153,7 @@ export class LandingPageComponent {
   }
 
   setActiveButton(mode: 'coming' | 'passed') {
-    this.activeButton$.next(mode);
+    this.activeButtonSubject.next(mode);
   }
 
   toggleMainSearch() {
@@ -208,11 +220,8 @@ export class LandingPageComponent {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        // Logique de suppression ici
-
         this.birthdayService.deleteBirthday(birthdayId);
         console.log('Suppression confirmée pour', birthdayId);
-        // this.birthdayService.delete(birthdayId).subscribe(...);
       }
     });
   }
@@ -224,29 +233,20 @@ export class LandingPageComponent {
     this.translocoService.setActiveLang(lang);
   }
 
-  filteredBirthdays$ = combineLatest([
-    this.birthdays,
-    this.activeButton$
-  ]).pipe(
+  filteredBirthdays$ = combineLatest([this.birthdays, this.activeButton$]).pipe(
     map(([birthdays, active]) => {
       const now = new Date();
-      return birthdays.filter(birthday => {
+      return birthdays.filter((birthday) => {
         const birthdayDate = new Date(birthday.date);
         birthdayDate.setFullYear(now.getFullYear());
-  
-        return active === 'coming'
-          ? birthdayDate >= now
-          : birthdayDate < now;
+
+        return active === 'coming' ? birthdayDate >= now : birthdayDate < now;
       });
     })
   );
 
   hasBirthdays$ = this.filteredBirthdays$.pipe(
     map((birthdays) => birthdays.length > 0)
-  );
-
-  dataSource$ = this.filteredBirthdays$.pipe(
-    map((birthdays) => new MatTableDataSource(birthdays))
   );
 
   getBirthdayStatus(birthdayDate: Date): {
