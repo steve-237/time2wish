@@ -1,5 +1,15 @@
-@layer theme, base, components, utilities;
+@use '@angular/material' as mat;
+
+@layer theme, utilities;
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/utilities.css" layer(utilities);
+
+html {
+  @include mat.theme((
+    color: mat.$blue-palette, 
+    typography: Roboto, 
+    density: 0 
+  ));
+}
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
