@@ -1,5 +1,48 @@
-@layer theme, base, components, utilities;
+@use "@angular/material" as mat;
+@use "theme-colors" as custom;
+
+@layer theme, utilities;
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/utilities.css" layer(utilities);
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html {
+  color-scheme: light;
+  @include mat.theme(
+    (
+      color: custom.$primary-palette,
+      typography: Roboto,
+      density: 0,
+    )
+  );
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mat-mdc-card,
+.mat-mdc-menu-panel,
+.mat-mdc-select-panel,
+.mat-mdc-tooltip,
+.mat-mdc-snack-bar-container,
+.mat-mdc-tab-group,
+.mat-mdc-table,
+.mat-mdc-expansion-panel,
+.mat-mdc-form-field,
+.mat-mdc-toolbar,
+.settings-modal,
+.mat-mdc-dialog-component-host,
+.notification,
+.profile-modal,
+mat-toolbar,
+mat-paginator,
+mat-accordion,
+mat-expansion-panel,
+mat-dialog {
+  background-color: white !important;
+}
