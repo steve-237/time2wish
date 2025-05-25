@@ -4,5 +4,10 @@ export interface Birthday {
   city: string;
   category: string;
   date: Date;
-  photo: string;
+  photo?: string;
+  email?: string;
+  phone?: string;
+  notes?: string;
+  enableReminders: boolean;
+  passed: boolean;
 }

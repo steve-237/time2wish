@@ -30,7 +30,7 @@
           alt="Profile photo"
           class="w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg mb-4"
         />
-         } @else {
+        } @else {
         <mat-icon matPrefix class="!text-6xl !h-15 !w-15 !mb-2"
           >account_circle</mat-icon
         >
@@ -55,9 +55,8 @@
         <mat-label>Nom complet</mat-label>
         <input matInput formControlName="fullName" required />
         <mat-icon matPrefix>person</mat-icon>
-        <mat-error *ngIf="profileForm.get('fullName')?.hasError('required')">
-          Le nom est obligatoire
-        </mat-error>
+        @if (profileForm.get('fullName')?.hasError('required')) {
+        <mat-error> Le nom est obligatoire </mat-error>}
       </mat-form-field>
 
       <!-- Date d'anniversaire -->
@@ -95,6 +94,13 @@
         <mat-icon matPrefix>phone</mat-icon>
       </mat-form-field>
 
+      <!-- Ville -->
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>City</mat-label>
+        <input matInput formControlName="city" />
+        <mat-icon matPrefix>location_city</mat-icon>
+      </mat-form-field>
+
       <!-- Notes -->
       <mat-form-field appearance="outline" class="md:col-span-2 w-full">
         <mat-label>Notes (idées cadeaux, préférences...)</mat-label>
@@ -118,7 +124,7 @@
 
   <!-- Actions -->
   <mat-card-actions class="flex justify-end gap-2">
-    <button mat-stroked-button color="primary">
+    <button mat-stroked-button color="primary" (click)="cancel()">
       <mat-icon>cancel</mat-icon>
       Annuler
     </button>
