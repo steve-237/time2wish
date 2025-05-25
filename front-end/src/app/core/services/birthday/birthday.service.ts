@@ -26,7 +26,14 @@ export class BirthdayService {
 
   addBirthday(birthday: Birthday): void {
     const current = this._birthdays.value;
-    this._birthdays.next([...current, { ...birthday, id: this.generateId() }]);
+    const newBirthday = { 
+      ...birthday, 
+      id: this.generateId(),
+      birthDate: new Date(birthday.date) // Ca doit etre une date
+    };
+    this._birthdays.next([...current, newBirthday]);
+    // l'appel HTTP ici:
+    // this.http.post('/api/birthdays', newBirthday).subscribe(...);
   }
 
   updateBirthday(updated: Birthday): void {

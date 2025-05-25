@@ -1,5 +1,10 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, Inject } from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -10,8 +15,12 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatDialogRef } from '@angular/material/dialog';
-import {provideNativeDateAdapter} from '@angular/material/core';
+import { provideNativeDateAdapter } from '@angular/material/core';
+import { BirthdayService } from '../../core/services/birthday/birthday.service';
+import { Birthday } from '../../models/birthday.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-new-birthday',
@@ -26,18 +35,25 @@ import {provideNativeDateAdapter} from '@angular/material/core';
     MatSelectModule,
     MatSlideToggleModule,
     MatNativeDateModule,
-    MatDividerModule
+    MatDividerModule,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './new-birthday.component.html',
-  styleUrl: './new-birthday.component.css'
+  styleUrl: './new-birthday.component.css',
 })
 export class NewBirthdayComponent {
-
   profileForm: FormGroup;
   profileImage: string | ArrayBuffer | null = null;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private birthdayService: BirthdayService,
+    private snackBar: MatSnackBar,
+    private router: Router,
+
+    public dialogRef: MatDialogRef<NewBirthdayComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {
     this.profileForm = this.fb.group({
       fullName: ['', Validators.required],
       birthdate: ['', Validators.required],
@@ -45,7 +61,8 @@ export class NewBirthdayComponent {
       email: [''],
       phone: [''],
       notes: [''],
-      enableReminders: [true]
+      city: [''],
+      enableReminders: [true],
     });
   }
 
@@ -62,8 +79,43 @@ export class NewBirthdayComponent {
 
   saveProfile(): void {
     if (this.profileForm.valid) {
-      console.log('Profile data:', this.profileForm.value);
-      // Ici vous ajouteriez la logique pour sauvegarder les données
+      const formValue = this.profileForm.value;
+
+      const newBirthday: Birthday = {
+        id: 0, // sera généré par le service
+        name: formValue.fullName,
+        date: new Date(formValue.birthdate),
+        category: formValue.relation,
+        email: formValue.email,
+        phone: formValue.phone,
+        notes: formValue.notes,
+        enableReminders: formValue.enableReminders,
+        photo: this.profileImage as string,
+        passed: this.isBirthdayPassed(formValue.birthdate),
+        city: formValue.city,
+      };
+
+      this.birthdayService.addBirthday(newBirthday);
+
+      this.snackBar.open('Anniversaire ajouté avec succès', 'Fermer', {
+        duration: 3000,
+        panelClass: ['success-snackbar'],
+      });
+
+      this.router.navigate(['/landing-page']);
+      this.dialogRef.close();
     }
+  }
+
+  private isBirthdayPassed(birthdate: string): boolean {
+    const today = new Date();
+    const bDate = new Date(birthdate);
+    bDate.setFullYear(today.getFullYear()); // Comparaison sans l'année
+    return bDate < today;
+  }
+
+  cancel(): void {
+    this.router.navigate(['/landing-page']);
+    this.dialogRef.close();
   }
 }
