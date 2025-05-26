@@ -333,11 +333,7 @@
       <div
         class="shadow-sm rounded-lg overflow-hidden border border-gray-200 mb-6"
       >
-        <table
-          mat-table
-          [dataSource]="dataSource"
-          class="w-full"
-        >
+        <table mat-table [dataSource]="dataSource" class="w-full">
           <!-- Photo Column -->
           <ng-container matColumnDef="photo">
             <th
@@ -432,7 +428,24 @@
             </td>
           </ng-container>
 
-          <!-- Nouvelle colonne Status -->
+          <!-- Nouvelle colonne Age -->
+          <ng-container matColumnDef="age">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              class="bg-gray-50 font-semibold text-gray-700"
+            >
+              Age
+            </th>
+            <td mat-cell *matCellDef="let element" class="text-gray-600 border-t border-gray-200">
+              <div class="flex items-center gap-1">
+                <mat-icon class="!text-base !text-yellow-500">cake</mat-icon>
+                <span>{{ calculateAge(element.date) }}</span>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- Colonne Status -->
           <ng-container matColumnDef="status">
             <th
               mat-header-cell
@@ -520,9 +533,7 @@
       </div>
       } } @else {
 
-      <div
-        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4"
-      >
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
         @if(hasBirthdays$ | async) { @for (item of dataSource.data; track
         item.id) {
         <mat-card class="hover:shadow-lg transition-shadow">
@@ -547,11 +558,19 @@
               <span>Category:</span>
               <span class="font-medium">{{ item.category }}</span>
             </div>
-            <div class="flex justify-between text-sm text-gray-600">
+            <div class="flex justify-between text-sm text-gray-600 mb-2">
               <span>Date:</span>
               <span class="font-medium">{{
                 item.date | date : "dd.MM.yyyy"
               }}</span>
+            </div>
+
+            <div class="flex justify-between text-sm text-gray-600 mb-2">
+              <span>Age:</span>
+              <span class="font-medium flex items-center gap-1">
+                <mat-icon class="!text-base !text-yellow-500">cake</mat-icon>
+                {{ calculateAge(item.date) }}
+              </span>
             </div>
 
             <div class="flex justify-between items-center text-sm mt-3">
