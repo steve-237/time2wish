@@ -40,11 +40,11 @@
         alt="logo time2wish"
       />
 
-      <form class="w-full">
+      <form (ngSubmit)="onLogin(email.value, password.value)" class="w-full">
         <!-- Email Field -->
         <mat-form-field appearance="outline" class="w-full mb-4">
           <mat-label>Email</mat-label>
-          <input matInput type="email" placeholder="Email" required>
+          <input matInput #email type="email" placeholder="Email" required>
           <mat-icon matPrefix>email</mat-icon>
         </mat-form-field>
 
@@ -52,23 +52,34 @@
         <mat-form-field appearance="outline" class="w-full mb-4">
           <mat-label>Password</mat-label>
           <mat-icon matPrefix>lock</mat-icon>
-          <input matInput [type]="hidePassword ? 'password' : 'text'" required>
+          <input matInput #password [type]="hidePassword ? 'password' : 'text'" required>
           <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword">
             <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
         </mat-form-field>
 
         <!-- Login Button -->
-        <button mat-raised-button color="primary" class="w-full py-2" (click)="onLogin()">
-          Login
+        <button mat-raised-button color="primary" class="w-full py-2" type="submit" [disabled]="isLoading">
+          @if (!isLoading) {
+            <span>Login</span>
+          }@else {
+            <span>Connexion...</span>
+          }
         </button>
 
-        <div class="text-sm text-center mt-4">
-          <a (click)="openPasswordReset()" class="text-blue-500 cursor-pointer hover:underline">
-            Forgotten password?
-          </a>
-        </div>
+        <!-- Error Message -->
+      <div *ngIf="errorMessage" class="text-red-500 text-center">
+        {{ errorMessage }}
+      </div>
+
+        
       </form>
+
+      <div class="text-sm text-center mt-4">
+        <a (click)="openPasswordReset()" class="text-blue-500 cursor-pointer hover:underline">
+          Forgotten password?
+        </a>
+      </div>
 
       <div class="text-sm text-center mt-2">
         <span>Don't have an account yet?</span>
