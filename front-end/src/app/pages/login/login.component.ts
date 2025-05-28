@@ -38,11 +38,8 @@ export class LoginComponent {
 
 
   onLogin(email: string, password: string) {
-    console.log('Login...')
     this.isLoading = true;
     this.errorMessage = '';
-
-    console.log('Login...')
 
     this.loginSub = this.authService.login(email, password).subscribe({
       next: () => {

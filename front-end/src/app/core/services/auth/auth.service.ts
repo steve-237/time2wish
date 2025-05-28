@@ -43,8 +43,6 @@ export class AuthService {
           u.email === email && u.password === password
         );
 
-        console.log(user)
-
         if (user) {
           this.currentUser = user;
           localStorage.setItem('currentUser', JSON.stringify(user));
