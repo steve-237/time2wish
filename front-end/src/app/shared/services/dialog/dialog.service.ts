@@ -10,7 +10,7 @@ export class DialogService {
 
   open(component: Type<any>, config: { width?: string; data?: any } = {}) {
     return this.dialog.open(component, {
-      width: config.width || '400px',
+      width: config.width,
       data: config.data || null,
       disableClose: false,
       autoFocus: false,
