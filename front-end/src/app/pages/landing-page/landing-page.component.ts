@@ -1,3 +1,4 @@
+import { AuthService } from './../../core/services/auth/auth.service';
 import { ChangeDetectorRef, Component, inject, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
@@ -131,7 +132,7 @@ export class LandingPageComponent {
 
   private dataSourceSub?: Subscription;
 
-  constructor(private dialog: DialogService, private cdr: ChangeDetectorRef) {}
+  constructor(private dialog: DialogService, private cdr: ChangeDetectorRef, public authService: AuthService) {}
 
   ngOnInit() {
     setInterval(() => {
@@ -185,23 +186,23 @@ export class LandingPageComponent {
   }
 
   onAddBirthday() {
-    this.dialog.open(NewBirthdayComponent, { width: 'auto' });
+    this.dialog.open(NewBirthdayComponent);
   }
 
   onProfil() {
-    this.dialog.open(ProfilComponent, { width: 'auto' });
+    this.dialog.open(ProfilComponent, {width: '500px'});
   }
 
   onNotification() {
-    this.dialog.open(NotificationComponent, { width: 'auto' });
+    this.dialog.open(NotificationComponent);
   }
 
   onInformation() {
-    this.dialog.open(InformationComponent, { width: 'auto' });
+    this.dialog.open(InformationComponent, {width: '900px'});
   }
 
   onSetting() {
-    this.dialog.open(SettingComponent, { width: 'auto' });
+    this.dialog.open(SettingComponent);
   }
 
   toggleTheme() {

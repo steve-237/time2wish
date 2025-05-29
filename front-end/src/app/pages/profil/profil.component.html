@@ -1,69 +1,126 @@
-<div class="profile-modal p-6">
-    <!-- Header -->
-    <div class="flex justify-between items-center mb-6">
-      <h2 class="text-xl font-bold flex items-center gap-2">
-        <mat-icon>person</mat-icon>
-        Mon Profil
-      </h2>
+<div class="profile-modal p-6 min-w-52">
+  <!-- Header avec bouton d'édition -->
+  <div class="flex justify-between items-center mb-6">
+    <h2 class="text-xl font-bold flex items-center gap-2">
+      <mat-icon>person</mat-icon>
+      Mon Profil
+    </h2>
+    <div class="flex gap-2">
+      <button mat-icon-button (click)="toggleEditMode()" [matTooltip]="editMode ? 'Désactiver l\'édition' : 'Modifier le profil'">
+        <mat-icon>{{ editMode ? 'lock' : 'edit' }}</mat-icon>
+      </button>
       <button mat-icon-button (click)="dialogRef.close()">
         <mat-icon>close</mat-icon>
       </button>
     </div>
-  
-    <!-- Photo de profil -->
-    <div class="flex flex-col items-center mb-6">
-      <div class="relative">
-        <img [src]="profileImage" 
-             class="w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg">
-        <button mat-icon-button 
-                class="absolute bottom-0 right-0 bg-blue-500 text-white"
-                (click)="fileInput.click()">
-          <mat-icon>edit</mat-icon>
-        </button>
-        <input #fileInput type="file" accept="image/*" hidden (change)="onFileSelected($event)">
-      </div>
-    </div>
-  
-    <!-- Formulaire -->
-    <form [formGroup]="profileForm" class="space-y-4">
-      <mat-form-field appearance="outline" class="w-full">
-        <mat-label>Nom complet</mat-label>
-        <input matInput formControlName="name">
-        <mat-error *ngIf="profileForm.get('name')?.hasError('required')">
-          Le nom est obligatoire
-        </mat-error>
-      </mat-form-field>
-  
-      <mat-form-field appearance="outline" class="w-full">
-        <mat-label>Email</mat-label>
-        <input matInput formControlName="email" type="email">
-        <mat-error *ngIf="profileForm.get('email')?.hasError('required')">
-          L'email est obligatoire
-        </mat-error>
-        <mat-error *ngIf="profileForm.get('email')?.hasError('email')">
-          Email invalide
-        </mat-error>
-      </mat-form-field>
-  
-      <mat-form-field appearance="outline" class="w-full">
-        <mat-label>Bio</mat-label>
-        <textarea matInput formControlName="bio" rows="3"></textarea>
-      </mat-form-field>
-  
-      <mat-slide-toggle formControlName="notifications" color="primary">
-        Recevoir les notifications
-      </mat-slide-toggle>
-  
-      <div class="flex justify-end gap-3 pt-4">
-        <button mat-stroked-button type="button" (click)="dialogRef.close()">
-          Annuler
-        </button>
-        <button mat-raised-button 
-                color="primary"
-                (click)="saveProfile()"
-                [disabled]="!profileForm.valid">
-          Enregistrer
-        </button>
-      </div>
-    </form>
   </div>
+
+  <!-- Chargement -->
+  @if (isLoading) {
+    <div class="flex justify-center py-8">
+      <mat-spinner diameter="40"></mat-spinner>
+    </div>
+  }
+
+  <!-- Contenu du profil -->
+  @if (!isLoading) {
+    <div>
+      <!-- Photo de profil -->
+      <div class="flex flex-col items-center mb-6">
+        <div class="relative">
+          @if (editMode) {
+            @if (profileImage) {
+              <img [src]="profileImage" class="w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg" (click)="fileInput.click()" />
+            } @else {
+              <mat-icon class="!w-32 !h-32 !text-9xl rounded-full object-cover border-4 border-white shadow-lg" (click)="fileInput.click()">account_circle</mat-icon>
+            }
+            <input #fileInput type="file" accept="image/*" hidden (change)="onFileSelected($event)" />
+          } @else {
+            @if (profileImage) {
+              <img [src]="profileImage" class="w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg" />
+            } @else {
+              <mat-icon class="!w-32 !h-32 !text-9xl rounded-full object-cover border-4 border-white shadow-lg">account_circle</mat-icon>
+            }
+          }
+          
+        </div>
+      </div>
+
+      <!-- Affichage des informations en mode lecture -->
+      @if (!editMode) {
+        <div class="space-y-4">
+          <!-- Nom complet -->
+          <div class="mb-4">
+            <h3 class="text-sm font-medium text-gray-500">Nom complet</h3>
+            <p class="text-lg">{{ profileForm.get('name')?.value || '-' }}</p>
+          </div>
+
+          <!-- Email -->
+          <div class="mb-4">
+            <h3 class="text-sm font-medium text-gray-500">Email</h3>
+            <p class="text-lg">{{ profileForm.get('email')?.value || '-' }}</p>
+          </div>
+
+          <!-- Bio -->
+          <div class="mb-4">
+            <h3 class="text-sm font-medium text-gray-500">Bio</h3>
+            <p class="text-lg whitespace-pre-line">{{ profileForm.get('bio')?.value || 'Aucune bio' }}</p>
+          </div>
+
+          <!-- Notifications -->
+          <div class="flex items-center gap-2">
+            <mat-icon>{{ profileForm.get('notifications')?.value ? 'notifications_active' : 'notifications_off' }}</mat-icon>
+            <span>Notifications {{ profileForm.get('notifications')?.value ? 'activées' : 'désactivées' }}</span>
+          </div>
+        </div>
+      }
+
+      <!-- Formulaire en mode édition -->
+      @if (editMode) {
+        <form [formGroup]="profileForm" class="space-y-4">
+          <!-- Nom complet -->
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Nom complet</mat-label>
+            <input matInput formControlName="name"/>
+            @if (profileForm.get('name')?.hasError('required')) {
+              <mat-error>Le nom est obligatoire</mat-error>
+            }
+          </mat-form-field>
+
+          <!-- Email -->
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" type="email"/>
+            @if (profileForm.get('email')?.hasError('required')) {
+              <mat-error>L'email est obligatoire</mat-error>
+            }
+            @if (profileForm.get('email')?.hasError('email')) {
+              <mat-error>Email invalide</mat-error>
+            }
+          </mat-form-field>
+
+          <!-- Bio -->
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Bio</mat-label>
+            <textarea matInput formControlName="bio" rows="3"></textarea>
+          </mat-form-field>
+
+          <!-- Notifications -->
+          <mat-slide-toggle formControlName="notifications" color="primary">
+            Recevoir les notifications
+          </mat-slide-toggle>
+
+          <!-- Boutons d'action -->
+          <div class="flex justify-end gap-3 pt-4">
+            <button mat-stroked-button type="button" (click)="cancelEdit()">
+              Annuler
+            </button>
+            <button mat-raised-button color="primary" (click)="saveProfile()" [disabled]="!profileForm.valid">
+              Enregistrer
+            </button>
+          </div>
+        </form>
+      }
+    </div>
+  }
+</div>

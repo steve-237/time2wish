@@ -34,6 +34,11 @@ export class AuthService {
     }
   }
 
+  updatedProfile(updatedProfile: any): void {
+    this.currentUser = updatedProfile;
+    localStorage.setItem('currentUser', JSON.stringify(updatedProfile));
+  }
+
   // Simule un appel API de login
   login(email: string, password: string): Observable<any> {
     return new Observable(observer => {
