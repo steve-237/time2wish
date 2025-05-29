@@ -81,7 +81,7 @@
 
   <!-- Main Content -->
   <main class="flex-1 p-4">
-    <div class="!rounded-lg !shadow-md !p-4 !h-auto bg-white ">
+    <div class="!rounded-lg !shadow-md !p-4 !h-auto bg-white">
       <div class="flex items-center justify-between w-full">
         <!-- Logo -->
         <div class="flex items-center">
@@ -376,7 +376,9 @@
               *matCellDef="let element"
               class="text-gray-600 border-t border-gray-200"
             >
-              {{ element.name }}
+              <button mat-button (click)="openBirthdayDetails(element)">
+                {{ element.name }}
+              </button>
             </td>
           </ng-container>
 
@@ -554,9 +556,11 @@
               alt="Profile"
             />
             <div>
-              <mat-card-title class="!text-lg !mb-1">{{
-                item.name
-              }}</mat-card-title>
+              <mat-card-title class="!text-lg !mb-1">
+                <button mat-button (click)="openBirthdayDetails(item)">
+                  {{ item.name }}
+                </button>
+              </mat-card-title>
               <mat-card-subtitle class="!text-sm">{{
                 item.city
               }}</mat-card-subtitle>
