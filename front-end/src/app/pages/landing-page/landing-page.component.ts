@@ -1,3 +1,4 @@
+import { Birthday } from './../../models/birthday.model';
 import { AuthService } from './../../core/services/auth/auth.service';
 import { ChangeDetectorRef, Component, inject, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -33,12 +34,11 @@ import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
 import { BirthdayService } from '../../core/services/birthday/birthday.service';
 import {
   BehaviorSubject,
-  Observable,
   Subscription,
   combineLatest,
   map,
 } from 'rxjs';
-import { Birthday } from '../../models/birthday.model';
+import { BirthdayDetailsComponent } from '../birthday-details/birthday-details.component';
 
 @Component({
   selector: 'app-landing-page',
@@ -209,6 +209,13 @@ export class LandingPageComponent {
 
   onSetting() {
     this.dialog.open(SettingComponent);
+  }
+
+  openBirthdayDetails(birthday: Birthday) {
+    this.dialog.open(BirthdayDetailsComponent, {
+      width: '600px',
+      data: birthday
+    })
   }
 
   toggleTheme() {
