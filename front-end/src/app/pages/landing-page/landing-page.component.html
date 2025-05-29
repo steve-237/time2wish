@@ -81,7 +81,7 @@
 
   <!-- Main Content -->
   <main class="flex-1 p-4">
-    <mat-toolbar color="primary" class="!rounded-lg !shadow-md !p-4 !h-auto">
+    <div class="!rounded-lg !shadow-md !p-4 !h-auto bg-white ">
       <div class="flex items-center justify-between w-full">
         <!-- Logo -->
         <div class="flex items-center">
@@ -170,7 +170,6 @@
           <button
             mat-icon-button
             [matMenuTriggerFor]="languageMenu"
-            mat-icon-button
             [matBadge]="''"
             matBadgeColor="warn"
             matBadgeSize="small"
@@ -215,7 +214,7 @@
             mat-icon-button
             class="!w-10 !h-10 flex items-center justify-center"
             (click)="onInformation()"
-            matTooltip="informations"
+            matTooltip="information"
           >
             <mat-icon class="!text-gray-700">help_outline</mat-icon>
           </button>
@@ -237,7 +236,7 @@
             }
           </button>
           <mat-menu #profileMenu="matMenu">
-            <button mat-menu-item (click)="onProfil($event)">
+            <button mat-menu-item (click)="onProfil()">
               <mat-icon>person</mat-icon>
               <span>Profil</span>
             </button>
@@ -252,7 +251,7 @@
           </mat-menu>
         </div>
       </div>
-    </mat-toolbar>
+    </div>
 
     <div
       class="bg-white flex shadow-md justify-center gap-5 rounded-lg p-4 mt-4"

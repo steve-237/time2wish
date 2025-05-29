@@ -193,23 +193,9 @@ export class LandingPageComponent {
     this.dialog.open(NewBirthdayComponent);
   }
 
-  onProfil(event: MouseEvent) {
-    const mainContent = document.querySelector('app-root');
-
-    // Empêche l’interaction avec le fond
-    if (mainContent) {
-      mainContent.setAttribute('inert', '');
-    }
-    
-    const dialogRef = this.dialog.open(ProfilComponent, {
+  onProfil() {
+    this.dialog.open(ProfilComponent, {
       width: '500px',
-    });
-
-    dialogRef.afterClosed().subscribe(() => {
-      // Réactive le fond
-      if (mainContent) {
-        mainContent.removeAttribute('inert');
-      }
     });
   }
 
@@ -218,7 +204,7 @@ export class LandingPageComponent {
   }
 
   onInformation() {
-    this.dialog.open(InformationComponent, { width: '900px' });
+    this.dialog.open(InformationComponent);
   }
 
   onSetting() {

@@ -1,5 +1,5 @@
 import { inject, Injectable, Type } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Injectable({
   providedIn: 'root'
@@ -8,12 +8,28 @@ export class DialogService {
 
   private dialog = inject(MatDialog);
 
-  open(component: Type<any>, config: { width?: string; data?: any } = {}) {
-    return this.dialog.open(component, {
-      width: config.width,
+  open<T>(component: Type<T>, config: { width?: string; data?: any } = {}): MatDialogRef<T> {
+
+    const mainContent = document.querySelector('app-root');
+
+    if (mainContent) {
+      mainContent.setAttribute('inert', '');
+    }
+
+    const dialogRef = this.dialog.open(component, {
+      width: config.width || '500px',
       data: config.data || null,
       disableClose: false,
-      autoFocus: false,
+      autoFocus: true,
+      restoreFocus: true, 
     });
+
+    dialogRef.afterClosed().subscribe(() => {
+      if (mainContent) {
+        mainContent.removeAttribute('inert');
+      }
+    });
+
+    return dialogRef;
   }
 }
