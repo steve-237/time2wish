@@ -132,7 +132,11 @@ export class LandingPageComponent {
 
   private dataSourceSub?: Subscription;
 
-  constructor(private dialog: DialogService, private cdr: ChangeDetectorRef, public authService: AuthService) {}
+  constructor(
+    private dialog: DialogService,
+    private cdr: ChangeDetectorRef,
+    public authService: AuthService
+  ) {}
 
   ngOnInit() {
     setInterval(() => {
@@ -189,8 +193,24 @@ export class LandingPageComponent {
     this.dialog.open(NewBirthdayComponent);
   }
 
-  onProfil() {
-    this.dialog.open(ProfilComponent, {width: '500px'});
+  onProfil(event: MouseEvent) {
+    const mainContent = document.querySelector('app-root');
+
+    // Empêche l’interaction avec le fond
+    if (mainContent) {
+      mainContent.setAttribute('inert', '');
+    }
+    
+    const dialogRef = this.dialog.open(ProfilComponent, {
+      width: '500px',
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      // Réactive le fond
+      if (mainContent) {
+        mainContent.removeAttribute('inert');
+      }
+    });
   }
 
   onNotification() {
@@ -198,7 +218,7 @@ export class LandingPageComponent {
   }
 
   onInformation() {
-    this.dialog.open(InformationComponent, {width: '900px'});
+    this.dialog.open(InformationComponent, { width: '900px' });
   }
 
   onSetting() {
@@ -291,13 +311,14 @@ export class LandingPageComponent {
     const birthDateObj = new Date(birthDate);
     let age = today.getFullYear() - birthDateObj.getFullYear();
     const monthDiff = today.getMonth() - birthDateObj.getMonth();
-    
-    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDateObj.getDate())) {
+
+    if (
+      monthDiff < 0 ||
+      (monthDiff === 0 && today.getDate() < birthDateObj.getDate())
+    ) {
       age--;
     }
-    
+
     return age;
   }
-
-
 }
