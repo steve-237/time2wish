@@ -7,7 +7,7 @@
 ## 🧭 Overview
 
 **Time2Wish** is a modern web application built with Angular that helps users remember birthdays, organize meaningful wishes, and celebrate those they care about.  
-It’s more than just a reminder app — it’s your personal assistant for creating unforgettable moments.
+It’s more than just a reminder app, it’s your personal assistant for creating unforgettable moments.
 
 ---
 
