@@ -302,7 +302,11 @@
     </div>
 
     <div class="bg-white shadow-md rounded-lg p-4 mt-4">
-      @if(viewMode === 'table') {
+      @if (loading) {
+      <div class=" flex items-center justify-center">
+        <mat-spinner diameter="50"></mat-spinner>
+      </div>
+      } @if(viewMode === 'table' && !loading) {
       <div
         class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6"
       >
@@ -543,8 +547,7 @@
           aria-label="Select page"
         ></mat-paginator>
       </div>
-      } } @else {
-
+      } } @else { @if (!loading) {
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
         @if(hasBirthdays$ | async) { @for (item of dataSource.data; track
         item.id) {
@@ -627,8 +630,7 @@
         </div>
         }
       </div>
-
-      }
+      } }
     </div>
   </main>
 </div>
