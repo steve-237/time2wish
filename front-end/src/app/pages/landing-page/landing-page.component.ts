@@ -1,6 +1,6 @@
 import { Birthday } from './../../models/birthday.model';
 import { AuthService } from './../../core/services/auth/auth.service';
-import { ChangeDetectorRef, Component, inject, ViewChild } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatDividerModule } from '@angular/material/divider';
@@ -39,6 +39,7 @@ import {
   map,
 } from 'rxjs';
 import { BirthdayDetailsComponent } from '../birthday-details/birthday-details.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-landing-page',
@@ -74,6 +75,7 @@ import { BirthdayDetailsComponent } from '../birthday-details/birthday-details.c
     MatTooltipModule,
     MatBadgeModule,
     TranslocoModule,
+    MatProgressSpinnerModule
   ],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.css',
@@ -122,6 +124,7 @@ export class LandingPageComponent {
   tableSearchQuery = '';
   showSearchBar = false;
   isDarkTheme = false;
+  loading = false;
 
   private birthdayService = inject(BirthdayService);
   birthdays = this.birthdayService.birthdays$;
@@ -134,7 +137,6 @@ export class LandingPageComponent {
 
   constructor(
     private dialog: DialogService,
-    private cdr: ChangeDetectorRef,
     public authService: AuthService
   ) {}
 
@@ -160,7 +162,13 @@ export class LandingPageComponent {
   }
 
   setActiveButton(mode: 'coming' | 'passed') {
+    this.loading = true;
     this.activeButtonSubject.next(mode);
+
+    setTimeout(() => {
+      this.loading = false;
+      // this.loadBirthdays(); // Appelez votre méthode de chargement réelle ici
+    }, 800);
   }
 
   toggleMainSearch() {
