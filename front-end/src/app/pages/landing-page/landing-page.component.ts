@@ -141,11 +141,14 @@ export class LandingPageComponent {
   ) {}
 
   ngOnInit() {
+    this.loading = true;
     setInterval(() => {
       this.currentDate = new Date();
     }, 60000);
 
     this.birthdayService.fetchBirthdays();
+    
+      this.loading = false;
   }
 
   ngAfterViewInit(): void {
