@@ -302,13 +302,15 @@
     </div>
 
     @if (loading) {
-      <div class=" bg-white flex flex-col mt-4 h-[75%] items-center justify-center  rounded-lg">
-        <mat-spinner diameter="50" color="primary"></mat-spinner>
-        <p class="text-gray-600 text-sm">Chargement des anniversaires...</p>
-      </div>
-      }@else {
-    <div class="bg-white shadow-md rounded-lg p-4 mt-4">
-       @if(viewMode === 'table' && !loading) {
+    <div
+      class="bg-white flex flex-col mt-4 h-[75%] items-center justify-center rounded-lg"
+    >
+      <mat-spinner diameter="50" color="primary"></mat-spinner>
+      <p class="text-gray-600 text-sm">Chargement des anniversaires...</p>
+    </div>
+    }@else {
+    <div class="bg-white shadow-md rounded-lg p-4 mt-4 relative">
+      @if(viewMode === 'table' && !loading) {
       <div
         class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6"
       >
@@ -541,10 +543,9 @@
 
       <!-- Pagination -->
       @if(hasBirthdays$ | async) {
-      <div class="flex items-center justify-between text-gray-600">
+      <div class="sticky bottom-0 z-40">
         <mat-paginator
-          class="w-full"
-          [pageSizeOptions]="[10, 15, 25, 100]"
+          [pageSizeOptions]="[7, 15, 25, 100]"
           showFirstLastButtons
           aria-label="Select page"
         ></mat-paginator>
