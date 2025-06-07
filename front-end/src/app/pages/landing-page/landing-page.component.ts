@@ -38,7 +38,6 @@ import { BirthdayCardComponent } from '../../components/birthday-card/birthday-c
   selector: 'app-landing-page',
   imports: [
     CommonModule,
-    MatTableModule,
     MatPaginatorModule,
     MatDividerModule,
     MatButtonModule,

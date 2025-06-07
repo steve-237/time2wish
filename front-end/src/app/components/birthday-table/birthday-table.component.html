@@ -1,20 +1,40 @@
 <table mat-table [dataSource]="birthdays" class="w-full">
   <!-- Photo Column -->
   <ng-container matColumnDef="photo">
-    <th mat-header-cell *matHeaderCellDef class="bg-gray-50 font-semibold text-gray-700">
-      {{ 'birthday_table.photo' | transloco }}
+    <th
+      mat-header-cell
+      *matHeaderCellDef
+      class="bg-gray-50 font-semibold text-gray-700"
+    >
+      {{ "birthday_table.photo" | transloco }}
     </th>
-    <td mat-cell *matCellDef="let element" class="text-gray-600 border-t border-gray-200">
-      <img [src]="element.photo" class="w-10 h-10 rounded-full object-cover" alt="Profile" />
+    <td
+      mat-cell
+      *matCellDef="let element"
+      class="text-gray-600 border-t border-gray-200"
+    >
+      <img
+        [src]="element.photo"
+        class="w-10 h-10 rounded-full object-cover"
+        alt="Profile"
+      />
     </td>
   </ng-container>
 
   <!-- Name Column -->
   <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef class="bg-gray-50 font-semibold text-gray-700">
-      {{ 'birthday_table.name' | transloco }}
+    <th
+      mat-header-cell
+      *matHeaderCellDef
+      class="bg-gray-50 font-semibold text-gray-700"
+    >
+      {{ "birthday_table.name" | transloco }}
     </th>
-    <td mat-cell *matCellDef="let element" class="text-gray-600 border-t border-gray-200">
+    <td
+      mat-cell
+      *matCellDef="let element"
+      class="text-gray-600 border-t border-gray-200"
+    >
       <button mat-button (click)="openBirthdayDetails(element)">
         {{ element.name }}
       </button>
@@ -23,40 +43,72 @@
 
   <!-- City Column -->
   <ng-container matColumnDef="city">
-    <th mat-header-cell *matHeaderCellDef class="bg-gray-50 font-semibold text-gray-700">
-      {{ 'birthday_table.city' | transloco }}
+    <th
+      mat-header-cell
+      *matHeaderCellDef
+      class="bg-gray-50 font-semibold text-gray-700"
+    >
+      {{ "birthday_table.city" | transloco }}
     </th>
-    <td mat-cell *matCellDef="let element" class="text-gray-600 border-t border-gray-200">
+    <td
+      mat-cell
+      *matCellDef="let element"
+      class="text-gray-600 border-t border-gray-200"
+    >
       {{ element.city | transloco }}
     </td>
   </ng-container>
 
   <!-- Category Column -->
   <ng-container matColumnDef="category">
-    <th mat-header-cell *matHeaderCellDef class="bg-gray-50 font-semibold text-gray-700">
-      {{ 'birthday_table.category' | transloco }}
+    <th
+      mat-header-cell
+      *matHeaderCellDef
+      class="bg-gray-50 font-semibold text-gray-700"
+    >
+      {{ "birthday_table.category" | transloco }}
     </th>
-    <td mat-cell *matCellDef="let element" class="text-gray-600 border-t border-gray-200">
+    <td
+      mat-cell
+      *matCellDef="let element"
+      class="text-gray-600 border-t border-gray-200"
+    >
       {{ element.category | transloco }}
     </td>
   </ng-container>
 
   <!-- Date Column -->
   <ng-container matColumnDef="date">
-    <th mat-header-cell *matHeaderCellDef class="bg-gray-50 font-semibold text-gray-700">
-      {{ 'birthday_table.date' | transloco }}
+    <th
+      mat-header-cell
+      *matHeaderCellDef
+      class="bg-gray-50 font-semibold text-gray-700"
+    >
+      {{ "birthday_table.date" | transloco }}
     </th>
-    <td mat-cell *matCellDef="let element" class="text-gray-600 border-t border-gray-200">
+    <td
+      mat-cell
+      *matCellDef="let element"
+      class="text-gray-600 border-t border-gray-200"
+    >
       {{ element.date | date : "dd.MM.yyyy" }}
     </td>
   </ng-container>
 
   <!-- Age Column -->
   <ng-container matColumnDef="age">
-    <th mat-header-cell *matHeaderCellDef class="bg-gray-50 font-semibold text-gray-700">
-      {{ 'birthday_table.age' | transloco }}
+    <th
+      mat-header-cell
+      *matHeaderCellDef
+      class="bg-gray-50 font-semibold text-gray-700"
+    >
+      {{ "birthday_table.age" | transloco }}
     </th>
-    <td mat-cell *matCellDef="let element" class="text-gray-600 border-t border-gray-200">
+    <td
+      mat-cell
+      *matCellDef="let element"
+      class="text-gray-600 border-t border-gray-200"
+    >
       <div class="flex items-center gap-1">
         <mat-icon class="!text-base !text-yellow-500">cake</mat-icon>
         <span>{{ calculateAge(element.date) }}</span>
@@ -66,12 +118,25 @@
 
   <!-- Status Column -->
   <ng-container matColumnDef="status">
-    <th mat-header-cell *matHeaderCellDef class="bg-gray-50 font-semibold text-gray-700">
-      {{ 'birthday_table.status' | transloco }}
+    <th
+      mat-header-cell
+      *matHeaderCellDef
+      class="bg-gray-50 font-semibold text-gray-700"
+    >
+      {{ "birthday_table.status" | transloco }}
     </th>
-    <td mat-cell *matCellDef="let element" class="text-gray-600 border-t border-gray-200">
-      <div class="flex items-center gap-1" [ngClass]="getBirthdayStatus(element.date).color">
-        <mat-icon class="!text-base">{{ getBirthdayStatus(element.date).icon }}</mat-icon>
+    <td
+      mat-cell
+      *matCellDef="let element"
+      class="text-gray-600 border-t border-gray-200"
+    >
+      <div
+        class="flex items-center gap-1"
+        [ngClass]="getBirthdayStatus(element.date).color"
+      >
+        <mat-icon class="!text-base">{{
+          getBirthdayStatus(element.date).icon
+        }}</mat-icon>
         <span>{{ getBirthdayStatus(element.date).text | transloco }}</span>
       </div>
     </td>
@@ -79,16 +144,29 @@
 
   <!-- Action Column -->
   <ng-container matColumnDef="action">
-    <th mat-header-cell *matHeaderCellDef class="bg-gray-50 font-semibold text-gray-700">
-      {{ 'birthday_table.action' | transloco }}
+    <th
+      mat-header-cell
+      *matHeaderCellDef
+      class="bg-gray-50 font-semibold text-gray-700"
+    >
+      {{ "birthday_table.action" | transloco }}
     </th>
-    <td mat-cell *matCellDef="let element" class="text-gray-600 border-t border-gray-200">
+    <td
+      mat-cell
+      *matCellDef="let element"
+      class="text-gray-600 border-t border-gray-200"
+    >
       <div class="flex gap-2">
         <button mat-icon-button color="primary">
-          <mat-icon matTooltip="{{ 'birthday_table.edit' | transloco }}">edit</mat-icon>
+          <mat-icon matTooltip="{{ 'birthday_table.edit' | transloco }}"
+            >edit</mat-icon
+          >
         </button>
         <button mat-icon-button color="warn">
-          <mat-icon matTooltip="{{ 'birthday_table.delete' | transloco }}" (click)="deleteBirthday(element.id)">
+          <mat-icon
+            matTooltip="{{ 'birthday_table.delete' | transloco }}"
+            (click)="deleteBirthday(element.id)"
+          >
             delete
           </mat-icon>
         </button>
