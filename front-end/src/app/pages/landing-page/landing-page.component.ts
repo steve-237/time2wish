@@ -32,16 +32,11 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { ConfirmDeleteComponent } from '../confirm-delete/confirm-delete.component';
 import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
 import { BirthdayService } from '../../core/services/birthday/birthday.service';
-import {
-  BehaviorSubject,
-  Subscription,
-  combineLatest,
-  map,
-} from 'rxjs';
+import { BehaviorSubject, Subscription, combineLatest, map } from 'rxjs';
 import { BirthdayDetailsComponent } from '../birthday-details/birthday-details.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { BirthdayTableComponent } from "../../components/birthday-table/birthday-table.component";
-import { BirthdayCardComponent } from "../../components/birthday-card/birthday-card.component";
+import { BirthdayTableComponent } from '../../components/birthday-table/birthday-table.component';
+import { BirthdayCardComponent } from '../../components/birthday-card/birthday-card.component';
 
 @Component({
   selector: 'app-landing-page',
@@ -77,18 +72,17 @@ import { BirthdayCardComponent } from "../../components/birthday-card/birthday-c
     TranslocoModule,
     MatProgressSpinnerModule,
     BirthdayTableComponent,
-    BirthdayCardComponent
-],
+    BirthdayCardComponent,
+  ],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.css',
 })
 export class LandingPageComponent {
-editBirthday() {
-throw new Error('Method not implemented.');
-}
+  editBirthday() {
+    throw new Error('Method not implemented.');
+  }
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   protected translocoService = inject(TranslocoService);
-
 
   languages = [
     { code: 'fr', name: 'Français', flag: 'https://flagcdn.com/w20/fr.png' },
@@ -130,10 +124,7 @@ throw new Error('Method not implemented.');
 
   private dataSourceSub?: Subscription;
 
-  constructor(
-    private dialog: DialogService,
-    public authService: AuthService
-  ) {}
+  constructor(private dialog: DialogService, public authService: AuthService) {}
 
   ngOnInit() {
     this.loading = true;
@@ -142,8 +133,8 @@ throw new Error('Method not implemented.');
     }, 60000);
 
     this.birthdayService.fetchBirthdays();
-    
-      this.loading = false;
+
+    this.loading = false;
   }
 
   ngAfterViewInit(): void {
@@ -220,8 +211,8 @@ throw new Error('Method not implemented.');
   openBirthdayDetails(birthday: Birthday) {
     this.dialog.open(BirthdayDetailsComponent, {
       width: '600px',
-      data: birthday
-    })
+      data: birthday,
+    });
   }
 
   toggleTheme() {
@@ -258,11 +249,19 @@ throw new Error('Method not implemented.');
   filteredBirthdays$ = combineLatest([this.birthdays, this.activeButton$]).pipe(
     map(([birthdays, active]) => {
       const now = new Date();
+      now.setHours(0, 0, 0, 0); // ignore l'heure pour ne garder que la date
+
       return birthdays.filter((birthday) => {
         const birthdayDate = new Date(birthday.date);
         birthdayDate.setFullYear(now.getFullYear());
+        birthdayDate.setHours(0, 0, 0, 0);
 
-        return active === 'coming' ? birthdayDate >= now : birthdayDate < now;
+        if (active === 'coming') {
+          return birthdayDate >= now;
+        } else if (active === 'passed') {
+          return birthdayDate < now;
+        }
+        return false;
       });
     })
   );
@@ -270,6 +269,4 @@ throw new Error('Method not implemented.');
   hasBirthdays$ = this.filteredBirthdays$.pipe(
     map((birthdays) => birthdays.length > 0)
   );
-
-  
 }
