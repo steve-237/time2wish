@@ -1,0 +1,60 @@
+<mat-card class="hover:shadow-lg transition-shadow">
+  <div class="flex items-center p-4">
+    <img
+      [src]="item.photo"
+      class="w-16 h-16 rounded-full object-cover mr-4"
+      alt="Profile"
+    />
+    <div>
+      <mat-card-title class="!text-lg !mb-1">
+        <button mat-button (click)="openBirthdayDetails(item)">
+          {{ item.name }}
+        </button>
+      </mat-card-title>
+      <mat-card-subtitle class="!text-sm">{{ item.city }}</mat-card-subtitle>
+    </div>
+  </div>
+
+  <mat-card-content class="px-4 pb-4">
+    <div class="flex justify-between text-sm text-gray-600 mb-2">
+      <span>Category:</span>
+      <span class="font-medium">{{ item.category }}</span>
+    </div>
+    <div class="flex justify-between text-sm text-gray-600 mb-2">
+      <span>Date:</span>
+      <span class="font-medium">{{ item.date | date : "dd.MM.yyyy" }}</span>
+    </div>
+
+    <div class="flex justify-between text-sm text-gray-600 mb-2">
+      <span>Age:</span>
+      <span class="font-medium flex items-center gap-1">
+        <mat-icon class="!text-base !text-yellow-500">cake</mat-icon>
+        {{ calculateAge(item.date) }}
+      </span>
+    </div>
+
+    <div class="flex justify-between items-center text-sm mt-3">
+      <span>Status:</span>
+      <span
+        class="font-medium flex items-center gap-1"
+        [ngClass]="getBirthdayStatus(item.date).color"
+      >
+        <mat-icon class="!text-base">{{
+          getBirthdayStatus(item.date).icon
+        }}</mat-icon>
+        {{ getBirthdayStatus(item.date).text }}
+      </span>
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions class="flex justify-end p-4 pt-0">
+    <button mat-icon-button color="primary">
+      <mat-icon matTooltip="Edit birthday">edit</mat-icon>
+    </button>
+    <button mat-icon-button color="warn">
+      <mat-icon matTooltip="Delete birthday" (click)="deleteBirthday(item.id)"
+        >delete</mat-icon
+      >
+    </button>
+  </mat-card-actions>
+</mat-card>

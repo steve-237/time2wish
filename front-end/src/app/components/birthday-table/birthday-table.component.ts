@@ -1,0 +1,60 @@
+import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { BirthdayService } from '../../core/services/birthday/birthday.service';
+
+@Component({
+  selector: 'app-birthday-table',
+  imports: [
+    CommonModule,
+    MatTableModule,
+    MatIconModule,
+    MatButtonModule,
+    MatTooltipModule,
+  ],
+  templateUrl: './birthday-table.component.html',
+  styleUrl: './birthday-table.component.css',
+})
+export class BirthdayTableComponent {
+  
+  @Input() birthdays: any[] = [];
+  @Output() edit = new EventEmitter<any>();
+  @Output() delete = new EventEmitter<any>();
+
+  displayedColumns: string[] = [
+    'photo',
+    'name',
+    'city',
+    'category',
+    'date',
+    'age',
+    'status',
+    'action',
+  ];
+
+  constructor(private birthdayService: BirthdayService) {}
+
+  getBirthdayStatus(birthdayDate: Date): {
+    text: string;
+    icon: string;
+    color: string;
+  } {
+    return this.birthdayService.getBirthdayStatus(birthdayDate);
+  }
+
+  calculateAge(birthdayDate: Date) {
+    this.birthdayService.calculateAge(birthdayDate);
+  }
+
+  openBirthdayDetails(birthday: any) {
+    // Tu peux ajouter une méthode si tu veux gérer l'affichage détaillé
+    console.log('Details:', birthday);
+  }
+
+  deleteBirthday(id: number) {
+    this.delete.emit(id);
+  }
+}

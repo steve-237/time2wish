@@ -302,13 +302,15 @@
     </div>
 
     @if (loading) {
-      <div class=" bg-white flex flex-col mt-4 h-[75%] items-center justify-center  rounded-lg">
-        <mat-spinner diameter="50" color="primary"></mat-spinner>
-        <p class="text-gray-600 text-sm">Chargement des anniversaires...</p>
-      </div>
-      }@else {
+    <div
+      class="bg-white flex flex-col mt-4 h-[75%] items-center justify-center rounded-lg"
+    >
+      <mat-spinner diameter="50" color="primary"></mat-spinner>
+      <p class="text-gray-600 text-sm">Chargement des anniversaires...</p>
+    </div>
+    }@else {
     <div class="bg-white shadow-md rounded-lg p-4 mt-4">
-       @if(viewMode === 'table' && !loading) {
+      @if(viewMode === 'table' && !loading) {
       <div
         class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6"
       >
@@ -345,186 +347,11 @@
       <div
         class="shadow-sm rounded-lg overflow-hidden border border-gray-200 mb-6"
       >
-        <table mat-table [dataSource]="dataSource" class="w-full">
-          <!-- Photo Column -->
-          <ng-container matColumnDef="photo">
-            <th
-              mat-header-cell
-              *matHeaderCellDef
-              class="bg-gray-50 font-semibold text-gray-700"
-            >
-              Photo
-            </th>
-            <td
-              mat-cell
-              *matCellDef="let element"
-              class="text-gray-600 border-t border-gray-200"
-            >
-              <img
-                [src]="element.photo"
-                class="w-10 h-10 rounded-full object-cover"
-                alt="Profile"
-              />
-            </td>
-          </ng-container>
-
-          <!-- Name Column -->
-          <ng-container matColumnDef="name">
-            <th
-              mat-header-cell
-              *matHeaderCellDef
-              class="bg-gray-50 font-semibold text-gray-700"
-            >
-              Name
-            </th>
-            <td
-              mat-cell
-              *matCellDef="let element"
-              class="text-gray-600 border-t border-gray-200"
-            >
-              <button mat-button (click)="openBirthdayDetails(element)">
-                {{ element.name }}
-              </button>
-            </td>
-          </ng-container>
-
-          <!-- City Column -->
-          <ng-container matColumnDef="city">
-            <th
-              mat-header-cell
-              *matHeaderCellDef
-              class="bg-gray-50 font-semibold text-gray-700"
-            >
-              City
-            </th>
-            <td
-              mat-cell
-              *matCellDef="let element"
-              class="text-gray-600 border-t border-gray-200"
-            >
-              {{ element.city }}
-            </td>
-          </ng-container>
-
-          <!-- Category Column -->
-          <ng-container matColumnDef="category">
-            <th
-              mat-header-cell
-              *matHeaderCellDef
-              class="bg-gray-50 font-semibold text-gray-700"
-            >
-              Category
-            </th>
-            <td
-              mat-cell
-              *matCellDef="let element"
-              class="text-gray-600 border-t border-gray-200"
-            >
-              {{ element.category }}
-            </td>
-          </ng-container>
-
-          <!-- Date Column -->
-          <ng-container matColumnDef="date">
-            <th
-              mat-header-cell
-              *matHeaderCellDef
-              class="bg-gray-50 font-semibold text-gray-700"
-            >
-              Date
-            </th>
-            <td
-              mat-cell
-              *matCellDef="let element"
-              class="text-gray-600 border-t border-gray-200"
-            >
-              {{ element.date | date : "dd.MM.yyyy" }}
-            </td>
-          </ng-container>
-
-          <!-- Nouvelle colonne Age -->
-          <ng-container matColumnDef="age">
-            <th
-              mat-header-cell
-              *matHeaderCellDef
-              class="bg-gray-50 font-semibold text-gray-700"
-            >
-              Age
-            </th>
-            <td
-              mat-cell
-              *matCellDef="let element"
-              class="text-gray-600 border-t border-gray-200"
-            >
-              <div class="flex items-center gap-1">
-                <mat-icon class="!text-base !text-yellow-500">cake</mat-icon>
-                <span>{{ calculateAge(element.date) }}</span>
-              </div>
-            </td>
-          </ng-container>
-
-          <!-- Colonne Status -->
-          <ng-container matColumnDef="status">
-            <th
-              mat-header-cell
-              *matHeaderCellDef
-              class="bg-gray-50 font-semibold text-gray-700"
-            >
-              Status
-            </th>
-            <td
-              mat-cell
-              *matCellDef="let element"
-              class="text-gray-600 border-t border-gray-200"
-            >
-              <div
-                class="flex items-center gap-1"
-                [ngClass]="getBirthdayStatus(element.date).color"
-              >
-                <mat-icon class="!text-base">{{
-                  getBirthdayStatus(element.date).icon
-                }}</mat-icon>
-                <span>{{ getBirthdayStatus(element.date).text }}</span>
-              </div>
-            </td>
-          </ng-container>
-
-          <!-- Action Column -->
-          <ng-container matColumnDef="action">
-            <th
-              mat-header-cell
-              *matHeaderCellDef
-              class="bg-gray-50 font-semibold text-gray-700"
-            >
-              Action
-            </th>
-            <td
-              mat-cell
-              *matCellDef="let element"
-              class="text-gray-600 border-t border-gray-200"
-            >
-              <div class="flex gap-2">
-                <!-- Bouton Édition -->
-                <button mat-icon-button color="primary">
-                  <mat-icon matTooltip="Edit birthday">edit</mat-icon>
-                </button>
-
-                <!-- Bouton Suppression -->
-                <button mat-icon-button color="warn">
-                  <mat-icon
-                    matTooltip="Delete birthday"
-                    (click)="deleteBirthday(element.id)"
-                    >delete</mat-icon
-                  >
-                </button>
-              </div>
-            </td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-        </table>
-
+        <app-birthday-table
+          [birthdays]="dataSource.data"
+          (edit)="editBirthday()"
+          (delete)="deleteBirthday($event)"
+        ></app-birthday-table>
         @if(!(hasBirthdays$ | async)) {
         <div class="p-8 text-center text-gray-500">
           <mat-icon class="!text-4xl !w-12 !h-12 mb-2">event_busy</mat-icon>
@@ -553,72 +380,13 @@
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
         @if(hasBirthdays$ | async) { @for (item of dataSource.data; track
         item.id) {
-        <mat-card class="hover:shadow-lg transition-shadow">
-          <div class="flex items-center p-4">
-            <img
-              [src]="item.photo"
-              class="w-16 h-16 rounded-full object-cover mr-4"
-              alt="Profile"
-            />
-            <div>
-              <mat-card-title class="!text-lg !mb-1">
-                <button mat-button (click)="openBirthdayDetails(item)">
-                  {{ item.name }}
-                </button>
-              </mat-card-title>
-              <mat-card-subtitle class="!text-sm">{{
-                item.city
-              }}</mat-card-subtitle>
-            </div>
-          </div>
 
-          <mat-card-content class="px-4 pb-4">
-            <div class="flex justify-between text-sm text-gray-600 mb-2">
-              <span>Category:</span>
-              <span class="font-medium">{{ item.category }}</span>
-            </div>
-            <div class="flex justify-between text-sm text-gray-600 mb-2">
-              <span>Date:</span>
-              <span class="font-medium">{{
-                item.date | date : "dd.MM.yyyy"
-              }}</span>
-            </div>
-
-            <div class="flex justify-between text-sm text-gray-600 mb-2">
-              <span>Age:</span>
-              <span class="font-medium flex items-center gap-1">
-                <mat-icon class="!text-base !text-yellow-500">cake</mat-icon>
-                {{ calculateAge(item.date) }}
-              </span>
-            </div>
-
-            <div class="flex justify-between items-center text-sm mt-3">
-              <span>Status:</span>
-              <span
-                class="font-medium flex items-center gap-1"
-                [ngClass]="getBirthdayStatus(item.date).color"
-              >
-                <mat-icon class="!text-base">{{
-                  getBirthdayStatus(item.date).icon
-                }}</mat-icon>
-                {{ getBirthdayStatus(item.date).text }}
-              </span>
-            </div>
-          </mat-card-content>
-
-          <mat-card-actions class="flex justify-end p-4 pt-0">
-            <button mat-icon-button color="primary">
-              <mat-icon matTooltip="Edit birthday">edit</mat-icon>
-            </button>
-            <button mat-icon-button color="warn">
-              <mat-icon
-                matTooltip="Delete birthday"
-                (click)="deleteBirthday(item.id)"
-                >delete</mat-icon
-              >
-            </button>
-          </mat-card-actions>
-        </mat-card>
+        <app-birthday-card
+          [item]="item"
+          (edit)="editBirthday()"
+          (delete)="deleteBirthday(item.id)"
+          (details)="openBirthdayDetails(item)"
+        ></app-birthday-card>
         } } @else {
         <div class="p-8 text-center text-gray-500">
           <mat-icon class="!text-4xl !w-12 !h-12 mb-2">event_busy</mat-icon>
