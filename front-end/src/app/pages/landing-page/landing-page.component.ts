@@ -32,14 +32,11 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { ConfirmDeleteComponent } from '../confirm-delete/confirm-delete.component';
 import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
 import { BirthdayService } from '../../core/services/birthday/birthday.service';
-import {
-  BehaviorSubject,
-  Subscription,
-  combineLatest,
-  map,
-} from 'rxjs';
+import { BehaviorSubject, Subscription, combineLatest, map } from 'rxjs';
 import { BirthdayDetailsComponent } from '../birthday-details/birthday-details.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { BirthdayTableComponent } from '../../components/birthday-table/birthday-table.component';
+import { BirthdayCardComponent } from '../../components/birthday-card/birthday-card.component';
 
 @Component({
   selector: 'app-landing-page',
@@ -55,8 +52,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatMenuModule,
     MatBadgeModule,
     MatCardModule,
-    MatCardTitle,
-    MatCardSubtitle,
     MatInputModule,
     MatButtonModule,
     MatIconModule,
@@ -75,25 +70,19 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatTooltipModule,
     MatBadgeModule,
     TranslocoModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    BirthdayTableComponent,
+    BirthdayCardComponent,
   ],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.css',
 })
 export class LandingPageComponent {
+  editBirthday() {
+    throw new Error('Method not implemented.');
+  }
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   protected translocoService = inject(TranslocoService);
-
-  displayedColumns: string[] = [
-    'photo',
-    'name',
-    'city',
-    'category',
-    'date',
-    'age',
-    'status',
-    'action',
-  ];
 
   languages = [
     { code: 'fr', name: 'Français', flag: 'https://flagcdn.com/w20/fr.png' },
@@ -135,10 +124,7 @@ export class LandingPageComponent {
 
   private dataSourceSub?: Subscription;
 
-  constructor(
-    private dialog: DialogService,
-    public authService: AuthService
-  ) {}
+  constructor(private dialog: DialogService, public authService: AuthService) {}
 
   ngOnInit() {
     this.loading = true;
@@ -147,8 +133,8 @@ export class LandingPageComponent {
     }, 60000);
 
     this.birthdayService.fetchBirthdays();
-    
-      this.loading = false;
+
+    this.loading = false;
   }
 
   ngAfterViewInit(): void {
@@ -225,8 +211,8 @@ export class LandingPageComponent {
   openBirthdayDetails(birthday: Birthday) {
     this.dialog.open(BirthdayDetailsComponent, {
       width: '600px',
-      data: birthday
-    })
+      data: birthday,
+    });
   }
 
   toggleTheme() {
@@ -263,11 +249,19 @@ export class LandingPageComponent {
   filteredBirthdays$ = combineLatest([this.birthdays, this.activeButton$]).pipe(
     map(([birthdays, active]) => {
       const now = new Date();
+      now.setHours(0, 0, 0, 0); // ignore l'heure pour ne garder que la date
+
       return birthdays.filter((birthday) => {
         const birthdayDate = new Date(birthday.date);
         birthdayDate.setFullYear(now.getFullYear());
+        birthdayDate.setHours(0, 0, 0, 0);
 
-        return active === 'coming' ? birthdayDate >= now : birthdayDate < now;
+        if (active === 'coming') {
+          return birthdayDate >= now;
+        } else if (active === 'passed') {
+          return birthdayDate < now;
+        }
+        return false;
       });
     })
   );
@@ -275,54 +269,4 @@ export class LandingPageComponent {
   hasBirthdays$ = this.filteredBirthdays$.pipe(
     map((birthdays) => birthdays.length > 0)
   );
-
-  getBirthdayStatus(birthdayDate: Date): {
-    text: string;
-    icon: string;
-    color: string;
-  } {
-    const today = new Date();
-    const date = new Date(birthdayDate);
-    date.setFullYear(today.getFullYear());
-
-    const diffDays = Math.ceil(
-      (date.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
-    );
-
-    if (diffDays > 0) {
-      return {
-        text: `In ${diffDays} days`,
-        icon: 'event_upcoming',
-        color: 'text-green-500',
-      };
-    } else if (diffDays === 0) {
-      return {
-        text: 'Today',
-        icon: 'event_available',
-        color: 'text-blue-500',
-      };
-    } else {
-      return {
-        text: 'Passed',
-        icon: 'event_busy',
-        color: 'text-gray-400',
-      };
-    }
-  }
-
-  calculateAge(birthDate: Date): number {
-    const today = new Date();
-    const birthDateObj = new Date(birthDate);
-    let age = today.getFullYear() - birthDateObj.getFullYear();
-    const monthDiff = today.getMonth() - birthDateObj.getMonth();
-
-    if (
-      monthDiff < 0 ||
-      (monthDiff === 0 && today.getDate() < birthDateObj.getDate())
-    ) {
-      age--;
-    }
-
-    return age;
-  }
 }
