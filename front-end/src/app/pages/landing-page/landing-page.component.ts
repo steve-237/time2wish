@@ -13,11 +13,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
-import {
-  MatCardModule,
-  MatCardTitle,
-  MatCardSubtitle,
-} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NewBirthdayComponent } from '../new-birthday/new-birthday.component';
@@ -42,7 +38,6 @@ import { BirthdayCardComponent } from '../../components/birthday-card/birthday-c
   selector: 'app-landing-page',
   imports: [
     CommonModule,
-    MatTableModule,
     MatPaginatorModule,
     MatDividerModule,
     MatButtonModule,

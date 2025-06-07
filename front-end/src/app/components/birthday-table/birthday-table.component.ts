@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BirthdayService } from '../../core/services/birthday/birthday.service';
+import { TranslocoModule } from '@jsverse/transloco';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-birthday-table',
@@ -14,6 +16,8 @@ import { BirthdayService } from '../../core/services/birthday/birthday.service';
     MatIconModule,
     MatButtonModule,
     MatTooltipModule,
+    TranslocoModule,
+    MatPaginatorModule,
   ],
   templateUrl: './birthday-table.component.html',
   styleUrl: './birthday-table.component.css',
@@ -45,8 +49,8 @@ export class BirthdayTableComponent {
     return this.birthdayService.getBirthdayStatus(birthdayDate);
   }
 
-  calculateAge(birthdayDate: Date) {
-    this.birthdayService.calculateAge(birthdayDate);
+  calculateAge(birthdayDate: Date): number {
+    return this.birthdayService.calculateAge(birthdayDate);
   }
 
   openBirthdayDetails(birthday: any) {

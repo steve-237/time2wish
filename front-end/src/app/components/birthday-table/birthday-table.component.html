@@ -6,7 +6,7 @@
       *matHeaderCellDef
       class="bg-gray-50 font-semibold text-gray-700"
     >
-      Photo
+      {{ "birthday_table.photo" | transloco }}
     </th>
     <td
       mat-cell
@@ -28,7 +28,7 @@
       *matHeaderCellDef
       class="bg-gray-50 font-semibold text-gray-700"
     >
-      Name
+      {{ "birthday_table.name" | transloco }}
     </th>
     <td
       mat-cell
@@ -48,14 +48,14 @@
       *matHeaderCellDef
       class="bg-gray-50 font-semibold text-gray-700"
     >
-      City
+      {{ "birthday_table.city" | transloco }}
     </th>
     <td
       mat-cell
       *matCellDef="let element"
       class="text-gray-600 border-t border-gray-200"
     >
-      {{ element.city }}
+      {{ element.city | transloco }}
     </td>
   </ng-container>
 
@@ -66,14 +66,14 @@
       *matHeaderCellDef
       class="bg-gray-50 font-semibold text-gray-700"
     >
-      Category
+      {{ "birthday_table.category" | transloco }}
     </th>
     <td
       mat-cell
       *matCellDef="let element"
       class="text-gray-600 border-t border-gray-200"
     >
-      {{ element.category }}
+      {{ element.category | transloco }}
     </td>
   </ng-container>
 
@@ -84,7 +84,7 @@
       *matHeaderCellDef
       class="bg-gray-50 font-semibold text-gray-700"
     >
-      Date
+      {{ "birthday_table.date" | transloco }}
     </th>
     <td
       mat-cell
@@ -95,14 +95,14 @@
     </td>
   </ng-container>
 
-  <!-- Nouvelle colonne Age -->
+  <!-- Age Column -->
   <ng-container matColumnDef="age">
     <th
       mat-header-cell
       *matHeaderCellDef
       class="bg-gray-50 font-semibold text-gray-700"
     >
-      Age
+      {{ "birthday_table.age" | transloco }}
     </th>
     <td
       mat-cell
@@ -116,14 +116,14 @@
     </td>
   </ng-container>
 
-  <!-- Colonne Status -->
+  <!-- Status Column -->
   <ng-container matColumnDef="status">
     <th
       mat-header-cell
       *matHeaderCellDef
       class="bg-gray-50 font-semibold text-gray-700"
     >
-      Status
+      {{ "birthday_table.status" | transloco }}
     </th>
     <td
       mat-cell
@@ -137,7 +137,7 @@
         <mat-icon class="!text-base">{{
           getBirthdayStatus(element.date).icon
         }}</mat-icon>
-        <span>{{ getBirthdayStatus(element.date).text }}</span>
+        <span>{{ getBirthdayStatus(element.date).text | transloco }}</span>
       </div>
     </td>
   </ng-container>
@@ -149,7 +149,7 @@
       *matHeaderCellDef
       class="bg-gray-50 font-semibold text-gray-700"
     >
-      Action
+      {{ "birthday_table.action" | transloco }}
     </th>
     <td
       mat-cell
@@ -157,18 +157,18 @@
       class="text-gray-600 border-t border-gray-200"
     >
       <div class="flex gap-2">
-        <!-- Bouton Édition -->
         <button mat-icon-button color="primary">
-          <mat-icon matTooltip="Edit birthday">edit</mat-icon>
+          <mat-icon matTooltip="{{ 'birthday_table.edit' | transloco }}"
+            >edit</mat-icon
+          >
         </button>
-
-        <!-- Bouton Suppression -->
         <button mat-icon-button color="warn">
           <mat-icon
-            matTooltip="Delete birthday"
+            matTooltip="{{ 'birthday_table.delete' | transloco }}"
             (click)="deleteBirthday(element.id)"
-            >delete</mat-icon
           >
+            delete
+          </mat-icon>
         </button>
       </div>
     </td>

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { Birthday } from '../../../models/birthday.model';
 import { HttpClient } from '@angular/common/http';
+import { TranslocoService } from '@jsverse/transloco';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class BirthdayService {
 
   private apiUrl = '/mock/birthdays.json'; // Remplacer par une vraie API si dispo
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private translocoService: TranslocoService) {}
 
   fetchBirthdays(): void {
     this.http.get<Birthday[]>(this.apiUrl).subscribe(data => {
@@ -68,19 +69,19 @@ export class BirthdayService {
 
     if (diffDays > 0) {
       return {
-        text: `In ${diffDays} days`,
+        text: this.translocoService.translate('status.coming', { count: diffDays }),
         icon: 'event_upcoming',
         color: 'text-green-500',
       };
     } else if (diffDays === 0) {
       return {
-        text: 'Today',
+        text: this.translocoService.translate('status.today'),
         icon: 'celebration',
         color: 'text-blue-500',
       };
     } else {
       return {
-        text: 'Passed',
+        text: this.translocoService.translate('status.passed'),
         icon: 'event_busy',
         color: 'text-gray-400',
       };

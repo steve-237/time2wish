@@ -1,3 +1,24 @@
 {
-  "placeholder_search_bar": "Search for birthday...."
+  "placeholder_search_bar": "Search for birthday....",
+  "status": {
+    "today": "Today",
+    "passed": "Passed",
+    "coming": "In {{count}} days"
+  },
+   "birthday_table": {
+    "photo": "Photo",
+    "name": "Name",
+    "city": "City",
+    "category": "Category",
+    "date": "Date",
+    "age": "Age",
+    "status": "Status",
+    "action": "Action",
+    "edit": "Edit birthday",
+    "delete": "Delete birthday"
+  },
+  "Family": "Family",
+  "Friend": "Friend",
+  "Colleague": "Colleague",
+  "Business": "Business"
 }
