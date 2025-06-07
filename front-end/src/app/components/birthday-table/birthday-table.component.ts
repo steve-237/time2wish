@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BirthdayService } from '../../core/services/birthday/birthday.service';
+import { TranslocoModule } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-birthday-table',
@@ -14,6 +15,7 @@ import { BirthdayService } from '../../core/services/birthday/birthday.service';
     MatIconModule,
     MatButtonModule,
     MatTooltipModule,
+    TranslocoModule,
   ],
   templateUrl: './birthday-table.component.html',
   styleUrl: './birthday-table.component.css',
@@ -45,8 +47,8 @@ export class BirthdayTableComponent {
     return this.birthdayService.getBirthdayStatus(birthdayDate);
   }
 
-  calculateAge(birthdayDate: Date) {
-    this.birthdayService.calculateAge(birthdayDate);
+  calculateAge(birthdayDate: Date): number {
+    return this.birthdayService.calculateAge(birthdayDate);
   }
 
   openBirthdayDetails(birthday: any) {
