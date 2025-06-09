@@ -2,11 +2,13 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatTableModule } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BirthdayService } from '../../core/services/birthday/birthday.service';
 import { TranslocoModule } from '@jsverse/transloco';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { BirthdayDetailsComponent } from '../../pages/birthday-details/birthday-details.component';
+import { DialogService } from '../../shared/services/dialog/dialog.service';
 
 @Component({
   selector: 'app-birthday-table',
@@ -39,7 +41,24 @@ export class BirthdayTableComponent {
     'action',
   ];
 
-  constructor(private birthdayService: BirthdayService) {}
+  constructor(private dialog: DialogService, private birthdayService: BirthdayService) {}
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  
+  dataSource = new MatTableDataSource<any>();
+  pageSize = 8;
+  pageSizeOptions: number[] = [8, 12, 25, 100];
+  
+  ngOnChanges() {
+    this.dataSource.data = this.birthdays;
+    if (this.paginator) {
+      this.dataSource.paginator = this.paginator;
+    }
+  }
+  
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator
+  }
 
   getBirthdayStatus(birthdayDate: Date): {
     text: string;
@@ -54,8 +73,10 @@ export class BirthdayTableComponent {
   }
 
   openBirthdayDetails(birthday: any) {
-    // Tu peux ajouter une méthode si tu veux gérer l'affichage détaillé
-    console.log('Details:', birthday);
+    this.dialog.open(BirthdayDetailsComponent, {
+          width: '600px',
+          data: birthday,
+        });
   }
 
   deleteBirthday(id: number) {

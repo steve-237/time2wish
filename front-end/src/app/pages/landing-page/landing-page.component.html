@@ -366,17 +366,7 @@
         }
       </div>
 
-      <!-- Pagination -->
-      @if(hasBirthdays$ | async) {
-      <div class="flex items-center justify-between text-gray-600">
-        <mat-paginator
-          class="w-full"
-          [pageSizeOptions]="[10, 15, 25, 100]"
-          showFirstLastButtons
-          aria-label="Select page"
-        ></mat-paginator>
-      </div>
-      } } @else { @if (!loading) {
+      } @else { @if (!loading) {
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
         @if(hasBirthdays$ | async) { @for (item of dataSource.data; track
         item.id) {
