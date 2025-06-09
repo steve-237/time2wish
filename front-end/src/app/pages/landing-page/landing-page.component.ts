@@ -135,9 +135,6 @@ export class LandingPageComponent {
   ngAfterViewInit(): void {
     this.dataSourceSub = this.filteredBirthdays$.subscribe((birthdays) => {
       this.dataSource.data = birthdays;
-      setTimeout(() => {
-        this.dataSource.paginator = this.paginator;
-      });
     });
   }
 

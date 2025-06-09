@@ -7,6 +7,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { BirthdayService } from '../../core/services/birthday/birthday.service';
 import { TranslocoModule } from '@jsverse/transloco';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { BirthdayDetailsComponent } from '../../pages/birthday-details/birthday-details.component';
+import { DialogService } from '../../shared/services/dialog/dialog.service';
 
 @Component({
   selector: 'app-birthday-table',
@@ -39,7 +41,7 @@ export class BirthdayTableComponent {
     'action',
   ];
 
-  constructor(private birthdayService: BirthdayService) {}
+  constructor(private dialog: DialogService, private birthdayService: BirthdayService) {}
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   
@@ -71,8 +73,10 @@ export class BirthdayTableComponent {
   }
 
   openBirthdayDetails(birthday: any) {
-    // Tu peux ajouter une méthode si tu veux gérer l'affichage détaillé
-    console.log('Details:', birthday);
+    this.dialog.open(BirthdayDetailsComponent, {
+          width: '600px',
+          data: birthday,
+        });
   }
 
   deleteBirthday(id: number) {

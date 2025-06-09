@@ -5,34 +5,33 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BirthdayService } from '../../core/services/birthday/birthday.service';
+import { DialogService } from '../../shared/services/dialog/dialog.service';
+import { BirthdayDetailsComponent } from '../../pages/birthday-details/birthday-details.component';
 
 @Component({
   selector: 'app-birthday-card',
-   imports: [
+  imports: [
     CommonModule,
     NgClass,
     MatCardModule,
     MatIconModule,
     MatButtonModule,
     MatTooltipModule,
-    DatePipe
+    DatePipe,
   ],
   templateUrl: './birthday-card.component.html',
   styleUrl: './birthday-card.component.css',
 })
 export class BirthdayCardComponent {
-openBirthdayDetails(arg0: any) {
-throw new Error('Method not implemented.');
-}
-deleteBirthday(arg0: any) {
-throw new Error('Method not implemented.');
-}
   @Input() item: any;
-  @Output() edit = new EventEmitter<void>();
-  @Output() delete = new EventEmitter<void>();
+  @Output() edit = new EventEmitter<any>();
+  @Output() delete = new EventEmitter<any>();
   @Output() details = new EventEmitter<void>();
 
-  constructor(private birthdayService: BirthdayService) {}
+  constructor(
+    private dialog: DialogService,
+    private birthdayService: BirthdayService
+  ) {}
 
   getBirthdayStatus(birthdayDate: Date): {
     text: string;
@@ -44,5 +43,16 @@ throw new Error('Method not implemented.');
 
   calculateAge(birthdayDate: Date) {
     this.birthdayService.calculateAge(birthdayDate);
+  }
+
+  openBirthdayDetails(birthday: any) {
+    this.dialog.open(BirthdayDetailsComponent, {
+      width: '600px',
+      data: birthday,
+    });
+  }
+
+  deleteBirthday(id: number) {
+    this.delete.emit(id);
   }
 }
