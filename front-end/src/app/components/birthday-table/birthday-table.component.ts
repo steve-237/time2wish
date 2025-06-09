@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatTableModule } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BirthdayService } from '../../core/services/birthday/birthday.service';
 import { TranslocoModule } from '@jsverse/transloco';
@@ -40,6 +40,23 @@ export class BirthdayTableComponent {
   ];
 
   constructor(private birthdayService: BirthdayService) {}
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  
+  dataSource = new MatTableDataSource<any>();
+  pageSize = 8;
+  pageSizeOptions: number[] = [8, 12, 25, 100];
+  
+  ngOnChanges() {
+    this.dataSource.data = this.birthdays;
+    if (this.paginator) {
+      this.dataSource.paginator = this.paginator;
+    }
+  }
+  
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator
+  }
 
   getBirthdayStatus(birthdayDate: Date): {
     text: string;
