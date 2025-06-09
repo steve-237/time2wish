@@ -5,7 +5,7 @@
     "passed": "Passed",
     "coming": "In {{count}} days"
   },
-   "birthday_table": {
+  "birthday_table": {
     "photo": "Photo",
     "name": "Name",
     "city": "City",
@@ -20,5 +20,28 @@
   "Family": "Family",
   "Friend": "Friend",
   "Colleague": "Colleague",
-  "Business": "Business"
+  "Business": "Business",
+  "anniversary": {
+    "coming": "Coming anniversary",
+    "passed": "Passed anniversary"
+  },
+  "toolbar": {
+    "theme": "Change theme",
+    "notifications": "Notifications",
+    "view_cards": "View as cards",
+    "view_table": "View as table",
+    "language": "Language",
+    "help": "Help",
+    "profile": "Profile",
+    "logout": "Logout",
+    "languages": {
+      "us": "English",
+      "fr": "French",
+      "de": "German"
+    }
+  },
+  "search": {
+    "tooltip": "Search",
+    "filter": "Filter"
+  }
 }

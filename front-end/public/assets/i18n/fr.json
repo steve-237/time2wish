@@ -20,5 +20,28 @@
   "Family": "Famille",
   "Friend": "Ami",
   "Colleague": "Collègue",
-  "Business": "Professionnel"
+  "Business": "Professionnel",
+  "anniversary": {
+    "coming": "Anniversaire à venir",
+    "passed": "Anniversaire passé"
+  },
+  "toolbar": {
+    "theme": "Changer le thème",
+    "notifications": "Notifications",
+    "view_cards": "Vue en cartes",
+    "view_table": "Vue en tableau",
+    "language": "Langue",
+    "help": "Aide",
+    "profile": "Profil",
+    "logout": "Déconnexion",
+    "languages": {
+      "us": "Anglais",
+      "fr": "Français",
+      "de": "Allemand"
+    }
+  },
+  "search": {
+    "tooltip": "Rechercher",
+    "filter": "Filtrer"
+  }
 }

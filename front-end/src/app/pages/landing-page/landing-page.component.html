@@ -97,11 +97,11 @@
         >
           <!-- Icône de recherche -->
           <button
-            mat-icon-button
-            class="!w-10 !h-10 flex items-center justify-center m-2"
-          >
-            <mat-icon matTooltip="Search">search</mat-icon>
-          </button>
+    mat-icon-button
+    class="!w-10 !h-10 flex items-center justify-center m-2"
+  >
+    <mat-icon [matTooltip]="'search.tooltip' | transloco">search</mat-icon>
+  </button>
 
           <!-- Champ de recherche -->
           <input
@@ -111,12 +111,17 @@
           />
 
           <!-- Icône filtre -->
-          <button
-            mat-icon-button
-            class="!w-10 !h-10 flex items-center justify-center m-2"
-          >
-            <mat-icon class="text-gray-500" matTooltip="Filter">tune</mat-icon>
-          </button>
+         <button
+    mat-icon-button
+    class="!w-10 !h-10 flex items-center justify-center m-2"
+  >
+    <mat-icon 
+      class="text-gray-500" 
+      [matTooltip]="'search.filter' | transloco"
+    >
+      tune
+    </mat-icon>
+  </button>
         </div>
 
         <!-- Groupe d'icônes -->
@@ -126,7 +131,7 @@
             mat-icon-button
             (click)="toggleTheme()"
             class="!w-10 !h-10 flex items-center justify-center"
-            matTooltip="Change Theme"
+            [matTooltip]="'toolbar.theme' | transloco"
           >
             <mat-icon class="!text-gray-700">
               {{ isDarkTheme ? "light_mode" : "dark_mode" }}
@@ -141,7 +146,7 @@
             matBadgeSize="large"
             class="!w-10 !h-10 !flex !items-center !justify-center relative"
             (click)="onNotification()"
-            matTooltip="Notifications"
+            [matTooltip]="'toolbar.notifications' | transloco"
           >
             <mat-icon class="!text-gray-700">notifications</mat-icon>
           </button>
@@ -151,7 +156,7 @@
           <button
             mat-icon-button
             (click)="toggleView('cards')"
-            matTooltip="View birthdays as Cards"
+            [matTooltip]="'toolbar.view_cards' | transloco"
           >
             <mat-icon>view_module</mat-icon>
           </button>
@@ -160,7 +165,7 @@
           <button
             mat-icon-button
             (click)="toggleView('table')"
-            matTooltip="View birthdays as table"
+            [matTooltip]="'toolbar.view_table' | transloco"
           >
             <mat-icon>table_chart</mat-icon>
           </button>
@@ -176,7 +181,7 @@
             matBadgePosition="above after"
             matBadgeOverlap="true"
             class="!w-10 !h-10 flex items-center justify-center"
-            matTooltip="Language"
+            [matTooltip]="'toolbar.language' | transloco"
           >
             <mat-icon class="!text-gray-700">translate</mat-icon>
             <div
@@ -204,7 +209,9 @@
                   [alt]="lang.code"
                   class="rounded-sm"
                 />
-                <span class="text-sm">{{ lang.name }}</span>
+                <span class="text-sm">{{
+                  "toolbar.languages." + lang.code | transloco
+                }}</span>
               </span>
             </button>
           </mat-menu>
@@ -214,7 +221,7 @@
             mat-icon-button
             class="!w-10 !h-10 flex items-center justify-center"
             (click)="onInformation()"
-            matTooltip="information"
+            [matTooltip]="'toolbar.help' | transloco"
           >
             <mat-icon class="!text-gray-700">help_outline</mat-icon>
           </button>
@@ -224,7 +231,7 @@
             mat-icon-button
             [matMenuTriggerFor]="profileMenu"
             class="flex items-center justify-center"
-            matTooltip="Profile"
+            [matTooltip]="'toolbar.profile' | transloco"
           >
             @if (authService.getCurrentUser()?.photo) {
             <img
@@ -238,7 +245,7 @@
           <mat-menu #profileMenu="matMenu">
             <button mat-menu-item (click)="onProfil()">
               <mat-icon>person</mat-icon>
-              <span>Profil</span>
+              <span>{{ "toolbar.profile" | transloco }}</span>
             </button>
             <button
               mat-menu-item
@@ -246,7 +253,7 @@
               routerLinkActive="router-link-active"
             >
               <mat-icon>logout</mat-icon>
-              <span>Déconnexion</span>
+              <span>{{ "toolbar.logout" | transloco }}</span>
             </button>
           </mat-menu>
         </div>
@@ -270,7 +277,7 @@
           [class.!bg-gray-200]="(activeButton$ | async) !== 'coming'"
           [class.!text-gray-600]="(activeButton$ | async) !== 'coming'"
         >
-          Coming anniversary
+          {{ "anniversary.coming" | transloco }}
         </mat-button-toggle>
 
         <mat-button-toggle
@@ -282,7 +289,7 @@
           [class.!bg-gray-200]="(activeButton$ | async) !== 'passed'"
           [class.!text-gray-600]="(activeButton$ | async) !== 'passed'"
         >
-          Passed anniversary
+          {{ "anniversary.passed" | transloco }}
         </mat-button-toggle>
       </mat-button-toggle-group>
 
