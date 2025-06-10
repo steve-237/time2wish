@@ -1,83 +1,102 @@
 <div class="flex bg-gray-200" *transloco="let t">
   <!-- Sidebar -->
   <aside
-    class="sticky top-0 left-0 h-screen w-16 bg-white flex flex-col items-center transition-all duration-100 ease-in-out"
-    [class.w-20]="!expanded"
-    [class.w-45]="expanded"
-  >
-    <mat-nav-list class="!mt-5">
-      <!-- Menu Button -->
-      <mat-list-item (click)="toggleSidebar()" class="hover:bg-gray-100 !h-12">
-        <div class="flex items-center w-full">
-          <mat-icon
-            class="!w-8 !h-8 !text-2xl flex items-center justify-center"
-            matTooltip="Menu"
-            >menu</mat-icon
-          >
-          <span [class.hidden]="!expanded">Menu</span>
-        </div>
-      </mat-list-item>
+  class="sticky top-0 left-0 h-screen bg-white flex flex-col items-center transition-all duration-100 ease-in-out"
+  [class.w-16]="!expanded"
+  [class.px-4]="expanded"
+  [style.width]="expanded ? 'auto' : '6rem'"
+>
+  <mat-nav-list class="!mt-5 w-full flex-1 flex flex-col items-center gap-2">
 
-      <!-- Parameters Button -->
-      <mat-list-item class="hover:bg-gray-100 !h-12">
-        <div class="flex items-center w-full" (click)="onSetting()">
-          <mat-icon
-            class="!w-8 !h-8 !text-2xl flex items-center justify-center"
-            matTooltip="Setting"
-            >settings</mat-icon
-          >
-          <span [class.hidden]="!expanded">Parameters</span>
-        </div>
-      </mat-list-item>
-
-      <!-- Add User Button -->
-      <mat-list-item class="hover:bg-gray-100 !h-12">
-        <div class="flex items-center w-full">
-          <mat-icon
-            (click)="onAddBirthday()"
-            class="!w-8 !h-8 !text-2xl flex items-center justify-center"
-            matTooltip="Add new birthday"
-            >person_add</mat-icon
-          >
-          <span [class.hidden]="!expanded">Add user</span>
-        </div>
-      </mat-list-item>
-    </mat-nav-list>
-
-    <!-- Logo et nom d'application en bas -->
-    <div class="w-full p-4 mt-auto">
-      <!-- mt-auto pousse le contenu vers le bas -->
-      <div class="flex flex-col items-center">
-        <div class="flex items-center justify-center gap-2">
-          <img
-            src="time2wish-logo.png"
-            alt="Logo"
-            class="h-16 w-16 object-contain transition-transform duration-300"
-            [class.translate-x-1]="expanded"
-            [class.hidden]="expanded"
-          />
-
-          <span
-            class="text-lg font-semibold whitespace-nowrap transition-all duration-300"
-            [class.hidden]="!expanded"
-            [class.w-0]="!expanded"
-            [class.overflow-hidden]="!expanded"
-          >
-            Time2Wish
-          </span>
-        </div>
-
-        <div
-          class="text-xs text-gray-500 whitespace-nowrap transition-all duration-300 mt-1"
-          [class.opacity-0]="!expanded"
-          [class.h-0]="!expanded"
-          [class.overflow-hidden]="!expanded"
+    <!-- Menu Button -->
+    <mat-list-item
+      (click)="toggleSidebar()"
+      class="w-full p-0"
+    >
+      <div class="flex items-center h-12 w-full gap-3 hover:bg-gray-100 rounded-md px-2">
+        <mat-icon
+          class="text-2xl"
+          [matTooltip]="'sidebar.menu' | transloco"
+          >menu</mat-icon
         >
-          Version 1.0.0
-        </div>
+        <span
+          class="whitespace-nowrap transition-all duration-300"
+          [class.hidden]="!expanded"
+        >
+          {{ "sidebar.menu" | transloco }}
+        </span>
+      </div>
+    </mat-list-item>
+
+    <!-- Settings -->
+    <mat-list-item class="w-full p-0">
+      <div
+        class="flex items-center h-12 w-full gap-3 hover:bg-gray-100 rounded-md px-2"
+        (click)="onSetting()"
+      >
+        <mat-icon
+          class="text-2xl"
+          [matTooltip]="'sidebar.settings' | transloco"
+          >settings</mat-icon
+        >
+        <span
+          class="whitespace-nowrap transition-all duration-300"
+          [class.hidden]="!expanded"
+        >
+          {{ "sidebar.settings" | transloco }}
+        </span>
+      </div>
+    </mat-list-item>
+
+    <!-- Add User -->
+    <mat-list-item>
+      <div
+        class="flex items-center justify-center gap-3"
+        (click)="onAddBirthday()"
+      >
+        <mat-icon
+          class="text-2xl"
+          [matTooltip]="'sidebar.add_birthday' | transloco"
+          >person_add</mat-icon
+        >
+        <span
+          class="whitespace-nowrap transition-all duration-300"
+          [class.hidden]="!expanded"
+        >
+          {{ "sidebar.add_user" | transloco }}
+        </span>
+      </div>
+    </mat-list-item>
+  </mat-nav-list>
+
+  <!-- Logo en bas -->
+  <div class="w-full p-4 mt-auto">
+    <div class="flex flex-col items-center">
+      <div class="flex items-center justify-center gap-2">
+        <img
+          src="time2wish-logo.png"
+          alt="Logo"
+          class="h-16 w-16 object-contain transition-transform duration-300"
+          [class.hidden]="expanded"
+        />
+        <span
+          class="text-lg font-semibold whitespace-nowrap transition-all duration-300"
+          [class.hidden]="!expanded"
+        >
+          {{ "sidebar.app_name" | transloco }}
+        </span>
+      </div>
+      <div
+        class="text-xs text-gray-500 whitespace-nowrap transition-all duration-300 mt-1"
+        [class.hidden]="!expanded"
+      >
+        {{ "sidebar.version" | transloco }}
       </div>
     </div>
-  </aside>
+  </div>
+</aside>
+
+
 
   <!-- Main Content -->
   <main class="flex-1 p-4">
@@ -97,11 +116,13 @@
         >
           <!-- Icône de recherche -->
           <button
-    mat-icon-button
-    class="!w-10 !h-10 flex items-center justify-center m-2"
-  >
-    <mat-icon [matTooltip]="'search.tooltip' | transloco">search</mat-icon>
-  </button>
+            mat-icon-button
+            class="!w-10 !h-10 flex items-center justify-center m-2"
+          >
+            <mat-icon [matTooltip]="'search.tooltip' | transloco"
+              >search</mat-icon
+            >
+          </button>
 
           <!-- Champ de recherche -->
           <input
@@ -111,17 +132,17 @@
           />
 
           <!-- Icône filtre -->
-         <button
-    mat-icon-button
-    class="!w-10 !h-10 flex items-center justify-center m-2"
-  >
-    <mat-icon 
-      class="text-gray-500" 
-      [matTooltip]="'search.filter' | transloco"
-    >
-      tune
-    </mat-icon>
-  </button>
+          <button
+            mat-icon-button
+            class="!w-10 !h-10 flex items-center justify-center m-2"
+          >
+            <mat-icon
+              class="text-gray-500"
+              [matTooltip]="'search.filter' | transloco"
+            >
+              tune
+            </mat-icon>
+          </button>
         </div>
 
         <!-- Groupe d'icônes -->
