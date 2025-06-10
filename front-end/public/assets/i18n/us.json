@@ -43,5 +43,13 @@
   "search": {
     "tooltip": "Search",
     "filter": "Filter"
+  },
+  "sidebar": {
+    "menu": "Menu",
+    "settings": "Settings",
+    "add_user": "Add user",
+    "add_birthday": "Add new birthday",
+    "app_name": "Time2Wish",
+    "version": "Version 1.0.0"
   }
 }
