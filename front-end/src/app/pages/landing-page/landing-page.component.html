@@ -1,22 +1,19 @@
 <div class="flex bg-gray-200" *transloco="let t">
   <!-- Sidebar -->
   <aside
-  class="sticky top-0 left-0 h-screen bg-white flex flex-col items-center transition-all duration-100 ease-in-out"
-  [class.w-16]="!expanded"
-  [class.px-4]="expanded"
-  [style.width]="expanded ? 'auto' : '6rem'"
->
-  <mat-nav-list class="!mt-5 w-full flex-1 flex flex-col items-center gap-2">
-
-    <!-- Menu Button -->
-    <mat-list-item
-      (click)="toggleSidebar()"
-      class="w-full p-0"
-    >
-      <div class="flex items-center h-12 w-full gap-3 hover:bg-gray-100 rounded-md px-2">
-        <mat-icon
-          class="text-2xl"
-          [matTooltip]="'sidebar.menu' | transloco"
+    class="sticky top-0 left-0 h-screen bg-white flex flex-col items-center transition-all duration-100 ease-in-out"
+    [class.w-16]="!expanded"
+    [class.px-4]="expanded"
+    [style.width]="expanded ? 'auto' : '6rem'"
+  >
+    <div class="flex flex-col items-center gap-3 !mt-5 w-full">
+      <!-- Menu -->
+      <button
+        mat-button
+        class="flex justify-center gap-3 px-2 cursor-pointer"
+        (click)="toggleSidebar()"
+      >
+        <mat-icon class="text-4xl" [matTooltip]="'sidebar.menu' | transloco"
           >menu</mat-icon
         >
         <span
@@ -25,18 +22,15 @@
         >
           {{ "sidebar.menu" | transloco }}
         </span>
-      </div>
-    </mat-list-item>
+      </button>
 
-    <!-- Settings -->
-    <mat-list-item class="w-full p-0">
-      <div
-        class="flex items-center h-12 w-full gap-3 hover:bg-gray-100 rounded-md px-2"
+      <!-- Paramètres -->
+      <button
+        mat-button
+        class="flex items-center gap-3 h-10 px-2 cursor-pointer"
         (click)="onSetting()"
       >
-        <mat-icon
-          class="text-2xl"
-          [matTooltip]="'sidebar.settings' | transloco"
+        <mat-icon class="text-2xl" [matTooltip]="'sidebar.settings' | transloco"
           >settings</mat-icon
         >
         <span
@@ -45,13 +39,12 @@
         >
           {{ "sidebar.settings" | transloco }}
         </span>
-      </div>
-    </mat-list-item>
+      </button>
 
-    <!-- Add User -->
-    <mat-list-item>
-      <div
-        class="flex items-center justify-center gap-3"
+      <!-- Ajouter utilisateur -->
+      <button
+        mat-button
+        class="flex items-center gap-3 h-10 px-2 cursor-pointer"
         (click)="onAddBirthday()"
       >
         <mat-icon
@@ -65,38 +58,35 @@
         >
           {{ "sidebar.add_user" | transloco }}
         </span>
-      </div>
-    </mat-list-item>
-  </mat-nav-list>
+      </button>
+    </div>
 
-  <!-- Logo en bas -->
-  <div class="w-full p-4 mt-auto">
-    <div class="flex flex-col items-center">
-      <div class="flex items-center justify-center gap-2">
-        <img
-          src="time2wish-logo.png"
-          alt="Logo"
-          class="h-16 w-16 object-contain transition-transform duration-300"
-          [class.hidden]="expanded"
-        />
-        <span
-          class="text-lg font-semibold whitespace-nowrap transition-all duration-300"
+    <!-- Logo en bas -->
+    <div class="w-full p-4 mt-auto">
+      <div class="flex flex-col items-center">
+        <div class="flex items-center justify-center gap-2">
+          <img
+            src="time2wish-logo.png"
+            alt="Logo"
+            class="h-16 w-16 object-contain transition-transform duration-300"
+            [class.hidden]="expanded"
+          />
+          <span
+            class="text-lg font-semibold whitespace-nowrap transition-all duration-300"
+            [class.hidden]="!expanded"
+          >
+            {{ "sidebar.app_name" | transloco }}
+          </span>
+        </div>
+        <div
+          class="text-xs text-gray-500 whitespace-nowrap transition-all duration-300 mt-1"
           [class.hidden]="!expanded"
         >
-          {{ "sidebar.app_name" | transloco }}
-        </span>
-      </div>
-      <div
-        class="text-xs text-gray-500 whitespace-nowrap transition-all duration-300 mt-1"
-        [class.hidden]="!expanded"
-      >
-        {{ "sidebar.version" | transloco }}
+          {{ "sidebar.version" | transloco }}
+        </div>
       </div>
     </div>
-  </div>
-</aside>
-
-
+  </aside>
 
   <!-- Main Content -->
   <main class="flex-1 p-4">
