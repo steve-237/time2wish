@@ -1,0 +1,86 @@
+<aside
+  class="sticky top-0 left-0 h-screen bg-white flex flex-col items-center transition-all duration-100 ease-in-out"
+  [class.w-16]="!expanded"
+  [class.px-4]="expanded"
+  [style.width]="expanded ? 'auto' : '6rem'"
+>
+  <div class="flex flex-col items-center gap-3 !mt-5 w-full">
+    <!-- Menu -->
+    <button
+      mat-icon-button
+      class="flex justify-center gap-3 px-2 cursor-pointer"
+      (click)="toggleSidebar()"
+    >
+      <mat-icon class="text-4xl" [matTooltip]="'sidebar.menu' | transloco"
+        >menu</mat-icon
+      >
+    </button>
+    <span
+      class="whitespace-nowrap transition-all duration-300"
+      [class.hidden]="!expanded"
+    >
+      {{ "sidebar.menu" | transloco }}
+    </span>
+
+    <!-- Paramètres -->
+    <button
+      mat-icon-button
+      class="flex items-center gap-3 h-10 px-2 cursor-pointer"
+      (click)="onSetting()"
+    >
+      <mat-icon class="text-2xl" [matTooltip]="'sidebar.settings' | transloco"
+        >settings</mat-icon
+      >
+    </button>
+    <span
+      class="whitespace-nowrap transition-all duration-300"
+      [class.hidden]="!expanded"
+    >
+      {{ "sidebar.settings" | transloco }}
+    </span>
+
+    <!-- Ajouter utilisateur -->
+    <button
+      mat-icon-button
+      class="flex items-center gap-3 h-10 px-2 cursor-pointer"
+      (click)="onAddBirthday()"
+    >
+      <mat-icon
+        [matTooltip]="'sidebar.add_birthday' | transloco"
+        >person_add</mat-icon
+      >
+    </button>
+  </div>
+  <span
+    class="whitespace-nowrap transition-all duration-300"
+    [class.hidden]="!expanded"
+  >
+    {{ "sidebar.add_user" | transloco }}
+  </span>
+
+  <!-- Logo en bas -->
+  <div class="w-full p-4 mt-auto">
+    <div class="flex flex-col items-center">
+      <div class="flex items-center justify-center gap-2">
+        <img
+          src="time2wish-logo.png"
+          alt="Logo"
+          class="h-16 w-16 object-contain transition-transform duration-300"
+          [class.hidden]="expanded"
+        />
+        <span
+          class="text-lg font-semibold whitespace-nowrap transition-all duration-300"
+          [class.hidden]="!expanded"
+        >
+          {{ "sidebar.app_name" | transloco }}
+        </span>
+      </div>
+      <div
+        class="text-xs text-gray-500 whitespace-nowrap transition-all duration-300 mt-1"
+        [class.hidden]="!expanded"
+      >
+        {{ "sidebar.version" | transloco }}
+      </div>
+    </div>
+  </div>
+</aside>

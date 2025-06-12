@@ -16,14 +16,12 @@ import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { NewBirthdayComponent } from '../new-birthday/new-birthday.component';
 import { DialogService } from '../../shared/services/dialog/dialog.service';
 import { FormsModule } from '@angular/forms';
 import { ProfilComponent } from '../profil/profil.component';
 import { RouterLink } from '@angular/router';
 import { NotificationComponent } from '../notification/notification.component';
 import { InformationComponent } from '../information/information.component';
-import { SettingComponent } from '../setting/setting.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ConfirmDeleteComponent } from '../confirm-delete/confirm-delete.component';
 import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
@@ -33,6 +31,7 @@ import { BirthdayDetailsComponent } from '../birthday-details/birthday-details.c
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BirthdayTableComponent } from '../../components/birthday-table/birthday-table.component';
 import { BirthdayCardComponent } from '../../components/birthday-card/birthday-card.component';
+import { AsideNavBarComponent } from "../../components/aside-nav-bar/aside-nav-bar.component";
 
 @Component({
   selector: 'app-landing-page',
@@ -68,7 +67,8 @@ import { BirthdayCardComponent } from '../../components/birthday-card/birthday-c
     MatProgressSpinnerModule,
     BirthdayTableComponent,
     BirthdayCardComponent,
-  ],
+    AsideNavBarComponent
+],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.css',
 })
@@ -170,17 +170,13 @@ export class LandingPageComponent {
     console.log('Page changed:', event);
   }
 
-  toggleSidebar() {
-    this.expanded = !this.expanded;
-  }
+ 
 
   toggleView(mode: 'table' | 'cards') {
     this.viewMode = mode;
   }
 
-  onAddBirthday() {
-    this.dialog.open(NewBirthdayComponent);
-  }
+  
 
   onProfil() {
     this.dialog.open(ProfilComponent, {
@@ -196,9 +192,7 @@ export class LandingPageComponent {
     this.dialog.open(InformationComponent);
   }
 
-  onSetting() {
-    this.dialog.open(SettingComponent);
-  }
+  
 
   openBirthdayDetails(birthday: Birthday) {
     this.dialog.open(BirthdayDetailsComponent, {
