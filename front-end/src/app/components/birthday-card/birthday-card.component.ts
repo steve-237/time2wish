@@ -7,6 +7,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { BirthdayService } from '../../core/services/birthday/birthday.service';
 import { DialogService } from '../../shared/services/dialog/dialog.service';
 import { BirthdayDetailsComponent } from '../../pages/birthday-details/birthday-details.component';
+import { TranslocoModule } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-birthday-card',
@@ -18,6 +19,7 @@ import { BirthdayDetailsComponent } from '../../pages/birthday-details/birthday-
     MatButtonModule,
     MatTooltipModule,
     DatePipe,
+    TranslocoModule
   ],
   templateUrl: './birthday-card.component.html',
   styleUrl: './birthday-card.component.css',
@@ -41,8 +43,8 @@ export class BirthdayCardComponent {
     return this.birthdayService.getBirthdayStatus(birthdayDate);
   }
 
-  calculateAge(birthdayDate: Date) {
-    this.birthdayService.calculateAge(birthdayDate);
+  calculateAge(birthdayDate: Date) : number {
+    return this.birthdayService.calculateAge(birthdayDate);
   }
 
   openBirthdayDetails(birthday: any) {
