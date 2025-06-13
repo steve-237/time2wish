@@ -246,28 +246,11 @@
       <div
         class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6"
       >
-        <!-- Left side - Selection actions -->
-        <div class="flex items-center gap-4">
-          <span class="text-gray-700 font-medium">Selection:</span>
-          <div class="flex gap-2">
-            <button mat-button class="flex items-center gap-1">
-              <mat-icon>local_offer</mat-icon>
-              Add tags
-            </button>
-            <button mat-button class="flex items-center gap-1">
-              <mat-icon>delete</mat-icon>
-              Remove
-            </button>
-          </div>
-        </div>
-
-        <!-- Right side - Utility actions -->
         <div class="flex justify-center flex-wrap gap-2">
           <button mat-button class="flex items-center gap-1">
-            <mat-icon>ads_click</mat-icon>
-            Customize Columns
+            <mat-icon>file_upload</mat-icon>
+            Import
           </button>
-
           <button mat-button class="flex items-center gap-1">
             <mat-icon>file_download</mat-icon>
             Export
@@ -299,6 +282,20 @@
       </div>
 
       } @else { @if (!loading) {
+        <div
+        class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6"
+      >
+        <div class="flex justify-center flex-wrap gap-2">
+          <button mat-button class="flex items-center gap-1">
+            <mat-icon>file_upload</mat-icon>
+            Import
+          </button>
+          <button mat-button class="flex items-center gap-1">
+            <mat-icon>file_download</mat-icon>
+            Export
+          </button>
+        </div>
+      </div>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
         @if(hasBirthdays$ | async) { @for (item of dataSource.data; track
         item.id) {
