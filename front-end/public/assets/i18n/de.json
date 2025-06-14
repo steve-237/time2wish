@@ -51,5 +51,17 @@
     "add_birthday": "Geburtstag hinzufügen",
     "app_name": "Time2Wish",
     "version": "Version 1.0.0"
+  },
+  "birthday_card": {
+    "city": "Stadt",
+    "category": "Kategorie",
+    "date": "Datum",
+    "age": "Alter",
+    "years": "Jahre",
+    "status": "Status",
+    "actions": {
+      "edit": "Geburtstag bearbeiten",
+      "delete": "Geburtstag löschen"
+    }
   }
 }
