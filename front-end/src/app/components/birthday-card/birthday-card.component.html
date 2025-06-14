@@ -29,7 +29,7 @@
         <div class="flex items-center justify-between">
           <span class="text-sm text-gray-500 flex items-center">
             <mat-icon class="!text-sm mr-1">location_on</mat-icon>
-            City:
+            {{ 'birthday_card.city' | transloco }}:
           </span>
           <span class="font-medium text-sm">{{ item.city }}</span>
         </div>
@@ -37,7 +37,7 @@
         <div class="flex items-center justify-between">
           <span class="text-sm text-gray-500 flex items-center">
             <mat-icon class="!text-sm mr-1">category</mat-icon>
-            Category:
+            {{ 'birthday_card.category' | transloco }}:
           </span>
           <span class="font-medium text-sm">{{ item.category }}</span>
         </div>
@@ -45,7 +45,7 @@
         <div class="flex items-center justify-between">
           <span class="text-sm text-gray-500 flex items-center">
             <mat-icon class="!text-sm mr-1">event</mat-icon>
-            Date:
+            {{ 'birthday_card.date' | transloco }}:
           </span>
           <span class="font-medium text-sm">
             {{ item.date | date : "dd.MM.yyyy" }}
@@ -55,17 +55,17 @@
         <div class="flex items-center justify-between">
           <span class="text-sm text-gray-500 flex items-center">
             <mat-icon class="!text-sm mr-1">cake</mat-icon>
-            Age:
+            {{ 'birthday_card.age' | transloco }}:
           </span>
           <span class="font-medium text-sm flex items-center text-yellow-500"> 
-            {{ calculateAge(item.date) }} ans
+            {{ calculateAge(item.date) }} {{ 'birthday_card.years' | transloco }}
           </span>
         </div>
 
         <div class="flex items-center justify-between mt-4 pt-2 border-t border-gray-100">
           <span class="text-sm text-gray-500 flex items-center">
             <mat-icon class="!text-sm mr-1">info</mat-icon>
-            Status:
+            {{ 'birthday_card.status' | transloco }}:
           </span>
           <span
             class="font-medium text-sm flex items-center gap-1"
@@ -84,14 +84,14 @@
         <button 
           mat-icon-button 
           color="primary"
-          matTooltip="Edit birthday"
+          [matTooltip]="'birthday_card.actions.edit' | transloco"
         >
           <mat-icon class="!text-lg">edit</mat-icon>
         </button>
         <button 
           mat-icon-button 
           color="warn"
-          matTooltip="Delete birthday"
+          [matTooltip]="'birthday_card.actions.delete' | transloco"
           (click)="deleteBirthday(item.id)"
         >
           <mat-icon class="!text-lg">delete</mat-icon>
