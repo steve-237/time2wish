@@ -26,12 +26,18 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { ConfirmDeleteComponent } from '../confirm-delete/confirm-delete.component';
 import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
 import { BirthdayService } from '../../core/services/birthday/birthday.service';
-import { BehaviorSubject, Subscription, combineLatest, map } from 'rxjs';
+import {
+  BehaviorSubject,
+  Subscription,
+  combineLatest,
+  map,
+  startWith,
+} from 'rxjs';
 import { BirthdayDetailsComponent } from '../birthday-details/birthday-details.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BirthdayTableComponent } from '../../components/birthday-table/birthday-table.component';
 import { BirthdayCardComponent } from '../../components/birthday-card/birthday-card.component';
-import { AsideNavBarComponent } from "../../components/aside-nav-bar/aside-nav-bar.component";
+import { AsideNavBarComponent } from '../../components/aside-nav-bar/aside-nav-bar.component';
 
 @Component({
   selector: 'app-landing-page',
@@ -67,8 +73,8 @@ import { AsideNavBarComponent } from "../../components/aside-nav-bar/aside-nav-b
     MatProgressSpinnerModule,
     BirthdayTableComponent,
     BirthdayCardComponent,
-    AsideNavBarComponent
-],
+    AsideNavBarComponent,
+  ],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.css',
 })
@@ -98,6 +104,21 @@ export class LandingPageComponent {
     };
   }
 
+  // Ajoutez ces nouvelles propriétés
+  advancedFilter = {
+    column: 'all', // 'all', 'firstName', 'lastName', 'date', 'note'
+    query: '',
+  };
+
+  // Colonnes disponibles pour le filtrage
+  availableColumns = [
+    { value: 'all', label: 'All columns', icon: 'view_column' },
+    { value: 'name', label: 'Name', icon: 'badge' },
+    { value: 'city', label: 'City', icon: 'family_restroom' },
+    { value: 'date', label: 'Date', icon: 'calendar_today' },
+    { value: 'category', label: 'Category', icon: 'notes' },
+  ];
+
   viewMode: 'table' | 'cards' = 'table';
 
   currentDate: Date = new Date();
@@ -116,6 +137,9 @@ export class LandingPageComponent {
     'coming'
   );
   activeButton$ = this.activeButtonSubject.asObservable();
+
+  private searchQuerySubject = new BehaviorSubject<string>('');
+  searchQuery$ = this.searchQuerySubject.asObservable();
 
   private dataSourceSub?: Subscription;
 
@@ -170,13 +194,9 @@ export class LandingPageComponent {
     console.log('Page changed:', event);
   }
 
- 
-
   toggleView(mode: 'table' | 'cards') {
     this.viewMode = mode;
   }
-
-  
 
   onProfil() {
     this.dialog.open(ProfilComponent, {
@@ -191,8 +211,6 @@ export class LandingPageComponent {
   onInformation() {
     this.dialog.open(InformationComponent);
   }
-
-  
 
   openBirthdayDetails(birthday: Birthday) {
     this.dialog.open(BirthdayDetailsComponent, {
@@ -232,27 +250,72 @@ export class LandingPageComponent {
     this.translocoService.setActiveLang(lang);
   }
 
-  filteredBirthdays$ = combineLatest([this.birthdays, this.activeButton$]).pipe(
-    map(([birthdays, active]) => {
+  filteredBirthdays$ = combineLatest([
+    this.birthdays,
+    this.activeButton$,
+    this.searchQuery$.pipe(startWith('')),
+  ]).pipe(
+    map(([birthdays, active, searchQuery]) => {
       const now = new Date();
-      now.setHours(0, 0, 0, 0); // ignore l'heure pour ne garder que la date
+      now.setHours(0, 0, 0, 0);
 
       return birthdays.filter((birthday) => {
+        // Filtre par date (coming/passed)
         const birthdayDate = new Date(birthday.date);
         birthdayDate.setFullYear(now.getFullYear());
         birthdayDate.setHours(0, 0, 0, 0);
 
-        if (active === 'coming') {
-          return birthdayDate >= now;
-        } else if (active === 'passed') {
-          return birthdayDate < now;
-        }
-        return false;
+        const dateMatch =
+          active === 'coming' ? birthdayDate >= now : birthdayDate < now;
+
+        // Filtre par recherche
+        const searchMatch = this.matchesAdvancedFilter(birthday, searchQuery);
+
+        return dateMatch && searchMatch;
       });
     })
   );
 
+  // Méthode pour le filtrage avancé
+  private matchesAdvancedFilter(birthday: Birthday, query: string): boolean {
+    if (!query) return true;
+
+    const q = query.toLowerCase();
+
+    switch (this.advancedFilter.column) {
+      case 'firstName':
+        return birthday.name.toLowerCase().includes(q);
+      case 'lastName':
+        return birthday.city.toLowerCase().includes(q);
+      case 'date':
+        return birthday.date.toString().includes(q);
+      case 'note':
+        return birthday.category?.toLowerCase().includes(q) || false;
+      default: // 'all'
+        return (
+          birthday.name.toLowerCase().includes(q) ||
+          birthday.city.toLowerCase().includes(q) ||
+          birthday.date.toString().includes(q) ||
+          birthday.category.toLowerCase().includes(q)
+        );
+    }
+  }
+
+  // Méthode pour mettre à jour le filtre
+  updateAdvancedFilter(column: string) {
+    this.advancedFilter.column = column;
+    this.updateSearchQuery(this.searchQuery); // Rafraîchit les résultats
+  }
+  updateSearchQuery(query: string) {
+    this.searchQuerySubject.next(query.trim());
+  }
+
   hasBirthdays$ = this.filteredBirthdays$.pipe(
     map((birthdays) => birthdays.length > 0)
   );
+
+  getColumnLabel(columnValue: string): string {
+    const column = this.availableColumns.find((c) => c.value === columnValue);
+    return column ? column.label : '';
+  }
 }
