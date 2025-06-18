@@ -51,6 +51,7 @@
           <!-- Icône filtre -->
           <button
             mat-icon-button
+            [matMenuTriggerFor]="filterMenu"
             class="!w-10 !h-10 flex items-center justify-center m-2"
           >
             <mat-icon
@@ -61,6 +62,26 @@
             </mat-icon>
           </button>
           }
+
+          <mat-menu #filterMenu="matMenu">
+            <button mat-menu-item disabled>
+              <span class="font-medium">Filter by:</span>
+            </button>
+            <mat-divider></mat-divider>
+            @for (col of availableColumns; track col.value) {
+            <button
+              mat-menu-item
+              (click)="updateAdvancedFilter(col.value)"
+              [class.bg-blue-50]="advancedFilter.column === col.value"
+            >
+              <mat-icon>{{ col.icon }}</mat-icon>
+              <span>{{ col.label }}</span>
+              @if (advancedFilter.column === col.value) {
+              <mat-icon class="ml-auto text-blue-500">check</mat-icon>
+              }
+            </button>
+            }
+          </mat-menu>
         </div>
 
         <!-- Groupe d'icônes -->
@@ -197,6 +218,16 @@
           </mat-menu>
         </div>
       </div>
+      <!-- Indicateur de filtre actif -->
+      @if (advancedFilter.column !== 'all') {
+      <div class="text-sm text-gray-500 mt-1 ml-60 flex items-center">
+        <mat-icon class="!text-sm mr-1">filter_alt</mat-icon>
+        Filtering in:
+        <span class="font-medium ml-1">
+          {{ getColumnLabel(advancedFilter.column) }}
+        </span>
+      </div>
+      }
     </div>
 
     <div

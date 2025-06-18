@@ -104,6 +104,21 @@ export class LandingPageComponent {
     };
   }
 
+  // Ajoutez ces nouvelles propriétés
+  advancedFilter = {
+    column: 'all', // 'all', 'firstName', 'lastName', 'date', 'note'
+    query: '',
+  };
+
+  // Colonnes disponibles pour le filtrage
+  availableColumns = [
+    { value: 'all', label: 'All columns', icon: 'view_column' },
+    { value: 'name', label: 'Name', icon: 'badge' },
+    { value: 'city', label: 'City', icon: 'family_restroom' },
+    { value: 'date', label: 'Date', icon: 'calendar_today' },
+    { value: 'category', label: 'Category', icon: 'notes' },
+  ];
+
   viewMode: 'table' | 'cards' = 'table';
 
   currentDate: Date = new Date();
@@ -253,18 +268,44 @@ export class LandingPageComponent {
         const dateMatch =
           active === 'coming' ? birthdayDate >= now : birthdayDate < now;
 
-        // Filtre par recherche si une requête existe
-        const searchMatch =
-          !searchQuery ||
-          birthday.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          birthday.city.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          birthday.category?.toLowerCase().includes(searchQuery.toLowerCase());
+        // Filtre par recherche
+        const searchMatch = this.matchesAdvancedFilter(birthday, searchQuery);
 
         return dateMatch && searchMatch;
       });
     })
   );
 
+  // Méthode pour le filtrage avancé
+  private matchesAdvancedFilter(birthday: Birthday, query: string): boolean {
+    if (!query) return true;
+
+    const q = query.toLowerCase();
+
+    switch (this.advancedFilter.column) {
+      case 'firstName':
+        return birthday.name.toLowerCase().includes(q);
+      case 'lastName':
+        return birthday.city.toLowerCase().includes(q);
+      case 'date':
+        return birthday.date.toString().includes(q);
+      case 'note':
+        return birthday.category?.toLowerCase().includes(q) || false;
+      default: // 'all'
+        return (
+          birthday.name.toLowerCase().includes(q) ||
+          birthday.city.toLowerCase().includes(q) ||
+          birthday.date.toString().includes(q) ||
+          birthday.category.toLowerCase().includes(q)
+        );
+    }
+  }
+
+  // Méthode pour mettre à jour le filtre
+  updateAdvancedFilter(column: string) {
+    this.advancedFilter.column = column;
+    this.updateSearchQuery(this.searchQuery); // Rafraîchit les résultats
+  }
   updateSearchQuery(query: string) {
     this.searchQuerySubject.next(query.trim());
   }
@@ -272,4 +313,9 @@ export class LandingPageComponent {
   hasBirthdays$ = this.filteredBirthdays$.pipe(
     map((birthdays) => birthdays.length > 0)
   );
+
+  getColumnLabel(columnValue: string): string {
+    const column = this.availableColumns.find((c) => c.value === columnValue);
+    return column ? column.label : '';
+  }
 }
