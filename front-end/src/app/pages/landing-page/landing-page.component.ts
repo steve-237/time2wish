@@ -38,6 +38,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BirthdayTableComponent } from '../../components/birthday-table/birthday-table.component';
 import { BirthdayCardComponent } from '../../components/birthday-card/birthday-card.component';
 import { AsideNavBarComponent } from '../../components/aside-nav-bar/aside-nav-bar.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @Component({
   selector: 'app-landing-page',
@@ -74,6 +75,7 @@ import { AsideNavBarComponent } from '../../components/aside-nav-bar/aside-nav-b
     BirthdayTableComponent,
     BirthdayCardComponent,
     AsideNavBarComponent,
+    MatAutocompleteModule 
   ],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.css',
@@ -130,6 +132,7 @@ export class LandingPageComponent {
   showSearchBar = false;
   isDarkTheme = false;
   loading = false;
+  suggestions: string[] = [];
 
   private birthdayService = inject(BirthdayService);
   birthdays = this.birthdayService.birthdays$;
@@ -317,5 +320,41 @@ export class LandingPageComponent {
   getColumnLabel(columnValue: string): string {
     const column = this.availableColumns.find((c) => c.value === columnValue);
     return column ? column.label : '';
+  }
+
+  // Méthode pour générer les suggestions
+  updateSuggestions(query: string) {
+    if (!query || query.length < 2) {
+      this.suggestions = [];
+      return;
+    }
+
+    // Récupère toutes les valeurs possibles selon la colonne sélectionnée
+    const allValues = this.dataSource.data.map((birthday) => {
+      switch (this.advancedFilter.column) {
+        case 'name':
+          return birthday.name;
+        case 'city':
+          return birthday.city;
+        case 'category':
+          return birthday.category || '';
+        default:
+          return `${birthday.name} ${birthday.city} ${birthday.category || ''}`;
+      }
+    });
+
+    console.log("All Values : ", allValues)
+
+    // Filtre et dédoublonne les suggestions
+    const queryLower = query.toLowerCase();
+    this.suggestions = [...new Set(allValues)]
+      .filter((val) => val.toLowerCase().includes(queryLower))
+      .slice(0, 5); // Limite à 5 suggestions
+  }
+
+  // Méthode pour sélectionner une suggestion
+  selectSuggestion(suggestion: string) {
+    this.searchQuery = suggestion;
+    this.updateSearchQuery(suggestion);
   }
 }
