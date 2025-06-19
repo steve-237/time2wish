@@ -34,8 +34,21 @@
             placeholder="{{ t('placeholder_search_bar') }}"
             class="flex-1 bg-transparent border-none focus:outline-none py-2"
             [(ngModel)]="searchQuery"
-            (ngModelChange)="updateSearchQuery($event)"
+            (ngModelChange)="updateSearchQuery($event); updateSuggestions($event)"
+            [matAutocomplete]="auto"
           />
+
+           <!-- Autocomplétion Material -->
+          <mat-autocomplete
+            #auto="matAutocomplete"
+            (optionSelected)="selectSuggestion($event.option.value)"
+          >
+            @for (suggestion of suggestions; track suggestion) {
+            <mat-option [value]="suggestion">
+              {{ suggestion }}
+            </mat-option>
+            }
+          </mat-autocomplete>
 
           @if (searchQuery) {
           <!-- Bouton pour effacer la recherche -->
@@ -43,7 +56,6 @@
             mat-icon-button
             class="!w-10 !h-10 flex items-center justify-center m-2"
             (click)="searchQuery = ''; updateSearchQuery('')"
-            *ngIf="searchQuery"
           >
             <mat-icon>close</mat-icon>
           </button>
