@@ -63,5 +63,9 @@
       "edit": "Modifier l'anniversaire",
       "delete": "Supprimer l'anniversaire"
     }
+  },
+  "login": {
+    "welcome": "Bienvenue sur Time2Wish",
+    "description": "N'oubliez plus jamais un anniversaire ! Grâce à notre application multilingue (français, allemand, anglais), recevez des rappels personnalisés et envoyez vos vœux à temps. Avec Time2Wish, chaque moment compte."
   }
 }
