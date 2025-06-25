@@ -63,5 +63,9 @@
       "edit": "Edit birthday",
       "delete": "Delete birthday"
     }
+  },
+  "login": {
+    "welcome": "Welcome to Time2Wish",
+    "description": "Never forget a birthday again! Our multilingual app (French, German, English) sends you timely reminders and helps you send wishes right on time. With Time2Wish, every moment matters."
   }
 }

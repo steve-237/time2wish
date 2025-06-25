@@ -63,5 +63,9 @@
       "edit": "Geburtstag bearbeiten",
       "delete": "Geburtstag löschen"
     }
+  },
+   "login": {
+    "welcome": "Willkommen bei Time2Wish",
+    "description": "Vergiss nie wieder einen Geburtstag! Unsere mehrsprachige App (Französisch, Deutsch, Englisch) erinnert dich rechtzeitig und hilft dir, deine Wünsche pünktlich zu versenden. Mit Time2Wish zählt jeder Moment."
   }
 }

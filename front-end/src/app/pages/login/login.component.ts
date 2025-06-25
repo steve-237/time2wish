@@ -11,6 +11,7 @@ import { RegistrationComponent } from '../registration/registration.component';
 import { DialogService } from '../../shared/services/dialog/dialog.service';
 import { AuthService } from '../../core/services/auth/auth.service';
 import { Subscription } from 'rxjs';
+import { TranslocoModule } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,8 @@ import { Subscription } from 'rxjs';
     MatIconModule,
     MatButtonModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    TranslocoModule,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
@@ -34,8 +36,10 @@ export class LoginComponent {
 
   router = inject(Router);
 
-  constructor(private dialog: DialogService, private authService: AuthService) {}
-
+  constructor(
+    private dialog: DialogService,
+    private authService: AuthService
+  ) {}
 
   onLogin(email: string, password: string) {
     this.isLoading = true;
@@ -52,7 +56,7 @@ export class LoginComponent {
       },
       complete: () => {
         this.isLoading = false;
-      }
+      },
     });
   }
 
