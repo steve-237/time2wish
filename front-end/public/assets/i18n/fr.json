@@ -66,6 +66,18 @@
   },
   "login": {
     "welcome": "Bienvenue sur Time2Wish",
-    "description": "N'oubliez plus jamais un anniversaire ! Grâce à notre application multilingue (français, allemand, anglais), recevez des rappels personnalisés et envoyez vos vœux à temps. Avec Time2Wish, chaque moment compte."
+    "description": "Time2Wish est votre application de gestion d'anniversaires préférée. Gardez une trace de tous les anniversaires importants et ne manquez plus jamais une occasion de célébrer vos proches.",
+    "email": "Email",
+    "password": "Mot de passe",
+    "login_button": "Connexion",
+    "loading": "Connexion en cours...",
+    "forgot_password": "Mot de passe oublié ?",
+    "no_account": "Pas encore de compte ?",
+    "sign_up": "S'inscrire",
+    "errors": {
+      "required": "Ce champ est obligatoire",
+      "invalid_email": "Email invalide",
+      "invalid_credentials": "Email ou mot de passe incorrect"
+    }
   }
 }

@@ -66,6 +66,18 @@
   },
    "login": {
     "welcome": "Willkommen bei Time2Wish",
-    "description": "Vergiss nie wieder einen Geburtstag! Unsere mehrsprachige App (Französisch, Deutsch, Englisch) erinnert dich rechtzeitig und hilft dir, deine Wünsche pünktlich zu versenden. Mit Time2Wish zählt jeder Moment."
+    "description": "Time2Wish ist Ihre Lieblings-App zur Verwaltung von Geburtstagen. Behalten Sie alle wichtigen Geburtstage im Auge und verpassen Sie nie wieder die Gelegenheit, Ihre Lieben zu feiern.",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "login_button": "Anmelden",
+    "loading": "Anmeldung läuft...",
+    "forgot_password": "Passwort vergessen?",
+    "no_account": "Noch kein Konto?",
+    "sign_up": "Registrieren",
+    "errors": {
+      "required": "Dieses Feld ist erforderlich",
+      "invalid_email": "Ungültige E-Mail",
+      "invalid_credentials": "Falsche E-Mail oder falsches Passwort"
+    }
   }
 }
