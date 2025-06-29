@@ -66,6 +66,18 @@
   },
   "login": {
     "welcome": "Welcome to Time2Wish",
-    "description": "Never forget a birthday again! Our multilingual app (French, German, English) sends you timely reminders and helps you send wishes right on time. With Time2Wish, every moment matters."
+    "description": "Time2Wish is your favorite birthday management app. Keep track of all important birthdays and never miss a chance to celebrate your loved ones.",
+    "email": "Email",
+    "password": "Password",
+    "login_button": "Login",
+    "loading": "Logging in...",
+    "forgot_password": "Forgotten password?",
+    "no_account": "Don't have an account yet?",
+    "sign_up": "Sign up",
+    "errors": {
+      "required": "This field is required",
+      "invalid_email": "Invalid email",
+      "invalid_credentials": "Incorrect email or password"
+    }
   }
 }
