@@ -21,6 +21,7 @@ import { Birthday } from '../../models/birthday.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ConfettiService } from '../../shared/services/confetti/confetti.service';
 
 @Component({
   selector: 'app-new-birthday',
@@ -50,7 +51,7 @@ export class NewBirthdayComponent {
     private birthdayService: BirthdayService,
     private snackBar: MatSnackBar,
     private router: Router,
-
+    private confetti: ConfettiService,
     public dialogRef: MatDialogRef<NewBirthdayComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
@@ -101,6 +102,8 @@ export class NewBirthdayComponent {
         duration: 3000,
         panelClass: ['success-snackbar'],
       });
+
+      this.confetti.fireConfetti();
 
       this.router.navigate(['/landing-page']);
       this.dialogRef.close();
