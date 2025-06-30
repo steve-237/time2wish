@@ -21,6 +21,7 @@ import { Birthday } from '../../models/birthday.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import confetti from 'canvas-confetti';
 
 @Component({
   selector: 'app-new-birthday',
@@ -102,9 +103,20 @@ export class NewBirthdayComponent {
         panelClass: ['success-snackbar'],
       });
 
+      this.fireConfetti();
+
       this.router.navigate(['/landing-page']);
       this.dialogRef.close();
     }
+  }
+
+  private fireConfetti(): void {
+    confetti({
+      particleCount: 150,
+      spread: 70,
+      origin: { y: 0.6 },
+      colors: ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'],
+    });
   }
 
   private isBirthdayPassed(birthdate: string): boolean {
