@@ -12,6 +12,7 @@ import { DialogService } from '../../shared/services/dialog/dialog.service';
 import { AuthService } from '../../core/services/auth/auth.service';
 import { Subscription } from 'rxjs';
 import { TranslocoModule } from '@jsverse/transloco';
+import { SetLanguageComponent } from "../../components/set-language/set-language.component";
 
 @Component({
   selector: 'app-login',
@@ -24,7 +25,8 @@ import { TranslocoModule } from '@jsverse/transloco';
     ReactiveFormsModule,
     FormsModule,
     TranslocoModule,
-  ],
+    SetLanguageComponent
+],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
