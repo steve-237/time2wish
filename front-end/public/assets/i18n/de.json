@@ -74,6 +74,7 @@
     "forgot_password": "Passwort vergessen?",
     "no_account": "Noch kein Konto?",
     "sign_up": "Registrieren",
+    "language": "Sprache",
     "errors": {
       "required": "Dieses Feld ist erforderlich",
       "invalid_email": "Ungültige E-Mail",

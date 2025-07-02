@@ -39,6 +39,7 @@ import { BirthdayTableComponent } from '../../components/birthday-table/birthday
 import { BirthdayCardComponent } from '../../components/birthday-card/birthday-card.component';
 import { AsideNavBarComponent } from '../../components/aside-nav-bar/aside-nav-bar.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { SetLanguageComponent } from "../../components/set-language/set-language.component";
 
 @Component({
   selector: 'app-landing-page',
@@ -75,8 +76,9 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     BirthdayTableComponent,
     BirthdayCardComponent,
     AsideNavBarComponent,
-    MatAutocompleteModule 
-  ],
+    MatAutocompleteModule,
+    SetLanguageComponent
+],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.css',
 })
@@ -86,12 +88,6 @@ export class LandingPageComponent {
   }
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   protected translocoService = inject(TranslocoService);
-
-  languages = [
-    { code: 'fr', name: 'Français', flag: 'https://flagcdn.com/w20/fr.png' },
-    { code: 'us', name: 'English', flag: 'https://flagcdn.com/w20/us.png' },
-    { code: 'de', name: 'Deutsch', flag: 'https://flagcdn.com/w20/de.png' },
-  ];
 
   dataSource = new MatTableDataSource<Birthday>();
 
@@ -246,13 +242,7 @@ export class LandingPageComponent {
     });
   }
 
-  currentLanguage = 'fr';
-
-  changeLanguage(lang: string) {
-    this.currentLanguage = lang;
-    this.translocoService.setActiveLang(lang);
-  }
-
+ 
   filteredBirthdays$ = combineLatest([
     this.birthdays,
     this.activeButton$,
