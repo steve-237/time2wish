@@ -93,7 +93,7 @@ export class NewBirthdayComponent {
         enableReminders: formValue.enableReminders,
         photo: this.profileImage as string,
         passed: this.isBirthdayPassed(formValue.birthdate),
-        city: formValue.city,
+        city: formValue.city
       };
 
       this.birthdayService.addBirthday(newBirthday);

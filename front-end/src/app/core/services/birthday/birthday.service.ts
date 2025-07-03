@@ -32,7 +32,7 @@ export class BirthdayService {
       id: this.generateId(),
       birthDate: new Date(birthday.date) // Ca doit etre une date
     };
-    this._birthdays.next([...current, newBirthday]);
+    this._birthdays.next([newBirthday,...current]);
     // l'appel HTTP ici:
     // this.http.post('/api/birthdays', newBirthday).subscribe(...);
   }
