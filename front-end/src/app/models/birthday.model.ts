@@ -9,5 +9,5 @@ export interface Birthday {
   phone?: string;
   notes?: string;
   enableReminders: boolean;
-  passed: boolean;
+  passed: boolean
 }
