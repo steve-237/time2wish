@@ -9,6 +9,7 @@ import { TranslocoModule } from '@jsverse/transloco';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { BirthdayDetailsComponent } from '../../pages/birthday-details/birthday-details.component';
 import { DialogService } from '../../shared/services/dialog/dialog.service';
+import { MatSort, MatSortModule } from '@angular/material/sort';
 
 @Component({
   selector: 'app-birthday-table',
@@ -20,6 +21,7 @@ import { DialogService } from '../../shared/services/dialog/dialog.service';
     MatTooltipModule,
     TranslocoModule,
     MatPaginatorModule,
+    MatSortModule
   ],
   templateUrl: './birthday-table.component.html',
   styleUrl: './birthday-table.component.css',
@@ -43,6 +45,7 @@ export class BirthdayTableComponent {
 
   constructor(private dialog: DialogService, private birthdayService: BirthdayService) {}
 
+  @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   
   dataSource = new MatTableDataSource<any>();
@@ -54,10 +57,27 @@ export class BirthdayTableComponent {
     if (this.paginator) {
       this.dataSource.paginator = this.paginator;
     }
+     this.dataSource.sort = this.sort;
   }
   
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator
+    this.dataSource.paginator = this.paginator;
+
+     this.dataSource.sort = this.sort;
+  
+  // Configuration du tri personnalisé pour certaines colonnes
+  this.dataSource.sortingDataAccessor = (item, property) => {
+    switch (property) {
+      case 'date': 
+        return new Date(item.date).getTime();
+      case 'age':
+        return this.calculateAge(item.date);
+      case 'status':
+        return this.getBirthdayStatus(item.date).text;
+      default:
+        return item[property];
+    }
+  };
   }
 
   getBirthdayStatus(birthdayDate: Date): {
