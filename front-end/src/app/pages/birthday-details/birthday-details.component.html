@@ -1,79 +1,129 @@
-<mat-card>
-    <h1 mat-dialog-title class="flex items-center gap-2">
-        <mat-icon>cake</mat-icon> <!-- Icône d'anniversaire -->
+<mat-card class="max-w-3xl">
+    <h1 mat-dialog-title class="flex items-center gap-2 px-6 pt-6">
+        <mat-icon class="text-pink-500">cake</mat-icon>
         Détails de l'anniversaire
     </h1>
     
-    <mat-dialog-content class="mat-typography">
+    <mat-dialog-content class="mat-typography px-6 pb-6">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <!-- Photo et infos de base -->
+            <!-- Colonne de gauche - Photo et infos basiques -->
             <div class="flex flex-col items-center">
                 <img [src]="data.photo || 'assets/default-avatar.png'" 
-                     class="w-32 h-32 rounded-full object-cover mb-4">
+                     class="w-32 h-32 rounded-full object-cover mb-4 border-2 border-gray-200">
+                
                 <h2 class="text-xl font-bold flex items-center gap-1">
-                    <mat-icon>person_outline</mat-icon> <!-- Icône de profil -->
+                    <mat-icon class="text-gray-500">person</mat-icon>
                     {{data.name}}
                 </h2>
+                
                 <p class="text-gray-600 flex items-center gap-1">
-                    <mat-icon>event</mat-icon> <!-- Icône de calendrier -->
+                    <mat-icon class="text-gray-500">event</mat-icon>
                     {{calculateAge(data.date)}} ans
                 </p>
             </div>
     
-            <!-- Détails -->
-            <div class="md:col-span-2 space-y-4">
+            <!-- Colonne de droite - Détails complets -->
+            <div class="md:col-span-2 space-y-6">
+                <!-- Grille d'informations -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <h3 class="font-medium text-gray-500 flex items-center gap-1">
-                            <mat-icon>calendar_today</mat-icon> <!-- Icône de date -->
+                    <!-- Date de naissance -->
+                    <div class="bg-gray-50 p-3 rounded-lg">
+                        <h3 class="font-medium text-gray-500 flex items-center gap-1 mb-1">
+                            <mat-icon class="!text-sm">calendar_today</mat-icon>
                             Date de naissance
                         </h3>
-                        <p>{{data.date | date:'dd/MM/yyyy'}}</p>
+                        <p class="font-medium">{{data.date | date:'dd/MM/yyyy'}}</p>
                     </div>
-                    <div>
-                        <h3 class="font-medium text-gray-500 flex items-center gap-1">
-                            <mat-icon>location_on</mat-icon> <!-- Icône de localisation -->
+                    
+                    <!-- Ville -->
+                    <div class="bg-gray-50 p-3 rounded-lg">
+                        <h3 class="font-medium text-gray-500 flex items-center gap-1 mb-1">
+                            <mat-icon class="!text-sm">location_on</mat-icon>
                             Ville
                         </h3>
-                        <p>{{data.city}}</p>
+                        <p class="font-medium">{{data.city || 'Non spécifié'}}</p>
                     </div>
-                    <div>
-                        <h3 class="font-medium text-gray-500 flex items-center gap-1">
-                            <mat-icon>{{getCategoryIcon(data.category)}}</mat-icon> <!-- Icône dynamique -->
+                    
+                    <!-- Catégorie -->
+                    <div class="bg-gray-50 p-3 rounded-lg">
+                        <h3 class="font-medium text-gray-500 flex items-center gap-1 mb-1">
+                            <mat-icon class="!text-sm">{{getCategoryIcon(data.category)}}</mat-icon>
                             Catégorie
                         </h3>
-                        <p>{{data.category}}</p>
+                        <p class="font-medium">{{data.category || 'Non spécifié'}}</p>
                     </div>
-                    <div>
-                        <h3 class="font-medium text-gray-500 flex items-center gap-1">
-                            <mat-icon>info</mat-icon> <!-- Icône d'information -->
+                    
+                    <!-- Statut -->
+                    <div class="bg-gray-50 p-3 rounded-lg">
+                        <h3 class="font-medium text-gray-500 flex items-center gap-1 mb-1">
+                            <mat-icon class="!text-sm">info</mat-icon>
                             Statut
                         </h3>
-                        <p class="flex items-center gap-1">
-                            <mat-icon class="!text-base">{{getStatusIcon(data.date)}}</mat-icon>
+                        <p class="font-medium flex items-center gap-1">
+                            <mat-icon class="!text-sm">{{getStatusIcon(data.date)}}</mat-icon>
                             {{getStatusText(data.date)}}
                         </p>
                     </div>
                 </div>
-    
+
+                <!-- Section "Ce que j'aime" -->
+                <div class="border-t border-gray-200 pt-4">
+                    <h3 class="font-medium text-gray-500 flex items-center gap-1 mb-3">
+                        <mat-icon class="text-red-400">favorite</mat-icon>
+                        Ce que j'aime
+                        <span class="text-xs text-gray-400 ml-auto">
+                            {{data.likes?.length || 0}} élément(s)
+                        </span>
+                    </h3>
+                    
+                    <!-- Liste des préférences -->
+                    <mat-chip-listbox class="mb-4 min-h-12" aria-label="Liste des choses aimées">
+                        @for (like of data.likes || []; track like) {
+                        <mat-chip class="!bg-pink-50 !text-pink-700" [removable]="true" (removed)="removeLike(like)">
+                            {{like}}
+                            <mat-icon matChipRemove class="!text-pink-500">cancel</mat-icon>
+                        </mat-chip>
+                        } @empty {
+                        <p class="text-gray-400 text-sm italic">Aucune préférence enregistrée</p>
+                        }
+                    </mat-chip-listbox>
+                    
+                    <!-- Formulaire d'ajout -->
+                    <div class="flex gap-2 items-center">
+                        <mat-form-field appearance="outline" class="flex-grow" floatLabel="always">
+                            <mat-label>Ajouter une préférence</mat-label>
+                            <input matInput [(ngModel)]="newLike" 
+                                   placeholder="Ex: Chocolat, Voyages, Musique..."
+                                   (keyup.enter)="addLike()">
+                            <mat-hint>Appuyez sur Entrée pour ajouter</mat-hint>
+                        </mat-form-field>
+                        <button mat-mini-fab color="primary" (click)="addLike()" 
+                                [disabled]="!newLike?.trim()" matTooltip="Ajouter">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </div>
+                </div>
+
                 <!-- Notes -->
-                <div *ngIf="data.notes">
-                    <h3 class="font-medium text-gray-500 flex items-center gap-1">
-                        <mat-icon>notes</mat-icon> <!-- Icône de notes -->
+                <div *ngIf="data.notes" class="border-t border-gray-200 pt-4">
+                    <h3 class="font-medium text-gray-500 flex items-center gap-1 mb-2">
+                        <mat-icon class="text-gray-500">notes</mat-icon>
                         Notes
                     </h3>
-                    <p class="whitespace-pre-line">{{data.notes}}</p>
+                    <p class="whitespace-pre-line bg-gray-50 p-3 rounded-lg">
+                        {{data.notes}}
+                    </p>
                 </div>
             </div>
         </div>
     </mat-dialog-content>
     
-    <mat-dialog-actions align="end">
-        <button mat-button mat-dialog-close>
-            <mat-icon>close</mat-icon> <!-- Icône de fermeture -->
+    <mat-dialog-actions align="end" class="px-6 pb-6">
+        <button mat-stroked-button mat-dialog-close class="!mr-2">
+            <mat-icon>close</mat-icon>
             Fermer
         </button>
-        <button mat-button color="primary" (click)="onEdit()">
+        <button mat-flat-button color="primary" (click)="onEdit()">
             <mat-icon>edit</mat-icon>
             Modifier
         </button>
