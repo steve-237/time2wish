@@ -12,6 +12,8 @@ import {
 } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatFormFieldModule } from "@angular/material/form-field";
 
 @Component({
   selector: 'app-birthday-details',
@@ -24,16 +26,35 @@ import { Router } from '@angular/router';
     MatDatepickerModule,
     MatNativeDateModule,
     MatCardModule,
+    MatChipsModule,
+    MatFormFieldModule
   ],
   templateUrl: './birthday-details.component.html',
   styleUrl: './birthday-details.component.css',
 })
 export class BirthdayDetailsComponent {
+
+  newLike = '';
+
   constructor(
     public dialogRef: MatDialogRef<BirthdayDetailsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private router: Router
   ) {}
+
+   addLike() {
+    if (this.newLike && this.newLike.trim()) {
+      if (!this.data.likes) {
+        this.data.likes = [];
+      }
+      this.data.likes.push(this.newLike.trim());
+      this.newLike = '';
+    }
+  }
+
+  removeLike(like: string) {
+    this.data.likes = this.data.likes.filter((l: string) => l !== like);
+  }
 
   /**
    * Détermine si l'anniversaire est passé
