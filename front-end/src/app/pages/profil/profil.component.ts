@@ -109,7 +109,7 @@ export class ProfilComponent{
           photo: this.profileImage
         };
         
-        this.authService.updatedProfile(updatedProfile);
+        this.authService.updateProfile(updatedProfile);
         this.originalFormValues = this.profileForm.value;
         this.editMode = false;
         this.isLoading = false;
