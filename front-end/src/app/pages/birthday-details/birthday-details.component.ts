@@ -14,10 +14,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInput } from '@angular/material/input';
 
 @Component({
   selector: 'app-birthday-details',
   imports: [
+    MatInput,
     CommonModule,
     FormsModule,
     MatDialogModule,
