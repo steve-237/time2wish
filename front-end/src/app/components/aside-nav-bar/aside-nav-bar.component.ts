@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SettingComponent } from '../../pages/setting/setting.component';
 import { NewBirthdayComponent } from '../../pages/new-birthday/new-birthday.component';
 import { DialogService } from '../../shared/services/dialog/dialog.service';
@@ -12,6 +12,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslocoModule } from '@jsverse/transloco';
+import { VersionService } from '../../shared/services/version/version.service';
 
 @Component({
   selector: 'app-aside-nav-bar',
@@ -31,10 +32,15 @@ import { TranslocoModule } from '@jsverse/transloco';
   templateUrl: './aside-nav-bar.component.html',
   styleUrl: './aside-nav-bar.component.css',
 })
-export class AsideNavBarComponent {
+export class AsideNavBarComponent implements OnInit {
   expanded = false;
+  version = '';
 
-  constructor(private dialog: DialogService, public authService: AuthService) {}
+  constructor(private dialog: DialogService, public authService: AuthService, private versionService: VersionService) {}
+
+  ngOnInit(): void {
+    this.version = this.versionService.version;
+  }
 
   onSetting() {
     this.dialog.open(SettingComponent);
