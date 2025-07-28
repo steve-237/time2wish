@@ -83,9 +83,11 @@ import { SetLanguageComponent } from "../../components/set-language/set-language
   styleUrl: './landing-page.component.css',
 })
 export class LandingPageComponent {
+
   editBirthday() {
     throw new Error('Method not implemented.');
   }
+  
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   protected translocoService = inject(TranslocoService);
 

@@ -34,11 +34,13 @@
             placeholder="{{ t('placeholder_search_bar') }}"
             class="flex-1 bg-transparent border-none focus:outline-none py-2"
             [(ngModel)]="searchQuery"
-            (ngModelChange)="updateSearchQuery($event); updateSuggestions($event)"
+            (ngModelChange)="
+              updateSearchQuery($event); updateSuggestions($event)
+            "
             [matAutocomplete]="auto"
           />
 
-           <!-- Autocomplétion Material -->
+          <!-- Autocomplétion Material -->
           <mat-autocomplete
             #auto="matAutocomplete"
             (optionSelected)="selectSuggestion($event.option.value)"
@@ -248,94 +250,93 @@
       </div>
     </div>
 
-    @if (loading) {
-    <div
-      class="bg-white flex flex-col mt-4 h-[75%] items-center justify-center rounded-lg"
-    >
-      <mat-spinner diameter="50" color="primary"></mat-spinner>
-      <p class="text-gray-600 text-sm">Chargement des anniversaires...</p>
-    </div>
-    }@else {
-    <div class="bg-white shadow-md rounded-lg p-4 mt-4">
-      @if(viewMode === 'table' && !loading) {
-      <div
-        class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6"
-      >
-        <div class="flex justify-center flex-wrap gap-2">
-          <button mat-button class="flex items-center gap-1">
-            <mat-icon>file_upload</mat-icon>
-            Import
-          </button>
-          <button mat-button class="flex items-center gap-1">
-            <mat-icon>file_download</mat-icon>
-            Export
-          </button>
-        </div>
-      </div>
+    <div class="h-[calc(80vh-100px)] mt-4 overflow-hidden">
+      <!-- Ajustez la hauteur selon votre header -->
 
-      <!-- Material Table -->
+      @if (loading) {
       <div
-        class="shadow-sm rounded-lg overflow-hidden border border-gray-200 mb-6"
+        class="bg-white flex flex-col flex-1 items-center justify-center rounded-lg h-full"
       >
-        <app-birthday-table
-          [birthdays]="dataSource.data"
-          (edit)="editBirthday()"
-          (delete)="deleteBirthday($event)"
-        ></app-birthday-table>
-        @if(!(hasBirthdays$ | async)) {
-        <div class="p-8 text-center text-gray-500">
-          <mat-icon class="!text-4xl !w-12 !h-12 mb-2">event_busy</mat-icon>
-          <p class="text-lg">
-            {{
-              (activeButton$ | async) === "coming"
-                ? "No coming anniversary"
-                : "No passed anniversary"
-            }}
-          </p>
+        <mat-spinner diameter="50" color="primary"></mat-spinner>
+        <p class="text-gray-600 text-sm mt-2">
+          Chargement des anniversaires...
+        </p>
+      </div>
+      } @else {
+      <div class="bg-white shadow-md rounded-lg flex flex-col h-full">
+        <!-- Header avec boutons -->
+        @if (viewMode === 'table') {
+        <div
+          class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 p-4 border-b border-gray-200 shrink-0"
+        >
+          <div class="flex justify-center flex-wrap gap-2">
+            <button mat-button class="flex items-center gap-1">
+              <mat-icon>file_upload</mat-icon>
+              Import
+            </button>
+            <button mat-button class="flex items-center gap-1">
+              <mat-icon>file_download</mat-icon>
+              Export
+            </button>
+          </div>
         </div>
         }
-      </div>
 
-      } @else { @if (!loading) {
-      <div
-        class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6"
-      >
-        <div class="flex justify-center flex-wrap gap-2">
-          <button mat-button class="flex items-center gap-1">
-            <mat-icon>file_upload</mat-icon>
-            Import
-          </button>
-          <button mat-button class="flex items-center gap-1">
-            <mat-icon>file_download</mat-icon>
-            Export
-          </button>
+        <!-- Contenu scrollable -->
+        <div class="flex-1 overflow-y-auto">
+          @if (viewMode === 'table') {
+          <!-- Vue table -->
+          <div class="flex flex-col h-full min-h-[300px] px-4">
+            <app-birthday-table
+              class="flex-1"
+              [birthdays]="dataSource.data"
+              (edit)="editBirthday()"
+              (delete)="deleteBirthday($event)"
+            >
+            </app-birthday-table>
+
+            @if (!(hasBirthdays$ | async)) {
+            <div class="p-8 text-center text-gray-500">
+              <mat-icon class="text-4xl w-12 h-12 mb-2">event_busy</mat-icon>
+              <p class="text-lg">
+                {{
+                  (activeButton$ | async) === "coming"
+                    ? "No coming anniversary"
+                    : "No passed anniversary"
+                }}
+              </p>
+            </div>
+            }
+          </div>
+          } @else {
+          <!-- Vue cartes -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+            @if (hasBirthdays$ | async) { @for (item of dataSource.data; track
+            item.id) {
+            <app-birthday-card
+              [item]="item"
+              (edit)="editBirthday()"
+              (delete)="deleteBirthday(item.id)"
+              (details)="openBirthdayDetails(item)"
+            >
+            </app-birthday-card>
+            } } @else {
+            <div class="p-8 text-center text-gray-500 col-span-full">
+              <mat-icon class="text-4xl w-12 h-12 mb-2">event_busy</mat-icon>
+              <p class="text-lg">
+                {{
+                  (activeButton$ | async) === "coming"
+                    ? "No coming anniversary"
+                    : "No passed anniversary"
+                }}
+              </p>
+            </div>
+            }
+          </div>
+          }
         </div>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-        @if(hasBirthdays$ | async) { @for (item of dataSource.data; track
-        item.id) {
-
-        <app-birthday-card
-          [item]="item"
-          (edit)="editBirthday()"
-          (delete)="deleteBirthday(item.id)"
-          (details)="openBirthdayDetails(item)"
-        ></app-birthday-card>
-        } } @else {
-        <div class="p-8 text-center text-gray-500">
-          <mat-icon class="!text-4xl !w-12 !h-12 mb-2">event_busy</mat-icon>
-          <p class="text-lg">
-            {{
-              (activeButton$ | async) === "coming"
-                ? "No coming anniversary"
-                : "No passed anniversary"
-            }}
-          </p>
-        </div>
-        }
-      </div>
-      } }
+      }
     </div>
-    }
   </main>
 </div>
