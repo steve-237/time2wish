@@ -1,341 +1,352 @@
-<div class="flex bg-gray-200" *transloco="let t">
+<div class="flex" *transloco="let t">
   <!-- Sidebar -->
   <app-aside-nav-bar></app-aside-nav-bar>
+  
+  <div
+    class="h-screen w-screen flex items-center justify-center bg-gray-200 overflow-hidden"
+  >
+    <!-- Main Content -->
+    <main class="h-full w-full flex flex-col p-4 shadow-lg rounded-lg">
+      <div class="!rounded-lg !shadow-md !p-4 bg-white mt-4">
+        <div class="flex items-center justify-between w-full">
+          <!-- Logo -->
+          <div class="flex items-center">
+            <img
+              src="time2wish-logo.png"
+              alt="Logo"
+              class="h-12 md:h-16 ml-2 md:ml-7"
+            />
+          </div>
 
-  <!-- Main Content -->
-  <main class="flex-1 p-4">
-    <div class="!rounded-lg !shadow-md !p-4 !h-auto bg-white">
-      <div class="flex items-center justify-between w-full">
-        <!-- Logo -->
-        <div class="flex items-center">
-          <img
-            src="time2wish-logo.png"
-            alt="Logo"
-            class="h-12 md:h-16 ml-2 md:ml-7"
-          />
-        </div>
-
-        <div
-          class="group flex items-center w-full max-w-2xl rounded-full bg-gray-200 transition-all duration-300 focus-within:bg-white focus-within:shadow-md border border-gray-300"
-        >
-          <!-- Icône de recherche -->
-          <button
-            mat-icon-button
-            class="!w-10 !h-10 flex items-center justify-center m-2"
+          <div
+            class="group flex items-center w-full max-w-2xl rounded-full bg-gray-200 transition-all duration-300 focus-within:bg-white focus-within:shadow-md border border-gray-300"
           >
-            <mat-icon [matTooltip]="'search.tooltip' | transloco"
-              >search</mat-icon
-            >
-          </button>
-
-          <!-- Champ de recherche -->
-          <input
-            matInput
-            placeholder="{{ t('placeholder_search_bar') }}"
-            class="flex-1 bg-transparent border-none focus:outline-none py-2"
-            [(ngModel)]="searchQuery"
-            (ngModelChange)="updateSearchQuery($event); updateSuggestions($event)"
-            [matAutocomplete]="auto"
-          />
-
-           <!-- Autocomplétion Material -->
-          <mat-autocomplete
-            #auto="matAutocomplete"
-            (optionSelected)="selectSuggestion($event.option.value)"
-          >
-            @for (suggestion of suggestions; track suggestion) {
-            <mat-option [value]="suggestion">
-              {{ suggestion }}
-            </mat-option>
-            }
-          </mat-autocomplete>
-
-          @if (searchQuery) {
-          <!-- Bouton pour effacer la recherche -->
-          <button
-            mat-icon-button
-            class="!w-10 !h-10 flex items-center justify-center m-2"
-            (click)="searchQuery = ''; updateSearchQuery('')"
-          >
-            <mat-icon>close</mat-icon>
-          </button>
-          } @else {
-          <!-- Icône filtre -->
-          <button
-            mat-icon-button
-            [matMenuTriggerFor]="filterMenu"
-            class="!w-10 !h-10 flex items-center justify-center m-2"
-          >
-            <mat-icon
-              class="text-gray-500"
-              [matTooltip]="'search.filter' | transloco"
-            >
-              tune
-            </mat-icon>
-          </button>
-          }
-
-          <mat-menu #filterMenu="matMenu">
-            <button mat-menu-item disabled>
-              <span class="font-medium">Filter by:</span>
-            </button>
-            <mat-divider></mat-divider>
-            @for (col of availableColumns; track col.value) {
+            <!-- Icône de recherche -->
             <button
-              mat-menu-item
-              (click)="updateAdvancedFilter(col.value)"
-              [class.bg-blue-50]="advancedFilter.column === col.value"
+              mat-icon-button
+              class="!w-10 !h-10 flex items-center justify-center m-2"
             >
-              <mat-icon>{{ col.icon }}</mat-icon>
-              <span>{{ col.label }}</span>
-              @if (advancedFilter.column === col.value) {
-              <mat-icon class="ml-auto text-blue-500">check</mat-icon>
+              <mat-icon [matTooltip]="'search.tooltip' | transloco"
+                >search</mat-icon
+              >
+            </button>
+
+            <!-- Champ de recherche -->
+            <input
+              matInput
+              placeholder="{{ t('placeholder_search_bar') }}"
+              class="flex-1 bg-transparent border-none focus:outline-none py-2"
+              [(ngModel)]="searchQuery"
+              (ngModelChange)="
+                updateSearchQuery($event); updateSuggestions($event)
+              "
+              [matAutocomplete]="auto"
+            />
+
+            <!-- Autocomplétion Material -->
+            <mat-autocomplete
+              #auto="matAutocomplete"
+              (optionSelected)="selectSuggestion($event.option.value)"
+            >
+              @for (suggestion of suggestions; track suggestion) {
+              <mat-option [value]="suggestion">
+                {{ suggestion }}
+              </mat-option>
+              }
+            </mat-autocomplete>
+
+            @if (searchQuery) {
+            <!-- Bouton pour effacer la recherche -->
+            <button
+              mat-icon-button
+              class="!w-10 !h-10 flex items-center justify-center m-2"
+              (click)="searchQuery = ''; updateSearchQuery('')"
+            >
+              <mat-icon>close</mat-icon>
+            </button>
+            } @else {
+            <!-- Icône filtre -->
+            <button
+              mat-icon-button
+              [matMenuTriggerFor]="filterMenu"
+              class="!w-10 !h-10 flex items-center justify-center m-2"
+            >
+              <mat-icon
+                class="text-gray-500"
+                [matTooltip]="'search.filter' | transloco"
+              >
+                tune
+              </mat-icon>
+            </button>
+            }
+
+            <mat-menu #filterMenu="matMenu">
+              <button mat-menu-item disabled>
+                <span class="font-medium">Filter by:</span>
+              </button>
+              <mat-divider></mat-divider>
+              @for (col of availableColumns; track col.value) {
+              <button
+                mat-menu-item
+                (click)="updateAdvancedFilter(col.value)"
+                [class.bg-blue-50]="advancedFilter.column === col.value"
+              >
+                <mat-icon>{{ col.icon }}</mat-icon>
+                <span>{{ col.label }}</span>
+                @if (advancedFilter.column === col.value) {
+                <mat-icon class="ml-auto text-blue-500">check</mat-icon>
+                }
+              </button>
+              }
+            </mat-menu>
+          </div>
+
+          <!-- Groupe d'icônes -->
+          <div class="flex items-center gap-1 md:gap-4">
+            <!-- Bouton changement de thème -->
+            <button
+              mat-icon-button
+              (click)="toggleTheme()"
+              class="!w-10 !h-10 flex items-center justify-center"
+              [matTooltip]="'toolbar.theme' | transloco"
+            >
+              <mat-icon class="!text-gray-700">
+                {{ isDarkTheme ? "light_mode" : "dark_mode" }}
+              </mat-icon>
+            </button>
+
+            <!-- Notification avec badge -->
+            <button
+              mat-icon-button
+              [matBadge]="3"
+              matBadgeColor="warn"
+              matBadgeSize="large"
+              class="!w-10 !h-10 !flex !items-center !justify-center relative"
+              (click)="onNotification()"
+              [matTooltip]="'toolbar.notifications' | transloco"
+            >
+              <mat-icon class="!text-gray-700">notifications</mat-icon>
+            </button>
+
+            @if(viewMode === 'table') {
+            <!-- Changement de vue (vue sous forme de table)-->
+            <button
+              mat-icon-button
+              (click)="toggleView('cards')"
+              [matTooltip]="'toolbar.view_cards' | transloco"
+            >
+              <mat-icon>view_module</mat-icon>
+            </button>
+            } @else {
+            <!-- Changement de vue (vue sous forme de cards) -->
+            <button
+              mat-icon-button
+              (click)="toggleView('table')"
+              [matTooltip]="'toolbar.view_table' | transloco"
+            >
+              <mat-icon>table_chart</mat-icon>
+            </button>
+            }
+
+            <!-- Menu Langue -->
+            <app-set-language></app-set-language>
+
+            <!-- Aide -->
+            <button
+              mat-icon-button
+              class="!w-10 !h-10 flex items-center justify-center"
+              (click)="onInformation()"
+              [matTooltip]="'toolbar.help' | transloco"
+            >
+              <mat-icon class="!text-gray-700">help_outline</mat-icon>
+            </button>
+
+            <!-- Menu Profil -->
+            <button
+              mat-icon-button
+              [matMenuTriggerFor]="profileMenu"
+              class="flex items-center justify-center"
+              [matTooltip]="'toolbar.profile' | transloco"
+            >
+              @if (authService.getCurrentUser()?.photo) {
+              <img
+                [src]="authService.getCurrentUser()?.photo"
+                class="rounded-full"
+              />
+              } @else {
+              <mat-icon class="!text-gray-700">account_circle</mat-icon>
               }
             </button>
-            }
-          </mat-menu>
+            <mat-menu #profileMenu="matMenu">
+              <button mat-menu-item (click)="onProfil()">
+                <mat-icon>person</mat-icon>
+                <span>{{ "toolbar.profile" | transloco }}</span>
+              </button>
+              <button
+                mat-menu-item
+                [routerLink]="['/login']"
+                routerLinkActive="router-link-active"
+              >
+                <mat-icon>logout</mat-icon>
+                <span>{{ "toolbar.logout" | transloco }}</span>
+              </button>
+            </mat-menu>
+          </div>
+        </div>
+        <!-- Indicateur de filtre actif -->
+        @if (advancedFilter.column !== 'all') {
+        <div class="text-sm text-gray-500 mt-1 ml-60 flex items-center">
+          <mat-icon class="!text-sm mr-1">filter_alt</mat-icon>
+          Filtering in:
+          <span class="font-medium ml-1">
+            {{ getColumnLabel(advancedFilter.column) }}
+          </span>
+        </div>
+        }
+      </div>
+
+      <div
+        class="bg-white flex shadow-md justify-center gap-5 rounded-lg p-4 mt-4"
+      >
+        <mat-button-toggle-group
+          [value]="activeButton$ | async"
+          (change)="setActiveButton($event.value)"
+          class="!border-none rounded-full bg-gray-200 p-1"
+        >
+          <mat-button-toggle
+            value="coming"
+            class="!rounded-full !font-medium !px-4 !py-2 !border-none !transition-all"
+            [class.!bg-white]="(activeButton$ | async) === 'coming'"
+            [class.!text-gray-800]="(activeButton$ | async) === 'coming'"
+            [class.!shadow-sm]="(activeButton$ | async) === 'coming'"
+            [class.!bg-gray-200]="(activeButton$ | async) !== 'coming'"
+            [class.!text-gray-600]="(activeButton$ | async) !== 'coming'"
+          >
+            {{ "anniversary.coming" | transloco }}
+          </mat-button-toggle>
+
+          <mat-button-toggle
+            value="passed"
+            class="!rounded-full !font-medium !px-4 !py-2 !border-none !transition-all"
+            [class.!bg-white]="(activeButton$ | async) === 'passed'"
+            [class.!text-gray-800]="(activeButton$ | async) === 'passed'"
+            [class.!shadow-sm]="(activeButton$ | async) === 'passed'"
+            [class.!bg-gray-200]="(activeButton$ | async) !== 'passed'"
+            [class.!text-gray-600]="(activeButton$ | async) !== 'passed'"
+          >
+            {{ "anniversary.passed" | transloco }}
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+
+        <div class="flex items-center gap-2">
+          <mat-icon class="text-gray-500">calendar_today</mat-icon>
+          <span class="font-medium text-gray-800">{{
+            currentDate | date : "dd.MM.yyyy"
+          }}</span>
         </div>
 
-        <!-- Groupe d'icônes -->
-        <div class="flex items-center gap-1 md:gap-4">
-          <!-- Bouton changement de thème -->
-          <button
-            mat-icon-button
-            (click)="toggleTheme()"
-            class="!w-10 !h-10 flex items-center justify-center"
-            [matTooltip]="'toolbar.theme' | transloco"
-          >
-            <mat-icon class="!text-gray-700">
-              {{ isDarkTheme ? "light_mode" : "dark_mode" }}
-            </mat-icon>
-          </button>
+        <div class="flex items-center gap-2">
+          <mat-icon class="text-gray-500">schedule</mat-icon>
+          <span class="font-medium text-gray-800">{{
+            currentDate | date : "HH:mm"
+          }}</span>
+        </div>
+      </div>
 
-          <!-- Notification avec badge -->
-          <button
-            mat-icon-button
-            [matBadge]="3"
-            matBadgeColor="warn"
-            matBadgeSize="large"
-            class="!w-10 !h-10 !flex !items-center !justify-center relative"
-            (click)="onNotification()"
-            [matTooltip]="'toolbar.notifications' | transloco"
-          >
-            <mat-icon class="!text-gray-700">notifications</mat-icon>
-          </button>
+      <div
+        class="mt-4 flex-1 overflow-hidden bg-white rounded-lg shadow-lg p-4 mb-4"
+      >
+        <!-- Ajustez la hauteur selon votre header -->
 
-          @if(viewMode === 'table') {
-          <!-- Changement de vue (vue sous forme de table)-->
-          <button
-            mat-icon-button
-            (click)="toggleView('cards')"
-            [matTooltip]="'toolbar.view_cards' | transloco"
+        @if (loading) {
+        <div
+          class="bg-white flex flex-col flex-1 items-center justify-center rounded-lg h-full"
+        >
+          <mat-spinner diameter="50" color="primary"></mat-spinner>
+          <p class="text-gray-600 text-sm mt-2">
+            Chargement des anniversaires...
+          </p>
+        </div>
+        } @else {
+        <div class="bg-white shadow-md rounded-lg flex flex-col h-full">
+          <!-- Header avec boutons -->
+          @if (viewMode === 'table') {
+          <div
+            class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 p-4 border-b border-gray-200 shrink-0"
           >
-            <mat-icon>view_module</mat-icon>
-          </button>
-          } @else {
-          <!-- Changement de vue (vue sous forme de cards) -->
-          <button
-            mat-icon-button
-            (click)="toggleView('table')"
-            [matTooltip]="'toolbar.view_table' | transloco"
-          >
-            <mat-icon>table_chart</mat-icon>
-          </button>
+            <div class="flex justify-center flex-wrap gap-2">
+              <button mat-button class="flex items-center gap-1">
+                <mat-icon>file_upload</mat-icon>
+                Import
+              </button>
+              <button mat-button class="flex items-center gap-1">
+                <mat-icon>file_download</mat-icon>
+                Export
+              </button>
+            </div>
+          </div>
           }
 
-          <!-- Menu Langue -->
-          <app-set-language></app-set-language>
+          <!-- Contenu scrollable -->
+          <div class="flex-1 overflow-y-auto">
+            @if (viewMode === 'table') {
+            <!-- Vue table -->
+            <div class="flex flex-col h-full min-h-[300px] px-4">
+              <app-birthday-table
+                class="flex-1"
+                [birthdays]="dataSource.data"
+                (edit)="editBirthday()"
+                (delete)="deleteBirthday($event)"
+              >
+              </app-birthday-table>
 
-          <!-- Aide -->
-          <button
-            mat-icon-button
-            class="!w-10 !h-10 flex items-center justify-center"
-            (click)="onInformation()"
-            [matTooltip]="'toolbar.help' | transloco"
-          >
-            <mat-icon class="!text-gray-700">help_outline</mat-icon>
-          </button>
-
-          <!-- Menu Profil -->
-          <button
-            mat-icon-button
-            [matMenuTriggerFor]="profileMenu"
-            class="flex items-center justify-center"
-            [matTooltip]="'toolbar.profile' | transloco"
-          >
-            @if (authService.getCurrentUser()?.photo) {
-            <img
-              [src]="authService.getCurrentUser()?.photo"
-              class="rounded-full"
-            />
+              @if (!(hasBirthdays$ | async)) {
+              <div class="p-8 text-center text-gray-500">
+                <mat-icon class="text-4xl w-12 h-12 mb-2">event_busy</mat-icon>
+                <p class="text-lg">
+                  {{
+                    (activeButton$ | async) === "coming"
+                      ? "No coming anniversary"
+                      : "No passed anniversary"
+                  }}
+                </p>
+              </div>
+              }
+            </div>
             } @else {
-            <mat-icon class="!text-gray-700">account_circle</mat-icon>
-            }
-          </button>
-          <mat-menu #profileMenu="matMenu">
-            <button mat-menu-item (click)="onProfil()">
-              <mat-icon>person</mat-icon>
-              <span>{{ "toolbar.profile" | transloco }}</span>
-            </button>
-            <button
-              mat-menu-item
-              [routerLink]="['/login']"
-              routerLinkActive="router-link-active"
+            <!-- Vue cartes -->
+            <div
+              class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4"
             >
-              <mat-icon>logout</mat-icon>
-              <span>{{ "toolbar.logout" | transloco }}</span>
-            </button>
-          </mat-menu>
-        </div>
-      </div>
-      <!-- Indicateur de filtre actif -->
-      @if (advancedFilter.column !== 'all') {
-      <div class="text-sm text-gray-500 mt-1 ml-60 flex items-center">
-        <mat-icon class="!text-sm mr-1">filter_alt</mat-icon>
-        Filtering in:
-        <span class="font-medium ml-1">
-          {{ getColumnLabel(advancedFilter.column) }}
-        </span>
-      </div>
-      }
-    </div>
-
-    <div
-      class="bg-white flex shadow-md justify-center gap-5 rounded-lg p-4 mt-4"
-    >
-      <mat-button-toggle-group
-        [value]="activeButton$ | async"
-        (change)="setActiveButton($event.value)"
-        class="!border-none rounded-full bg-gray-200 p-1"
-      >
-        <mat-button-toggle
-          value="coming"
-          class="!rounded-full !font-medium !px-4 !py-2 !border-none !transition-all"
-          [class.!bg-white]="(activeButton$ | async) === 'coming'"
-          [class.!text-gray-800]="(activeButton$ | async) === 'coming'"
-          [class.!shadow-sm]="(activeButton$ | async) === 'coming'"
-          [class.!bg-gray-200]="(activeButton$ | async) !== 'coming'"
-          [class.!text-gray-600]="(activeButton$ | async) !== 'coming'"
-        >
-          {{ "anniversary.coming" | transloco }}
-        </mat-button-toggle>
-
-        <mat-button-toggle
-          value="passed"
-          class="!rounded-full !font-medium !px-4 !py-2 !border-none !transition-all"
-          [class.!bg-white]="(activeButton$ | async) === 'passed'"
-          [class.!text-gray-800]="(activeButton$ | async) === 'passed'"
-          [class.!shadow-sm]="(activeButton$ | async) === 'passed'"
-          [class.!bg-gray-200]="(activeButton$ | async) !== 'passed'"
-          [class.!text-gray-600]="(activeButton$ | async) !== 'passed'"
-        >
-          {{ "anniversary.passed" | transloco }}
-        </mat-button-toggle>
-      </mat-button-toggle-group>
-
-      <div class="flex items-center gap-2">
-        <mat-icon class="text-gray-500">calendar_today</mat-icon>
-        <span class="font-medium text-gray-800">{{
-          currentDate | date : "dd.MM.yyyy"
-        }}</span>
-      </div>
-
-      <div class="flex items-center gap-2">
-        <mat-icon class="text-gray-500">schedule</mat-icon>
-        <span class="font-medium text-gray-800">{{
-          currentDate | date : "HH:mm"
-        }}</span>
-      </div>
-    </div>
-
-    @if (loading) {
-    <div
-      class="bg-white flex flex-col mt-4 h-[75%] items-center justify-center rounded-lg"
-    >
-      <mat-spinner diameter="50" color="primary"></mat-spinner>
-      <p class="text-gray-600 text-sm">Chargement des anniversaires...</p>
-    </div>
-    }@else {
-    <div class="bg-white shadow-md rounded-lg p-4 mt-4">
-      @if(viewMode === 'table' && !loading) {
-      <div
-        class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6"
-      >
-        <div class="flex justify-center flex-wrap gap-2">
-          <button mat-button class="flex items-center gap-1">
-            <mat-icon>file_upload</mat-icon>
-            Import
-          </button>
-          <button mat-button class="flex items-center gap-1">
-            <mat-icon>file_download</mat-icon>
-            Export
-          </button>
-        </div>
-      </div>
-
-      <!-- Material Table -->
-      <div
-        class="shadow-sm rounded-lg overflow-hidden border border-gray-200 mb-6"
-      >
-        <app-birthday-table
-          [birthdays]="dataSource.data"
-          (edit)="editBirthday()"
-          (delete)="deleteBirthday($event)"
-        ></app-birthday-table>
-        @if(!(hasBirthdays$ | async)) {
-        <div class="p-8 text-center text-gray-500">
-          <mat-icon class="!text-4xl !w-12 !h-12 mb-2">event_busy</mat-icon>
-          <p class="text-lg">
-            {{
-              (activeButton$ | async) === "coming"
-                ? "No coming anniversary"
-                : "No passed anniversary"
-            }}
-          </p>
+              @if (hasBirthdays$ | async) { @for (item of dataSource.data; track
+              item.id) {
+              <app-birthday-card
+                [item]="item"
+                (edit)="editBirthday()"
+                (delete)="deleteBirthday(item.id)"
+                (details)="openBirthdayDetails(item)"
+              >
+              </app-birthday-card>
+              } } @else {
+              <div class="p-8 text-center text-gray-500 col-span-full">
+                <mat-icon class="text-4xl w-12 h-12 mb-2">event_busy</mat-icon>
+                <p class="text-lg">
+                  {{
+                    (activeButton$ | async) === "coming"
+                      ? "No coming anniversary"
+                      : "No passed anniversary"
+                  }}
+                </p>
+              </div>
+              }
+            </div>
+            }
+          </div>
         </div>
         }
       </div>
 
-      } @else { @if (!loading) {
-      <div
-        class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6"
-      >
-        <div class="flex justify-center flex-wrap gap-2">
-          <button mat-button class="flex items-center gap-1">
-            <mat-icon>file_upload</mat-icon>
-            Import
-          </button>
-          <button mat-button class="flex items-center gap-1">
-            <mat-icon>file_download</mat-icon>
-            Export
-          </button>
-        </div>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-        @if(hasBirthdays$ | async) { @for (item of dataSource.data; track
-        item.id) {
-
-        <app-birthday-card
-          [item]="item"
-          (edit)="editBirthday()"
-          (delete)="deleteBirthday(item.id)"
-          (details)="openBirthdayDetails(item)"
-        ></app-birthday-card>
-        } } @else {
-        <div class="p-8 text-center text-gray-500">
-          <mat-icon class="!text-4xl !w-12 !h-12 mb-2">event_busy</mat-icon>
-          <p class="text-lg">
-            {{
-              (activeButton$ | async) === "coming"
-                ? "No coming anniversary"
-                : "No passed anniversary"
-            }}
-          </p>
-        </div>
-        }
-      </div>
-      } }
-    </div>
-    }
-  </main>
+      <footer class="shadow-md !p-4 bg-white">Footer</footer>
+    </main>
+  </div>
 </div>
