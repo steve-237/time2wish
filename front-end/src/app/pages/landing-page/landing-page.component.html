@@ -118,7 +118,8 @@
             <!-- Notification avec badge -->
             <button
               mat-icon-button
-              [matBadge]="3"
+              [matBadge]="notificationService.unreadCount$ | async"
+              [matBadgeHidden]="(notificationService.unreadCount$ | async) === 0"
               matBadgeColor="warn"
               matBadgeSize="large"
               class="!w-10 !h-10 !flex !items-center !justify-center relative"

@@ -1,3 +1,4 @@
+import { NotificationService } from './../../shared/services/notification/notification.service';
 import { Birthday } from './../../models/birthday.model';
 import { AuthService } from './../../core/services/auth/auth.service';
 import { Component, inject, ViewChild } from '@angular/core';
@@ -87,7 +88,7 @@ export class LandingPageComponent {
   editBirthday() {
     throw new Error('Method not implemented.');
   }
-  
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   protected translocoService = inject(TranslocoService);
 
@@ -144,7 +145,7 @@ export class LandingPageComponent {
 
   private dataSourceSub?: Subscription;
 
-  constructor(private dialog: DialogService, public authService: AuthService) {}
+  constructor(private dialog: DialogService, public authService: AuthService, public notificationService : NotificationService) {}
 
   ngOnInit() {
     this.loading = true;
