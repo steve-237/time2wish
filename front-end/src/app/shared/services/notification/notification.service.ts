@@ -2,8 +2,10 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from '../../../core/services/auth/auth.service';
 import { Birthday } from '../../../models/birthday.model';
+import { BirthdayService } from '../../../core/services/birthday/birthday.service';
 
 interface Notification {
+icon: any;
   id: string;
   title: string;
   message: string;
@@ -36,8 +38,9 @@ private notificationsSubject = new BehaviorSubject<Notification[]>([]);
     const todayStr = `${today.getMonth() + 1}/${today.getDate()}`;
     
     // Récupérer les anniversaires (à adapter selon votre structure)
-    const birthdays: Birthday[] = []; // Remplacez par votre source de données
-    
+    let birthdays: Birthday[] = []; // Remplacez par votre source de données
+
+
     const birthdayNotifications = birthdays
       .filter(b => {
         const bDate = new Date(b.date);
@@ -50,7 +53,8 @@ private notificationsSubject = new BehaviorSubject<Notification[]>([]);
         message: `C'est l'anniversaire de ${b.name} !`,
         read: false,
         date: new Date(),
-        type: 'birthday' as const
+        type: 'birthday' as const,
+        icon: ''
       }));
 
     this.addNotifications(birthdayNotifications);
