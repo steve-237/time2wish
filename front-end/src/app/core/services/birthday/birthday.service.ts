@@ -14,7 +14,7 @@ export class BirthdayService {
 
   private apiUrl = '/mock/birthdays.json'; // Remplacer par une vraie API si dispo
 
-  constructor(private http: HttpClient, private translocoService: TranslocoService, private notificationService: NotificationService) {}
+  constructor(private http: HttpClient, private translocoService: TranslocoService, ) {}
 
   fetchBirthdays(): void {
     this.http.get<Birthday[]>(this.apiUrl).subscribe(data => {
@@ -105,25 +105,4 @@ export class BirthdayService {
     return age;
   }
 
-   checkForBirthdays(birthdays: Birthday[]): void {
-    const today = new Date();
-    const todayStr = `${today.getMonth() + 1}/${today.getDate()}`;
-    
-    birthdays.forEach(birthday => {
-      const bDate = new Date(birthday.date);
-      const bDateStr = `${bDate.getMonth() + 1}/${bDate.getDate()}`;
-      
-      if (bDateStr === todayStr) {
-        this.notificationService.addNotifications([{
-          id: `bday-${birthday.id}-${today.getFullYear()}`,
-          title: "Anniversaire aujourd'hui!",
-          message: `N'oubliez pas de souhaiter un bon anniversaire à ${birthday.name}!`,
-          read: false,
-          date: new Date(),
-          type: 'birthday',
-          icon: ''
-        }]);
-      }
-    });
-  }
 }

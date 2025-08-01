@@ -23,9 +23,10 @@ private notificationsSubject = new BehaviorSubject<Notification[]>([]);
   private unreadCountSubject = new BehaviorSubject<number>(0);
   unreadCount$ = this.unreadCountSubject.asObservable();
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private birthdayService: BirthdayService) {
     // Vérifier les anniversaires au démarrage
     this.checkBirthdays();
+    this.updateUnreadCount();
     
     // Planifier une vérification quotidienne
     setInterval(() => this.checkBirthdays(), 24 * 60 * 60 * 1000);
@@ -34,30 +35,29 @@ private notificationsSubject = new BehaviorSubject<Notification[]>([]);
   private checkBirthdays(): void {
     if (!this.authService.isLoggedIn()) return;
 
-    const today = new Date();
-    const todayStr = `${today.getMonth() + 1}/${today.getDate()}`;
-    
-    // Récupérer les anniversaires (à adapter selon votre structure)
-    let birthdays: Birthday[] = []; // Remplacez par votre source de données
+    // Récupération des anniversaires depuis le BirthdayService
+    this.birthdayService.birthdays$.subscribe(birthdays => {
+      const today = new Date();
+      const todayStr = `${today.getMonth() + 1}/${today.getDate()}`;
+      
+      const birthdayNotifications = birthdays
+        .filter(b => {
+          const bDate = new Date(b.date);
+          const bDateStr = `${bDate.getMonth() + 1}/${bDate.getDate()}`;
+          return bDateStr === todayStr;
+        })
+        .map(b => ({
+          id: `bday-${b.id}-${today.getFullYear()}`,
+          title: "Anniversaire aujourd'hui!",
+          message: `C'est l'anniversaire de ${b.name} !`,
+          read: false,
+          date: new Date(),
+          type: 'birthday' as const,
+          icon: ''
+        }));
 
-
-    const birthdayNotifications = birthdays
-      .filter(b => {
-        const bDate = new Date(b.date);
-        const bDateStr = `${bDate.getMonth() + 1}/${bDate.getDate()}`;
-        return bDateStr === todayStr;
-      })
-      .map(b => ({
-        id: `bday-${b.id}-${today.getFullYear()}`,
-        title: "Anniversaire aujourd'hui!",
-        message: `C'est l'anniversaire de ${b.name} !`,
-        read: false,
-        date: new Date(),
-        type: 'birthday' as const,
-        icon: ''
-      }));
-
-    this.addNotifications(birthdayNotifications);
+      this.addNotifications(birthdayNotifications);
+    });
   }
 
   addNotifications(notifications: Notification[]): void {
