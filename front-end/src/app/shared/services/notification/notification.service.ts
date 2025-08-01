@@ -53,7 +53,7 @@ private notificationsSubject = new BehaviorSubject<Notification[]>([]);
           read: false,
           date: new Date(),
           type: 'birthday' as const,
-          icon: ''
+          icon: 'cake'
         }));
 
       this.addNotifications(birthdayNotifications);
