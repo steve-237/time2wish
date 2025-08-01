@@ -24,12 +24,7 @@ export class NotificationComponent {
 
   constructor(public notificationService: NotificationService) {}
 
-  getTimeAgo(date: Date) {
-    // Implémentez votre logique de formatage de date ici
-    return 'Il y a 2h';
-  }
-
-  formatDate(date: Date): string {
+  getTimeAgo(date: Date): string {
     return new Date(date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   }
 }
