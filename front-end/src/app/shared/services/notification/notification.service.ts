@@ -1,58 +1,97 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { AuthService } from '../../../core/services/auth/auth.service';
+import { Birthday } from '../../../models/birthday.model';
 
-export interface Notification {
-  id: number;
+interface Notification {
+  id: string;
   title: string;
   message: string;
   read: boolean;
   date: Date;
-  icon: string;
+  type: 'birthday' | 'system';
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationService {
+private notificationsSubject = new BehaviorSubject<Notification[]>([]);
+  notifications$ = this.notificationsSubject.asObservable();
+  private unreadCountSubject = new BehaviorSubject<number>(0);
+  unreadCount$ = this.unreadCountSubject.asObservable();
 
-  private notifications = new BehaviorSubject<Notification[]>([
-    {
-      id: 1,
-      title: 'Nouveau message',
-      message: 'Vous avez reçu un nouveau message de Jean',
-      read: false,
-      date: new Date(),
-      icon: 'email'
-    },
-    {
-      id: 2,
-      title: 'Rappel anniversaire',
-      message: "L'anniversaire de Marie est dans 3 jours",
-      read: true,
-      date: new Date(Date.now() - 86400000),
-      icon: 'cake'
-    },
-    {
-      id: 3,
-      title: 'Mise à jour',
-      message: 'Nouvelle version disponible (v2.1.0)',
-      read: false,
-      date: new Date(Date.now() - 172800000),
-      icon: 'update'
-    }
-  ]);
-
-  notifications$ = this.notifications.asObservable();
-
-  markAsRead(id: number) {
-    const updated = this.notifications.value.map(n => 
-      n.id === id ? {...n, read: true} : n
-    );
-    this.notifications.next(updated);
+  constructor(private authService: AuthService) {
+    // Vérifier les anniversaires au démarrage
+    this.checkBirthdays();
+    
+    // Planifier une vérification quotidienne
+    setInterval(() => this.checkBirthdays(), 24 * 60 * 60 * 1000);
   }
 
-  markAllAsRead() {
-    const updated = this.notifications.value.map(n => ({...n, read: true}));
-    this.notifications.next(updated);
+  private checkBirthdays(): void {
+    if (!this.authService.isLoggedIn()) return;
+
+    const today = new Date();
+    const todayStr = `${today.getMonth() + 1}/${today.getDate()}`;
+    
+    // Récupérer les anniversaires (à adapter selon votre structure)
+    const birthdays: Birthday[] = []; // Remplacez par votre source de données
+    
+    const birthdayNotifications = birthdays
+      .filter(b => {
+        const bDate = new Date(b.date);
+        const bDateStr = `${bDate.getMonth() + 1}/${bDate.getDate()}`;
+        return bDateStr === todayStr;
+      })
+      .map(b => ({
+        id: `bday-${b.id}-${today.getFullYear()}`,
+        title: "Anniversaire aujourd'hui!",
+        message: `C'est l'anniversaire de ${b.name} !`,
+        read: false,
+        date: new Date(),
+        type: 'birthday' as const
+      }));
+
+    this.addNotifications(birthdayNotifications);
+  }
+
+  addNotifications(notifications: Notification[]): void {
+    const current = this.notificationsSubject.value;
+    const newNotifications = notifications.filter(n => 
+      !current.some(cn => cn.id === n.id)
+    );
+    
+    if (newNotifications.length > 0) {
+      const updated = [...newNotifications, ...current];
+      this.notificationsSubject.next(updated);
+      this.updateUnreadCount();
+    }
+  }
+
+  markAsRead(id: string): void {
+    const updated = this.notificationsSubject.value.map(n => 
+      n.id === id ? { ...n, read: true } : n
+    );
+    this.notificationsSubject.next(updated);
+    this.updateUnreadCount();
+  }
+
+  markAllAsRead(): void {
+    const updated = this.notificationsSubject.value.map(n => ({
+      ...n,
+      read: true
+    }));
+    this.notificationsSubject.next(updated);
+    this.updateUnreadCount();
+  }
+
+  private updateUnreadCount(): void {
+    const count = this.notificationsSubject.value.filter(n => !n.read).length;
+    this.unreadCountSubject.next(count);
+  }
+
+  getUnreadNotifications(): Notification[] {
+    return this.notificationsSubject.value.filter(n => !n.read);
   }
 }
