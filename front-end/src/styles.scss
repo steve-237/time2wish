@@ -47,3 +47,271 @@ mat-expansion-panel,
 mat-dialog {
   background-color: white !important;
 }
+
+// Variables pour les thèmes
+:root {
+  // Light Theme
+  --light-bg-primary: #ffffff;
+  --light-bg-secondary: #f3f4f6;
+  --light-bg-tertiary: #e5e7eb;
+  --light-text-primary: #111827;
+  --light-text-secondary: #6b7280;
+  --light-border: #e5e7eb;
+  --light-accent: #3b82f6;
+  
+  // Dark Theme
+  --dark-bg-primary: #1a1a1a;
+  --dark-bg-secondary: #2d2d2d;
+  --dark-bg-tertiary: #3d3d3d;
+  --dark-text-primary: #f5f5f5;
+  --dark-text-secondary: #b0b0b0;
+  --dark-border: #4d4d4d;
+  --dark-accent: #5d9cf8;
+
+  // Appliquer le thème par défaut
+  --bg-primary: var(--light-bg-primary);
+  --bg-secondary: var(--light-bg-secondary);
+  --bg-tertiary: var(--light-bg-tertiary);
+  --text-primary: var(--light-text-primary);
+  --text-secondary: var(--light-text-secondary);
+  --border-color: var(--light-border);
+  --accent-color: var(--light-accent);
+}
+
+// Dark Mode
+.dark {
+  --bg-primary: var(--dark-bg-primary);
+  --bg-secondary: var(--dark-bg-secondary);
+  --bg-tertiary: var(--dark-bg-tertiary);
+  --text-primary: var(--dark-text-primary);
+  --text-secondary: var(--dark-text-secondary);
+  --border-color: var(--dark-border);
+  --accent-color: var(--dark-accent);
+}
+
+// Application des styles globaux
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+// Classes utilitaires
+.bg-white {
+  background-color: var(--bg-primary) !important;
+}
+
+.bg-gray-200 {
+  background-color: var(--bg-secondary) !important;
+}
+
+.bg-gray-100 {
+  background-color: var(--bg-tertiary) !important;
+}
+
+.text-gray-700, .text-gray-800, .text-gray-900 {
+  color: var(--text-primary) !important;
+}
+
+.text-gray-500, .text-gray-600 {
+  color: var(--text-secondary) !important;
+}
+
+.border, .border-gray-200, .border-gray-300 {
+  border-color: var(--border-color) !important;
+}
+
+// Styles pour Angular Material
+.mat-card {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.mat-menu-panel {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  
+  .mat-menu-item {
+    color: var(--text-primary);
+    
+    &:hover {
+      background-color: var(--bg-secondary);
+    }
+  }
+}
+
+.mat-button-toggle {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  
+  &-checked {
+    background-color: var(--accent-color);
+    color: white;
+  }
+}
+
+.mat-table {
+  background-color: var(--bg-primary);
+  
+  .mat-header-cell {
+    color: var(--text-primary);
+    background-color: var(--bg-secondary);
+  }
+  
+  .mat-cell {
+    color: var(--text-primary);
+    border-bottom-color: var(--border-color);
+  }
+  
+  .mat-row:hover {
+    background-color: var(--bg-secondary);
+  }
+}
+
+.mat-paginator {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.mat-dialog-container {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.mat-form-field {
+  .mat-input-element {
+    color: var(--text-primary);
+  }
+  
+  .mat-form-field-label {
+    color: var(--text-secondary);
+  }
+  
+  .mat-form-field-underline {
+    background-color: var(--border-color);
+  }
+}
+
+.mat-select-panel {
+  background-color: var(--bg-primary);
+  
+  .mat-option {
+    color: var(--text-primary);
+    
+    &:hover {
+      background-color: var(--bg-secondary);
+    }
+  }
+}
+
+// Styles spécifiques pour les icônes
+.mat-icon {
+  color: var(--text-secondary);
+  
+  &.mat-primary {
+    color: var(--accent-color);
+  }
+}
+
+// Styles pour les boutons
+.mat-button, .mat-raised-button, .mat-icon-button {
+  &.mat-primary {
+    background-color: var(--accent-color);
+    color: white;
+  }
+}
+
+// Styles pour les onglets
+.mat-tab-group {
+  .mat-tab-header {
+    background-color: var(--bg-primary);
+  }
+  
+  .mat-tab-label {
+    color: var(--text-primary);
+  }
+  
+  .mat-ink-bar {
+    background-color: var(--accent-color);
+  }
+}
+
+// Correction pour les images/logo en dark mode
+.dark {
+  img:not([data-no-invert]) {
+    filter: brightness(0.8) contrast(1.2);
+  }
+  
+  img[src*="logo"] {
+    filter: invert(1) brightness(1.5);
+  }
+}
+
+// Scrollbar personnalisée
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--text-secondary);
+  border-radius: 4px;
+  
+  &:hover {
+    background: var(--accent-color);
+  }
+}
+
+// Thème pour mat-table
+.mat-table {
+  background-color: var(--bg-primary);
+  
+  .mat-header-cell {
+    color: var(--text-primary);
+    background-color: var(--bg-secondary);
+    font-weight: 600;
+  }
+  
+  .mat-cell {
+    color: var(--text-primary);
+    border-bottom-color: var(--border-color);
+  }
+  
+  .mat-row {
+    background-color: var(--bg-primary);
+    
+    &:hover {
+      background-color: var(--bg-secondary) !important;
+    }
+    
+    &:nth-child(even) {
+      background-color: var(--bg-tertiary);
+    }
+  }
+}
+
+// Correction spécifique pour le header du tableau
+.mat-header-row {
+  background-color: var(--bg-secondary) !important;
+}
+
+// Styles pour le paginator
+.mat-paginator {
+  background-color: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
+  border-top: 1px solid var(--border-color);
+}
+
+// Styles pour les cellules sélectionnées
+.mat-row.mat-row-selected {
+  background-color: var(--accent-color) !important;
+  
+  .mat-cell {
+    color: white !important;
+  }
+}
