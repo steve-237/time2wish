@@ -1,5 +1,5 @@
 <div class="flex flex-col min-h-0 max-h-full overflow-hidden">
-  <div class="flex-1 overflow-y-auto">
+  <div class="flex-1 overflow-y-auto mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" matSort class="w-full">
       <!-- Colonne Photo (non triable) -->
       <ng-container matColumnDef="photo">
@@ -182,7 +182,7 @@
         </td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
   </div>
