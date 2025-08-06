@@ -22,6 +22,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ConfettiService } from '../../shared/services/confetti/confetti.service';
+import { NotificationService } from '../../shared/services/notification/notification.service';
 
 @Component({
   selector: 'app-new-birthday',
@@ -53,7 +54,8 @@ export class NewBirthdayComponent {
     private router: Router,
     private confetti: ConfettiService,
     public dialogRef: MatDialogRef<NewBirthdayComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public notificationService: NotificationService
   ) {
     this.profileForm = this.fb.group({
       fullName: ['', Validators.required],
@@ -104,6 +106,7 @@ export class NewBirthdayComponent {
       });
 
       this.confetti.fireConfetti();
+      this.notificationService.addSuccessNotification("Nouvel anniversaire ajoute avec succes")
 
       this.router.navigate(['/landing-page']);
       this.dialogRef.close();
