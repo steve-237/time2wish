@@ -1,0 +1,152 @@
+openapi: 3.0.0
+info:
+  title: Time2Wish API
+  description: API pour la gestion des anniversaires
+  version: 1.0.0
+servers:
+  - url: https://api.time2wish.com/v1
+    description: Serveur de production
+  - url: http://localhost:3000/v1
+    description: Serveur de développement
+
+paths:
+  /birthdays:
+    get:
+      tags:
+        - Anniversaires
+      summary: Récupère tous les anniversaires
+      responses:
+        '200':
+          description: Liste des anniversaires
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Birthday'
+    post:
+      tags:
+        - Anniversaires
+      summary: Ajoute un nouvel anniversaire
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BirthdayInput'
+      responses:
+        '201':
+          description: Anniversaire créé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Birthday'
+        '400':
+          description: Données invalides
+
+  /birthdays/{id}:
+    get:
+      tags:
+        - Anniversaires
+      summary: Récupère un anniversaire par ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Anniversaire trouvé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Birthday'
+        '404':
+          description: Anniversaire non trouvé
+    put:
+      tags:
+        - Anniversaires
+      summary: Met à jour un anniversaire
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BirthdayInput'
+      responses:
+        '200':
+          description: Anniversaire mis à jour
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Birthday'
+    delete:
+      tags:
+        - Anniversaires
+      summary: Supprime un anniversaire
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Anniversaire supprimé
+        '404':
+          description: Anniversaire non trouvé
+
+components:
+  schemas:
+    Birthday:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 'bday-12345'
+        name:
+          type: string
+          example: 'Jean Dupont'
+        date:
+          type: string
+          format: date
+          example: '1990-05-15'
+        photo:
+          type: string
+          format: uri
+          nullable: true
+          example: 'https://example.com/photo.jpg'
+        createdAt:
+          type: string
+          format: date-time
+          example: '2023-01-01T12:00:00Z'
+      required:
+        - id
+        - name
+        - date
+
+    BirthdayInput:
+      type: object
+      properties:
+        name:
+          type: string
+          example: 'Jean Dupont'
+        date:
+          type: string
+          format: date
+          example: '1990-05-15'
+        photo:
+          type: string
+          format: uri
+          nullable: true
+          example: 'https://example.com/photo.jpg'
+      required:
+        - name
+        - date
