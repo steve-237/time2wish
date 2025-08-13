@@ -1,152 +1,243 @@
 openapi: 3.0.0
 info:
-  title: Time2Wish API
-  description: API pour la gestion des anniversaires
+  title: Birthday API
+  description: API for managing birthday records
   version: 1.0.0
 servers:
-  - url: https://api.time2wish.com/v1
-    description: Serveur de production
-  - url: http://localhost:3000/v1
-    description: Serveur de développement
-
+  - url: /api
+    description: Main API server
+tags:
+  - name: Birthdays
+    description: Operations related to birthday management
 paths:
   /birthdays:
     get:
-      tags:
-        - Anniversaires
-      summary: Récupère tous les anniversaires
+      tags: [Birthdays]
+      summary: Get all birthdays
+      description: Returns a list of all birthday records
       responses:
         '200':
-          description: Liste des anniversaires
+          description: A list of birthdays
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: '#/components/schemas/Birthday'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     post:
-      tags:
-        - Anniversaires
-      summary: Ajoute un nouvel anniversaire
+      tags: [Birthdays]
+      summary: Create a new birthday
+      description: Adds a new birthday record to the system
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/BirthdayInput'
+              $ref: '#/components/schemas/NewBirthday'
       responses:
         '201':
-          description: Anniversaire créé
+          description: Birthday created successfully
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Birthday'
         '400':
-          description: Données invalides
-
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /birthdays/{id}:
     get:
-      tags:
-        - Anniversaires
-      summary: Récupère un anniversaire par ID
+      tags: [Birthdays]
+      summary: Get a birthday by ID
+      description: Returns a single birthday record
       parameters:
         - name: id
           in: path
+          description: ID of the birthday to retrieve
           required: true
           schema:
-            type: string
+            type: integer
+            format: int64
       responses:
         '200':
-          description: Anniversaire trouvé
+          description: Birthday found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Birthday'
         '404':
-          description: Anniversaire non trouvé
+          description: Birthday not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     put:
-      tags:
-        - Anniversaires
-      summary: Met à jour un anniversaire
+      tags: [Birthdays]
+      summary: Update a birthday
+      description: Updates an existing birthday record
       parameters:
         - name: id
           in: path
+          description: ID of the birthday to update
           required: true
           schema:
-            type: string
+            type: integer
+            format: int64
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/BirthdayInput'
+              $ref: '#/components/schemas/Birthday'
       responses:
         '200':
-          description: Anniversaire mis à jour
+          description: Birthday updated successfully
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Birthday'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Birthday not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     delete:
-      tags:
-        - Anniversaires
-      summary: Supprime un anniversaire
+      tags: [Birthdays]
+      summary: Delete a birthday
+      description: Deletes a birthday record
       parameters:
         - name: id
           in: path
+          description: ID of the birthday to delete
           required: true
           schema:
-            type: string
+            type: integer
+            format: int64
       responses:
         '204':
-          description: Anniversaire supprimé
+          description: Birthday deleted successfully
         '404':
-          description: Anniversaire non trouvé
-
+          description: Birthday not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
 components:
   schemas:
     Birthday:
       type: object
-      properties:
-        id:
-          type: string
-          example: 'bday-12345'
-        name:
-          type: string
-          example: 'Jean Dupont'
-        date:
-          type: string
-          format: date
-          example: '1990-05-15'
-        photo:
-          type: string
-          format: uri
-          nullable: true
-          example: 'https://example.com/photo.jpg'
-        createdAt:
-          type: string
-          format: date-time
-          example: '2023-01-01T12:00:00Z'
       required:
         - id
         - name
         - date
-
-    BirthdayInput:
-      type: object
       properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique identifier for the birthday record
+          example: 1
         name:
           type: string
-          example: 'Jean Dupont'
+          description: Name of the person
+          example: "John Doe"
         date:
           type: string
-          format: date
-          example: '1990-05-15'
-        photo:
+          format: date-time
+          description: Date of birth
+          example: "1990-05-15T00:00:00.000Z"
+        notes:
           type: string
-          format: uri
-          nullable: true
-          example: 'https://example.com/photo.jpg'
+          description: Additional notes about the birthday
+          example: "Likes chocolate cake"
+        birthDate:
+          type: string
+          format: date-time
+          description: Alias for date (maintained for backward compatibility)
+          example: "1990-05-15T00:00:00.000Z"
+    NewBirthday:
+      type: object
       required:
         - name
         - date
+      properties:
+        name:
+          type: string
+          description: Name of the person
+          example: "Jane Smith"
+        date:
+          type: string
+          format: date-time
+          description: Date of birth
+          example: "1985-11-22T00:00:00.000Z"
+        notes:
+          type: string
+          description: Additional notes about the birthday
+          example: "Favorite color is blue"
+        birthDate:
+          type: string
+          format: date-time
+          description: Alias for date (maintained for backward compatibility)
+          example: "1985-11-22T00:00:00.000Z"
+    Error:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          description: HTTP status code
+          example: 404
+        message:
+          type: string
+          description: Error message
+          example: "Birthday not found"
+        error:
+          type: string
+          description: Error type
+          example: "Not Found"
+        timestamp:
+          type: string
+          format: date-time
+          description: When the error occurred
+          example: "2023-05-15T12:34:56.789Z"
+        path:
+          type: string
+          description: Request path
+          example: "/api/birthdays/999"
