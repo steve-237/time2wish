@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from '../../../core/services/auth/auth.service';
-import { Birthday } from '../../../models/birthday.model';
 import { BirthdayService } from '../../../core/services/birthday/birthday.service';
 
 interface Notification {
@@ -22,6 +21,12 @@ interface Notification {
   providedIn: 'root',
 })
 export class NotificationService {
+  showSuccess(arg0: string) {
+    throw new Error('Method not implemented.');
+  }
+  showError(arg0: string) {
+    throw new Error('Method not implemented.');
+  }
   private notificationsSubject = new BehaviorSubject<Notification[]>([]);
   notifications$ = this.notificationsSubject.asObservable();
   private unreadCountSubject = new BehaviorSubject<number>(0);

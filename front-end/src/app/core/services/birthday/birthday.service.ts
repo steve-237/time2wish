@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { TranslocoService } from '@jsverse/transloco';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BirthdayService {
   private _birthdays = new BehaviorSubject<Birthday[]>([]);
@@ -14,7 +14,10 @@ export class BirthdayService {
 
   private apiUrl = '/mock/birthdays.json'; // Remplacer par une vraie API si dispo
 
-  constructor(private http: HttpClient, private translocoService: TranslocoService, ) {}
+  constructor(
+    private http: HttpClient,
+    private translocoService: TranslocoService
+  ) {}
 
   fetchBirthdays(): void {
     this.http.get<Birthday[]>(this.apiUrl).subscribe(data => {
@@ -23,36 +26,60 @@ export class BirthdayService {
   }
 
   getBirthdayById(id: number): Observable<Birthday | undefined> {
-    return this.birthdays$.pipe(map(list => list.find(b => b.id === id)));
+    return this.birthdays$.pipe(map((list) => list.find((b) => b.id === id)));
   }
 
   addBirthday(birthday: Birthday): void {
     const current = this._birthdays.value;
-    const newBirthday = { 
-      ...birthday, 
+    const newBirthday = {
+      ...birthday,
       id: this.generateId(),
-      birthDate: new Date(birthday.date) // Ca doit etre une date
+      birthDate: new Date(birthday.date), // Ca doit etre une date
     };
-    this._birthdays.next([newBirthday,...current]);
+    this._birthdays.next([newBirthday, ...current]);
     // l'appel HTTP ici:
     // this.http.post('/api/birthdays', newBirthday).subscribe(...);
   }
 
-  updateBirthday(updated: Birthday): void {
-    const current = this._birthdays.value.map(b =>
-      b.id === updated.id ? updated : b
-    );
-    this._birthdays.next(current);
+  updateBirthday(updated: Birthday): Observable<Birthday> {
+    return new Observable<Birthday>((subscriber) => {
+      try {
+        const current = this._birthdays.value;
+        const index = current.findIndex((b) => b.id === updated.id);
+
+        if (index === -1) {
+          throw new Error('Birthday not found');
+        }
+
+        const updatedBirthday = {
+          ...updated,
+          birthDate: new Date(updated.date),
+        };
+
+        const updatedList = [...current];
+        updatedList[index] = updatedBirthday;
+
+        this._birthdays.next(updatedList);
+
+        subscriber.next(updatedBirthday);
+        subscriber.complete();
+
+        // TODO: Remplacer par un vrai appel API plus tard
+        // return this.http.put<Birthday>(`${this.apiUrl}/${updated.id}`, updated);
+      } catch (error) {
+        subscriber.error(error);
+      }
+    });
   }
 
   deleteBirthday(id: number): void {
-    const current = this._birthdays.value.filter(b => b.id !== id);
+    const current = this._birthdays.value.filter((b) => b.id !== id);
     this._birthdays.next(current);
   }
 
   private generateId(): number {
     const current = this._birthdays.value;
-    return current.length ? Math.max(...current.map(b => b.id)) + 1 : 1;
+    return current.length ? Math.max(...current.map((b) => b.id)) + 1 : 1;
   }
 
   getBirthdayStatus(birthdayDate: Date): {
@@ -70,7 +97,9 @@ export class BirthdayService {
 
     if (diffDays > 0) {
       return {
-        text: this.translocoService.translate('status.coming', { count: diffDays }),
+        text: this.translocoService.translate('status.coming', {
+          count: diffDays,
+        }),
         icon: 'event_upcoming',
         color: 'text-green-500',
       };
@@ -104,5 +133,4 @@ export class BirthdayService {
 
     return age;
   }
-
 }
