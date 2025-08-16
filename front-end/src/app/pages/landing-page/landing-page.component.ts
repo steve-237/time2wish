@@ -40,7 +40,7 @@ import { BirthdayTableComponent } from '../../components/birthday-table/birthday
 import { BirthdayCardComponent } from '../../components/birthday-card/birthday-card.component';
 import { AsideNavBarComponent } from '../../components/aside-nav-bar/aside-nav-bar.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { SetLanguageComponent } from "../../components/set-language/set-language.component";
+import { SetLanguageComponent } from '../../components/set-language/set-language.component';
 
 @Component({
   selector: 'app-landing-page',
@@ -78,13 +78,12 @@ import { SetLanguageComponent } from "../../components/set-language/set-language
     BirthdayCardComponent,
     AsideNavBarComponent,
     MatAutocompleteModule,
-    SetLanguageComponent
-],
+    SetLanguageComponent,
+  ],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.css',
 })
 export class LandingPageComponent {
-
   editBirthday() {
     throw new Error('Method not implemented.');
   }
@@ -145,7 +144,11 @@ export class LandingPageComponent {
 
   private dataSourceSub?: Subscription;
 
-  constructor(private dialog: DialogService, public authService: AuthService, public notificationService : NotificationService) {}
+  constructor(
+    private dialog: DialogService,
+    public authService: AuthService,
+    public notificationService: NotificationService
+  ) {}
 
   ngOnInit() {
     this.loading = true;
@@ -245,7 +248,6 @@ export class LandingPageComponent {
     });
   }
 
- 
   filteredBirthdays$ = combineLatest([
     this.birthdays,
     this.activeButton$,
@@ -336,7 +338,7 @@ export class LandingPageComponent {
       }
     });
 
-    console.log("All Values : ", allValues)
+    console.log('All Values : ', allValues);
 
     // Filtre et dédoublonne les suggestions
     const queryLower = query.toLowerCase();
@@ -349,5 +351,9 @@ export class LandingPageComponent {
   selectSuggestion(suggestion: string) {
     this.searchQuery = suggestion;
     this.updateSearchQuery(suggestion);
+  }
+
+  handleRefresh() {
+    this.birthdays = this.birthdayService.birthdays$;
   }
 }

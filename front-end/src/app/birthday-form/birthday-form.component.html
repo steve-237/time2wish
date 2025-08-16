@@ -1,0 +1,61 @@
+<form [formGroup]="birthdayForm" (ngSubmit)="onSubmit()" class="p-4">
+  <div class="grid grid-cols-1 gap-4">
+    <!-- Name Field -->
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'birthday_form.name' | transloco }}</mat-label>
+      <input matInput formControlName="name" required>
+      <mat-error *ngIf="birthdayForm?.get('name')?.hasError('required')">
+        {{ 'validation.required' | transloco }}
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Date Field -->
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'birthday_form.date' | transloco }}</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="date" required>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="birthdayForm?.get('date')?.hasError('required')">
+        {{ 'validation.required' | transloco }}
+      </mat-error>
+    </mat-form-field>
+
+    <!-- City Field -->
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'birthday_form.city' | transloco }}</mat-label>
+      <input matInput formControlName="city">
+    </mat-form-field>
+
+    <!-- Category Field -->
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'birthday_form.category' | transloco }}</mat-label>
+      <mat-select formControlName="category">
+        <mat-option value="family">{{ 'categories.family' | transloco }}</mat-option>
+        <mat-option value="friend">{{ 'categories.friend' | transloco }}</mat-option>
+        <mat-option value="colleague">{{ 'categories.colleague' | transloco }}</mat-option>
+        <mat-option value="other">{{ 'categories.other' | transloco }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Photo Field -->
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'birthday_form.photo' | transloco }}</mat-label>
+      <input matInput formControlName="photo" placeholder="URL de la photo">
+    </mat-form-field>
+
+    <!-- Notes Field -->
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'birthday_form.notes' | transloco }}</mat-label>
+      <textarea matInput formControlName="notes" rows="3"></textarea>
+    </mat-form-field>
+  </div>
+
+  <div class="flex justify-end gap-2 mt-4">
+    <button mat-button type="button" (click)="onCancel()">
+      {{ 'common.cancel' | transloco }}
+    </button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!birthdayForm.valid">
+      {{ isEdit ? ('common.update' | transloco) : ('common.save' | transloco) }}
+    </button>
+  </div>
+</form>
