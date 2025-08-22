@@ -1,6 +1,6 @@
-<div class="flex flex-col min-h-0 max-h-full overflow-hidden">
-  <div class="flex-1 overflow-y-auto mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource" matSort class="w-full">
+<div class=" bg-white flex flex-col min-h-0 max-h-full overflow-hidden">
+  <div  class=" flex-1 overflow-y-auto mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort class="bg-white w-full">
       <!-- Colonne Photo (non triable) -->
       <ng-container matColumnDef="photo">
         <th
@@ -192,7 +192,7 @@
     [pageSize]="pageSize"
     showFirstLastButtons
     aria-label="Select page of birthdays"
-    class="border-t"
+    class="bg-white border-t text-gray-500 "
   >
   </mat-paginator>
 </div>
