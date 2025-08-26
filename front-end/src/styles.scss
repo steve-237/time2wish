@@ -213,7 +213,8 @@ body {
 .profile-modal,
 .mat-mdc-card,
 .mat-mdc-select-panel,
-.notification{
+.notification,
+.mat-icon{
   background-color: var(--bg-primary)!important;
 }
 .mat-icon,
@@ -227,7 +228,7 @@ body {
 .mat-mdc-input-element,
 .font-medium,
 .mat-expansion-panel-body,
-.mdc-button{
+.mdc-button,{
   color: var(--text-primary)!important;
 }
 
@@ -241,13 +242,17 @@ body {
 }
 
 // Styles pour les boutons
-.mat-button, .mat-raised-button, .mat-icon-button {
+.mat-button, .mat-raised-button, .mat-icon-button, {
   &.mat-primary {
     background-color: var(--accent-color);
     color: white;
   }
 }
 
+button {
+  background-color: var(--bg-primary)!important;
+  color: var(--text-primary)!important;
+}
 // Styles pour les onglets
 .mat-tab-group {
   .mat-tab-header {
