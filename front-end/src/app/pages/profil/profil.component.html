@@ -42,7 +42,7 @@
               <mat-icon class="!w-32 !h-32 !text-9xl rounded-full object-cover border-4 border-white shadow-lg">account_circle</mat-icon>
             }
           }
-          
+
         </div>
       </div>
 
@@ -112,7 +112,7 @@
 
           <!-- Boutons d'action -->
           <div class="flex justify-end gap-3 pt-4">
-            <button mat-stroked-button type="button" (click)="cancelEdit()">
+            <button mat-raised-button type="button" (click)="cancelEdit()">
               Annuler
             </button>
             <button mat-raised-button color="primary" (click)="saveProfile()" [disabled]="!profileForm.valid">

@@ -46,7 +46,6 @@ mat-accordion,
 mat-expansion-panel,
 mat-dialog {
   background-color: white !important;
-  //Voici où se situe le probleme des styles des popup. Ils ne varient pas en fonction du mode.
 }
 
 // Variables pour les thèmes
@@ -340,5 +339,24 @@ body {
 
   .mat-cell {
     color: white !important;
+  }
+}
+
+// Thème pour les table
+.mat-elevation-z8 {
+  table {
+    background-color: var(--bg-primary) !important;
+  }
+}
+
+// Thème pour les paginators
+.max-h-full {
+  mat-paginator {
+    background-color: var(--bg-primary) !important;
+    color: var(--text-primary) !important;
+  }
+
+  .mat-mdc-paginator-icon {
+    fill: var(--text-primary) !important;
   }
 }
