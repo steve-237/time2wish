@@ -2,17 +2,18 @@
 @use "theme-colors" as custom;
 
 @layer theme, utilities;
+
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/utilities.css" layer(utilities);
 
 html {
   color-scheme: light;
   @include mat.theme(
-    (
-      color: custom.$primary-palette,
-      typography: Roboto,
-      density: 0,
-    )
+      (
+        color: custom.$primary-palette,
+        typography: Roboto,
+        density: 0,
+      )
   );
 }
 
@@ -20,6 +21,7 @@ html,
 body {
   height: 100%;
 }
+
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -329,6 +331,7 @@ body {
     background-color: var(--bg-primary) !important;
     color: var(--text-primary) !important;
   }
+
   .mat-mdc-paginator-icon {
     fill: var(--text-primary) !important;
   }
