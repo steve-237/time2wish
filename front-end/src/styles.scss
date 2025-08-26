@@ -2,17 +2,18 @@
 @use "theme-colors" as custom;
 
 @layer theme, utilities;
+
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/utilities.css" layer(utilities);
 
 html {
   color-scheme: light;
   @include mat.theme(
-    (
-      color: custom.$primary-palette,
-      typography: Roboto,
-      density: 0,
-    )
+      (
+        color: custom.$primary-palette,
+        typography: Roboto,
+        density: 0,
+      )
   );
 }
 
@@ -20,6 +21,7 @@ html,
 body {
   height: 100%;
 }
+
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -58,7 +60,7 @@ mat-dialog {
   --light-text-secondary: #6b7280;
   --light-border: #e5e7eb;
   --light-accent: #3b82f6;
-  
+
   // Dark Theme
   --dark-bg-primary: #1a1a1a;
   --dark-bg-secondary: #2d2d2d;
@@ -131,10 +133,10 @@ body {
 .mat-menu-panel {
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  
+
   .mat-menu-item {
     color: var(--text-primary);
-    
+
     &:hover {
       background-color: var(--bg-secondary);
     }
@@ -144,7 +146,7 @@ body {
 .mat-button-toggle {
   background-color: var(--bg-secondary);
   color: var(--text-primary);
-  
+
   &-checked {
     background-color: var(--accent-color);
     color: white;
@@ -153,17 +155,17 @@ body {
 
 .mat-table {
   background-color: var(--bg-primary);
-  
+
   .mat-header-cell {
     color: var(--text-primary);
     background-color: var(--bg-secondary);
   }
-  
+
   .mat-cell {
     color: var(--text-primary);
     border-bottom-color: var(--border-color);
   }
-  
+
   .mat-row:hover {
     background-color: var(--bg-secondary);
   }
@@ -183,11 +185,11 @@ body {
   .mat-input-element {
     color: var(--text-primary);
   }
-  
+
   .mat-form-field-label {
     color: var(--text-secondary);
   }
-  
+
   .mat-form-field-underline {
     background-color: var(--border-color);
   }
@@ -195,10 +197,10 @@ body {
 
 .mat-select-panel {
   background-color: var(--bg-primary);
-  
+
   .mat-option {
     color: var(--text-primary);
-    
+
     &:hover {
       background-color: var(--bg-secondary);
     }
@@ -208,7 +210,7 @@ body {
 // Styles spécifiques pour les icônes
 .mat-icon {
   color: var(--text-secondary);
-  
+
   &.mat-primary {
     color: var(--accent-color);
   }
@@ -227,11 +229,11 @@ body {
   .mat-tab-header {
     background-color: var(--bg-primary);
   }
-  
+
   .mat-tab-label {
     color: var(--text-primary);
   }
-  
+
   .mat-ink-bar {
     background-color: var(--accent-color);
   }
@@ -242,7 +244,7 @@ body {
   img:not([data-no-invert]) {
     filter: brightness(0.8) contrast(1.2);
   }
-  
+
   img[src*="logo"] {
     filter: invert(1) brightness(1.5);
   }
@@ -261,7 +263,7 @@ body {
 ::-webkit-scrollbar-thumb {
   background: var(--text-secondary);
   border-radius: 4px;
-  
+
   &:hover {
     background: var(--accent-color);
   }
@@ -270,25 +272,25 @@ body {
 // Thème pour mat-table
 .mat-table {
   background-color: var(--bg-primary);
-  
+
   .mat-header-cell {
     color: var(--text-primary);
     background-color: var(--bg-secondary);
     font-weight: 600;
   }
-  
+
   .mat-cell {
     color: var(--text-primary);
     border-bottom-color: var(--border-color);
   }
-  
+
   .mat-row {
     background-color: var(--bg-primary);
-    
+
     &:hover {
       background-color: var(--bg-secondary) !important;
     }
-    
+
     &:nth-child(even) {
       background-color: var(--bg-tertiary);
     }
@@ -310,8 +312,27 @@ body {
 // Styles pour les cellules sélectionnées
 .mat-row.mat-row-selected {
   background-color: var(--accent-color) !important;
-  
+
   .mat-cell {
     color: white !important;
+  }
+}
+
+// Thème pour les table
+.mat-elevation-z8 {
+  table {
+    background-color: var(--bg-primary) !important;
+  }
+}
+
+// Thème pour les paginators
+.max-h-full {
+  mat-paginator {
+    background-color: var(--bg-primary) !important;
+    color: var(--text-primary) !important;
+  }
+
+  .mat-mdc-paginator-icon {
+    fill: var(--text-primary) !important;
   }
 }

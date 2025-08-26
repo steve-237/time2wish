@@ -220,7 +220,6 @@
             [class.!bg-white]="(activeButton$ | async) === 'coming'"
             [class.!text-gray-800]="(activeButton$ | async) === 'coming'"
             [class.!shadow-sm]="(activeButton$ | async) === 'coming'"
-            [class.!bg-gray-200]="(activeButton$ | async) !== 'coming'"
             [class.!text-gray-600]="(activeButton$ | async) !== 'coming'"
           >
             {{ "anniversary.coming" | transloco }}
@@ -232,7 +231,6 @@
             [class.!bg-white]="(activeButton$ | async) === 'passed'"
             [class.!text-gray-800]="(activeButton$ | async) === 'passed'"
             [class.!shadow-sm]="(activeButton$ | async) === 'passed'"
-            [class.!bg-gray-200]="(activeButton$ | async) !== 'passed'"
             [class.!text-gray-600]="(activeButton$ | async) !== 'passed'"
           >
             {{ "anniversary.passed" | transloco }}
