@@ -2,18 +2,17 @@
 @use "theme-colors" as custom;
 
 @layer theme, utilities;
-
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/utilities.css" layer(utilities);
 
 html {
   color-scheme: light;
   @include mat.theme(
-      (
-        color: custom.$primary-palette,
-        typography: Roboto,
-        density: 0,
-      )
+    (
+      color: custom.$primary-palette,
+      typography: Roboto,
+      density: 0,
+    )
   );
 }
 
@@ -21,7 +20,6 @@ html,
 body {
   height: 100%;
 }
-
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -60,7 +58,7 @@ mat-dialog {
   --light-text-secondary: #6b7280;
   --light-border: #e5e7eb;
   --light-accent: #3b82f6;
-
+  --light-bg-hover: #0D0D0D0D;
   // Dark Theme
   --dark-bg-primary: #1a1a1a;
   --dark-bg-secondary: #2d2d2d;
@@ -69,6 +67,7 @@ mat-dialog {
   --dark-text-secondary: #b0b0b0;
   --dark-border: #4d4d4d;
   --dark-accent: #5d9cf8;
+  --dark-bg-hover: #FFFFFF14;
 
   // Appliquer le thème par défaut
   --bg-primary: var(--light-bg-primary);
@@ -78,6 +77,7 @@ mat-dialog {
   --text-secondary: var(--light-text-secondary);
   --border-color: var(--light-border);
   --accent-color: var(--light-accent);
+  --hover-color: var(--light-bg-hover);
 }
 
 // Dark Mode
@@ -89,6 +89,7 @@ mat-dialog {
   --text-secondary: var(--dark-text-secondary);
   --border-color: var(--dark-border);
   --accent-color: var(--dark-accent);
+  --hover-color: var(--dark-bg-hover);
 }
 
 // Application des styles globaux
@@ -206,6 +207,33 @@ body {
     }
   }
 }
+//Dark styles pour la popup des parametres
+.settings-modal,
+.mat-expansion-panel,
+.mat-mdc-form-field,
+.mat-primary,
+.mat-mdc-menu-content,
+.profile-modal,
+.mat-mdc-card,
+.mat-mdc-select-panel,
+.notification,
+{
+  background-color: var(--bg-primary)!important;
+}
+.mat-icon,
+.mat-expansion-panel-header-title,
+.mdc-form-field,
+.mdc-floating-label,
+.mdc-list-item__primary-text,
+.mat-mdc-select-min-line,
+.mat-mdc-menu-item,
+.profile-modal,
+.mat-mdc-input-element,
+.font-medium,
+.mat-expansion-panel-body,
+.mdc-button,{
+  color: var(--text-primary)!important;
+}
 
 // Styles spécifiques pour les icônes
 .mat-icon {
@@ -217,13 +245,19 @@ body {
 }
 
 // Styles pour les boutons
-.mat-button, .mat-raised-button, .mat-icon-button {
+.mat-button, .mat-raised-button, .mat-icon-button, {
   &.mat-primary {
     background-color: var(--accent-color);
-    color: white;
   }
 }
-
+// Styles pour les icon de navigations
+.mdc-icon-button:hover{
+  background-color: var(--hover-color);
+}
+//styles pour la date d'anniversaire
+.mat-calendar-body-cell-content, .mat-datepicker-toggle-default-icon{
+  color: var(--text-primary) !important;
+}
 // Styles pour les onglets
 .mat-tab-group {
   .mat-tab-header {

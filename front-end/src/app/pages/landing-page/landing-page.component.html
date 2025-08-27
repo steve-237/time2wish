@@ -110,7 +110,7 @@
               class="!w-10 !h-10 flex items-center justify-center"
               [matTooltip]="'toolbar.theme' | transloco"
             >
-              <mat-icon class="!text-gray-700">
+              <mat-icon >
                 {{ isDarkTheme ? "light_mode" : "dark_mode" }}
               </mat-icon>
             </button>
@@ -126,7 +126,7 @@
               (click)="onNotification()"
               [matTooltip]="'toolbar.notifications' | transloco"
             >
-              <mat-icon class="!text-gray-700">notifications</mat-icon>
+              <mat-icon >notifications</mat-icon>
             </button>
 
             @if(viewMode === 'table') {
@@ -159,7 +159,7 @@
               (click)="onInformation()"
               [matTooltip]="'toolbar.help' | transloco"
             >
-              <mat-icon class="!text-gray-700">help_outline</mat-icon>
+              <mat-icon >help_outline</mat-icon>
             </button>
 
             <!-- Menu Profil -->
@@ -175,7 +175,7 @@
                 class="rounded-full"
               />
               } @else {
-              <mat-icon class="!text-gray-700">account_circle</mat-icon>
+              <mat-icon >account_circle</mat-icon>
               }
             </button>
             <mat-menu #profileMenu="matMenu">

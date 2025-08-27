@@ -112,7 +112,7 @@
 
           <!-- Boutons d'action -->
           <div class="flex justify-end gap-3 pt-4">
-            <button mat-raised-button type="button" (click)="cancelEdit()">
+            <button mat-raised-button type="button" (click)="cancelEdit()" color="primary">
               Annuler
             </button>
             <button mat-raised-button color="primary" (click)="saveProfile()" [disabled]="!profileForm.valid">
