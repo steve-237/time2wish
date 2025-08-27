@@ -58,7 +58,7 @@ mat-dialog {
   --light-text-secondary: #6b7280;
   --light-border: #e5e7eb;
   --light-accent: #3b82f6;
-
+  --light-bg-hover: #0D0D0D0D;
   // Dark Theme
   --dark-bg-primary: #1a1a1a;
   --dark-bg-secondary: #2d2d2d;
@@ -67,6 +67,7 @@ mat-dialog {
   --dark-text-secondary: #b0b0b0;
   --dark-border: #4d4d4d;
   --dark-accent: #5d9cf8;
+  --dark-bg-hover: #FFFFFF14;
 
   // Appliquer le thème par défaut
   --bg-primary: var(--light-bg-primary);
@@ -76,6 +77,7 @@ mat-dialog {
   --text-secondary: var(--light-text-secondary);
   --border-color: var(--light-border);
   --accent-color: var(--light-accent);
+  --hover-color: var(--light-bg-hover);
 }
 
 // Dark Mode
@@ -87,6 +89,7 @@ mat-dialog {
   --text-secondary: var(--dark-text-secondary);
   --border-color: var(--dark-border);
   --accent-color: var(--dark-accent);
+  --hover-color: var(--dark-bg-hover);
 }
 
 // Application des styles globaux
@@ -214,7 +217,7 @@ body {
 .mat-mdc-card,
 .mat-mdc-select-panel,
 .notification,
-.mat-icon{
+{
   background-color: var(--bg-primary)!important;
 }
 .mat-icon,
@@ -245,13 +248,15 @@ body {
 .mat-button, .mat-raised-button, .mat-icon-button, {
   &.mat-primary {
     background-color: var(--accent-color);
-    color: white;
   }
 }
-
-button {
-  background-color: var(--bg-primary)!important;
-  color: var(--text-primary)!important;
+// Styles pour les icon de navigations
+.mdc-icon-button:hover{
+  background-color: var(--hover-color);
+}
+//styles pour la date d'anniversaire
+.mat-calendar-body-cell-content, .mat-datepicker-toggle-default-icon{
+  color: var(--text-primary) !important;
 }
 // Styles pour les onglets
 .mat-tab-group {
