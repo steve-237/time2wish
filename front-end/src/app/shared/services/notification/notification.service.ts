@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from '../../../core/services/auth/auth.service';
 import { BirthdayService } from '../../../core/services/birthday/birthday.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslocoService } from '@jsverse/transloco';
 
 interface Notification {
   id: string;
@@ -21,12 +23,6 @@ interface Notification {
   providedIn: 'root',
 })
 export class NotificationService {
-  showSuccess(arg0: string) {
-    throw new Error('Method not implemented.');
-  }
-  showError(arg0: string) {
-    throw new Error('Method not implemented.');
-  }
   private notificationsSubject = new BehaviorSubject<Notification[]>([]);
   notifications$ = this.notificationsSubject.asObservable();
   private unreadCountSubject = new BehaviorSubject<number>(0);
@@ -34,7 +30,9 @@ export class NotificationService {
 
   constructor(
     private authService: AuthService,
-    private birthdayService: BirthdayService
+    private birthdayService: BirthdayService,
+    private snackBar: MatSnackBar,
+    private translocoService: TranslocoService
   ) {
     // Vérifier les anniversaires au démarrage
     this.checkBirthdays();
@@ -123,5 +121,44 @@ export class NotificationService {
         icon,
       },
     ]);
+  }
+
+  showSuccess(messageKey: string): void {
+    const message = this.translocoService.translate(messageKey);
+    this.snackBar.open(message, 'Fermer', {
+      duration: 3000,
+      panelClass: ['success-snackbar'],
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+    });
+  }
+
+  showError(messageKey: string): void {
+    const message = this.translocoService.translate(messageKey);
+    this.snackBar.open(message, 'Fermer', {
+      duration: 5000,
+      panelClass: ['error-snackbar'],
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+    });
+  }
+
+  showInfo(message: string): void {
+    this.snackBar.open(message, 'Fermer', {
+      duration: 3000,
+      panelClass: ['info-snackbar'],
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+    });
+  }
+
+  showWarning(messageKey: string): void {
+    const message = this.translocoService.translate(messageKey);
+    this.snackBar.open(message, 'Fermer', {
+      duration: 4000,
+      panelClass: ['warning-snackbar'],
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+    });
   }
 }
