@@ -273,6 +273,11 @@ body {
   }
 }
 
+//style pour le bouton desactivé
+.mat-mdc-button-disabled {
+  cursor: not-allowed !important;
+  pointer-events: auto !important; // pour que le curseur change même si clic bloqué
+}
 // Correction pour les images/logo en dark mode
 .dark {
   img:not([data-no-invert]) {
