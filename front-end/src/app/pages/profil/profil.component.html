@@ -30,9 +30,9 @@
         <div class="relative">
           @if (editMode) {
             @if (profileImage) {
-              <img [src]="profileImage" class="w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg" (click)="fileInput.click()" />
+              <img [src]="profileImage" class="w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg" (click)="fileInput.click()"  />
             } @else {
-              <mat-icon class="!w-32 !h-32 !text-9xl rounded-full object-cover border-4 border-white shadow-lg" (click)="fileInput.click()">account_circle</mat-icon>
+              <mat-icon class="!w-32 !h-32 !text-9xl rounded-full object-cover border-4 border-white shadow-lg" style="cursor: pointer!important;" (click)="fileInput.click()">account_circle</mat-icon>
             }
             <input #fileInput type="file" accept="image/*" hidden (change)="onFileSelected($event)" />
           } @else {
