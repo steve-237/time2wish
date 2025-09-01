@@ -59,6 +59,7 @@ mat-dialog {
   --light-border: #e5e7eb;
   --light-accent: #3b82f6;
   --light-bg-hover: #0D0D0D0D;
+  --light-pg-selected:#7AF4FF;
   // Dark Theme
   --dark-bg-primary: #1a1a1a;
   --dark-bg-secondary: #2d2d2d;
@@ -68,7 +69,7 @@ mat-dialog {
   --dark-border: #4d4d4d;
   --dark-accent: #5d9cf8;
   --dark-bg-hover: #FFFFFF14;
-
+  --dark-pg-selected: #ffffff;
   // Appliquer le thème par défaut
   --bg-primary: var(--light-bg-primary);
   --bg-secondary: var(--light-bg-secondary);
@@ -78,6 +79,7 @@ mat-dialog {
   --border-color: var(--light-border);
   --accent-color: var(--light-accent);
   --hover-color: var(--light-bg-hover);
+  --pg-selected: var(--light-pg-selected);
 }
 
 // Dark Mode
@@ -90,6 +92,7 @@ mat-dialog {
   --border-color: var(--dark-border);
   --accent-color: var(--dark-accent);
   --hover-color: var(--dark-bg-hover);
+  --pg-selected: var(--dark-pg-selected);
 }
 
 // Application des styles globaux
@@ -334,6 +337,14 @@ body {
 // Correction spécifique pour le header du tableau
 .mat-header-row {
   background-color: var(--bg-secondary) !important;
+}
+//styles pour le background du paginator
+.mdc-list-item--selected {
+  background-color: var(--pg-selected) !important;
+  color: var(--bg-primary) !important;
+  .mdc-list-item__primary-text{
+    color: var(--bg-primary) !important;
+  }
 }
 
 // Styles pour le paginator
