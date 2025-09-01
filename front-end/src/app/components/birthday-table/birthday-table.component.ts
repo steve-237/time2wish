@@ -134,9 +134,8 @@ export class BirthdayTableComponent {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.birthdayService.updateBirthday(result).subscribe({
-          next: (updatedBirthday) => {
+          next: () => {
             this.notificationService.showSuccess('BIRTHDAY_UPDATED');
-            this.refresh.emit(); // Trigger refresh in parent component
           },
           error: (err) => {
             this.notificationService.showError('UPDATE_ERROR');
