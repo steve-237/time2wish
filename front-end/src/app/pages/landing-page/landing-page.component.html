@@ -109,7 +109,6 @@
               (click)="toggleTheme()"
               class="!w-10 !h-10 flex items-center justify-center"
               [matTooltip]="'toolbar.theme' | transloco"
-              matTooltipClass="custom-tooltip"
             >
               <mat-icon >
                 {{ isDarkTheme ? "light_mode" : "dark_mode" }}
@@ -126,7 +125,6 @@
               class="!w-10 !h-10 !flex !items-center !justify-center relative"
               (click)="onNotification()"
               [matTooltip]="'toolbar.notifications' | transloco"
-              matTooltipClass="custom-tooltip"
             >
               <mat-icon >notifications</mat-icon>
             </button>
@@ -137,7 +135,6 @@
               mat-icon-button
               (click)="toggleView('cards')"
               [matTooltip]="'toolbar.view_cards' | transloco"
-              matTooltipClass="custom-tooltip"
             >
               <mat-icon>view_module</mat-icon>
             </button>
@@ -147,7 +144,6 @@
               mat-icon-button
               (click)="toggleView('table')"
               [matTooltip]="'toolbar.view_table' | transloco"
-              matTooltipClass="custom-tooltip"
             >
               <mat-icon>table_chart</mat-icon>
             </button>
@@ -162,7 +158,6 @@
               class="!w-10 !h-10 flex items-center justify-center"
               (click)="onInformation()"
               [matTooltip]="'toolbar.help' | transloco"
-              matTooltipClass="custom-tooltip"
             >
               <mat-icon >help_outline</mat-icon>
             </button>
