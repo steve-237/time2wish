@@ -80,5 +80,10 @@
       "invalid_email": "Ungültige E-Mail",
       "invalid_credentials": "Falsche E-Mail oder falsches Passwort"
     }
+  },
+  "setting": {
+    "setting": "Einstellungen",
+    "notifications": "Benachrichtigungen",
+    "appearance": "Erscheinungsbild"
   }
 }

@@ -1,7 +1,7 @@
 <div class="settings-modal p-4 max-w-xl mx-auto">
     <h2 class="text-xl font-bold flex items-center gap-2 mb-6">
       <mat-icon>settings</mat-icon>
-      Paramètres de l'application
+      {{ 'setting.setting' | transloco}}
     </h2>
 
     <mat-accordion class="w-full">
@@ -11,7 +11,7 @@
         <mat-expansion-panel-header>
           <mat-panel-title class="flex items-center gap-2">
             <mat-icon>notifications</mat-icon>
-            Notifications
+            {{ 'setting.notifications' | transloco }}
           </mat-panel-title>
         </mat-expansion-panel-header>
 
@@ -40,7 +40,7 @@
         <mat-expansion-panel-header>
           <mat-panel-title class="flex items-center gap-2">
             <mat-icon>palette</mat-icon>
-            Apparence
+            {{ 'setting.appearance' | transloco }}
           </mat-panel-title>
         </mat-expansion-panel-header>
 
