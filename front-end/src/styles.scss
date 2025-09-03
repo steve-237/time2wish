@@ -246,6 +246,19 @@ body {
     color: var(--accent-color);
   }
 }
+//styles pour le background color des mattooltip
+.mat-mdc-tooltip  {
+  background-color: var(--text-primary) !important;
+  color: var(--bg-primary) !important;
+  font-size: 12px !important;
+  border-radius: 6px !important;
+  .mdc-tooltip__surface{
+    background-color: var(--text-primary) !important;
+    color: var(--bg-primary) !important;
+    font-size: 12px !important;
+    border-radius: 5px !important;
+  }
+}
 
 // Styles pour les boutons
 .mat-button, .mat-raised-button, .mat-icon-button, {
