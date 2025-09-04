@@ -105,6 +105,70 @@
         "medium": "Mittel",
         "large": "Groß"
       }
+    },
+    "actions": {
+      "save": "Speichern",
+      "cancel": "Abbrechen"
     }
+  },
+  "newBirthday": {
+    "titel": "Geburtstagsprofil hinzufügen",
+    "subtitle": "Geben Sie die Informationen zur Person ein",
+    "pic": "Foto ändern",
+    "form": {
+      "name": "Vollständiger Name",
+      "birthday": "Geburtsdatum",
+      "relationship": {
+        "titel":  "Beziehung",
+        "family": "Familie",
+        "friend": "Freundschaft",
+        "colleague": "Kollege(in)",
+        "other": "sonstiges"
+      },
+      "mail": "Email adresse (optional)",
+      "phone": "Telefonnummer(optional)",
+      "city": "Wohnsitz (optional)",
+      "notes": "Notizen (Ideen, Geschenke, Vorlieben...)",
+      "reminders": {
+        "titel": "Geburtstagserinnerungen aktivieren",
+        "subtitel": "7 Tage vor dem Geburtstag eine Benachrichtigung erhalten"
+      },
+      "errors": {
+        "errorName": "Der Name ist verpflichtend."
+      }
+    },
+    "actions": {
+      "save": "Speichern",
+      "cancel": "Abbrechen"
+    }
+  },
+  "profil": {
+    "title": "Mein Profil",
+    "name": "Vollständiger Name",
+    "mail": "Email Adresse",
+    "bio": "Bio",
+    "noBio": "kein Bio",
+    "modification": "profil ändern",
+    "editing": "Bearbeitung deaktivieren",
+    "notifications":{
+      "title": "Benachrichtigungen",
+      "activated": "aktiviert",
+      "deactivated": "deaktiviert",
+      "received": "Benachrichtigungen erhalten"
+    },
+    "errors": {
+      "name": "Der Name ist verpflichtend.",
+      "mail": "Die Email Adresse ist obligatorisch",
+      "falseEmail": "ungültige Email Adresse"
+    },
+    "actions": {
+      "save": "Speichern",
+      "cancel": "Abbrechen"
+    }
+  },
+  "footer": {
+    "help": "Hilfe",
+    "conditions": "Bedingung",
+    "confidentiality": "Datenschutz"
   }
 }

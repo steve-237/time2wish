@@ -6,10 +6,10 @@
   <mat-card-header class="mb-6">
     <mat-card-title class="!text-2xl !font-bold flex items-center gap-2">
       <mat-icon>person_add</mat-icon>
-      Ajouter un profil d'anniversaire
+      {{ 'newBirthday.titel' | transloco }}
     </mat-card-title>
     <mat-card-subtitle
-      >Remplissez les informations de la personne</mat-card-subtitle
+      > {{ 'newBirthday.subtitle' | transloco }}</mat-card-subtitle
     >
   </mat-card-header>
 
@@ -46,22 +46,22 @@
 
         <button mat-stroked-button type="button" (click)="fileInput.click()">
           <mat-icon>add_a_photo</mat-icon>
-          Changer la photo
+          {{ 'newBirthday.pic' | transloco }}
         </button>
       </div>
 
       <!-- Nom complet -->
       <mat-form-field appearance="outline" class="w-full">
-        <mat-label>Nom complet</mat-label>
+        <mat-label>{{ 'newBirthday.form.name' | transloco }}</mat-label>
         <input matInput formControlName="fullName" required />
         <mat-icon matPrefix>person</mat-icon>
         @if (profileForm.get('fullName')?.hasError('required')) {
-        <mat-error> Le nom est obligatoire </mat-error>}
+        <mat-error> {{ 'newBirthday.form.errors.errorName' | transloco }} </mat-error>}
       </mat-form-field>
 
       <!-- Date d'anniversaire -->
       <mat-form-field appearance="outline" class="w-full">
-        <mat-label>Date d'anniversaire</mat-label>
+        <mat-label>{{ 'newBirthday.form.birthday' | transloco }}</mat-label>
         <input matInput [matDatepicker]="picker" formControlName="birthdate" />
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
@@ -70,40 +70,40 @@
 
       <!-- Relation -->
       <mat-form-field appearance="outline" class="w-full">
-        <mat-label>Relation</mat-label>
+        <mat-label>{{ 'newBirthday.form.relationship.titel' | transloco }}</mat-label>
         <mat-select formControlName="relation">
-          <mat-option value="family">Famille</mat-option>
-          <mat-option value="friend">Ami</mat-option>
-          <mat-option value="colleague">Collègue</mat-option>
-          <mat-option value="other">Autre</mat-option>
+          <mat-option value="family">{{ 'newBirthday.form.relationship.family' | transloco }}</mat-option>
+          <mat-option value="friend">{{ 'newBirthday.form.relationship.friend' | transloco }}</mat-option>
+          <mat-option value="colleague">{{ 'newBirthday.form.relationship.colleague' | transloco }}</mat-option>
+          <mat-option value="other">{{ 'newBirthday.form.relationship.other' | transloco }}</mat-option>
         </mat-select>
         <mat-icon matPrefix>group</mat-icon>
       </mat-form-field>
 
       <!-- Email -->
       <mat-form-field appearance="outline" class="w-full">
-        <mat-label>Email (optionnel)</mat-label>
+        <mat-label>{{ 'newBirthday.form.mail' | transloco }}</mat-label>
         <input matInput formControlName="email" type="email" />
         <mat-icon matPrefix>email</mat-icon>
       </mat-form-field>
 
       <!-- Téléphone -->
       <mat-form-field appearance="outline" class="w-full">
-        <mat-label>Téléphone (optionnel)</mat-label>
+        <mat-label>{{ 'newBirthday.form.phone' | transloco }}</mat-label>
         <input matInput formControlName="phone" />
         <mat-icon matPrefix>phone</mat-icon>
       </mat-form-field>
 
       <!-- Ville -->
       <mat-form-field appearance="outline" class="w-full">
-        <mat-label>City</mat-label>
+        <mat-label>{{ 'newBirthday.form.city' | transloco }}</mat-label>
         <input matInput formControlName="city" />
         <mat-icon matPrefix>location_city</mat-icon>
       </mat-form-field>
 
       <!-- Notes -->
       <mat-form-field appearance="outline" class="md:col-span-2 w-full">
-        <mat-label>Notes (idées cadeaux, préférences...)</mat-label>
+        <mat-label>{{ 'newBirthday.form.notes' | transloco }}</mat-label>
         <textarea matInput formControlName="notes" rows="3"></textarea>
         <mat-icon matPrefix>note</mat-icon>
       </mat-form-field>
@@ -111,10 +111,10 @@
       <!-- Rappels -->
       <div class="md:col-span-2">
         <mat-slide-toggle formControlName="enableReminders" color="primary">
-          Activer les rappels d'anniversaire
+          {{ 'newBirthday.form.reminders.titel' | transloco }}
         </mat-slide-toggle>
         <p class="text-sm text-gray-500 mt-1">
-          Recevoir une notification 7 jours avant l'anniversaire
+          {{ 'newBirthday.form.reminders.subtitel' | transloco }}
         </p>
       </div>
     </form>
@@ -126,7 +126,7 @@
   <mat-card-actions class="flex justify-end gap-2">
     <button  mat-raised-button color="primary" (click)="cancel()">
       <mat-icon>cancel</mat-icon>
-      Annuler
+      {{ 'newBirthday.actions.cancel' | transloco }}
     </button>
     <button
       mat-raised-button
@@ -135,7 +135,7 @@
       [disabled]="!profileForm.valid"
     >
       <mat-icon>save</mat-icon>
-      Enregistrer
+      {{ 'newBirthday.actions.save' | transloco }}
     </button>
   </mat-card-actions>
 </mat-card>

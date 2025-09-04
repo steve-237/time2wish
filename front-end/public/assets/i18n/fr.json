@@ -106,5 +106,69 @@
         "large": "Moyen"
       }
     }
+  },
+  "actions": {
+    "save": "Enregistrer",
+    "cancel": "Annuler"
+  },
+  "newBirthday": {
+    "titel": "Ajouter un profil d'anniversaire",
+    "subtitle": "Remplissez les informations de la personne",
+    "pic": "Changer la photo",
+    "form": {
+      "name": "Nom complet",
+      "birthday": "Date de naissance",
+      "relationship": {
+        "titel": "Relation",
+        "family": "Famille",
+        "friend": "Amie",
+        "colleague": "Collègue",
+        "other": "Autre"
+      },
+      "mail": "Adresse e-mail (optionnel)",
+      "phone": "Téléphone (optionnel)",
+      "city": "Lieu de résidence (optionnel)",
+      "notes": "Notes (idées, cadeaux, préférences...)",
+      "reminders": {
+        "titel": "Activer les rappels d'anniversaire",
+        "subtitel": "Recevoir une notification 7 jours avant l'anniversaire"
+      },
+      "errors": {
+        "errorName": "Le nom est obligatoire."
+      }
+    },
+    "actions": {
+      "save": "Enregistrer",
+      "cancel": "Annuler"
+    }
+  },
+  "profil": {
+    "title": "Mon profil",
+    "name": "Nom complet",
+    "mail": "Adresse e-mail",
+    "bio": "Bio",
+    "noBio": "Aucune bio",
+    "modification": "modifier le profil",
+    "editing": "Désactiver l’édition",
+    "notifications": {
+      "title": "Notifications",
+      "activated": "activées",
+      "deactivated": "désactivées",
+      "received": "Recevoir les notifications"
+    },
+    "errors": {
+      "name": "Le nom est obligatoire.",
+      "mail": "L'adresse e-mail est obligatoire.",
+      "falseEmail": "Adresse e-mail invalide."
+    },
+    "actions": {
+      "save": "Enregistrer",
+      "cancel": "Annuler"
+    }
+  },
+  "footer": {
+    "help": "Aide",
+    "conditions": "Conditions",
+    "confidentiality": "Confidentialité"
   }
 }

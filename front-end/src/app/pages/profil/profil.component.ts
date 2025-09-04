@@ -9,6 +9,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AuthService } from '../../core/services/auth/auth.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltip } from '@angular/material/tooltip';
+import {TranslocoPipe} from "@jsverse/transloco";
 
 @Component({
   selector: 'app-profil',
@@ -22,7 +23,8 @@ import { MatTooltip } from '@angular/material/tooltip';
     FormsModule,
     ReactiveFormsModule,
     MatProgressSpinnerModule,
-    MatTooltip
+    MatTooltip,
+    TranslocoPipe
   ],
   templateUrl: './profil.component.html',
   styleUrl: './profil.component.css'
@@ -57,7 +59,7 @@ export class ProfilComponent{
   loadUserData() {
     this.isLoading = true;
     const currentUser = this.authService.getCurrentUser();
-    
+
     if (currentUser) {
       this.profileImage = currentUser.photo || null;
       this.profileForm.patchValue({
@@ -66,11 +68,11 @@ export class ProfilComponent{
         bio: currentUser.bio || '',
         notifications: currentUser.notifications ?? true
       });
-      
+
       // Sauvegarder les valeurs originales
       this.originalFormValues = this.profileForm.value;
     }
-    
+
     this.isLoading = false;
   }
 
@@ -100,7 +102,7 @@ export class ProfilComponent{
   saveProfile() {
     if (this.profileForm.valid) {
       this.isLoading = true;
-      
+
       // Simuler une requête API
       setTimeout(() => {
         const updatedProfile = {
@@ -108,7 +110,7 @@ export class ProfilComponent{
           ...this.profileForm.value,
           photo: this.profileImage
         };
-        
+
         this.authService.updateProfile(updatedProfile);
         this.originalFormValues = this.profileForm.value;
         this.editMode = false;
