@@ -83,8 +83,28 @@
   },
   "setting": {
     "setting": "Paramètres de l'application",
-    "notifications": "Notifications",
-    "appearance": "Apparence"
-
+    "notifications":  {
+      "titel":"Notifications",
+      "allowNotifications": "Activer les notifications",
+      "birthdayReminders": "Rappels d'anniversaires",
+      "reminderTime":{
+        "titel": "Rappels d'anniversaires",
+        "morning": "Matin (8h)",
+        "afternoon": "Après-midi (14h)",
+        "evening": "Soir (19h)"
+      }
+    },
+    "appearance": {
+      "titel":"Apparence",
+      "light":"Clair",
+      "dark":"Sombre",
+      "system":"System",
+      "textSize":{
+        "titel": "Taille du texte",
+        "small": "Petit",
+        "medium": "Grand",
+        "large": "Moyen"
+      }
+    }
   }
 }

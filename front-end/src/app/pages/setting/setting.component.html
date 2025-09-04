@@ -11,25 +11,25 @@
         <mat-expansion-panel-header>
           <mat-panel-title class="flex items-center gap-2">
             <mat-icon>notifications</mat-icon>
-            {{ 'setting.notifications' | transloco }}
+            {{ 'setting.notifications.titel' | transloco }}
           </mat-panel-title>
         </mat-expansion-panel-header>
 
         <div class="space-y-4 p-2">
           <mat-slide-toggle color="primary">
-            Activer les notifications
+            {{ 'setting.notifications.allowNotifications' | transloco }}
           </mat-slide-toggle>
 
           <mat-slide-toggle color="primary" class="mr-12">
-            Rappels d'anniversaires
+            {{ 'setting.notifications.birthdayReminders' | transloco }}
           </mat-slide-toggle>
 
           <mat-form-field appearance="outline" class="w-full">
-            <mat-label>Heure des rappels</mat-label>
+            <mat-label> {{ 'setting.notifications.reminderTime.titel' | transloco }}</mat-label>
             <mat-select>
-              <mat-option value="morning">Matin (8h)</mat-option>
-              <mat-option value="afternoon">Après-midi (14h)</mat-option>
-              <mat-option value="evening">Soir (19h)</mat-option>
+              <mat-option value="morning">{{ 'setting.notifications.reminderTime.morning' | transloco }}</mat-option>
+              <mat-option value="afternoon">{{ 'setting.notifications.reminderTime.afternoon' | transloco }}</mat-option>
+              <mat-option value="evening">{{ 'setting.notifications.reminderTime.evening' | transloco }}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -40,23 +40,23 @@
         <mat-expansion-panel-header>
           <mat-panel-title class="flex items-center gap-2">
             <mat-icon>palette</mat-icon>
-            {{ 'setting.appearance' | transloco }}
+            {{ 'setting.appearance.titel' | transloco }}
           </mat-panel-title>
         </mat-expansion-panel-header>
 
         <div class="space-y-4 p-2">
           <mat-radio-group class="flex flex-col gap-2">
-            <mat-radio-button value="light">Thème clair</mat-radio-button>
-            <mat-radio-button value="dark">Thème sombre</mat-radio-button>
-            <mat-radio-button value="system">Système</mat-radio-button>
+            <mat-radio-button value="light">{{ 'setting.appearance.light' | transloco }}</mat-radio-button>
+            <mat-radio-button value="dark">{{ 'setting.appearance.dark' | transloco }}</mat-radio-button>
+            <mat-radio-button value="system">{{ 'setting.appearance.system' | transloco }}</mat-radio-button>
           </mat-radio-group>
 
           <mat-form-field appearance="outline" class="w-full">
-            <mat-label>Taille de texte</mat-label>
+            <mat-label>{{ 'setting.appearance.textSize.titel' | transloco }}</mat-label>
             <mat-select>
-              <mat-option value="small">Petit</mat-option>
-              <mat-option value="medium">Moyen</mat-option>
-              <mat-option value="large">Grand</mat-option>
+              <mat-option value="small">{{ 'setting.appearance.textSize.small' | transloco }}</mat-option>
+              <mat-option value="medium">{{ 'setting.appearance.textSize.medium' | transloco }}</mat-option>
+              <mat-option value="large">{{ 'setting.appearance.textSize.large' | transloco }}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>

@@ -83,7 +83,28 @@
   },
   "setting": {
     "setting": "settings",
-    "notifications": "Notifications",
-    "appearance": "Appearance"
+    "notifications": {
+      "titel":"Notifications",
+      "allowNotifications": "Enable notifications",
+      "birthdayReminders": "Birthday reminders",
+      "reminderTime":{
+        "titel": "Birthday reminders",
+        "morning": "Morning (8h)",
+        "afternoon": "Afternoon (14h)",
+        "evening": "Evening (19h)"
+      }
+    },
+    "appearance": {
+      "titel":"Appearance",
+      "light":"Light",
+      "dark":"Dark",
+      "system":"System",
+      "textSize":{
+        "titel":"Text size",
+        "small": "Small",
+        "medium": "Medium",
+        "large": "Large"
+      }
+    }
   }
 }
