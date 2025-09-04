@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import {TranslocoModule} from "@jsverse/transloco";
 
 @Component({
   selector: 'app-setting',
@@ -22,6 +23,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatRadioModule,
     MatButtonModule,
     MatSelectModule,
+    TranslocoModule,
   ],
   templateUrl: './setting.component.html',
   styleUrl: './setting.component.css',

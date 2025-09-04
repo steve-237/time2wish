@@ -23,6 +23,7 @@ import { Router } from '@angular/router';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ConfettiService } from '../../shared/services/confetti/confetti.service';
 import { NotificationService } from '../../shared/services/notification/notification.service';
+import {TranslocoPipe} from "@jsverse/transloco";
 
 @Component({
   selector: 'app-new-birthday',
@@ -38,6 +39,7 @@ import { NotificationService } from '../../shared/services/notification/notifica
     MatSlideToggleModule,
     MatNativeDateModule,
     MatDividerModule,
+    TranslocoPipe,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './new-birthday.component.html',

@@ -80,5 +80,95 @@
       "invalid_email": "Invalid email",
       "invalid_credentials": "Incorrect email or password"
     }
+  },
+  "setting": {
+    "setting": "settings",
+    "notifications": {
+      "titel":"Notifications",
+      "allowNotifications": "Enable notifications",
+      "birthdayReminders": "Birthday reminders",
+      "reminderTime":{
+        "titel": "Birthday reminders",
+        "morning": "Morning (8h)",
+        "afternoon": "Afternoon (14h)",
+        "evening": "Evening (19h)"
+      }
+    },
+    "appearance": {
+      "titel":"Appearance",
+      "light":"Light",
+      "dark":"Dark",
+      "system":"System",
+      "textSize":{
+        "titel":"Text size",
+        "small": "Small",
+        "medium": "Medium",
+        "large": "Large"
+      }
+    }
+  },
+  "actions": {
+    "save": "Save",
+    "cancel": "Cancel"
+  },
+  "newBirthday": {
+    "titel": "Add birthday profile",
+    "subtitle": "Enter the person's information",
+    "pic": "Change photo",
+    "form": {
+      "name": "Full name",
+      "birthday": "Date of birth",
+      "relationship": {
+        "titel": "Relationship",
+        "family": "Family",
+        "friend": "Friendship",
+        "colleague": "Colleague",
+        "other": "Other"
+      },
+      "mail": "Email address (optional)",
+      "phone": "Phone number (optional)",
+      "city": "Residence (optional)",
+      "notes": "Notes (ideas, gifts, preferences...)",
+      "reminders": {
+        "titel": "Enable birthday reminders",
+        "subtitel": "Receive a notification 7 days before the birthday"
+      },
+      "errors": {
+        "errorName": "The name is required."
+      }
+    },
+    "actions": {
+      "save": "Speichern",
+      "cancel": "Abbrechen"
+    }
+  },
+  "profil": {
+    "title": "My profile",
+    "name": "Full name",
+    "mail": "Email address",
+    "bio": "Bio",
+    "noBio": "No bio",
+    "modification": "edit profil",
+    "editing": "Disable editing",
+    "notifications": {
+      "title": "Notifications",
+      "activated": "enabled",
+      "deactivated": "disabled",
+      "received": "Notifications received"
+    },
+    "errors": {
+      "name": "Name is required.",
+      "mail": "Email address is required.",
+      "falseEmail": "Invalid email address."
+    },
+    "actions": {
+      "save": "Save",
+      "cancel": "Cancel"
+  }
+    },
+  "footer": {
+    "help": "Help",
+    "conditions": "Conditions",
+    "confidentiality": "Confidentiality"
   }
 }

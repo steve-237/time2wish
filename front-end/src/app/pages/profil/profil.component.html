@@ -3,10 +3,10 @@
   <div class="flex justify-between items-center mb-6">
     <h2 class="text-xl font-bold flex items-center gap-2">
       <mat-icon>person</mat-icon>
-      Mon Profil
+      {{ 'profil.title' | transloco }}
     </h2>
     <div class="flex gap-2">
-      <button mat-icon-button (click)="toggleEditMode()" [matTooltip]="editMode ? 'Désactiver l\'édition' : 'Modifier le profil'">
+      <button mat-icon-button (click)="toggleEditMode()" [matTooltip]="editMode ? ('profil.editing' | transloco) : ('profil.modification' | transloco)">
         <mat-icon>{{ editMode ? 'lock' : 'edit' }}</mat-icon>
       </button>
       <button mat-icon-button (click)="dialogRef.close()">
@@ -51,26 +51,26 @@
         <div class="space-y-4">
           <!-- Nom complet -->
           <div class="mb-4">
-            <h3 class="text-sm font-medium text-gray-500">Nom complet</h3>
+            <h3 class="text-sm font-medium text-gray-500">{{ 'profil.name' | transloco }}</h3>
             <p class="text-lg">{{ profileForm.get('name')?.value || '-' }}</p>
           </div>
 
           <!-- Email -->
           <div class="mb-4">
-            <h3 class="text-sm font-medium text-gray-500">Email</h3>
+            <h3 class="text-sm font-medium text-gray-500">{{ 'profil.mail' | transloco }}</h3>
             <p class="text-lg">{{ profileForm.get('email')?.value || '-' }}</p>
           </div>
 
           <!-- Bio -->
           <div class="mb-4">
-            <h3 class="text-sm font-medium text-gray-500">Bio</h3>
-            <p class="text-lg whitespace-pre-line">{{ profileForm.get('bio')?.value || 'Aucune bio' }}</p>
+            <h3 class="text-sm font-medium text-gray-500">{{ 'profil.bio' | transloco }}</h3>
+            <p class="text-lg whitespace-pre-line">{{ profileForm.get('bio')?.value || ('profil.noBio' | transloco) }}</p>
           </div>
 
           <!-- Notifications -->
           <div class="flex items-center gap-2">
             <mat-icon>{{ profileForm.get('notifications')?.value ? 'notifications_active' : 'notifications_off' }}</mat-icon>
-            <span>Notifications {{ profileForm.get('notifications')?.value ? 'activées' : 'désactivées' }}</span>
+            <span>{{ 'profil.notifications.title' | transloco }} {{ profileForm.get('notifications')?.value ? ('profil.notifications.activated' | transloco) : ('profil.notifications.deactivated' | transloco) }}</span>
           </div>
         </div>
       }
@@ -80,10 +80,10 @@
         <form [formGroup]="profileForm" class="space-y-4">
           <!-- Nom complet -->
           <mat-form-field appearance="outline" class="w-full">
-            <mat-label>Nom complet</mat-label>
+            <mat-label>{{ 'profil.name' | transloco }}</mat-label>
             <input matInput formControlName="name"/>
             @if (profileForm.get('name')?.hasError('required')) {
-              <mat-error>Le nom est obligatoire</mat-error>
+              <mat-error>{{ 'profil.errors.name' | transloco }}</mat-error>
             }
           </mat-form-field>
 
@@ -92,31 +92,31 @@
             <mat-label>Email</mat-label>
             <input matInput formControlName="email" type="email"/>
             @if (profileForm.get('email')?.hasError('required')) {
-              <mat-error>L'email est obligatoire</mat-error>
+              <mat-error>{{ 'profil.errors.mail' | transloco }}</mat-error>
             }
             @if (profileForm.get('email')?.hasError('email')) {
-              <mat-error>Email invalide</mat-error>
+              <mat-error>{{ 'profil.errors.falseEmail' | transloco }}</mat-error>
             }
           </mat-form-field>
 
           <!-- Bio -->
           <mat-form-field appearance="outline" class="w-full">
-            <mat-label>Bio</mat-label>
+            <mat-label>{{ 'profil.bio' | transloco }}</mat-label>
             <textarea matInput formControlName="bio" rows="3"></textarea>
           </mat-form-field>
 
           <!-- Notifications -->
           <mat-slide-toggle formControlName="notifications" color="primary">
-            Recevoir les notifications
+            {{ 'profil.notifications.received' | transloco }}
           </mat-slide-toggle>
 
           <!-- Boutons d'action -->
           <div class="flex justify-end gap-3 pt-4">
             <button mat-raised-button type="button" (click)="cancelEdit()" color="primary">
-              Annuler
+              {{ 'profil.actions.save' | transloco }}
             </button>
             <button mat-raised-button color="primary" (click)="saveProfile()" [disabled]="!profileForm.valid">
-              Enregistrer
+              {{ 'profil.actions.cancel' | transloco }}
             </button>
           </div>
         </form>
