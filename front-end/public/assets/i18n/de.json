@@ -105,11 +105,11 @@
         "medium": "Mittel",
         "large": "Groß"
       }
-    },
-    "actions": {
-      "save": "Speichern",
-      "cancel": "Abbrechen"
     }
+  },
+  "actions": {
+    "save": "Speichern",
+    "cancel": "Abbrechen"
   },
   "newBirthday": {
     "titel": "Geburtstagsprofil hinzufügen",

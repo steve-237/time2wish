@@ -138,8 +138,8 @@
       }
     },
     "actions": {
-      "save": "Speichern",
-      "cancel": "Abbrechen"
+      "save": "Save",
+      "cancel": "Cancel"
     }
   },
   "profil": {
