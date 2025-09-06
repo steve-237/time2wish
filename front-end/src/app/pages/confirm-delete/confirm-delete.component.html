@@ -1,20 +1,21 @@
+
+
 <div class="delete-confirmation p-6 text-center">
   <mat-icon class="!text-red-500 !text-5xl !w-13 !h-10">warning</mat-icon>
-  <h2 class="text-xl font-bold mb-2">Confirmer la suppression</h2>
+  <h2 class="text-xl font-bold mb-2">{{ 'confirmDelete.title' | transloco }}</h2>
   <p class="text-gray-600 mb-3">
-    Êtes-vous sûr de vouloir supprimer cet anniversaire ? Cette action est
-    irréversible.
+    {{ 'confirmDelete.description' | transloco }}
   </p>
 
   <div class="flex justify-center gap-4">
-    <button mat-stroked-button (click)="onCancel()">Annuler</button>
+    <button mat-stroked-button (click)="onCancel()">{{ 'confirmDelete.actions.cancel' | transloco }}</button>
     <button
       mat-stroked-button
       color="warn"
       class="!bg-red-500 !text-white"
       (click)="onConfirm()"
     >
-      Supprimer
+      {{'confirmDelete.actions.delete' | transloco}}
     </button>
   </div>
 </div>

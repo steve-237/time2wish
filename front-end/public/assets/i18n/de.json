@@ -105,11 +105,11 @@
         "medium": "Mittel",
         "large": "Groß"
       }
-    },
-    "actions": {
-      "save": "Speichern",
-      "cancel": "Abbrechen"
     }
+  },
+  "actions": {
+    "save": "Speichern",
+    "cancel": "Abbrechen"
   },
   "newBirthday": {
     "titel": "Geburtstagsprofil hinzufügen",
@@ -163,6 +163,14 @@
     },
     "actions": {
       "save": "Speichern",
+      "cancel": "Abbrechen"
+    }
+  },
+  "confirmDelete": {
+    "title": "Löschen bestätigen",
+    "description": "Sind Sie sicher, dass Sie diesen Geburtstag löschen möchten? Diese Aktion ist unwiderruflich.",
+    "actions": {
+      "delete": "Löschen",
       "cancel": "Abbrechen"
     }
   },

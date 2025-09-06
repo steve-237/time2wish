@@ -166,6 +166,14 @@
       "cancel": "Annuler"
     }
   },
+  "confirmDelete": {
+    "title": "Confirmer la suppression",
+    "description": "Êtes-vous sûr de vouloir supprimer cet anniversaire ? Cette action est irréversible.",
+    "actions": {
+      "delete": "Supprimer",
+      "cancel": "Annuler"
+    }
+  },
   "footer": {
     "help": "Aide",
     "conditions": "Conditions",
