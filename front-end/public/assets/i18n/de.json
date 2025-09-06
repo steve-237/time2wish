@@ -166,6 +166,14 @@
       "cancel": "Abbrechen"
     }
   },
+  "confirmDelete": {
+    "title": "Löschen bestätigen",
+    "description": "Sind Sie sicher, dass Sie diesen Geburtstag löschen möchten? Diese Aktion ist unwiderruflich.",
+    "actions": {
+      "delete": "Löschen",
+      "cancel": "Abbrechen"
+    }
+  },
   "footer": {
     "help": "Hilfe",
     "conditions": "Bedingung",
