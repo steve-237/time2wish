@@ -105,11 +105,11 @@
         "medium": "Medium",
         "large": "Large"
       }
-    },
-    "actions": {
-      "save": "Save",
-      "cancel": "Cancel"
     }
+  },
+  "actions": {
+    "save": "Save",
+    "cancel": "Cancel"
   },
   "newBirthday": {
     "titel": "Add birthday profile",
@@ -138,8 +138,8 @@
       }
     },
     "actions": {
-      "save": "Speichern",
-      "cancel": "Abbrechen"
+      "save": "Save",
+      "cancel": "Cancel"
     }
   },
   "profil": {
