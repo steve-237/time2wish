@@ -105,11 +105,11 @@
         "medium": "Mittel",
         "large": "Groß"
       }
+    },
+    "actions": {
+      "save": "Speichern",
+      "cancel": "Abbrechen"
     }
-  },
-  "actions": {
-    "save": "Speichern",
-    "cancel": "Abbrechen"
   },
   "newBirthday": {
     "titel": "Geburtstagsprofil hinzufügen",
@@ -134,7 +134,7 @@
         "subtitel": "7 Tage vor dem Geburtstag eine Benachrichtigung erhalten"
       },
       "errors": {
-        "errorName": "Der Name ist verpflichtend."
+        "errorName": "Der Name ist erforderlich."
       }
     },
     "actions": {
@@ -157,8 +157,8 @@
       "received": "Benachrichtigungen erhalten"
     },
     "errors": {
-      "name": "Der Name ist verpflichtend.",
-      "mail": "Die Email Adresse ist obligatorisch",
+      "name": "Der Name ist erforderlich.",
+      "mail": "Die Email Adresse ist erforderlich",
       "falseEmail": "ungültige Email Adresse"
     },
     "actions": {
@@ -166,9 +166,32 @@
       "cancel": "Abbrechen"
     }
   },
-  "confirmDelete": {
+  "birthday_form": {
+    "name": "Name",
+    "date": "Geburtsdatum",
+    "city": "Wohnsitz",
+    "category": {
+      "titel":  "Beziehung",
+      "family": "Familie",
+      "friend": "Freundschaft",
+      "colleague": "Kollege(in)",
+      "other": "sonstiges"
+    },
+    "photo": "Profilbild",
+    "notes": "Notizen",
+    "actions": {
+      "save": "Speichern",
+      "update": "bearbeiten",
+      "cancel": "Abbrechen"
+    },
+    "errors": {
+      "name": "Der Name ist erforderlich.",
+      "date": "Das Geburtsdatum ist erforderlich"
+    }
+  },
+  "delete_birthday": {
     "title": "Löschen bestätigen",
-    "description": "Sind Sie sicher, dass Sie diesen Geburtstag löschen möchten? Diese Aktion ist unwiderruflich.",
+    "description": "Sind Sie sicher, dass Sie diesen Geburtstag löschen wollen ? Diese aktion ist unwiderruflich.",
     "actions": {
       "delete": "Löschen",
       "cancel": "Abbrechen"
