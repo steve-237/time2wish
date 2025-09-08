@@ -105,11 +105,11 @@
         "medium": "Grand",
         "large": "Moyen"
       }
+    },
+    "actions": {
+      "save": "Enregistrer",
+      "cancel": "Annuler"
     }
-  },
-  "actions": {
-    "save": "Enregistrer",
-    "cancel": "Annuler"
   },
   "newBirthday": {
     "titel": "Ajouter un profil d'anniversaire",
@@ -166,6 +166,37 @@
       "cancel": "Annuler"
     }
   },
+  "birthday_form": {
+  "name": "Nom",
+  "date": "Date de naissance",
+  "city": "Lieu de résidence",
+  "category": {
+    "titel": "Relation",
+    "family": "Famille",
+    "friend": "Amitié",
+    "colleague": "Collègue",
+    "other": "Autre"
+  },
+  "photo": "Photo de profil",
+  "notes": "Notes",
+  "actions": {
+    "save": "Enregistrer",
+    "update": "Modifier",
+    "cancel": "Annuler"
+  },
+  "errors": {
+    "name": "Le nom est obligatoire.",
+    "date": "La date de naissance est obligatoire."
+  }
+},
+  "delete_birthday": {
+  "title": "Confirmer la suppression",
+  "description": "Êtes-vous sûr de vouloir supprimer cet anniversaire ? Cette action est irréversible.",
+  "actions": {
+    "delete": "Supprimer",
+    "cancel": "Annuler"
+  }
+},
   "footer": {
     "help": "Aide",
     "conditions": "Conditions",
