@@ -29,7 +29,7 @@
         <!-- Grille d'informations -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <!-- Date de naissance -->
-          <div class="bg-gray-50 p-3 rounded-lg">
+          <div class="bg-gray-50 p-3 rounded-lg grid-color">
             <h3 class="font-medium text-gray-500 flex items-center gap-1 mb-1">
               <mat-icon class="!text-sm">calendar_today</mat-icon>
               Date de naissance
@@ -38,7 +38,7 @@
           </div>
 
           <!-- Ville -->
-          <div class="bg-gray-50 p-3 rounded-lg">
+          <div class="bg-gray-50 p-3 rounded-lg grid-color">
             <h3 class="font-medium text-gray-500 flex items-center gap-1 mb-1">
               <mat-icon class="!text-sm">location_on</mat-icon>
               Ville
@@ -47,7 +47,7 @@
           </div>
 
           <!-- Catégorie -->
-          <div class="bg-gray-50 p-3 rounded-lg">
+          <div class="bg-gray-50 p-3 rounded-lg grid-color">
             <h3 class="font-medium text-gray-500 flex items-center gap-1 mb-1">
               <mat-icon class="!text-sm">{{
                 getCategoryIcon(data.category)
@@ -58,7 +58,7 @@
           </div>
 
           <!-- Statut -->
-          <div class="bg-gray-50 p-3 rounded-lg">
+          <div class="bg-gray-50 p-3 rounded-lg grid-color">
             <h3 class="font-medium text-gray-500 flex items-center gap-1 mb-1">
               <mat-icon class="!text-sm">info</mat-icon>
               Statut
@@ -142,7 +142,7 @@
             <mat-icon class="text-gray-500">notes</mat-icon>
             Notes
           </h3>
-          <p class="whitespace-pre-line bg-gray-50 p-3 rounded-lg">
+          <p class="whitespace-pre-line bg-gray-50 p-3 rounded-lg grid-color">
             {{ data.notes }}
           </p>
         </div>
