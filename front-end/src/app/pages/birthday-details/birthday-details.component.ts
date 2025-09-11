@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInput } from '@angular/material/input';
+import {TranslocoPipe, TranslocoService} from "@jsverse/transloco";
 
 @Component({
   selector: 'app-birthday-details',
@@ -29,7 +30,8 @@ import { MatInput } from '@angular/material/input';
     MatNativeDateModule,
     MatCardModule,
     MatChipsModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    TranslocoPipe
   ],
   templateUrl: './birthday-details.component.html',
   styleUrl: './birthday-details.component.css',
@@ -41,7 +43,8 @@ export class BirthdayDetailsComponent {
   constructor(
     public dialogRef: MatDialogRef<BirthdayDetailsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private router: Router
+    private router: Router,
+    private translocoService: TranslocoService
   ) {}
 
    addLike() {
@@ -80,7 +83,8 @@ export class BirthdayDetailsComponent {
    * Retourne le texte correspondant au statut
    */
   getStatusText(date: Date): string {
-    return this.isBirthdayPassed(date) ? 'Passé' : 'À venir';
+    return this.isBirthdayPassed(date)? this.translocoService.translate('birthdayDetails.status.past')
+                                      : this.translocoService.translate('birthdayDetails.status.coming');
   }
 
   /**

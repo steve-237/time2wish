@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
+import {TranslocoPipe} from "@jsverse/transloco";
 
 @Component({
   selector: 'app-notification',
@@ -15,7 +16,8 @@ import { MatMenuModule } from '@angular/material/menu';
     MatButtonModule,
     MatIconModule,
     MatMenuModule,
-    MatDividerModule
+    MatDividerModule,
+    TranslocoPipe
   ],
   templateUrl: './notification.component.html',
   styleUrl: './notification.component.css'
