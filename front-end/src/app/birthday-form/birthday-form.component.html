@@ -5,7 +5,7 @@
       <mat-label>{{ 'birthday_form.name' | transloco }}</mat-label>
       <input matInput formControlName="name" required>
       <mat-error *ngIf="birthdayForm?.get('name')?.hasError('required')">
-        {{ 'validation.required' | transloco }}
+        {{ 'birthday_form.errors.name' | transloco }}
       </mat-error>
     </mat-form-field>
 
@@ -16,7 +16,7 @@
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
       <mat-error *ngIf="birthdayForm?.get('date')?.hasError('required')">
-        {{ 'validation.required' | transloco }}
+        {{ 'birthday_form.errors.date' | transloco }}
       </mat-error>
     </mat-form-field>
 
@@ -28,12 +28,12 @@
 
     <!-- Category Field -->
     <mat-form-field appearance="outline">
-      <mat-label>{{ 'birthday_form.category' | transloco }}</mat-label>
+      <mat-label>{{ 'birthday_form.category.titel' | transloco }}</mat-label>
       <mat-select formControlName="category">
-        <mat-option value="family">{{ 'categories.family' | transloco }}</mat-option>
-        <mat-option value="friend">{{ 'categories.friend' | transloco }}</mat-option>
-        <mat-option value="colleague">{{ 'categories.colleague' | transloco }}</mat-option>
-        <mat-option value="other">{{ 'categories.other' | transloco }}</mat-option>
+        <mat-option value="family">{{ 'birthday_form.category.family' | transloco }}</mat-option>
+        <mat-option value="friend">{{ 'birthday_form.category.friend' | transloco }}</mat-option>
+        <mat-option value="colleague">{{ 'birthday_form.category.colleague' | transloco }}</mat-option>
+        <mat-option value="other">{{ 'birthday_form.category.other' | transloco }}</mat-option>
       </mat-select>
     </mat-form-field>
 
@@ -52,10 +52,10 @@
 
   <div class="flex justify-end gap-2 mt-4">
     <button mat-button type="button" (click)="onCancel()">
-      {{ 'common.cancel' | transloco }}
+      {{ 'birthday_form.actions.cancel' | transloco }}
     </button>
     <button mat-raised-button color="primary" type="submit" [disabled]="!birthdayForm.valid">
-      {{ isEdit ? ('common.update' | transloco) : ('common.save' | transloco) }}
+      {{ isEdit ? ('birthday_form.actions.update' | transloco) : ('birthday_form.actions.save' | transloco) }}
     </button>
   </div>
 </form>

@@ -247,6 +247,13 @@ form
     color: var(--accent-color);
   }
 }
+// Styles spécifiques pour les boutons lors de la suppression d'un birthday
+.mdc-button--outlined{
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: none !important;
+  transition: box-shadow 0.3s ease;
+
+}
 //styles pour le background color des mattooltip
 .mat-mdc-tooltip  {
   background-color: var(--text-primary) !important;

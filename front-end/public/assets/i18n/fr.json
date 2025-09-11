@@ -105,11 +105,11 @@
         "medium": "Grand",
         "large": "Moyen"
       }
+    },
+    "actions": {
+      "save": "Enregistrer",
+      "cancel": "Annuler"
     }
-  },
-  "actions": {
-    "save": "Enregistrer",
-    "cancel": "Annuler"
   },
   "newBirthday": {
     "titel": "Ajouter un profil d'anniversaire",
@@ -166,12 +166,74 @@
       "cancel": "Annuler"
     }
   },
-  "confirmDelete": {
-    "title": "Confirmer la suppression",
-    "description": "Êtes-vous sûr de vouloir supprimer cet anniversaire ? Cette action est irréversible.",
-    "actions": {
-      "delete": "Supprimer",
-      "cancel": "Annuler"
+  "birthday_form": {
+  "name": "Nom",
+  "date": "Date de naissance",
+  "city": "Lieu de résidence",
+  "category": {
+    "titel": "Relation",
+    "family": "Famille",
+    "friend": "Amitié",
+    "colleague": "Collègue",
+    "other": "Autre"
+  },
+  "photo": "Photo de profil",
+  "notes": "Notes",
+  "actions": {
+    "save": "Enregistrer",
+    "update": "Modifier",
+    "cancel": "Annuler"
+  },
+  "errors": {
+    "name": "Le nom est obligatoire.",
+    "date": "La date de naissance est obligatoire."
+  }
+},
+  "delete_birthday": {
+  "title": "Confirmer la suppression",
+  "description": "Êtes-vous sûr de vouloir supprimer cet anniversaire ? Cette action est irréversible.",
+  "actions": {
+    "delete": "Supprimer",
+    "cancel": "Annuler"
+  }
+},
+  "notifications": {
+    "titel": "Notifications",
+    "description": "Tout marquer comme lu",
+    "button": "Voir toutes les notifications"
+  },
+  "birthdayDetails": {
+    "title": "Détails de l'anniversaire",
+    "year": "ans",
+    "birthday": "Date de naissance",
+    "city": {
+      "name": "Lieu de résidence",
+      "nameError": "Non renseigné"
+    },
+    "category": {
+      "title": "Catégorie",
+      "categoryError": "Non renseigné"
+    },
+    "status": {
+      "title": "Statut",
+      "past": "Passé",
+      "coming": "À venir"
+    },
+    "like": {
+      "title": "Ce que j'aime",
+      "elements": "Élément(s)",
+      "likeFooter": "Aucune préférence enregistrée",
+      "preference": "Ajouter une préférence",
+      "example": "Ex. : Chocolat, Voyages, Musique...",
+      "actions": "Appuyez sur Entrée pour ajouter"
+    },
+    "notes": {
+      "title": "Notes",
+      "example": "Ancien collègue chez XYZ"
+    },
+    "confirmEdit": {
+      "cancel": "Fermer",
+      "edit": "Modifier"
     }
   },
   "footer": {

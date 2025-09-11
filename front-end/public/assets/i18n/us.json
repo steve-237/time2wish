@@ -105,11 +105,11 @@
         "medium": "Medium",
         "large": "Large"
       }
+    },
+    "actions": {
+      "save": "Save",
+      "cancel": "Cancel"
     }
-  },
-  "actions": {
-    "save": "Save",
-    "cancel": "Cancel"
   },
   "newBirthday": {
     "titel": "Add birthday profile",
@@ -164,14 +164,76 @@
     "actions": {
       "save": "Save",
       "cancel": "Cancel"
+  }
+    },
+  "birthday_form": {
+    "name": "Name",
+    "date": "Date of Birth",
+    "city": "Place of Residence",
+    "category": {
+      "titel": "Relationship",
+      "family": "Family",
+      "friend": "Friendship",
+      "colleague": "Colleague",
+      "other": "Other"
+    },
+    "photo": "Profile Picture",
+    "notes": "Notes",
+    "actions": {
+      "save": "Save",
+      "update": "Edit",
+      "cancel": "Cancel"
+    },
+    "errors": {
+      "name": "The name is required.",
+      "date": "The date of birth is required."
     }
   },
-  "confirmDelete": {
-    "title": "Confirm deletion ",
-    "description": "Are you sure you want to delete this birthday? This action cannot be undone",
+  "delete_birthday": {
+    "title": "Confirm Deletion",
+    "description": "Are you sure you want to delete this birthday? This action is irreversible.",
     "actions": {
       "delete": "Delete",
       "cancel": "Cancel"
+    }
+  },
+  "notifications": {
+    "title": "Notifications",
+    "description": "Mark all as read",
+    "button": " See all notifications"
+  },
+  "birthdayDetails": {
+    "title": "Birthday details",
+    "year": "years old",
+    "birthday": "Date of birth",
+    "city": {
+      "name": "Place of residence",
+      "nameError": "Not specified"
+    },
+    "category": {
+      "title": "Category",
+      "categoryError": "Not specified"
+    },
+    "status": {
+      "title": "Status",
+      "past": "Past",
+      "coming": "Upcoming"
+    },
+    "like": {
+      "title": "What I like",
+      "elements": "Element(s)",
+      "likeFooter": "No preferences saved",
+      "preference": "Add a preference",
+      "example": "e.g.: Chocolate, Travel, Music...",
+      "actions": "Press Enter to add"
+    },
+    "notes": {
+      "title": "Notes",
+      "example": "Former colleague at XYZ"
+    },
+    "confirmEdit": {
+      "cancel": "Close",
+      "edit": "Edit"
     }
   },
   "footer": {
