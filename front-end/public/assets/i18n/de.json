@@ -197,6 +197,45 @@
       "cancel": "Abbrechen"
     }
   },
+  "notifications": {
+    "titel": "Benachrichtigungen",
+    "description": "Alles als gelesen markieren",
+    "button": "Alle Benachrichtigungen anzeigen"
+  },
+  "birthdayDetails": {
+    "title": "Details zum Geburtstag",
+    "year": "jahre alt",
+    "birthday": "Geburtsdatum",
+    "city": {
+      "name": "Wohnsitz",
+      "nameError": "Nicht angegeben"
+    },
+    "category":{
+      "title": "Kategorie",
+      "categoryError": "Nicht angegeben"
+    },
+    "status": {
+      "title": "Zustand",
+      "past": "Vergangen",
+      "coming": "kommend"
+    },
+    "like": {
+      "title": "Was ich mag",
+      "elements": "Element(e)",
+      "likeFooter": "keine Vorlieben gespeichert",
+      "preference": "Eine Vorliebe hinzufügen",
+      "example": "Zb: Schokolade, Reisen, Musik...",
+      "actions": "Drücken Sie die Eingabetaste zum Hinzufügen"
+    },
+    "notes": {
+      "title": "Notizen",
+      "example": "Ehemalige Kollege bei XYZ"
+    },
+    "confirmEdit": {
+      "cancel": "Schließen",
+      "edit": "Bearbeiten"
+    }
+  },
   "footer": {
     "help": "Hilfe",
     "conditions": "Bedingung",

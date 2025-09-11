@@ -3,10 +3,10 @@
   <div class="flex justify-between items-center p-4 border-b border-gray-200">
     <h3 class="text-lg font-semibold flex items-center gap-2">
       <mat-icon>notifications</mat-icon>
-      Notifications
+      {{ 'notifications.titel' | transloco }}
     </h3>
     <button mat-button (click)="notificationService.markAllAsRead()">
-      Tout marquer comme lu
+      {{ 'notifications.description' | transloco }}
     </button>
   </div>
 
@@ -54,7 +54,7 @@
   <!-- Footer -->
   <div class="p-2 border-t border-gray-200 text-center">
     <button mat-button color="primary" class="!text-sm">
-      Voir toutes les notifications
+      {{ 'notifications.button'| transloco }}
     </button>
   </div>
 </div>
