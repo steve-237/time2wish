@@ -1,7 +1,7 @@
 <mat-card class="max-w-3xl">
   <h1 mat-dialog-title class="flex items-center gap-2 px-6 pt-6 text-gray-700">
     <mat-icon class="text-pink-500">cake</mat-icon>
-    Détails de l'anniversaire
+    {{ 'birthdayDetails.title' | transloco }}
   </h1>
 
   <mat-dialog-content class="mat-typography px-6 pb-6">
@@ -20,7 +20,7 @@
 
         <p class="text-gray-600 flex items-center gap-1">
           <mat-icon class="text-gray-500">event</mat-icon>
-          {{ calculateAge(data.date) }} ans
+          {{ calculateAge(data.date) }}  {{ 'birthdayDetails.year' | transloco }}
         </p>
       </div>
 
@@ -32,7 +32,7 @@
           <div class="bg-gray-50 p-3 rounded-lg grid-color">
             <h3 class="font-medium text-gray-500 flex items-center gap-1 mb-1">
               <mat-icon class="!text-sm">calendar_today</mat-icon>
-              Date de naissance
+              {{ 'birthdayDetails.birthday' | transloco }}
             </h3>
             <p class="font-medium">{{ data.date | date : "dd/MM/yyyy" }}</p>
           </div>
@@ -41,9 +41,9 @@
           <div class="bg-gray-50 p-3 rounded-lg grid-color">
             <h3 class="font-medium text-gray-500 flex items-center gap-1 mb-1">
               <mat-icon class="!text-sm">location_on</mat-icon>
-              Ville
+              {{ 'birthdayDetails.city.name' | transloco }}
             </h3>
-            <p class="font-medium">{{ data.city || "Non spécifié" }}</p>
+            <p class="font-medium">{{ data.city || ('birthdayDetails.city.nameError' | transloco) }}</p>
           </div>
 
           <!-- Catégorie -->
@@ -52,16 +52,16 @@
               <mat-icon class="!text-sm">{{
                 getCategoryIcon(data.category)
               }}</mat-icon>
-              Catégorie
+              {{ 'birthdayDetails.category.title' | transloco }}
             </h3>
-            <p class="font-medium">{{ data.category || "Non spécifié" }}</p>
+            <p class="font-medium">{{ data.category || ('birthdayDetails.category.categoryError' | transloco) }}</p>
           </div>
 
           <!-- Statut -->
           <div class="bg-gray-50 p-3 rounded-lg grid-color">
             <h3 class="font-medium text-gray-500 flex items-center gap-1 mb-1">
               <mat-icon class="!text-sm">info</mat-icon>
-              Statut
+              {{ 'birthdayDetails.status.title' | transloco }}
             </h3>
             <p class="font-medium flex items-center gap-1">
               <mat-icon class="!text-sm">{{
@@ -76,9 +76,9 @@
         <div class="border-t border-gray-200 pt-4">
           <h3 class="font-medium text-gray-500 flex items-center gap-1 mb-3">
             <mat-icon class="text-red-400">favorite</mat-icon>
-            Ce que j'aime
+            {{ 'birthdayDetails.like.title' | transloco }}
             <span class="text-xs text-gray-400 ml-auto">
-              {{ data.likes?.length || 0 }} élément(s)
+              {{ data.likes?.length || 0 }} {{ 'birthdayDetails.like.elements' | transloco }}
             </span>
           </h3>
 
@@ -98,7 +98,7 @@
             </mat-chip>
             } @empty {
             <p class="text-gray-400 text-sm italic">
-              Aucune préférence enregistrée
+              {{ 'birthdayDetails.like.likeFooter' | transloco }}
             </p>
             }
           </mat-chip-listbox>
@@ -110,18 +110,18 @@
               class="flex-grow"
               floatLabel="always"
             >
-              <mat-label>Ajouter une préférence</mat-label>
+              <mat-label> {{ 'birthdayDetails.like.preference' | transloco }}</mat-label>
               <div>
                 <input
                   matInput
                   [(ngModel)]="newLike"
                   name="newLike"
-                  placeholder="Ex: Chocolat, Voyages, Musique..."
+                  placeholder="{{'birthdayDetails.like.example' | transloco}}"
                   (keyup.enter)="addLike()"
                 />
               </div>
 
-              <mat-hint>Appuyez sur Entrée pour ajouter</mat-hint>
+              <mat-hint>{{'birthdayDetails.like.actions' | transloco}}</mat-hint>
             </mat-form-field>
 
             <button
@@ -140,7 +140,7 @@
         <div *ngIf="data.notes" class="border-t border-gray-200 pt-4">
           <h3 class="font-medium text-gray-500 flex items-center gap-1 mb-2">
             <mat-icon class="text-gray-500">notes</mat-icon>
-            Notes
+            {{'birthdayDetails.notes.title' | transloco}}
           </h3>
           <p class="whitespace-pre-line bg-gray-50 p-3 rounded-lg grid-color">
             {{ data.notes }}
@@ -153,11 +153,11 @@
   <mat-dialog-actions align="end" class="px-6 pb-6">
     <button mat-stroked-button mat-dialog-close class="!mr-2">
       <mat-icon>close</mat-icon>
-      Fermer
+      {{'birthdayDetails.confirmEdit.cancel' | transloco}}
     </button>
     <button mat-flat-button color="primary" (click)="onEdit()">
       <mat-icon>edit</mat-icon>
-      Modifier
+      {{'birthdayDetails.confirmEdit.edit' | transloco}}
     </button>
   </mat-dialog-actions>
 </mat-card>
