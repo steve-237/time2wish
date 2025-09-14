@@ -25,29 +25,6 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.mat-mdc-card,
-.mat-mdc-menu-panel,
-.mat-mdc-select-panel,
-.mat-mdc-tooltip,
-.mat-mdc-snack-bar-container,
-.mat-mdc-tab-group,
-.mat-mdc-table,
-.mat-mdc-expansion-panel,
-.mat-mdc-form-field,
-.mat-mdc-toolbar,
-.settings-modal,
-.mat-mdc-dialog-component-host,
-.notification,
-.profile-modal,
-.delete-confirmation,
-mat-toolbar,
-mat-paginator,
-mat-accordion,
-mat-expansion-panel,
-mat-dialog {
-  background-color: white !important;
-}
-
 // Variables pour les thèmes
 :root {
   // Light Theme
@@ -60,6 +37,7 @@ mat-dialog {
   --light-accent: #3b82f6;
   --light-bg-hover: #0D0D0D0D;
   --light-pg-selected: #050c14;
+  --light-bg: #F9FAFB;
   // Dark Theme
   --dark-bg-primary: #1a1a1a;
   --dark-bg-secondary: #2d2d2d;
@@ -70,6 +48,7 @@ mat-dialog {
   --dark-accent: #5d9cf8;
   --dark-bg-hover: #FFFFFF14;
   --dark-pg-selected: #ffffff;
+  --dark-bg:#4d4d4d;
   // Appliquer le thème par défaut
   --bg-primary: var(--light-bg-primary);
   --bg-secondary: var(--light-bg-secondary);
@@ -80,6 +59,7 @@ mat-dialog {
   --accent-color: var(--light-accent);
   --hover-color: var(--light-bg-hover);
   --pg-selected: var(--light-pg-selected);
+  --bg-selected: var(--light-bg);
 }
 
 // Dark Mode
@@ -93,6 +73,7 @@ mat-dialog {
   --accent-color: var(--dark-accent);
   --hover-color: var(--dark-bg-hover);
   --pg-selected: var(--dark-pg-selected);
+  --bg-selected: var(--dark-bg);
 }
 
 // Application des styles globaux
@@ -235,7 +216,14 @@ form
 .mat-mdc-input-element,
 .font-medium,
 .mat-expansion-panel-body,
-.mdc-button,{
+.mdc-button,
+mat-dialog-content,
+{
+  color: var(--text-primary)!important;
+}
+//Styles pour les details de l'anniversaire
+.grid-color{
+  background-color:  var(--bg-selected);
   color: var(--text-primary)!important;
 }
 
