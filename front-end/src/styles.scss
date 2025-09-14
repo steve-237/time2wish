@@ -407,3 +407,10 @@ form
     fill: var(--text-primary) !important;
   }
 }
+// Style pour icon-user par defaut
+.iconSize{
+  position: relative;
+  align-items: center;
+  font-size: 40px;
+  padding: 12px 15px 14px 0;
+}

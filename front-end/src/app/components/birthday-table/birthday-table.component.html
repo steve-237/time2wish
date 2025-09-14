@@ -15,11 +15,19 @@
           *matCellDef="let element"
           class="text-gray-600 border-t border-gray-200"
         >
+          @if (element.photo) {
           <img
             [src]="element.photo"
             class="w-10 h-10 rounded-full object-cover"
             alt="Profile"
           />
+          } @else {
+            <mat-icon role="img" class="object-cover iconSize"
+                      aria-hidden="true"
+                      data-mat-icon-type="font">
+                      account_circle
+            </mat-icon>
+          }
         </td>
       </ng-container>
 
