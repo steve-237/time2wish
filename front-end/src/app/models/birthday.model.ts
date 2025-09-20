@@ -10,4 +10,5 @@ export interface Birthday {
   notes?: string;
   enableReminders: boolean;
   passed: boolean
+  //preferencies
 }
