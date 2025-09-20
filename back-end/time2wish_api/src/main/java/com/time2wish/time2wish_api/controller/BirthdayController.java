@@ -64,10 +64,6 @@ public class BirthdayController {
                 birthdayToUpdate.setEmail(mail);
             }
 
-            String password = birthday.getPassword();
-            if(password != null && !password.isEmpty()) {
-                birthdayToUpdate.setPassword(password);
-            }
             birthdayService.saveBirthday(birthdayToUpdate);
             return birthdayToUpdate;
         } else {

@@ -8,19 +8,15 @@ import java.time.LocalDate;
 @Data
 @Entity
 @Table(name = "birthdays")
-
 public class Birthday {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
     private String name;
 
     private String email;
-
-    private String password;
 
     private String city;
 
@@ -34,9 +30,9 @@ public class Birthday {
 
     private String preferencies;
 
-    @Column(name = "birthday_date")
     private LocalDate date;
 
+    @Column(name = "enable_reminders")
     private Boolean enableReminders;
 
     private Boolean passed;
