@@ -119,7 +119,6 @@ export class BirthdayTableComponent {
 
   deleteBirthday(id: number) {
     this.delete.emit(id);
-    this.notificationService.showSuccess('BIRTHDAY_DELETED');
   }
 
   editBirthday(birthday: any) {
