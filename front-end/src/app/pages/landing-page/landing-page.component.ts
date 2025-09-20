@@ -243,7 +243,7 @@ export class LandingPageComponent {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.birthdayService.deleteBirthday(birthdayId);
-        console.log('Suppression confirmée pour', birthdayId);
+        this.notificationService.showSuccess('BIRTHDAY_DELETED');
       }
     });
   }
