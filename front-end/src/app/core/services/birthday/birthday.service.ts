@@ -1,4 +1,3 @@
-import { NotificationService } from './../../../shared/services/notification/notification.service';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { Birthday } from '../../../models/birthday.model';
