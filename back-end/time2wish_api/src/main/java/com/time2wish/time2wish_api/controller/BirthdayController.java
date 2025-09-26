@@ -7,14 +7,15 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class BirthdayController {
-
     @Autowired
     private BirthdayService birthdayService;
 
     /**
      * Get the list of all birthdays
+     *
      * @return a list of all birthdays
      */
     @GetMapping("/birthdayTable")
@@ -24,6 +25,7 @@ public class BirthdayController {
 
     /**
      * Create a new birthday
+     *
      * @param birthday - birthday object to create
      * @return the new birthday
      */
@@ -34,6 +36,7 @@ public class BirthdayController {
 
     /**
      * Get a birthday based on the id
+     *
      * @param id - id of the birthday to retrieve
      * @return An object birthday
      */
@@ -45,6 +48,7 @@ public class BirthdayController {
 
     /**
      * Update a birthday based on the id
+     *
      * @param id - id of the birthday to be updated
      * @return An object birthday
      */
@@ -55,12 +59,12 @@ public class BirthdayController {
             Birthday birthdayToUpdate = birthdayOptional.get();
 
             String name = birthday.getName();
-            if(name != null && !name.isEmpty()) {
+            if (name != null && !name.isEmpty()) {
                 birthdayToUpdate.setName(name);
             }
 
             String mail = birthday.getEmail();
-            if(mail != null && !mail.isEmpty()) {
+            if (mail != null && !mail.isEmpty()) {
                 birthdayToUpdate.setEmail(mail);
             }
 
@@ -73,6 +77,7 @@ public class BirthdayController {
 
     /**
      * Delete a birthday
+     *
      * @param id of the birthday to be deleted
      */
     @DeleteMapping("/birthday/{id}")
