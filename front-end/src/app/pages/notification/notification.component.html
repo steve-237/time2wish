@@ -14,7 +14,7 @@
   <div class="overflow-y-auto flex-grow">
     @for (notif of notificationService.notifications$ | async; track $index) {
     <div
-      class="p-4 border-b border-gray-100 hover:bg-gray-50 transition-colors"
+      class="p-4 border-b border-gray-100 hover:bg-gray-50 transition-colors bg-white"
       [class.bg-blue-50]="!notif.read"
     >
       <div class="flex items-start gap-3">
@@ -28,7 +28,7 @@
             <div>
               <h4 class="font-medium mb-1">{{ notif.title }}</h4>
               <!-- Message juste en dessous du titre -->
-              <p class="text-sm text-gray-600">{{ notif.message }}</p>
+              <p class="text-sm text-gray-600 ">{{ notif.message }}</p>
             </div>
 
             <div class="flex gap-2">

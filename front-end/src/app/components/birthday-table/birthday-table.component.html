@@ -15,11 +15,18 @@
           *matCellDef="let element"
           class="text-gray-600 border-t border-gray-200"
         >
+          @if (element.photo) {
           <img
             [src]="element.photo"
             class="w-10 h-10 rounded-full object-cover"
             alt="Profile"
           />
+          } @else {
+            <img src="/assets/img/default.png"
+               class="w-10 h-10 rounded-full object-cover"
+              alt="Profile"
+            />
+          }
         </td>
       </ng-container>
 
