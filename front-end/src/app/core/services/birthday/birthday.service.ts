@@ -3,6 +3,7 @@ import { BehaviorSubject, map, Observable } from 'rxjs';
 import { Birthday } from '../../../models/birthday.model';
 import { HttpClient } from '@angular/common/http';
 import { TranslocoService } from '@jsverse/transloco';
+import {catchError, tap} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root',
@@ -43,34 +44,26 @@ export class BirthdayService {
   }
 
   updateBirthday(updated: Birthday): Observable<Birthday> {
-    return new Observable<Birthday>((subscriber) => {
-      try {
+    return this.http.put<Birthday>(this.apiUrl+`/birthday/${updated.id}`, updated).pipe(
+      tap(updateBirthday => {
         const current = this._birthdays.value;
-        const index = current.findIndex((b) => b.id === updated.id);
+
+        const index = current.findIndex((b) => b.id === updateBirthday.id);
 
         if (index === -1) {
           throw new Error('Birthday not found');
         }
 
-        const updatedBirthday = {
-          ...updated,
-          birthDate: new Date(updated.date),
-        };
-
         const updatedList = [...current];
-        updatedList[index] = updatedBirthday;
-
+        updatedList[index] = updateBirthday;
         this._birthdays.next(updatedList);
 
-        subscriber.next(updatedBirthday);
-        subscriber.complete();
-
-        // TODO: Remplacer par un vrai appel API plus tard
-        //  return this.http.put<Birthday>(`${this.apiUrl}/${updated.id}`, updated);
-      } catch (error) {
-        subscriber.error(error);
-      }
-    });
+      }),
+      catchError((error) => {
+        console.error('Erreur lors de la mise à jour:', error);
+        throw error;
+      })
+    );
   }
 
   deleteBirthday(id: number): void {
