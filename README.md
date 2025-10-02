@@ -74,7 +74,7 @@ Time2Wish is designed for anyone who wants to:
 | Layer         | Technologies                                | Status          |
 |---------------|---------------------------------------------|-----------------|
 | **Frontend**  | Angular 19+ with TypeScript                 | 🚧 In Progress  |
-| **Backend**   | Node.js + Express / Firebase / Spring Boot | 🟡 To be decided |
+| **Backend**   | Spring Boot | 🚧 In Progress  |
 | **Database**  | Firestore / MongoDB / PostgreSQL            | 🟡 To be decided |
 | **Notifications** | Web Push API / Firebase Cloud Messaging | 🟡 To be decided |
 | **APIs**      | Twilio / SendGrid or similar messaging APIs | 🟡 To be decided |
