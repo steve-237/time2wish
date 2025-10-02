@@ -58,7 +58,7 @@ Time2Wish is designed for anyone who wants to:
 - Countdown timers for big events.
 - Customizable themes (colors, backgrounds).
 - Multilingual support (i18n ready).
-- Responsive and accessible UI.
+- Accessible UI.
 
 ### ➕ Additional Features
 
