@@ -9,6 +9,9 @@ export interface Birthday {
   phone?: string;
   notes?: string;
   enableReminders: boolean;
-  passed: boolean
-  //preferencies
+  passed: boolean;
+  userId?: string; // Référence à l'utilisateur propriétaire
+  createdAt?: Date;
+  updatedAt?: Date;
+  preferencies?: string [];
 }
