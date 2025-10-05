@@ -1,3 +1,4 @@
+import { LoginRequest } from './../../models/loginRequest.model';
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -46,8 +47,9 @@ export class LoginComponent {
   onLogin(email: string, password: string) {
     this.isLoading = true;
     this.errorMessage = '';
+    let loginData = {email: email, password: password};
 
-    this.loginSub = this.authService.login(email, password).subscribe({
+    this.loginSub = this.authService.login(loginData).subscribe({
       next: () => {
         this.router.navigate(['/landing-page']);
         this.isLoading = false;
