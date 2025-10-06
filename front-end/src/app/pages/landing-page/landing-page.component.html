@@ -163,15 +163,16 @@
             </button>
 
             <!-- Menu Profil -->
+             @let currentUser = authService.currentUser$ | async;
             <button
               mat-icon-button
               [matMenuTriggerFor]="profileMenu"
               class="flex items-center justify-center"
               [matTooltip]="'toolbar.profile' | transloco"
             >
-              @if (authService.getCurrentUser()?.photo) {
+              @if (currentUser?.profilePicture) {
               <img
-                [src]="authService.getCurrentUser()?.photo"
+                [src]="currentUser?.profilePicture"
                 class="rounded-full"
               />
               } @else {
