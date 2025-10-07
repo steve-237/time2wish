@@ -30,7 +30,7 @@ import { RegisterRequest } from '../../models/registerRequest.model';
     MatButtonModule,
     ReactiveFormsModule,
     MatProgressSpinnerModule,
-    MatSnackBarModule
+    MatSnackBarModule,
   ],
   templateUrl: './registration.component.html',
   styleUrl: './registration.component.css',
@@ -41,7 +41,7 @@ export class RegistrationComponent {
   previewImage: string | ArrayBuffer | null = null;
   selectedFile: File | null = null;
   isLoading = false;
-fullName: any;
+  fullName: any;
 
   constructor(
     private fb: FormBuilder,
@@ -54,22 +54,29 @@ fullName: any;
     this.registerForm = this.fb.group({
       fullName: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [
-        Validators.required,
-        Validators.minLength(8),
-        //Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/)
-      ]],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(8),
+          //Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/)
+        ],
+      ],
       //confirmPassword: ['', Validators.required],
-     // acceptTerms: [false, Validators.requiredTrue]
-    //}, { validators: this.passwordMatchValidator });
+      // acceptTerms: [false, Validators.requiredTrue]
+      //}, { validators: this.passwordMatchValidator });
     });
   }
 
   passwordMatchValidator(form: FormGroup) {
     const password = form.get('password');
     const confirmPassword = form.get('confirmPassword');
-    
-    if (password && confirmPassword && password.value !== confirmPassword.value) {
+
+    if (
+      password &&
+      confirmPassword &&
+      password.value !== confirmPassword.value
+    ) {
       confirmPassword.setErrors({ passwordMismatch: true });
     } else {
       confirmPassword?.setErrors(null);
@@ -89,11 +96,11 @@ fullName: any;
   }
 
   onSubmit(): void {
-    console.log("from validity: ", this.registerForm.valid)
-    console.log("from : ", this.registerForm)
+    console.log('from validity: ', this.registerForm.valid);
+    console.log('from : ', this.registerForm);
     if (this.registerForm.valid) {
       this.isLoading = true;
-      
+
       // Création des données d'inscription
       const registerData: RegisterRequest = {
         fullName: this.registerForm.get('fullName')?.value,
@@ -101,46 +108,46 @@ fullName: any;
         password: this.registerForm.get('password')?.value,
         notificationsEnabled: true, // Valeur par défaut
         language: 'fr', // Valeur par défaut
-        theme: 'light' // Valeur par défaut
+        theme: 'light', // Valeur par défaut
       };
 
       // Appel corrigé avec les données
       this.authService.register(registerData).subscribe({
         next: (response) => {
           this.isLoading = false;
-          
+
           if (response.success) {
             this.snackBar.open('Registration successful!', 'Close', {
               duration: 3000,
-              panelClass: ['success-snackbar']
+              panelClass: ['success-snackbar'],
             });
-            this.dialogRef.close(); 
+            this.dialogRef.close();
             this.router.navigate(['/landing-page']);
           } else {
             // Gestion des erreurs métier (email déjà existant, etc.)
             const errorMessage = response.message || 'Registration failed';
             this.snackBar.open(errorMessage, 'Close', {
               duration: 5000,
-              panelClass: ['error-snackbar']
+              panelClass: ['error-snackbar'],
             });
           }
         },
         error: (error) => {
           this.isLoading = false;
           let errorMessage = 'An error occurred during registration';
-          
+
           // Gestion des erreurs HTTP
           if (error.error?.message) {
             errorMessage = error.error.message;
           } else if (error.message) {
             errorMessage = error.message;
           }
-          
+
           this.snackBar.open(errorMessage, 'Close', {
             duration: 5000,
-            panelClass: ['error-snackbar']
+            panelClass: ['error-snackbar'],
           });
-        }
+        },
       });
     } else {
       // Marquer tous les champs comme touchés pour afficher les erreurs
@@ -150,7 +157,7 @@ fullName: any;
 
   // Méthode utilitaire pour marquer tous les champs comme touchés
   private markFormGroupTouched(formGroup: FormGroup) {
-    Object.keys(formGroup.controls).forEach(key => {
+    Object.keys(formGroup.controls).forEach((key) => {
       const control = formGroup.get(key);
       control?.markAsTouched();
     });

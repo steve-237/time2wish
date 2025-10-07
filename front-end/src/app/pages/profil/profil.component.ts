@@ -1,7 +1,23 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  Component,
+  ElementRef,
+  Inject,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import {
+  FormGroup,
+  FormBuilder,
+  Validators,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
+import {
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+  MatDialogModule,
+} from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -9,7 +25,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AuthService } from '../../core/services/auth/auth.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltip } from '@angular/material/tooltip';
-import { TranslocoPipe } from "@jsverse/transloco";
+import { TranslocoPipe } from '@jsverse/transloco';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserProfile } from '../../models/user.model';
 import { CommonModule } from '@angular/common';
@@ -28,13 +44,12 @@ import { CommonModule } from '@angular/common';
     ReactiveFormsModule,
     MatProgressSpinnerModule,
     MatTooltip,
-    TranslocoPipe
+    TranslocoPipe,
   ],
   templateUrl: './profil.component.html',
-  styleUrl: './profil.component.css'
+  styleUrl: './profil.component.css',
 })
 export class ProfilComponent implements OnInit {
-
   editMode = false;
   profileForm: FormGroup;
   profileImage: string | ArrayBuffer | null = null;
@@ -57,7 +72,7 @@ export class ProfilComponent implements OnInit {
       bio: [''],
       notificationsEnabled: [true],
       language: ['fr'],
-      theme: ['light']
+      theme: ['light'],
     });
   }
 
@@ -67,20 +82,20 @@ export class ProfilComponent implements OnInit {
 
   loadUserData() {
     this.isLoading = true;
-    
+
     // Récupération de l'utilisateur courant via le service
     this.currentUser = this.authService.getCurrentUserValue();
 
     if (this.currentUser) {
       this.profileImage = this.currentUser.profilePicture || null;
-      
+
       this.profileForm.patchValue({
         fullName: this.currentUser.fullName,
         email: this.currentUser.email,
         bio: this.currentUser.bio || '',
         notificationsEnabled: this.currentUser.notificationsEnabled ?? true,
         language: this.currentUser.language || 'fr',
-        theme: this.currentUser.theme || 'light'
+        theme: this.currentUser.theme || 'light',
       });
 
       // Sauvegarder les valeurs originales
@@ -111,16 +126,16 @@ export class ProfilComponent implements OnInit {
       if (!file.type.match('image.*')) {
         this.snackBar.open('Veuillez sélectionner une image', 'Fermer', {
           duration: 3000,
-          panelClass: ['error-snackbar']
+          panelClass: ['error-snackbar'],
         });
         return;
       }
 
       // Vérification de la taille (max 5MB)
       if (file.size > 5 * 1024 * 1024) {
-        this.snackBar.open('L\'image ne doit pas dépasser 5MB', 'Fermer', {
+        this.snackBar.open("L'image ne doit pas dépasser 5MB", 'Fermer', {
           duration: 3000,
-          panelClass: ['error-snackbar']
+          panelClass: ['error-snackbar'],
         });
         return;
       }
@@ -153,38 +168,45 @@ export class ProfilComponent implements OnInit {
         notificationsEnabled: formData.notificationsEnabled,
         language: formData.language,
         theme: formData.theme,
-        profilePicture: this.profileImage as string
+        profilePicture: this.profileImage as string,
       };
 
       // Appel du service pour mettre à jour le profil
       this.authService.updateUserProfile(updatedProfile).subscribe({
         next: (response) => {
           this.isLoading = false;
-          
+
           if (response.success && response.data) {
             this.snackBar.open('Profil mis à jour avec succès', 'Fermer', {
               duration: 3000,
-              panelClass: ['success-snackbar']
+              panelClass: ['success-snackbar'],
             });
-            
+
             this.originalFormValues = { ...this.profileForm.value };
             this.editMode = false;
             this.dialogRef.close(response.data);
           } else {
-            this.snackBar.open(response.message || 'Erreur lors de la mise à jour', 'Fermer', {
-              duration: 5000,
-              panelClass: ['error-snackbar']
-            });
+            this.snackBar.open(
+              response.message || 'Erreur lors de la mise à jour',
+              'Fermer',
+              {
+                duration: 5000,
+                panelClass: ['error-snackbar'],
+              }
+            );
           }
         },
         error: (error) => {
           this.isLoading = false;
-          const errorMessage = error.error?.message || error.message || 'Erreur lors de la mise à jour du profil';
+          const errorMessage =
+            error.error?.message ||
+            error.message ||
+            'Erreur lors de la mise à jour du profil';
           this.snackBar.open(errorMessage, 'Fermer', {
             duration: 5000,
-            panelClass: ['error-snackbar']
+            panelClass: ['error-snackbar'],
           });
-        }
+        },
       });
     } else {
       // Marquer tous les champs comme touchés pour afficher les erreurs
@@ -193,7 +215,7 @@ export class ProfilComponent implements OnInit {
   }
 
   private markFormGroupTouched(formGroup: FormGroup) {
-    Object.keys(formGroup.controls).forEach(key => {
+    Object.keys(formGroup.controls).forEach((key) => {
       const control = formGroup.get(key);
       control?.markAsTouched();
     });
@@ -204,7 +226,13 @@ export class ProfilComponent implements OnInit {
   }
 
   // Getters pour accéder facilement aux contrôles du formulaire
-  get fullName() { return this.profileForm.get('fullName'); }
-  get email() { return this.profileForm.get('email'); }
-  get bio() { return this.profileForm.get('bio'); }
+  get fullName() {
+    return this.profileForm.get('fullName');
+  }
+  get email() {
+    return this.profileForm.get('email');
+  }
+  get bio() {
+    return this.profileForm.get('bio');
+  }
 }

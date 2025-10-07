@@ -13,15 +13,17 @@
       <!-- Photo optionnelle -->
       <div class="flex flex-col items-center">
         @if(previewImage) {
-          <img
-            [src]="previewImage"
-            class="w-20 h-20 rounded-full object-cover mb-2 cursor-pointer border-2 border-gray-300"
-            (click)="fileInput.click()"
-          />
+        <img
+          [src]="previewImage"
+          class="w-20 h-20 rounded-full object-cover mb-2 cursor-pointer border-2 border-gray-300"
+          (click)="fileInput.click()"
+        />
         } @else {
-          <mat-icon matPrefix class="!text-6xl !h-15 !w-15 !mb-2">account_circle</mat-icon>
+        <mat-icon matPrefix class="!text-6xl !h-15 !w-15 !mb-2"
+          >account_circle</mat-icon
+        >
         }
-        
+
         <input
           #fileInput
           type="file"
@@ -29,8 +31,15 @@
           accept="image/*"
           (change)="onFileSelected($event)"
         />
-        <button mat-button type="button" (click)="fileInput.click()" class="!text-sm !flex !items-center">
-          <mat-icon class="!text-base !flex !items-center">add_a_photo</mat-icon>
+        <button
+          mat-button
+          type="button"
+          (click)="fileInput.click()"
+          class="!text-sm !flex !items-center"
+        >
+          <mat-icon class="!text-base !flex !items-center"
+            >add_a_photo</mat-icon
+          >
           <span>Add profile photo (optional)</span>
         </button>
       </div>
@@ -101,12 +110,10 @@
       (click)="onSubmit()"
       [disabled]="registerForm.invalid || isLoading"
     >
-    <!-- [disabled]="registerForm.invalid || isLoading" -->
+      <!-- [disabled]="registerForm.invalid || isLoading" -->
       @if (isLoading) {
-        <mat-spinner diameter="20" class="!mx-auto"></mat-spinner>
-      } @else {
-        Create Account
-      }
+      <mat-spinner diameter="20" class="!mx-auto"></mat-spinner>
+      } @else { Create Account }
     </button>
   </mat-card-actions>
 </mat-card>

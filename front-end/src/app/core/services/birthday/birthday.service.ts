@@ -13,14 +13,13 @@ export class BirthdayService {
   private _birthdays = new BehaviorSubject<Birthday[]>([]);
   readonly birthdays$ = this._birthdays.asObservable();
 
- // private apiUrl = '/mock/birthdays.json';  Remplacer par une vraie API si dispo
+  // private apiUrl = '/mock/birthdays.json';  Remplacer par une vraie API si dispo
 
   constructor(
     private authService: AuthService,
     private http: HttpClient,
     private translocoService: TranslocoService
-  ) {
-  }
+  ) {}
 
   /* fetchBirthdays(): void {
     this.http.get<Birthday[]>(this.apiUrl).subscribe(data => {
@@ -32,9 +31,9 @@ export class BirthdayService {
    * Charge les birthdays de l'utilisateur courant
    */
   fetchBirthdays(): void {
-    this.authService.currentUser$.subscribe(user => {
+    this.authService.currentUser$.subscribe((user) => {
       if (user) {
-        console.log("fetching user... ", user)
+        console.log('fetching user... ', user);
         this._birthdays.next(user.birthdays || []);
       } else {
         this._birthdays.next([]);

@@ -25,10 +25,10 @@ const FAKE_USERS: UserProfile[] = [
         city: 'Paris',
         category: 'friend',
         photo: 'assets/avatars/avatar1.jpg',
-        notes: 'N\'aime pas le chocolat',
+        notes: "N'aime pas le chocolat",
         userId: '1',
         createdAt: new Date('2024-01-15'),
-        updatedAt: new Date('2024-01-15')
+        updatedAt: new Date('2024-01-15'),
       },
       {
         id: 2,
@@ -40,7 +40,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Adore les gâteaux au fromage',
         userId: '1',
         createdAt: new Date('2024-01-10'),
-        updatedAt: new Date('2024-01-10')
+        updatedAt: new Date('2024-01-10'),
       },
       {
         id: 3,
@@ -52,7 +52,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Aime les fleurs',
         userId: '1',
         createdAt: new Date('2024-01-12'),
-        updatedAt: new Date('2024-01-12')
+        updatedAt: new Date('2024-01-12'),
       },
       {
         id: 4,
@@ -64,7 +64,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Fan de sport',
         userId: '1',
         createdAt: new Date('2024-01-14'),
-        updatedAt: new Date('2024-01-14')
+        updatedAt: new Date('2024-01-14'),
       },
       {
         id: 5,
@@ -76,7 +76,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Adore la musique',
         userId: '1',
         createdAt: new Date('2024-01-16'),
-        updatedAt: new Date('2024-01-16')
+        updatedAt: new Date('2024-01-16'),
       },
       {
         id: 6,
@@ -88,7 +88,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Collectionne les livres',
         userId: '1',
         createdAt: new Date('2024-01-18'),
-        updatedAt: new Date('2024-01-18')
+        updatedAt: new Date('2024-01-18'),
       },
       {
         id: 7,
@@ -100,7 +100,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Voyage souvent',
         userId: '1',
         createdAt: new Date('2024-01-20'),
-        updatedAt: new Date('2024-01-20')
+        updatedAt: new Date('2024-01-20'),
       },
       {
         id: 8,
@@ -112,7 +112,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Photographe amateur',
         userId: '1',
         createdAt: new Date('2024-01-22'),
-        updatedAt: new Date('2024-01-22')
+        updatedAt: new Date('2024-01-22'),
       },
       {
         id: 9,
@@ -124,7 +124,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Grande cuisinière',
         userId: '1',
         createdAt: new Date('2024-01-24'),
-        updatedAt: new Date('2024-01-24')
+        updatedAt: new Date('2024-01-24'),
       },
       {
         id: 10,
@@ -136,7 +136,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Fan de cinéma',
         userId: '1',
         createdAt: new Date('2024-01-26'),
-        updatedAt: new Date('2024-01-26')
+        updatedAt: new Date('2024-01-26'),
       },
       {
         id: 11,
@@ -148,7 +148,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Aime la nature',
         userId: '1',
         createdAt: new Date('2024-01-28'),
-        updatedAt: new Date('2024-01-28')
+        updatedAt: new Date('2024-01-28'),
       },
       {
         id: 12,
@@ -160,7 +160,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Sportif accompli',
         userId: '1',
         createdAt: new Date('2024-01-30'),
-        updatedAt: new Date('2024-01-30')
+        updatedAt: new Date('2024-01-30'),
       },
       {
         id: 13,
@@ -172,7 +172,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Passionnée de lecture',
         userId: '1',
         createdAt: new Date('2024-02-01'),
-        updatedAt: new Date('2024-02-01')
+        updatedAt: new Date('2024-02-01'),
       },
       {
         id: 14,
@@ -184,7 +184,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Musicien talentueux',
         userId: '1',
         createdAt: new Date('2024-02-03'),
-        updatedAt: new Date('2024-02-03')
+        updatedAt: new Date('2024-02-03'),
       },
       {
         id: 15,
@@ -196,7 +196,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Artiste peintre',
         userId: '1',
         createdAt: new Date('2024-02-05'),
-        updatedAt: new Date('2024-02-05')
+        updatedAt: new Date('2024-02-05'),
       },
       {
         id: 16,
@@ -208,7 +208,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Geek invétéré',
         userId: '1',
         createdAt: new Date('2024-02-07'),
-        updatedAt: new Date('2024-02-07')
+        updatedAt: new Date('2024-02-07'),
       },
       {
         id: 17,
@@ -220,7 +220,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Végétarienne',
         userId: '1',
         createdAt: new Date('2024-02-09'),
-        updatedAt: new Date('2024-02-09')
+        updatedAt: new Date('2024-02-09'),
       },
       {
         id: 18,
@@ -232,7 +232,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Marin expérimenté',
         userId: '1',
         createdAt: new Date('2024-02-11'),
-        updatedAt: new Date('2024-02-11')
+        updatedAt: new Date('2024-02-11'),
       },
       {
         id: 19,
@@ -244,7 +244,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Danseuse classique',
         userId: '1',
         createdAt: new Date('2024-02-13'),
-        updatedAt: new Date('2024-02-13')
+        updatedAt: new Date('2024-02-13'),
       },
       {
         id: 20,
@@ -256,7 +256,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Sommelier',
         userId: '1',
         createdAt: new Date('2024-02-15'),
-        updatedAt: new Date('2024-02-15')
+        updatedAt: new Date('2024-02-15'),
       },
       {
         id: 21,
@@ -268,7 +268,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Architecte',
         userId: '1',
         createdAt: new Date('2024-02-17'),
-        updatedAt: new Date('2024-02-17')
+        updatedAt: new Date('2024-02-17'),
       },
       {
         id: 22,
@@ -280,7 +280,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Réalisateur',
         userId: '1',
         createdAt: new Date('2024-02-19'),
-        updatedAt: new Date('2024-02-19')
+        updatedAt: new Date('2024-02-19'),
       },
       {
         id: 23,
@@ -292,7 +292,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Infirmière',
         userId: '1',
         createdAt: new Date('2024-02-21'),
-        updatedAt: new Date('2024-02-21')
+        updatedAt: new Date('2024-02-21'),
       },
       {
         id: 24,
@@ -304,7 +304,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Ingénieur',
         userId: '1',
         createdAt: new Date('2024-02-23'),
-        updatedAt: new Date('2024-02-23')
+        updatedAt: new Date('2024-02-23'),
       },
       {
         id: 25,
@@ -316,7 +316,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Journaliste',
         userId: '1',
         createdAt: new Date('2024-02-25'),
-        updatedAt: new Date('2024-02-25')
+        updatedAt: new Date('2024-02-25'),
       },
       {
         id: 26,
@@ -328,7 +328,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Poète',
         userId: '1',
         createdAt: new Date('2024-02-27'),
-        updatedAt: new Date('2024-02-27')
+        updatedAt: new Date('2024-02-27'),
       },
       {
         id: 27,
@@ -340,7 +340,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Professeure',
         userId: '1',
         createdAt: new Date('2024-03-01'),
-        updatedAt: new Date('2024-03-01')
+        updatedAt: new Date('2024-03-01'),
       },
       {
         id: 28,
@@ -352,7 +352,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Commercial',
         userId: '1',
         createdAt: new Date('2024-03-03'),
-        updatedAt: new Date('2024-03-03')
+        updatedAt: new Date('2024-03-03'),
       },
       {
         id: 29,
@@ -364,7 +364,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Designer',
         userId: '1',
         createdAt: new Date('2024-03-05'),
-        updatedAt: new Date('2024-03-05')
+        updatedAt: new Date('2024-03-05'),
       },
       {
         id: 30,
@@ -376,8 +376,8 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Pâtissier',
         userId: '1',
         createdAt: new Date('2024-03-07'),
-        updatedAt: new Date('2024-03-07')
-      }
+        updatedAt: new Date('2024-03-07'),
+      },
     ],
     theme: 'light',
     language: 'fr',
@@ -385,7 +385,7 @@ const FAKE_USERS: UserProfile[] = [
     updatedAt: new Date('2024-01-20'),
     lastLoginAt: new Date('2024-01-20'),
     status: 'active',
-    profilePicture: 'assets/avatars/user1.jpg'
+    profilePicture: 'assets/avatars/user1.jpg',
   },
   {
     id: '2',
@@ -405,7 +405,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Préfère les cadeaux expérientiels',
         userId: '2',
         createdAt: new Date('2024-01-08'),
-        updatedAt: new Date('2024-01-08')
+        updatedAt: new Date('2024-01-08'),
       },
       {
         id: 32,
@@ -417,7 +417,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Aime le théâtre',
         userId: '2',
         createdAt: new Date('2024-01-09'),
-        updatedAt: new Date('2024-01-09')
+        updatedAt: new Date('2024-01-09'),
       },
       {
         id: 33,
@@ -429,7 +429,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Fan de jeux vidéo',
         userId: '2',
         createdAt: new Date('2024-01-10'),
-        updatedAt: new Date('2024-01-10')
+        updatedAt: new Date('2024-01-10'),
       },
       {
         id: 34,
@@ -441,7 +441,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Photographe',
         userId: '2',
         createdAt: new Date('2024-01-11'),
-        updatedAt: new Date('2024-01-11')
+        updatedAt: new Date('2024-01-11'),
       },
       {
         id: 35,
@@ -453,7 +453,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Sportif',
         userId: '2',
         createdAt: new Date('2024-01-12'),
-        updatedAt: new Date('2024-01-12')
+        updatedAt: new Date('2024-01-12'),
       },
       {
         id: 36,
@@ -465,7 +465,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Chef pâtissière',
         userId: '2',
         createdAt: new Date('2024-01-13'),
-        updatedAt: new Date('2024-01-13')
+        updatedAt: new Date('2024-01-13'),
       },
       {
         id: 37,
@@ -477,7 +477,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Musicien',
         userId: '2',
         createdAt: new Date('2024-01-14'),
-        updatedAt: new Date('2024-01-14')
+        updatedAt: new Date('2024-01-14'),
       },
       {
         id: 38,
@@ -489,7 +489,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Archéologue',
         userId: '2',
         createdAt: new Date('2024-01-15'),
-        updatedAt: new Date('2024-01-15')
+        updatedAt: new Date('2024-01-15'),
       },
       {
         id: 39,
@@ -501,7 +501,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Médecin',
         userId: '2',
         createdAt: new Date('2024-01-16'),
-        updatedAt: new Date('2024-01-16')
+        updatedAt: new Date('2024-01-16'),
       },
       {
         id: 40,
@@ -513,7 +513,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Graphiste',
         userId: '2',
         createdAt: new Date('2024-01-17'),
-        updatedAt: new Date('2024-01-17')
+        updatedAt: new Date('2024-01-17'),
       },
       {
         id: 41,
@@ -525,7 +525,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Surfeur',
         userId: '2',
         createdAt: new Date('2024-01-18'),
-        updatedAt: new Date('2024-01-18')
+        updatedAt: new Date('2024-01-18'),
       },
       {
         id: 42,
@@ -537,7 +537,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Biologiste',
         userId: '2',
         createdAt: new Date('2024-01-19'),
-        updatedAt: new Date('2024-01-19')
+        updatedAt: new Date('2024-01-19'),
       },
       {
         id: 43,
@@ -549,7 +549,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Alpiniste',
         userId: '2',
         createdAt: new Date('2024-01-20'),
-        updatedAt: new Date('2024-01-20')
+        updatedAt: new Date('2024-01-20'),
       },
       {
         id: 44,
@@ -561,7 +561,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Viticultrice',
         userId: '2',
         createdAt: new Date('2024-01-21'),
-        updatedAt: new Date('2024-01-21')
+        updatedAt: new Date('2024-01-21'),
       },
       {
         id: 45,
@@ -573,7 +573,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Ébéniste',
         userId: '2',
         createdAt: new Date('2024-01-22'),
-        updatedAt: new Date('2024-01-22')
+        updatedAt: new Date('2024-01-22'),
       },
       {
         id: 46,
@@ -585,7 +585,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Volcanologue',
         userId: '2',
         createdAt: new Date('2024-01-23'),
-        updatedAt: new Date('2024-01-23')
+        updatedAt: new Date('2024-01-23'),
       },
       {
         id: 47,
@@ -597,7 +597,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Céramiste',
         userId: '2',
         createdAt: new Date('2024-01-24'),
-        updatedAt: new Date('2024-01-24')
+        updatedAt: new Date('2024-01-24'),
       },
       {
         id: 48,
@@ -609,7 +609,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Historienne',
         userId: '2',
         createdAt: new Date('2024-01-25'),
-        updatedAt: new Date('2024-01-25')
+        updatedAt: new Date('2024-01-25'),
       },
       {
         id: 49,
@@ -621,7 +621,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Maritime',
         userId: '2',
         createdAt: new Date('2024-01-26'),
-        updatedAt: new Date('2024-01-26')
+        updatedAt: new Date('2024-01-26'),
       },
       {
         id: 50,
@@ -633,7 +633,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Linguiste',
         userId: '2',
         createdAt: new Date('2024-01-27'),
-        updatedAt: new Date('2024-01-27')
+        updatedAt: new Date('2024-01-27'),
       },
       {
         id: 51,
@@ -645,7 +645,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Champagniste',
         userId: '2',
         createdAt: new Date('2024-01-28'),
-        updatedAt: new Date('2024-01-28')
+        updatedAt: new Date('2024-01-28'),
       },
       {
         id: 52,
@@ -657,7 +657,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Capitaine de navire',
         userId: '2',
         createdAt: new Date('2024-01-29'),
-        updatedAt: new Date('2024-01-29')
+        updatedAt: new Date('2024-01-29'),
       },
       {
         id: 53,
@@ -669,7 +669,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Acteur',
         userId: '2',
         createdAt: new Date('2024-01-30'),
-        updatedAt: new Date('2024-01-30')
+        updatedAt: new Date('2024-01-30'),
       },
       {
         id: 54,
@@ -681,7 +681,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Ingénieure',
         userId: '2',
         createdAt: new Date('2024-01-31'),
-        updatedAt: new Date('2024-01-31')
+        updatedAt: new Date('2024-01-31'),
       },
       {
         id: 55,
@@ -693,7 +693,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Informaticien',
         userId: '2',
         createdAt: new Date('2024-02-01'),
-        updatedAt: new Date('2024-02-01')
+        updatedAt: new Date('2024-02-01'),
       },
       {
         id: 56,
@@ -705,7 +705,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Archéologue',
         userId: '2',
         createdAt: new Date('2024-02-02'),
-        updatedAt: new Date('2024-02-02')
+        updatedAt: new Date('2024-02-02'),
       },
       {
         id: 57,
@@ -717,7 +717,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Artiste',
         userId: '2',
         createdAt: new Date('2024-02-03'),
-        updatedAt: new Date('2024-02-03')
+        updatedAt: new Date('2024-02-03'),
       },
       {
         id: 58,
@@ -729,7 +729,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Designer',
         userId: '2',
         createdAt: new Date('2024-02-04'),
-        updatedAt: new Date('2024-02-04')
+        updatedAt: new Date('2024-02-04'),
       },
       {
         id: 59,
@@ -741,7 +741,7 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Restaurateur',
         userId: '2',
         createdAt: new Date('2024-02-05'),
-        updatedAt: new Date('2024-02-05')
+        updatedAt: new Date('2024-02-05'),
       },
       {
         id: 60,
@@ -753,8 +753,8 @@ const FAKE_USERS: UserProfile[] = [
         notes: 'Horlogère',
         userId: '2',
         createdAt: new Date('2024-02-06'),
-        updatedAt: new Date('2024-02-06')
-      }
+        updatedAt: new Date('2024-02-06'),
+      },
     ],
     theme: 'dark',
     language: 'en',
@@ -762,18 +762,18 @@ const FAKE_USERS: UserProfile[] = [
     updatedAt: new Date('2024-01-18'),
     lastLoginAt: new Date('2024-01-18'),
     status: 'active',
-    profilePicture: 'assets/avatars/user2.jpg'
-  }
+    profilePicture: 'assets/avatars/user2.jpg',
+  },
 ];
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private currentUserSubject = new BehaviorSubject<UserProfile | null>(null);
   currentUser$ = this.currentUserSubject.asObservable();
-  
- private users: UserProfile[] = [...FAKE_USERS];
+
+  private users: UserProfile[] = [...FAKE_USERS];
   private nextUserId = 3;
 
   private useMockApi = true; // Basculer à false pour utiliser le vrai backend
@@ -784,14 +784,17 @@ export class AuthService {
   /**
    * Inscription d'un nouvel utilisateur
    */
-  register(registerData: RegisterRequest): Observable<ApiResponse<AuthResponse>> {
+  register(
+    registerData: RegisterRequest
+  ): Observable<ApiResponse<AuthResponse>> {
     if (this.useMockApi) {
       return this.mockRegister(registerData);
     }
-    
-    return this.http.post<ApiResponse<AuthResponse>>(`${this.apiUrl}/register`, registerData)
+
+    return this.http
+      .post<ApiResponse<AuthResponse>>(`${this.apiUrl}/register`, registerData)
       .pipe(
-        tap(response => {
+        tap((response) => {
           if (response.success && response.data) {
             this.currentUserSubject.next(response.data.user);
           }
@@ -802,14 +805,18 @@ export class AuthService {
   /**
    * Simulation d'inscription
    */
-  private mockRegister(registerData: RegisterRequest): Observable<ApiResponse<AuthResponse>> {
+  private mockRegister(
+    registerData: RegisterRequest
+  ): Observable<ApiResponse<AuthResponse>> {
     // Vérifie si l'email existe déjà
-    const existingUser = this.users.find(user => user.email === registerData.email);
+    const existingUser = this.users.find(
+      (user) => user.email === registerData.email
+    );
     if (existingUser) {
       return of({
         success: false,
         message: 'Un compte avec cet email existe déjà',
-        errors: ['EMAIL_ALREADY_EXISTS']
+        errors: ['EMAIL_ALREADY_EXISTS'],
       }).pipe(delay(1000));
     }
 
@@ -826,20 +833,20 @@ export class AuthService {
       language: registerData.language || 'fr',
       createdAt: new Date(),
       updatedAt: new Date(),
-      status: 'active'
+      status: 'active',
     };
 
     this.users.push(newUser);
 
     const authResponse: AuthResponse = {
       user: newUser,
-      token: this.generateMockToken(newUser.id)
+      token: this.generateMockToken(newUser.id),
     };
 
     return of({
       success: true,
       message: 'Votre compte a été créé avec succès !',
-      data: authResponse
+      data: authResponse,
     }).pipe(
       delay(1500),
       tap(() => {
@@ -855,10 +862,11 @@ export class AuthService {
     if (this.useMockApi) {
       return this.mockLogin(loginData);
     }
-    
-    return this.http.post<ApiResponse<AuthResponse>>(`${this.apiUrl}/login`, loginData)
+
+    return this.http
+      .post<ApiResponse<AuthResponse>>(`${this.apiUrl}/login`, loginData)
       .pipe(
-        tap(response => {
+        tap((response) => {
           if (response.success && response.data) {
             this.currentUserSubject.next(response.data.user);
           }
@@ -869,38 +877,41 @@ export class AuthService {
   /**
    * Simulation de connexion
    */
-  private mockLogin(loginData: LoginRequest): Observable<ApiResponse<AuthResponse>> {
-    const user = this.users.find(u => 
-      u.email === loginData.email  && 
-      this.simpleHash(u.passwordHash) === this.simpleHash(loginData.password)
+  private mockLogin(
+    loginData: LoginRequest
+  ): Observable<ApiResponse<AuthResponse>> {
+    const user = this.users.find(
+      (u) =>
+        u.email === loginData.email &&
+        this.simpleHash(u.passwordHash) === this.simpleHash(loginData.password)
     );
 
     if (!user) {
       return of({
         success: false,
         message: 'Email ou mot de passe incorrect',
-        errors: ['INVALID_CREDENTIALS']
+        errors: ['INVALID_CREDENTIALS'],
       }).pipe(delay(1000));
     }
 
     // Met à jour la date de dernière connexion
     user.lastLoginAt = new Date();
-    const userIndex = this.users.findIndex(u => u.id === user.id);
+    const userIndex = this.users.findIndex((u) => u.id === user.id);
     if (userIndex !== -1) {
       this.users[userIndex] = user;
     }
 
     const authResponse: AuthResponse = {
       user: user,
-      token: this.generateMockToken(user.id)
+      token: this.generateMockToken(user.id),
     };
 
-    console.log("User : ",user);
+    console.log('User : ', user);
 
     return of({
       success: true,
       message: 'Connexion réussie !',
-      data: authResponse
+      data: authResponse,
     }).pipe(
       delay(1200),
       tap(() => {
@@ -916,21 +927,20 @@ export class AuthService {
     if (this.useMockApi) {
       return this.mockLogout();
     }
-    
-    return this.http.post<ApiResponse<void>>(`${this.apiUrl}/logout`, {})
-      .pipe(
-        tap(response => {
-          if (response.success) {
-            this.currentUserSubject.next(null);
-          }
-        })
-      );
+
+    return this.http.post<ApiResponse<void>>(`${this.apiUrl}/logout`, {}).pipe(
+      tap((response) => {
+        if (response.success) {
+          this.currentUserSubject.next(null);
+        }
+      })
+    );
   }
 
   private mockLogout(): Observable<ApiResponse<void>> {
     return of({
       success: true,
-      message: 'Déconnexion réussie'
+      message: 'Déconnexion réussie',
     }).pipe(
       delay(500),
       tap(() => {
@@ -946,43 +956,42 @@ export class AuthService {
     if (this.useMockApi) {
       return this.mockGetCurrentUser();
     }
-    
-    return this.http.get<ApiResponse<UserProfile>>(`${this.apiUrl}/me`)
-      .pipe(
-        tap(response => {
-          if (response.success && response.data) {
-            this.currentUserSubject.next(response.data);
-          }
-        })
-      );
+
+    return this.http.get<ApiResponse<UserProfile>>(`${this.apiUrl}/me`).pipe(
+      tap((response) => {
+        if (response.success && response.data) {
+          this.currentUserSubject.next(response.data);
+        }
+      })
+    );
   }
 
   private mockGetCurrentUser(): Observable<ApiResponse<UserProfile>> {
     const currentUser = this.currentUserSubject.value;
-    
+
     if (!currentUser) {
       return of({
         success: false,
         message: 'Utilisateur non connecté',
-        errors: ['NOT_AUTHENTICATED']
+        errors: ['NOT_AUTHENTICATED'],
       }).pipe(delay(800));
     }
 
     // Récupère les données à jour de l'utilisateur
-    const updatedUser = this.users.find(u => u.id === currentUser.id);
-    
+    const updatedUser = this.users.find((u) => u.id === currentUser.id);
+
     if (!updatedUser) {
       return of({
         success: false,
         message: 'Utilisateur non trouvé',
-        errors: ['USER_NOT_FOUND']
+        errors: ['USER_NOT_FOUND'],
       }).pipe(delay(800));
     }
 
     return of({
       success: true,
       message: 'Profil utilisateur récupéré',
-      data: updatedUser
+      data: updatedUser,
     }).pipe(
       delay(600),
       tap(() => {
@@ -994,14 +1003,17 @@ export class AuthService {
   /**
    * Mise à jour du profil utilisateur
    */
-  updateUserProfile(userData: Partial<UserProfile>): Observable<ApiResponse<UserProfile>> {
+  updateUserProfile(
+    userData: Partial<UserProfile>
+  ): Observable<ApiResponse<UserProfile>> {
     if (this.useMockApi) {
       return this.mockUpdateUserProfile(userData);
     }
-    
-    return this.http.put<ApiResponse<UserProfile>>(`${this.apiUrl}/profile`, userData)
+
+    return this.http
+      .put<ApiResponse<UserProfile>>(`${this.apiUrl}/profile`, userData)
       .pipe(
-        tap(response => {
+        tap((response) => {
           if (response.success && response.data) {
             this.currentUserSubject.next(response.data);
           }
@@ -1009,24 +1021,26 @@ export class AuthService {
       );
   }
 
-  private mockUpdateUserProfile(userData: Partial<UserProfile>): Observable<ApiResponse<UserProfile>> {
+  private mockUpdateUserProfile(
+    userData: Partial<UserProfile>
+  ): Observable<ApiResponse<UserProfile>> {
     const currentUser = this.currentUserSubject.value;
-    
+
     if (!currentUser) {
       return of({
         success: false,
         message: 'Utilisateur non connecté',
-        errors: ['NOT_AUTHENTICATED']
+        errors: ['NOT_AUTHENTICATED'],
       }).pipe(delay(800));
     }
 
-    const userIndex = this.users.findIndex(u => u.id === currentUser.id);
-    
+    const userIndex = this.users.findIndex((u) => u.id === currentUser.id);
+
     if (userIndex === -1) {
       return of({
         success: false,
         message: 'Utilisateur non trouvé',
-        errors: ['USER_NOT_FOUND']
+        errors: ['USER_NOT_FOUND'],
       }).pipe(delay(800));
     }
 
@@ -1034,7 +1048,7 @@ export class AuthService {
     const updatedUser: UserProfile = {
       ...this.users[userIndex],
       ...userData,
-      updatedAt: new Date()
+      updatedAt: new Date(),
     };
 
     this.users[userIndex] = updatedUser;
@@ -1042,7 +1056,7 @@ export class AuthService {
     return of({
       success: true,
       message: 'Profil mis à jour avec succès',
-      data: updatedUser
+      data: updatedUser,
     }).pipe(
       delay(1000),
       tap(() => {
@@ -1058,24 +1072,26 @@ export class AuthService {
     if (this.useMockApi) {
       return this.mockForgotPassword(email);
     }
-    
-    return this.http.post<ApiResponse<void>>(`${this.apiUrl}/forgot-password`, { email });
+
+    return this.http.post<ApiResponse<void>>(`${this.apiUrl}/forgot-password`, {
+      email,
+    });
   }
 
   private mockForgotPassword(email: string): Observable<ApiResponse<void>> {
-    const userExists = this.users.some(u => u.email === email);
-    
+    const userExists = this.users.some((u) => u.email === email);
+
     if (!userExists) {
       return of({
         success: false,
         message: 'Aucun compte trouvé avec cet email',
-        errors: ['EMAIL_NOT_FOUND']
+        errors: ['EMAIL_NOT_FOUND'],
       }).pipe(delay(1000));
     }
 
     return of({
       success: true,
-      message: 'Un email de réinitialisation a été envoyé'
+      message: 'Un email de réinitialisation a été envoyé',
     }).pipe(delay(1500));
   }
 

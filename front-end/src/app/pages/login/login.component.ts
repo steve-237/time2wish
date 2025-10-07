@@ -12,7 +12,7 @@ import { DialogService } from '../../shared/services/dialog/dialog.service';
 import { AuthService } from '../../core/services/auth/auth.service';
 import { Subscription } from 'rxjs';
 import { TranslocoModule } from '@jsverse/transloco';
-import { SetLanguageComponent } from "../../components/set-language/set-language.component";
+import { SetLanguageComponent } from '../../components/set-language/set-language.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -26,7 +26,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     ReactiveFormsModule,
     FormsModule,
     TranslocoModule,
-    SetLanguageComponent
+    SetLanguageComponent,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
@@ -41,8 +41,16 @@ export class LoginComponent implements OnDestroy {
 
   // Fake users pour faciliter les tests
   fakeUsers = [
-    { email: 'jean.dupont@email.com', password: 'JD123456', name: 'Jean Dupont' },
-    { email: 'sophie.lambert@email.com', password: 'SL789012', name: 'Sophie Lambert' }
+    {
+      email: 'jean.dupont@email.com',
+      password: 'JD123456',
+      name: 'Jean Dupont',
+    },
+    {
+      email: 'sophie.lambert@email.com',
+      password: 'SL789012',
+      name: 'Sophie Lambert',
+    },
   ];
 
   constructor(
@@ -65,25 +73,26 @@ export class LoginComponent implements OnDestroy {
     this.loginSub = this.authService.login(loginData).subscribe({
       next: (response) => {
         this.isLoading = false;
-        
+
         if (response.success) {
           // Afficher un message de bienvenue
           this.snackBar.open(
-            `Bienvenue ${response.data?.user.fullName} !`, 
-            'Fermer', 
+            `Bienvenue ${response.data?.user.fullName} !`,
+            'Fermer',
             { duration: 3000 }
           );
-          
+
           // Rediriger vers la page des anniversaires
           this.router.navigate(['/landing-page']);
         } else {
-          this.errorMessage = response.message || 'login.errors.invalid_credentials';
+          this.errorMessage =
+            response.message || 'login.errors.invalid_credentials';
         }
       },
       error: (err) => {
         this.isLoading = false;
         console.error('Login error:', err);
-        
+
         // Gestion des erreurs HTTP
         if (err.error?.message) {
           this.errorMessage = err.error.message;
@@ -92,7 +101,7 @@ export class LoginComponent implements OnDestroy {
         } else {
           this.errorMessage = 'login.errors.generic';
         }
-      }
+      },
     });
   }
 

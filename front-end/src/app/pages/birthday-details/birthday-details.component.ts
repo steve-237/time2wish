@@ -13,9 +13,9 @@ import {
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
-import {TranslocoPipe, TranslocoService} from "@jsverse/transloco";
+import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-birthday-details',
@@ -31,13 +31,12 @@ import {TranslocoPipe, TranslocoService} from "@jsverse/transloco";
     MatCardModule,
     MatChipsModule,
     MatFormFieldModule,
-    TranslocoPipe
+    TranslocoPipe,
   ],
   templateUrl: './birthday-details.component.html',
   styleUrl: './birthday-details.component.css',
 })
 export class BirthdayDetailsComponent {
-
   newLike = '';
 
   constructor(
@@ -47,7 +46,7 @@ export class BirthdayDetailsComponent {
     private translocoService: TranslocoService
   ) {}
 
-   addLike() {
+  addLike() {
     if (this.newLike && this.newLike.trim()) {
       if (!this.data.likes) {
         this.data.likes = [];
@@ -83,8 +82,9 @@ export class BirthdayDetailsComponent {
    * Retourne le texte correspondant au statut
    */
   getStatusText(date: Date): string {
-    return this.isBirthdayPassed(date)? this.translocoService.translate('birthdayDetails.status.past')
-                                      : this.translocoService.translate('birthdayDetails.status.coming');
+    return this.isBirthdayPassed(date)
+      ? this.translocoService.translate('birthdayDetails.status.past')
+      : this.translocoService.translate('birthdayDetails.status.coming');
   }
 
   /**
