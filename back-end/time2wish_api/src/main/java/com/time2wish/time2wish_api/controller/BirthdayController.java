@@ -36,7 +36,6 @@ public class BirthdayController {
 
     /**
      * Get a birthday based on the id
-     *
      * @param id - id of the birthday to retrieve
      * @return An object birthday
      */
