@@ -1,6 +1,6 @@
-import { NotificationService } from './../../shared/services/notification/notification.service';
-import { Birthday } from './../../models/birthday.model';
-import { AuthService } from './../../core/services/auth/auth.service';
+import { NotificationService } from '../../shared/services/notification/notification.service';
+import { Birthday } from '../../models/birthday.model';
+import { AuthService } from '../../core/services/auth/auth.service';
 import { Component, inject, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
@@ -159,6 +159,11 @@ export class LandingPageComponent {
     this.birthdayService.fetchBirthdays();
 
     this.loading = false;
+
+    // Charger la préférence de l'utilisateur par defaut (false) au démarrage
+    const savedTheme = localStorage.getItem('theme');
+    this.isDarkTheme = savedTheme === 'dark';//Si c'est 'dark', alors isDarkTheme = true
+    this.applyTheme();//applique le theme
   }
 
   ngAfterViewInit(): void {
@@ -224,16 +229,19 @@ export class LandingPageComponent {
     });
   }
 
-  toggleTheme() {
-    this.isDarkTheme = !this.isDarkTheme;
+  toggleTheme(): void {
+    this.isDarkTheme = !this.isDarkTheme;//Change le statut de isDarkTheme apres le click
+    const theme = this.isDarkTheme ? 'dark' : 'light';
+    localStorage.setItem('theme', theme); // Sauvegarde le choix
+    this.applyTheme(); // applique le nouveau theme
+  }
 
+  private applyTheme(): void {
+    const body = document.body;
     if (this.isDarkTheme) {
-      document.documentElement.classList.add('dark');
-      // Ou utiliser votre service de thème si vous en avez un
-      // this.themeService.setDarkTheme();
+      body.classList.add('dark');
     } else {
-      document.documentElement.classList.remove('dark');
-      // this.themeService.setLightTheme();
+      body.classList.remove('dark');
     }
   }
 
