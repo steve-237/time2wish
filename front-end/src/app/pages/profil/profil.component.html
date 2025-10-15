@@ -3,11 +3,19 @@
   <div class="flex justify-between items-center mb-6">
     <h2 class="text-xl font-bold flex items-center gap-2">
       <mat-icon>person</mat-icon>
-      {{ 'profil.title' | transloco }}
+      {{ "profil.title" | transloco }}
     </h2>
     <div class="flex gap-2">
-      <button mat-icon-button (click)="toggleEditMode()" [matTooltip]="editMode ? ('profil.editing' | transloco) : ('profil.modification' | transloco)">
-        <mat-icon>{{ editMode ? 'lock' : 'edit' }}</mat-icon>
+      <button
+        mat-icon-button
+        (click)="toggleEditMode()"
+        [matTooltip]="
+          editMode
+            ? ('profil.editing' | transloco)
+            : ('profil.modification' | transloco)
+        "
+      >
+        <mat-icon>{{ editMode ? "lock" : "edit" }}</mat-icon>
       </button>
       <button mat-icon-button (click)="dialogRef.close()">
         <mat-icon>close</mat-icon>
@@ -17,110 +25,154 @@
 
   <!-- Chargement -->
   @if (isLoading) {
-    <div class="flex justify-center py-8">
-      <mat-spinner diameter="40"></mat-spinner>
-    </div>
+  <div class="flex justify-center py-8">
+    <mat-spinner diameter="40"></mat-spinner>
+  </div>
   }
 
   <!-- Contenu du profil -->
   @if (!isLoading) {
-    <div>
-      <!-- Photo de profil -->
-      <div class="flex flex-col items-center mb-6">
-        <div class="relative">
-          @if (editMode) {
-            @if (profileImage) {
-              <img [src]="profileImage" class="w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg" (click)="fileInput.click()"  />
-            } @else {
-              <mat-icon class="!w-32 !h-32 !text-9xl rounded-full object-cover border-4 border-white shadow-lg cursor-pointer" (click)="fileInput.click()">account_circle</mat-icon>
-            }
-            <input #fileInput type="file" accept="image/*" hidden (change)="onFileSelected($event)" />
-          } @else {
-            @if (profileImage) {
-              <img [src]="profileImage" class="w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg" />
-            } @else {
-              <mat-icon class="!w-32 !h-32 !text-9xl rounded-full object-cover border-4 border-white shadow-lg">account_circle</mat-icon>
-            }
-          }
+  <div>
+    <!-- Photo de profil -->
+    <div class="flex flex-col items-center mb-6">
+      <div class="relative">
+        @if (editMode) { @if (profileImage) {
+        <img
+          [src]="profileImage"
+          class="w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg"
+          (click)="fileInput.click()"
+        />
+        } @else {
+        <mat-icon
+          class="!w-32 !h-32 !text-9xl rounded-full object-cover border-4 border-white shadow-lg cursor-pointer"
+          (click)="fileInput.click()"
+          >account_circle</mat-icon
+        >
+        }
+        <input
+          #fileInput
+          type="file"
+          accept="image/*"
+          hidden
+          (change)="onFileSelected($event)"
+        />
+        } @else { @if (profileImage) {
+        <img
+          [src]="profileImage"
+          class="w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg"
+        />
+        } @else {
+        <mat-icon
+          class="!w-32 !h-32 !text-9xl rounded-full object-cover border-4 border-white shadow-lg"
+          >account_circle</mat-icon
+        >
+        } }
+      </div>
+    </div>
 
-        </div>
+    <!-- Affichage des informations en mode lecture -->
+    @if (!editMode) {
+    <div class="space-y-4">
+      <!-- Nom complet -->
+      <div class="mb-4">
+        <h3 class="text-sm font-medium text-gray-500">
+          {{ "profil.name" | transloco }}
+        </h3>
+        <p class="text-lg">{{ profileForm.get("fullName")?.value || "-" }}</p>
       </div>
 
-      <!-- Affichage des informations en mode lecture -->
-      @if (!editMode) {
-        <div class="space-y-4">
-          <!-- Nom complet -->
-          <div class="mb-4">
-            <h3 class="text-sm font-medium text-gray-500">{{ 'profil.name' | transloco }}</h3>
-            <p class="text-lg">{{ profileForm.get('name')?.value || '-' }}</p>
-          </div>
+      <!-- Email -->
+      <div class="mb-4">
+        <h3 class="text-sm font-medium text-gray-500">
+          {{ "profil.mail" | transloco }}
+        </h3>
+        <p class="text-lg">{{ profileForm.get("email")?.value || "-" }}</p>
+      </div>
 
-          <!-- Email -->
-          <div class="mb-4">
-            <h3 class="text-sm font-medium text-gray-500">{{ 'profil.mail' | transloco }}</h3>
-            <p class="text-lg">{{ profileForm.get('email')?.value || '-' }}</p>
-          </div>
+      <!-- Bio -->
+      <div class="mb-4">
+        <h3 class="text-sm font-medium text-gray-500">
+          {{ "profil.bio" | transloco }}
+        </h3>
+        <p class="text-lg whitespace-pre-line">
+          {{ profileForm.get("bio")?.value || ("profil.noBio" | transloco) }}
+        </p>
+      </div>
 
-          <!-- Bio -->
-          <div class="mb-4">
-            <h3 class="text-sm font-medium text-gray-500">{{ 'profil.bio' | transloco }}</h3>
-            <p class="text-lg whitespace-pre-line">{{ profileForm.get('bio')?.value || ('profil.noBio' | transloco) }}</p>
-          </div>
-
-          <!-- Notifications -->
-          <div class="flex items-center gap-2">
-            <mat-icon>{{ profileForm.get('notifications')?.value ? 'notifications_active' : 'notifications_off' }}</mat-icon>
-            <span>{{ 'profil.notifications.title' | transloco }} {{ profileForm.get('notifications')?.value ? ('profil.notifications.activated' | transloco) : ('profil.notifications.deactivated' | transloco) }}</span>
-          </div>
-        </div>
-      }
-
-      <!-- Formulaire en mode édition -->
-      @if (editMode) {
-        <form [formGroup]="profileForm" class="space-y-4">
-          <!-- Nom complet -->
-          <mat-form-field appearance="outline" class="w-full">
-            <mat-label>{{ 'profil.name' | transloco }}</mat-label>
-            <input matInput formControlName="name"/>
-            @if (profileForm.get('name')?.hasError('required')) {
-              <mat-error>{{ 'profil.errors.name' | transloco }}</mat-error>
-            }
-          </mat-form-field>
-
-          <!-- Email -->
-          <mat-form-field appearance="outline" class="w-full">
-            <mat-label>Email</mat-label>
-            <input matInput formControlName="email" type="email"/>
-            @if (profileForm.get('email')?.hasError('required')) {
-              <mat-error>{{ 'profil.errors.mail' | transloco }}</mat-error>
-            }
-            @if (profileForm.get('email')?.hasError('email')) {
-              <mat-error>{{ 'profil.errors.falseEmail' | transloco }}</mat-error>
-            }
-          </mat-form-field>
-
-          <!-- Bio -->
-          <mat-form-field appearance="outline" class="w-full">
-            <mat-label>{{ 'profil.bio' | transloco }}</mat-label>
-            <textarea matInput formControlName="bio" rows="3"></textarea>
-          </mat-form-field>
-
-          <!-- Notifications -->
-          <mat-slide-toggle formControlName="notifications" color="primary">
-            {{ 'profil.notifications.received' | transloco }}
-          </mat-slide-toggle>
-
-          <!-- Boutons d'action -->
-          <div class="flex justify-end gap-3 pt-4">
-            <button mat-raised-button type="button" (click)="cancelEdit()" color="primary">
-              {{ 'profil.actions.cancel' | transloco }}
-            </button>
-            <button mat-raised-button color="primary" (click)="saveProfile()" [disabled]="!profileForm.valid">
-              {{ 'profil.actions.save' | transloco }}
-            </button>
-          </div>
-        </form>
-      }
+      <!-- Notifications -->
+      <div class="flex items-center gap-2">
+        <mat-icon>{{
+          profileForm.get("notifications")?.value
+            ? "notifications_active"
+            : "notifications_off"
+        }}</mat-icon>
+        <span
+          >{{ "profil.notifications.title" | transloco }}
+          {{
+            profileForm.get("notifications")?.value
+              ? ("profil.notifications.activated" | transloco)
+              : ("profil.notifications.deactivated" | transloco)
+          }}</span
+        >
+      </div>
     </div>
+    }
+
+    <!-- Formulaire en mode édition -->
+    @if (editMode) {
+    <form [formGroup]="profileForm" class="space-y-4">
+      <!-- Nom complet -->
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>{{ "profil.name" | transloco }}</mat-label>
+        <input matInput formControlName="name" />
+        @if (profileForm.get('name')?.hasError('required')) {
+        <mat-error>{{ "profil.errors.name" | transloco }}</mat-error>
+        }
+      </mat-form-field>
+
+      <!-- Email -->
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" type="email" />
+        @if (profileForm.get('email')?.hasError('required')) {
+        <mat-error>{{ "profil.errors.mail" | transloco }}</mat-error>
+        } @if (profileForm.get('email')?.hasError('email')) {
+        <mat-error>{{ "profil.errors.falseEmail" | transloco }}</mat-error>
+        }
+      </mat-form-field>
+
+      <!-- Bio -->
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>{{ "profil.bio" | transloco }}</mat-label>
+        <textarea matInput formControlName="bio" rows="3"></textarea>
+      </mat-form-field>
+
+      <!-- Notifications -->
+      <mat-slide-toggle formControlName="notifications" color="primary">
+        {{ "profil.notifications.received" | transloco }}
+      </mat-slide-toggle>
+
+      <!-- Boutons d'action -->
+      <div class="flex justify-end gap-3 pt-4">
+        <button
+          mat-raised-button
+          type="button"
+          (click)="cancelEdit()"
+          color="primary"
+        >
+          {{ "profil.actions.cancel" | transloco }}
+        </button>
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="saveProfile()"
+          [disabled]="!profileForm.valid"
+        >
+          {{ "profil.actions.save" | transloco }}
+        </button>
+      </div>
+    </form>
+    }
+  </div>
   }
 </div>

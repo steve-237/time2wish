@@ -8,7 +8,10 @@ export interface Birthday {
   email?: string;
   phone?: string;
   notes?: string;
-  enableReminders: boolean;
-  passed: boolean
-  //preferencies
+  enableReminders?: boolean;
+  passed?: boolean;
+  userId?: string; // Référence à l'utilisateur propriétaire
+  createdAt?: Date;
+  updatedAt?: Date;
+  preferencies?: string [];
 }

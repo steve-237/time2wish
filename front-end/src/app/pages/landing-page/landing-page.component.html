@@ -110,7 +110,7 @@
               class="!w-10 !h-10 flex items-center justify-center"
               [matTooltip]="'toolbar.theme' | transloco"
             >
-              <mat-icon >
+              <mat-icon>
                 {{ isDarkTheme ? "light_mode" : "dark_mode" }}
               </mat-icon>
             </button>
@@ -119,14 +119,16 @@
             <button
               mat-icon-button
               [matBadge]="notificationService.unreadCount$ | async"
-              [matBadgeHidden]="(notificationService.unreadCount$ | async) === 0"
+              [matBadgeHidden]="
+                (notificationService.unreadCount$ | async) === 0
+              "
               matBadgeColor="warn"
               matBadgeSize="large"
               class="!w-10 !h-10 !flex !items-center !justify-center relative"
               (click)="onNotification()"
               [matTooltip]="'toolbar.notifications' | transloco"
             >
-              <mat-icon >notifications</mat-icon>
+              <mat-icon>notifications</mat-icon>
             </button>
 
             @if(viewMode === 'table') {
@@ -159,23 +161,21 @@
               (click)="onInformation()"
               [matTooltip]="'toolbar.help' | transloco"
             >
-              <mat-icon >help_outline</mat-icon>
+              <mat-icon>help_outline</mat-icon>
             </button>
 
             <!-- Menu Profil -->
+            @let currentUser = authService.currentUser$ | async;
             <button
               mat-icon-button
               [matMenuTriggerFor]="profileMenu"
               class="flex items-center justify-center"
               [matTooltip]="'toolbar.profile' | transloco"
             >
-              @if (authService.getCurrentUser()?.photo) {
-              <img
-                [src]="authService.getCurrentUser()?.photo"
-                class="rounded-full"
-              />
+              @if (currentUser?.profilePicture) {
+              <img [src]="currentUser?.profilePicture" class="rounded-full" />
               } @else {
-              <mat-icon >account_circle</mat-icon>
+              <mat-icon>account_circle</mat-icon>
               }
             </button>
             <mat-menu #profileMenu="matMenu">
@@ -357,15 +357,17 @@
           <div class="flex space-x-4">
             <a href="#" class="text-gray-600 hover:text-blue-600 transition">
               <mat-icon>help_outline</mat-icon>
-              <span class="ml-1">{{ 'footer.help'| transloco }}</span>
+              <span class="ml-1">{{ "footer.help" | transloco }}</span>
             </a>
             <a href="#" class="text-gray-600 hover:text-blue-600 transition">
               <mat-icon>description</mat-icon>
-              <span class="ml-1">{{ 'footer.conditions'| transloco }}</span>
+              <span class="ml-1">{{ "footer.conditions" | transloco }}</span>
             </a>
             <a href="#" class="text-gray-600 hover:text-blue-600 transition">
               <mat-icon>privacy_tip</mat-icon>
-              <span class="ml-1">{{ 'footer.confidentiality'| transloco }}</span>
+              <span class="ml-1">{{
+                "footer.confidentiality" | transloco
+              }}</span>
             </a>
           </div>
         </div>

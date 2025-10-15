@@ -4,6 +4,7 @@ import { BehaviorSubject, map, Observable } from 'rxjs';
 import { Birthday } from '../../../models/birthday.model';
 import { HttpClient } from '@angular/common/http';
 import { TranslocoService } from '@jsverse/transloco';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,16 +13,31 @@ export class BirthdayService {
   private _birthdays = new BehaviorSubject<Birthday[]>([]);
   readonly birthdays$ = this._birthdays.asObservable();
 
-  private apiUrl = '/mock/birthdays.json'; // Remplacer par une vraie API si dispo
+  // private apiUrl = '/mock/birthdays.json';  Remplacer par une vraie API si dispo
 
   constructor(
+    private authService: AuthService,
     private http: HttpClient,
     private translocoService: TranslocoService
   ) {}
 
-  fetchBirthdays(): void {
+  /* fetchBirthdays(): void {
     this.http.get<Birthday[]>(this.apiUrl).subscribe(data => {
       this._birthdays.next(data);
+    });
+  } */
+
+  /**
+   * Charge les birthdays de l'utilisateur courant
+   */
+  fetchBirthdays(): void {
+    this.authService.currentUser$.subscribe((user) => {
+      if (user) {
+        console.log('fetching user... ', user);
+        this._birthdays.next(user.birthdays || []);
+      } else {
+        this._birthdays.next([]);
+      }
     });
   }
 
