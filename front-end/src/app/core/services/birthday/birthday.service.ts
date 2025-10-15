@@ -70,8 +70,14 @@ export class BirthdayService {
   }
 
   deleteBirthday(id: number): void {
-    const current = this._birthdays.value.filter((b) => b.id !== id);
-    this._birthdays.next(current);
+   this.http.delete<Birthday>(this.apiUrl + 'birthday/'+id).subscribe({
+     next: () => {
+       //Recupere moi tous les birthdays dont l'id actuellement en parametre est different de celui ci.
+       const current = this._birthdays.value.filter((b) => b.id !== id);
+       this._birthdays.next(current);
+     },
+     error: (error) => {console.error('Error deleting birthday:', error);}
+   })
   }
 
   private generateId(): number {
