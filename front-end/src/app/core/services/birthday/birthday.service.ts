@@ -32,15 +32,18 @@ export class BirthdayService {
   }
 
   addBirthday(birthday: Birthday): void {
-    const current = this._birthdays.value;
-    const newBirthday = {
-      ...birthday,
-      id: this.generateId(),
-      birthDate: new Date(birthday.date), // Ca doit etre une date
-    };
-    this._birthdays.next([newBirthday, ...current]);
-    // l'appel HTTP ici:
-    // this.http.post('/api/birthdays', newBirthday).subscribe(...);
+    this.http.post<Birthday>(this.apiUrl + 'birthdayTable', birthday).subscribe({
+      next: (savedBirthday) => {
+        // On récupère la liste actuelle
+        const current = this._birthdays.value;
+
+        // Ajoute le nouvel anniversaire retourné par le backend
+        this._birthdays.next([savedBirthday, ...current]);
+
+        console.log('Birthday saved successfully:', savedBirthday);
+      },
+      error: (error) => { console.error('Error saving birthday:', error);}
+    });
   }
 
   updateBirthday(updated: Birthday): Observable<Birthday> {
