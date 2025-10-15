@@ -1,9 +1,9 @@
-import { NotificationService } from './../../../shared/services/notification/notification.service';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { Birthday } from '../../../models/birthday.model';
 import { HttpClient } from '@angular/common/http';
 import { TranslocoService } from '@jsverse/transloco';
+import {catchError, tap} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +12,7 @@ export class BirthdayService {
   private _birthdays = new BehaviorSubject<Birthday[]>([]);
   readonly birthdays$ = this._birthdays.asObservable();
 
-  private apiUrl = '/mock/birthdays.json'; // Remplacer par une vraie API si dispo
+  private apiUrl = 'http://localhost:9000/';  //Remplacer par une vraie API si dispo
 
   constructor(
     private http: HttpClient,
@@ -20,9 +20,11 @@ export class BirthdayService {
   ) {}
 
   fetchBirthdays(): void {
-    this.http.get<Birthday[]>(this.apiUrl).subscribe(data => {
+    this.http.get<Birthday[]>(this.apiUrl +'birthdayTable').subscribe(data => {
       this._birthdays.next(data);
+      console.log(data);
     });
+
   }
 
   getBirthdayById(id: number): Observable<Birthday | undefined> {
@@ -30,51 +32,52 @@ export class BirthdayService {
   }
 
   addBirthday(birthday: Birthday): void {
-    const current = this._birthdays.value;
-    const newBirthday = {
-      ...birthday,
-      id: this.generateId(),
-      birthDate: new Date(birthday.date), // Ca doit etre une date
-    };
-    this._birthdays.next([newBirthday, ...current]);
-    // l'appel HTTP ici:
-    // this.http.post('/api/birthdays', newBirthday).subscribe(...);
+    this.http.post<Birthday>(this.apiUrl + 'birthdayTable', birthday).subscribe({
+      next: (savedBirthday) => {
+        // On récupère la liste actuelle
+        const current = this._birthdays.value;
+
+        // Ajoute le nouvel anniversaire retourné par le backend
+        this._birthdays.next([savedBirthday, ...current]);
+
+        console.log('Birthday saved successfully:', savedBirthday);
+      },
+      error: (error) => { console.error('Error saving birthday:', error);}
+    });
   }
 
   updateBirthday(updated: Birthday): Observable<Birthday> {
-    return new Observable<Birthday>((subscriber) => {
-      try {
+    return this.http.put<Birthday>(this.apiUrl+`/birthday/${updated.id}`, updated).pipe(
+      tap(updateBirthday => {
         const current = this._birthdays.value;
-        const index = current.findIndex((b) => b.id === updated.id);
+
+        const index = current.findIndex((b) => b.id === updateBirthday.id);
 
         if (index === -1) {
           throw new Error('Birthday not found');
         }
 
-        const updatedBirthday = {
-          ...updated,
-          birthDate: new Date(updated.date),
-        };
-
         const updatedList = [...current];
-        updatedList[index] = updatedBirthday;
-
+        updatedList[index] = updateBirthday;
         this._birthdays.next(updatedList);
 
-        subscriber.next(updatedBirthday);
-        subscriber.complete();
-
-        // TODO: Remplacer par un vrai appel API plus tard
-        // return this.http.put<Birthday>(`${this.apiUrl}/${updated.id}`, updated);
-      } catch (error) {
-        subscriber.error(error);
-      }
-    });
+      }),
+      catchError((error) => {
+        console.error('Erreur lors de la mise à jour:', error);
+        throw error;
+      })
+    );
   }
 
   deleteBirthday(id: number): void {
-    const current = this._birthdays.value.filter((b) => b.id !== id);
-    this._birthdays.next(current);
+   this.http.delete<Birthday>(this.apiUrl + 'birthday/'+id).subscribe({
+     next: () => {
+       //Recupere moi tous les birthdays dont l'id actuellement en parametre est different de celui ci.
+       const current = this._birthdays.value.filter((b) => b.id !== id);
+       this._birthdays.next(current);
+     },
+     error: (error) => {console.error('Error deleting birthday:', error);}
+   })
   }
 
   private generateId(): number {

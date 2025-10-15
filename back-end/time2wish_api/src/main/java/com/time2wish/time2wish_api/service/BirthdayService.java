@@ -37,8 +37,8 @@ public class BirthdayService {
     }
 
     /**
-     * Delete an employee
-     * @param id of the employee to be deleted
+     * Delete a birthday
+     * @param id of the birthday to be deleted
      */
     public void deleteBirthday(final Long id) {
         birthdayRepository.deleteById(id);
