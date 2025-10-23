@@ -36,9 +36,7 @@ export class FooterComponent {
   public openModal(component: 'help' | 'conditions' | 'confidentiality') {
     const componentClass = this.modalComponentMap[component];
     if (componentClass) {
-      this.dialog.open(componentClass, {
-        width: '500px',
-      });
+      this.dialog.open(componentClass);
     }
   }
 }

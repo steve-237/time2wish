@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-conditions',
   imports: [],
   templateUrl: './conditions.component.html',
-  styleUrl: './conditions.component.css'
+  styleUrl: './conditions.component.css',
 })
-export class ConditionsComponent {
-
-}
+export class ConditionsComponent {}
