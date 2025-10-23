@@ -41,6 +41,7 @@ import { BirthdayCardComponent } from '../../components/birthday-card/birthday-c
 import { AsideNavBarComponent } from '../../components/aside-nav-bar/aside-nav-bar.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { SetLanguageComponent } from '../../components/set-language/set-language.component';
+import { FooterComponent } from "../../components/footer/footer.component";
 
 @Component({
   selector: 'app-landing-page',
@@ -79,7 +80,8 @@ import { SetLanguageComponent } from '../../components/set-language/set-language
     AsideNavBarComponent,
     MatAutocompleteModule,
     SetLanguageComponent,
-  ],
+    FooterComponent
+],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.css',
 })

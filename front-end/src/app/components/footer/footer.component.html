@@ -1,0 +1,24 @@
+<footer class="shadow p-2 bg-white">
+    <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-2 md:mb-0">
+            <p class="text-gray-600 text-xs mt-1">
+                © {{ currentDate | date : "yyyy" }} Time2Wish. Tous droits réservés.
+            </p>
+        </div>
+
+        <div class="flex space-x-2">
+            <a href="#" class="text-gray-600 hover:text-blue-600 transition text-xs flex items-center">
+                <mat-icon class="text-base">help_outline</mat-icon>
+                <span class="ml-1">{{ "footer.help" | transloco }}</span>
+            </a>
+            <a href="#" class="text-gray-600 hover:text-blue-600 transition text-xs flex items-center">
+                <mat-icon class="text-base">description</mat-icon>
+                <span class="ml-1">{{ "footer.conditions" | transloco }}</span>
+            </a>
+            <a href="#" class="text-gray-600 hover:text-blue-600 transition text-xs flex items-center">
+                <mat-icon class="text-base">privacy_tip</mat-icon>
+                <span class="ml-1">{{ "footer.confidentiality" | transloco }}</span>
+            </a>
+        </div>
+    </div>
+</footer>
