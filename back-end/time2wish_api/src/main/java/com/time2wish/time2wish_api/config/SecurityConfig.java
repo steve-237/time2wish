@@ -25,11 +25,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 2. Définir les autorisations de requêtes
                 .authorizeRequests()
                 // Autoriser l'accès SANS AUTHENTIFICATION à ces chemins
-                .antMatchers("/api/register", "/api/login").permitAll()
+                .antMatchers("/api/register", "/api/login", "/h2-console/**").permitAll()
 
                 // Exiger l'authentification pour TOUTES les autres requêtes
                 .anyRequest().authenticated()
-
+                .and()
+                // 3. DÉSactiver la protection des frames (pour que la console H2 puisse s'afficher dans une iframe)
+                .headers().frameOptions().disable();
         // 3. Vous pouvez aussi désactiver la fenêtre de connexion basique par défaut si vous l'avez.
         // .and()
         // .httpBasic().disable();
