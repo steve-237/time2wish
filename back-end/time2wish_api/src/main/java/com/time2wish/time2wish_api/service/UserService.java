@@ -24,26 +24,75 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
+// =========================================================================
+// Méthodes Privées (Simulations)
+// =========================================================================
+
+    /**
+     * Simule la vérification que le mot de passe respecte les exigences.
+     */
+    private void validatePasswordSecurity(String password) {
+        if (password == null || password.length() < 8) {
+            throw new IllegalArgumentException("Le mot de passe doit contenir au moins 8 caractères.");
+        }
+
+        if (!password.matches(".*[!@#$%^&*()].*")) {
+            throw new IllegalArgumentException("Le mot de passe doit contenir un caractère spécial.");
+        }
+    }
+
+    /**
+     * Simule l'envoi de l'email de confirmation à l'utilisateur.
+     */
+    private void sendConfirmationEmail(User user) {
+        // Dans une application réelle, cette méthode utiliserait JavaMailSender
+        // pour envoyer un lien contenant le token de vérification.
+        System.out.println("SIMULATION: Envoi d'un email de confirmation à " + user.getEmail() +
+                " pour activer le compte.");
+    }
+
     // =========================================================================
     // Opérations d'Authentification et d'Enregistrement
     // =========================================================================
 
+    // NOTE: Nécessite que le UserRepository ait la méthode findByEmail(String email)
+// NOTE: Nécessite que le statut PENDING existe dans l'Enum User.UserStatus
+
     /**
-     * Enregistre un nouvel utilisateur après avoir haché son mot de passe.
+     * Enregistre un nouvel utilisateur, après validation et envoi d'un email de confirmation.
+     * Le compte est créé en statut PENDING.
      * @param user - L'objet User (le mot de passe brut est dans le champ passwordHash).
      * @return L'objet User sauvegardé.
+     * @throws IllegalArgumentException si l'email est déjà utilisé ou si le mot de passe est invalide.
      */
     public User registerUser(User user) {
-        // 1. Hacher le mot de passe brut
-        user.setPasswordHash(passwordEncoder.encode(user.getPasswordHash()));
-
-        // 2. Définir le statut initial (si non spécifié par la requête)
-        if (user.getStatus() == null) {
-            user.setStatus(User.UserStatus.ACTIVE);
+        // 1. ✅ Validation de l'email unique
+        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+            throw new IllegalArgumentException("L'adresse email est déjà utilisée.");
         }
 
-        // 3. Sauvegarder l'utilisateur (les horodatages sont gérés par @PrePersist)
-        return userRepository.save(user);
+        // 2. ✅ Validation du mot de passe (SIMULATION)
+        // C'est ici que vous intégrerez votre logique de validation de mot de passe.
+        // Pour l'exemple, nous allons créer une méthode utilitaire simulée.
+        validatePasswordSecurity(user.getPasswordHash());
+
+        // 3. 🔐 Sécurité: Hacher le mot de passe brut
+        String rawPassword = user.getPasswordHash();
+        user.setPasswordHash(passwordEncoder.encode(rawPassword));
+
+        // 4. ✅ Définir le statut initial: PENDING
+        user.setStatus(User.UserStatus.PENDING);
+
+        // NOTE: Il serait pertinent de générer ici un jeton de vérification (verificationToken)
+        // et de l'ajouter à l'entité User pour le processus de confirmation par email.
+
+        // 5. Sauvegarder l'utilisateur (création du compte PENDING)
+        User createdUser = userRepository.save(user);
+
+        // 6. ✅ Envoi d'email de confirmation (SIMULATION)
+        sendConfirmationEmail(createdUser);
+
+        return createdUser;
     }
 
     /**
