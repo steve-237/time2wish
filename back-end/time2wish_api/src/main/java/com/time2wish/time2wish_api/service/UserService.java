@@ -66,6 +66,7 @@ public class UserService {
      * @throws IllegalArgumentException si l'email est déjà utilisé ou si le mot de passe est invalide.
      */
     public User registerUser(User user) {
+        System.out.print(user);
         // 1. ✅ Validation de l'email unique
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
             throw new IllegalArgumentException("L'adresse email est déjà utilisée.");
@@ -74,11 +75,11 @@ public class UserService {
         // 2. ✅ Validation du mot de passe (SIMULATION)
         // C'est ici que vous intégrerez votre logique de validation de mot de passe.
         // Pour l'exemple, nous allons créer une méthode utilitaire simulée.
-        validatePasswordSecurity(user.getPasswordHash());
+        validatePasswordSecurity(user.getPassword());
 
         // 3. 🔐 Sécurité: Hacher le mot de passe brut
-        String rawPassword = user.getPasswordHash();
-        user.setPasswordHash(passwordEncoder.encode(rawPassword));
+        String rawPassword = user.getPassword();
+        user.setPassword(passwordEncoder.encode(rawPassword));
 
         // 4. ✅ Définir le statut initial: PENDING
         user.setStatus(User.UserStatus.PENDING);
@@ -109,7 +110,7 @@ public class UserService {
             User user = userOptional.get();
 
             // 2. Comparer le mot de passe brut avec le hachage stocké
-            if (passwordEncoder.matches(rawPassword, user.getPasswordHash())) {
+            if (passwordEncoder.matches(rawPassword, user.getPassword())) {
                 // Mettre à jour l'horodatage de la dernière connexion (bonne pratique)
                 user.setLastLoginAt(Instant.now());
                 userRepository.save(user);
