@@ -96,8 +96,6 @@ export class RegistrationComponent {
   }
 
   onSubmit(): void {
-    console.log('from validity: ', this.registerForm.valid);
-    console.log('from : ', this.registerForm);
     if (this.registerForm.valid) {
       this.isLoading = true;
 
@@ -108,15 +106,14 @@ export class RegistrationComponent {
         password: this.registerForm.get('password')?.value,
         notificationsEnabled: true, // Valeur par défaut
         language: 'fr', // Valeur par défaut
-        theme: 'light', // Valeur par défaut
+        theme: 'LIGHT', // Valeur par défaut
       };
 
       // Appel corrigé avec les données
       this.authService.register(registerData).subscribe({
         next: (response) => {
           this.isLoading = false;
-
-          if (response.success) {
+          if (response !== null || response !== undefined) {
             this.snackBar.open('Registration successful!', 'Close', {
               duration: 3000,
               panelClass: ['success-snackbar'],
@@ -125,7 +122,7 @@ export class RegistrationComponent {
             this.router.navigate(['/landing-page']);
           } else {
             // Gestion des erreurs métier (email déjà existant, etc.)
-            const errorMessage = response.message || 'Registration failed';
+            const errorMessage = 'Registration failed';
             this.snackBar.open(errorMessage, 'Close', {
               duration: 5000,
               panelClass: ['error-snackbar'],
