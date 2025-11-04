@@ -776,8 +776,8 @@ export class AuthService {
   private users: UserProfile[] = [...FAKE_USERS];
   private nextUserId = 3;
 
-  private useMockApi = true; // Basculer à false pour utiliser le vrai backend
-  private apiUrl = '/api/auth';
+  private useMockApi = false; // Basculer à false pour utiliser le vrai backend
+  private apiUrl = 'http://localhost:9000/api';
 
   constructor(private http: HttpClient) {}
 
