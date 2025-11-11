@@ -10,7 +10,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { Router, RouterLink } from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AuthService } from '../../core/services/auth/auth.service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
@@ -47,7 +46,6 @@ export class RegistrationComponent {
     private fb: FormBuilder,
     private authService: AuthService,
     private snackBar: MatSnackBar,
-    private router: Router,
     public dialogRef: MatDialogRef<RegistrationComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
@@ -119,7 +117,6 @@ export class RegistrationComponent {
               panelClass: ['success-snackbar'],
             });
             this.dialogRef.close();
-            this.router.navigate(['/landing-page']);
           } else {
             // Gestion des erreurs métier (email déjà existant, etc.)
             const errorMessage = 'Registration failed';
