@@ -1,6 +1,6 @@
 package com.time2wish.time2wish_api.controller;
 
-import com.time2wish.time2wish_api.dto.UserLoginResponseDTO;
+import com.time2wish.time2wish_api.dto.*;
 import com.time2wish.time2wish_api.model.User;
 import com.time2wish.time2wish_api.model.Birthday;
 import com.time2wish.time2wish_api.service.UserService;
@@ -11,8 +11,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
@@ -58,29 +60,31 @@ public class UserController {
         String email = credentials.get("email");
         String password = credentials.get("password");
 
-        if (email == null || password == null) {
-            return ResponseEntity.badRequest().body(Collections.singletonMap("message", "Email et mot de passe requis."));
-        }
-
-        // L'appel au service : il s'occupe maintenant de charger les birthdays !
         Optional<User> authenticatedUser = userService.authenticate(email, password);
 
         if (authenticatedUser.isPresent()) {
             User user = authenticatedUser.get();
-
-            // 1. Générer le token simulé
             String mockToken = "SIMULATED_JWT_FOR_USER_" + user.getId();
-            Boolean success = true;
 
-            // 2. Créer le DTO de réponse
-            // Cette méthode utilise user.getBirthdays(), qui est maintenant sûr
-            // grâce au @Transactional dans le service.
-            UserLoginResponseDTO responseDTO = UserLoginResponseDTO.fromUser(user, mockToken, success);
+            // 1. Convertir les Entités en DTOs (Liste des anniversaires)
+            List<BirthdayDTO> birthdayDTOs = user.getBirthdays().stream()
+                    .map(BirthdayDTO::fromEntity)
+                    .collect(Collectors.toList());
 
-            // 3. Retourner la réponse structurée
-            return ResponseEntity.ok(responseDTO);
+            // 2. Créer l'objet UserProfile
+            UserProfileDTO userProfileDTO = UserProfileDTO.fromUser(user);
+
+            // 3. Créer l'objet Data
+            LoginDataDTO loginDataDTO = new LoginDataDTO(userProfileDTO, birthdayDTOs);
+
+            // 4. Créer la réponse finale (avec success=true, token, et data)
+            LoginResponseDTO finalResponse = new LoginResponseDTO(mockToken, loginDataDTO);
+
+            return ResponseEntity.ok(finalResponse);
+
         } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Collections.singletonMap("message", "Email ou mot de passe invalide."));
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Collections.singletonMap("message", "Email ou mot de passe invalide."));
         }
     }
 
