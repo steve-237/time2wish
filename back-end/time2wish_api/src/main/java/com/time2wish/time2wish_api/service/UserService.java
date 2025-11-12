@@ -5,6 +5,7 @@ import com.time2wish.time2wish_api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder; // Nécessite la dépendance Spring Security
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.Optional;
@@ -102,16 +103,20 @@ public class UserService {
      * @param rawPassword - Le mot de passe non haché.
      * @return Optional contenant l'utilisateur si authentification réussie, Optional vide sinon.
      */
+    @Transactional // Assurez que la session JPA est ouverte
     public Optional<User> authenticate(String email, String rawPassword) {
-        // 1. Chercher l'utilisateur par email (nécessite UserRepository.findByEmail)
+        // 1. Chercher l'utilisateur par email
         Optional<User> userOptional = userRepository.findByEmail(email);
 
         if (userOptional.isPresent()) {
             User user = userOptional.get();
 
-            // 2. Comparer le mot de passe brut avec le hachage stocké
             if (passwordEncoder.matches(rawPassword, user.getPassword())) {
-                // Mettre à jour l'horodatage de la dernière connexion (bonne pratique)
+
+                // Force l'initialisation de la liste AVANT la fin de la méthode
+                // Cela évite la LazyInitializationException.
+                user.getBirthdays().size();
+
                 user.setLastLoginAt(Instant.now());
                 userRepository.save(user);
                 return userOptional;

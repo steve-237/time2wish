@@ -11,6 +11,7 @@ public class UserLoginResponseDTO {
 
     private final String message = "Connexion réussie";
     private final String token;
+    private final Boolean success;
 
     // Informations utilisateur
     private final String id;
@@ -26,7 +27,7 @@ public class UserLoginResponseDTO {
     private final List<BirthdayDTO> birthdays;
 
 
-    public static UserLoginResponseDTO fromUser(User user, String token) {
+    public static UserLoginResponseDTO fromUser(User user, String token, Boolean success) {
         // Conversion de List<Birthday> en List<BirthdayDTO>
         List<BirthdayDTO> birthdayDTOs = user.getBirthdays().stream()
                 .map(BirthdayDTO::fromEntity) // Utilise la méthode de conversion du DTO
@@ -34,6 +35,7 @@ public class UserLoginResponseDTO {
 
         return new UserLoginResponseDTO(
                 token,
+                success,
                 user.getId(),
                 user.getFullName(),
                 user.getEmail(),

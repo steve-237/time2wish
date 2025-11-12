@@ -1,5 +1,6 @@
 package com.time2wish.time2wish_api.controller;
 
+import com.time2wish.time2wish_api.dto.UserLoginResponseDTO;
 import com.time2wish.time2wish_api.model.User;
 import com.time2wish.time2wish_api.model.Birthday;
 import com.time2wish.time2wish_api.service.UserService;
@@ -10,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -62,18 +62,23 @@ public class UserController {
             return ResponseEntity.badRequest().body(Collections.singletonMap("message", "Email et mot de passe requis."));
         }
 
+        // L'appel au service : il s'occupe maintenant de charger les birthdays !
         Optional<User> authenticatedUser = userService.authenticate(email, password);
 
         if (authenticatedUser.isPresent()) {
-            // Dans une application réelle sécurisée, vous généreriez un JWT ici.
-            String mockToken = "SIMULATED_JWT_FOR_USER_" + authenticatedUser.get().getId();
+            User user = authenticatedUser.get();
 
-            Map<String, Object> responseBody = new HashMap<>();
-            responseBody.put("message", "Connexion réussie");
-            responseBody.put("userId", authenticatedUser.get().getId());
-            responseBody.put("token", mockToken);
+            // 1. Générer le token simulé
+            String mockToken = "SIMULATED_JWT_FOR_USER_" + user.getId();
+            Boolean success = true;
 
-            return ResponseEntity.ok(responseBody);
+            // 2. Créer le DTO de réponse
+            // Cette méthode utilise user.getBirthdays(), qui est maintenant sûr
+            // grâce au @Transactional dans le service.
+            UserLoginResponseDTO responseDTO = UserLoginResponseDTO.fromUser(user, mockToken, success);
+
+            // 3. Retourner la réponse structurée
+            return ResponseEntity.ok(responseDTO);
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Collections.singletonMap("message", "Email ou mot de passe invalide."));
         }
