@@ -4,7 +4,7 @@ import lombok.Value;
 
 @Value
 public class LoginResponseDTO {
-    private final Boolean success = true; // Indicateur de succès
+    private final Boolean success;
     private final String token;
-    private final LoginDataDTO data; // L'objet conteneur pour les données
+    private final LoginDataDTO data;
 }

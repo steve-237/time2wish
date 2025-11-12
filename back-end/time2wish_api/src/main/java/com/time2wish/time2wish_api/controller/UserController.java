@@ -65,6 +65,7 @@ public class UserController {
         if (authenticatedUser.isPresent()) {
             User user = authenticatedUser.get();
             String mockToken = "SIMULATED_JWT_FOR_USER_" + user.getId();
+            Boolean success = true;
 
             // 1. Convertir les Entités en DTOs (Liste des anniversaires)
             List<BirthdayDTO> birthdayDTOs = user.getBirthdays().stream()
@@ -78,7 +79,7 @@ public class UserController {
             LoginDataDTO loginDataDTO = new LoginDataDTO(userProfileDTO, birthdayDTOs);
 
             // 4. Créer la réponse finale (avec success=true, token, et data)
-            LoginResponseDTO finalResponse = new LoginResponseDTO(mockToken, loginDataDTO);
+            LoginResponseDTO finalResponse = new LoginResponseDTO(success, mockToken, loginDataDTO);
 
             return ResponseEntity.ok(finalResponse);
 
