@@ -14,6 +14,7 @@ import { Subscription } from 'rxjs';
 import { TranslocoModule } from '@jsverse/transloco';
 import { SetLanguageComponent } from '../../components/set-language/set-language.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthResponse } from '../../models/authResponse.model';
 
 @Component({
   selector: 'app-login',
@@ -71,10 +72,12 @@ export class LoginComponent implements OnDestroy {
     const loginData = { email: email, password: password };
 
     this.loginSub = this.authService.login(loginData).subscribe({
-      next: (response) => {
+      next: (response: any) => {
         this.isLoading = false;
 
-        if (response.success) {
+        console.log('Login response:', response);
+
+        if (response) {
           // Afficher un message de bienvenue
           this.snackBar.open(
             `Bienvenue ${response.data?.user.fullName} !`,
@@ -85,11 +88,10 @@ export class LoginComponent implements OnDestroy {
           // Rediriger vers la page des anniversaires
           this.router.navigate(['/landing-page']);
         } else {
-          this.errorMessage =
-            response.message || 'login.errors.invalid_credentials';
+          this.errorMessage = response?.message || 'login.errors.invalid_credentials';
         }
       },
-      error: (err) => {
+      error: (err: any) => {
         this.isLoading = false;
         console.error('Login error:', err);
 

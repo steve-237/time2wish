@@ -867,6 +867,7 @@ export class AuthService {
       .post<ApiResponse<AuthResponse>>(`${this.apiUrl}/login`, loginData)
       .pipe(
         tap((response) => {
+          console.log('Login response from the service: ', response);
           if (response.success && response.data) {
             this.currentUserSubject.next(response.data.user);
           }
