@@ -3,6 +3,7 @@ package com.time2wish.time2wish_api.controller;
 import com.time2wish.time2wish_api.dto.*;
 import com.time2wish.time2wish_api.model.User;
 import com.time2wish.time2wish_api.model.Birthday;
+import com.time2wish.time2wish_api.security.JwtTokenProvider;
 import com.time2wish.time2wish_api.service.UserService;
 import com.time2wish.time2wish_api.service.BirthdayService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,14 +23,16 @@ public class UserController {
 
     private final UserService userService;
     private final BirthdayService birthdayService;
+    private final JwtTokenProvider tokenProvider;
 
     /**
      * Injection de dépendances par constructeur (UserService et BirthdayService).
      */
     @Autowired
-    public UserController(UserService userService, BirthdayService birthdayService) {
+    public UserController(UserService userService, BirthdayService birthdayService, JwtTokenProvider tokenProvider) {
         this.userService = userService;
         this.birthdayService = birthdayService;
+        this.tokenProvider = tokenProvider;
     }
 
     // =========================================================================
@@ -64,8 +67,8 @@ public class UserController {
 
         if (authenticatedUser.isPresent()) {
             User user = authenticatedUser.get();
-            String mockToken = "SIMULATED_JWT_FOR_USER_" + user.getId();
-            Boolean success = true;
+            // 🛠️ REMPLACER LA SIMULATION PAR LA VRAIE GÉNÉRATION DE JWT
+            String jwt = tokenProvider.generateToken(user);
 
             // 1. Convertir les Entités en DTOs (Liste des anniversaires)
             List<BirthdayDTO> birthdayDTOs = user.getBirthdays().stream()
@@ -79,7 +82,7 @@ public class UserController {
             LoginDataDTO loginDataDTO = new LoginDataDTO(userProfileDTO, birthdayDTOs);
 
             // 4. Créer la réponse finale (avec success=true, token, et data)
-            LoginResponseDTO finalResponse = new LoginResponseDTO(success, mockToken, loginDataDTO);
+            LoginResponseDTO finalResponse = new LoginResponseDTO(true, jwt, loginDataDTO);
 
             return ResponseEntity.ok(finalResponse);
 
