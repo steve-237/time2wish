@@ -6,8 +6,11 @@ import com.time2wish.time2wish_api.model.Birthday;
 import com.time2wish.time2wish_api.security.JwtTokenProvider;
 import com.time2wish.time2wish_api.service.UserService;
 import com.time2wish.time2wish_api.service.BirthdayService;
+import io.jsonwebtoken.JwtException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +19,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import javax.servlet.http.Cookie; // Import pour les Cookies
+import javax.servlet.http.HttpServletResponse; // Import pour la Réponse HTTP
+
+import javax.servlet.http.HttpServletRequest; // Import nécessaire
+import io.jsonwebtoken.Claims; // Import nécessaire pour lire les claims
 
 @RestController
 @RequestMapping("/api")
@@ -59,7 +68,9 @@ public class UserController {
      * @return ResponseEntity avec un jeton/message de succès ou une erreur 401
      */
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody Map<String, String> credentials) {
+    public ResponseEntity<?> login(@RequestBody Map<String, String> credentials,
+                                   HttpServletResponse response) {
+
         String email = credentials.get("email");
         String password = credentials.get("password");
 
@@ -67,30 +78,97 @@ public class UserController {
 
         if (authenticatedUser.isPresent()) {
             User user = authenticatedUser.get();
-            // 🛠️ REMPLACER LA SIMULATION PAR LA VRAIE GÉNÉRATION DE JWT
-            String jwt = tokenProvider.generateToken(user);
 
-            // 1. Convertir les Entités en DTOs (Liste des anniversaires)
+            // 1. GÉNÉRATION DES DEUX TOKENS
+            String accessToken = tokenProvider.generateAccessToken(user);
+            String refreshToken = tokenProvider.generateRefreshToken(user);
+
+            // 2. CRÉATION DU COOKIE (REFRESH TOKEN)
+            String cookieValue = String.format("refreshToken=%s; Path=/; Max-Age=%d; HttpOnly; SameSite=Lax",
+                    refreshToken,
+                    tokenProvider.getRefreshTokenExpirationInSeconds()); // Utiliser la durée longue
+
+            response.addHeader("Set-Cookie", cookieValue);
+
+            // 3. CRÉATION DU DTO DE RÉPONSE
             List<BirthdayDTO> birthdayDTOs = user.getBirthdays().stream()
                     .map(BirthdayDTO::fromEntity)
                     .collect(Collectors.toList());
 
-            // 2. Créer l'objet UserProfile
             UserProfileDTO userProfileDTO = UserProfileDTO.fromUser(user);
-
-            // 3. Créer l'objet Data
             LoginDataDTO loginDataDTO = new LoginDataDTO(userProfileDTO, birthdayDTOs);
 
-            // 4. Créer la réponse finale (avec success=true, token, et data)
-            LoginResponseDTO finalResponse = new LoginResponseDTO(true, jwt, loginDataDTO);
+            // 4. RETOURNER LA RÉPONSE avec l'ACCESS TOKEN (dans le corps)
+            // Le champ 'token' dans le DTO sera renommé en 'accessToken' pour la clarté.
+            LoginResponseDTO finalResponse = new LoginResponseDTO(true, accessToken, loginDataDTO);
 
             return ResponseEntity.ok(finalResponse);
-
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(Collections.singletonMap("message", "Email ou mot de passe invalide."));
         }
     }
+
+    /**
+     * Endpoint appelé par le Frontend lorsqu'un Access Token expire (401).
+     * Il utilise le Refresh Token stocké dans le cookie.
+     * POST /api/refresh
+     */
+    @PostMapping("/refresh")
+    public ResponseEntity<?> refreshAccessToken(HttpServletRequest request) {
+
+        String refreshToken = null;
+
+        // 1. Lire le Refresh Token du cookie
+        if (request.getCookies() != null) {
+            for (Cookie cookie : request.getCookies()) {
+                if ("refreshToken".equals(cookie.getName())) {
+                    refreshToken = cookie.getValue();
+                    break;
+                }
+            }
+        }
+
+        if (refreshToken == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Collections.singletonMap("message", "Refresh Token manquant. Veuillez vous reconnecter."));
+        }
+
+        try {
+            // 2. Valider le Refresh Token et extraire les claims (données)
+            Claims claims = tokenProvider.validateTokenAndGetClaims(refreshToken);
+
+            // Optionnel : Vérifiez le type de token pour la sécurité (s'assurer que ce n'est pas un Access Token)
+            String tokenType = claims.get("tokenType", String.class);
+            if (!"REFRESH".equals(tokenType)) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                        .body(Collections.singletonMap("message", "Token fourni n'est pas un Refresh Token."));
+            }
+
+            // 3. Récupérer l'ID utilisateur à partir des claims
+            String userId = claims.getSubject();
+
+            // 4. Récupérer l'utilisateur et générer un nouveau token...
+            Optional<User> userOptional = userService.getUser(Long.valueOf(userId));
+
+            if (userOptional.isPresent()) {
+                User user = userOptional.get();
+
+                // Générer un NOUVEL Access Token
+                String newAccessToken = tokenProvider.generateAccessToken(user);
+
+                // Retourner le nouvel Access Token dans le corps
+                return ResponseEntity.ok(Collections.singletonMap("accessToken", newAccessToken));
+            }
+
+        } catch (JwtException e) {
+            // Le token est invalide (signature), expiré, ou mal formé.
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Collections.singletonMap("message", "Refresh Token invalide ou expiré."));
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Collections.singletonMap("message", "Utilisateur non trouvé."));
+    }
+
 
     // =========================================================================
     // 👤 CRUD de base pour les Utilisateurs (/api/users)
