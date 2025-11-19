@@ -864,7 +864,7 @@ export class AuthService {
     }
 
     return this.http
-      .post<ApiResponse<AuthResponse>>(`${this.apiUrl}/login`, loginData)
+      .post<ApiResponse<AuthResponse>>(`${this.apiUrl}/login`, loginData, { withCredentials: true })
       .pipe(
         tap((response) => {
           console.log('Login response from the service: ', response);
