@@ -96,7 +96,7 @@ public class UserController {
                     .collect(Collectors.toList());
 
             UserProfileDTO userProfileDTO = UserProfileDTO.fromUser(user);
-            LoginDataDTO loginDataDTO = new LoginDataDTO(userProfileDTO, birthdayDTOs);
+            LoginDataDTO loginDataDTO = new LoginDataDTO(userProfileDTO);
 
             // 4. RETOURNER LA RÉPONSE avec l'ACCESS TOKEN (dans le corps)
             // Le champ 'token' dans le DTO sera renommé en 'accessToken' pour la clarté.

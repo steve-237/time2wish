@@ -1,7 +1,7 @@
+import { UserProfile } from './../../../models/user.model';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
-import { catchError, delay, map, tap } from 'rxjs/operators';
-import { UserProfile } from '../../../models/user.model';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { delay, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { ApiResponse } from '../../../models/apiResponse.model';
 import { AuthResponse } from '../../../models/authResponse.model';
