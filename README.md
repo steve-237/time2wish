@@ -2,7 +2,13 @@
 
 > A smart and stylish way to never forget the special moments of your loved ones.
 <img width="2545" height="1302" alt="image" src="https://github.com/user-attachments/assets/1ba18752-b903-47e2-8fdb-068c460067b8" />
+
+### Light mode
 <img width="2549" height="1306" alt="image" src="https://github.com/user-attachments/assets/d868085d-0bea-4f47-bb93-a59af19b979d" />
+
+### Dark mode
+<img width="2554" height="1299" alt="image" src="https://github.com/user-attachments/assets/6d5d84fb-4eb9-4c95-a530-6383a138bf41" />
+
 
 
 
