@@ -2,7 +2,8 @@
 
 > A smart and stylish way to never forget the special moments of your loved ones.
 <img width="2545" height="1302" alt="image" src="https://github.com/user-attachments/assets/1ba18752-b903-47e2-8fdb-068c460067b8" />
-<img width="2548" height="1306" alt="image" src="https://github.com/user-attachments/assets/d8be2271-9bc5-4577-ad41-5ea2c10d4c70" />
+<img width="2549" height="1306" alt="image" src="https://github.com/user-attachments/assets/d868085d-0bea-4f47-bb93-a59af19b979d" />
+
 
 
 ---
