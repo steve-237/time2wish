@@ -117,6 +117,8 @@ Want to contribute or support the project?
 - 🚀 Submit a pull request.
 - 💬 Share feedback and ideas.
 
+## Usefull link
+- Login and logout workflow explain: https://hasura.io/blog/best-practices-of-using-jwt-with-graphql
 ---
 
 ## 📄 License
