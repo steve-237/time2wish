@@ -106,7 +106,7 @@ public class UserService {
     @Transactional // Assurez que la session JPA est ouverte
     public Optional<User> authenticate(String email, String rawPassword) {
         // 1. Chercher l'utilisateur par email
-        Optional<User> userOptional = userRepository.findByEmail(email);
+        Optional<User> userOptional = userRepository.findByEmailWithBirthdays(email);
 
         if (userOptional.isPresent()) {
             User user = userOptional.get();

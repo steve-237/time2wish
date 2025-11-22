@@ -8,6 +8,4 @@ import java.util.List;
 public class LoginDataDTO {
     // Clé 'user'
     private final UserProfileDTO user;
-    // Clé 'birthday' (liste des anniversaires)
-    private final List<BirthdayDTO> birthday;
 }

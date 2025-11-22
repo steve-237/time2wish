@@ -13,6 +13,13 @@ public class BirthdayDTO {
     private final LocalDate date;
     private final String category;
     private final Boolean enableReminders;
+    private final String photo;
+    private final String city;
+    private final String email;
+    private final String phone;
+    private final String notes;
+    private final String preferencies;
+    private final Boolean passed;
     // Ajoutez tous les autres champs nécessaires à l'UI
 
     // Méthode utilitaire pour convertir l'Entité en DTO
@@ -22,7 +29,14 @@ public class BirthdayDTO {
                 birthday.getName(),
                 birthday.getDate(),
                 birthday.getCategory(),
-                birthday.getEnableReminders()
+                birthday.getEnableReminders(),
+                birthday.getPhoto(),
+                birthday.getCity(),
+                birthday.getEmail(),
+                birthday.getPhone(),
+                birthday.getNotes(),
+                birthday.getPreferencies(),
+                birthday.getPassed()
         );
     }
 }
