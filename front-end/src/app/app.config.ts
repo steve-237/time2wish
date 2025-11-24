@@ -1,3 +1,4 @@
+import { authInterceptorFn } from './core/services/auth/interceptor/auth.interceptor';
 import {
   ApplicationConfig,
   provideZoneChangeDetection,
@@ -6,16 +7,18 @@ import {
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { TranslocoHttpLoader } from './transloco-loader';
 import { provideTransloco } from '@jsverse/transloco';
 import { provideNativeDateAdapter } from '@angular/material/core';
+
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient(),
+    provideHttpClient(// Enregistrement de l'intercepteur fonctionnel
+        withInterceptors([authInterceptorFn])),
     provideNativeDateAdapter(),
     provideTransloco({
       config: {
