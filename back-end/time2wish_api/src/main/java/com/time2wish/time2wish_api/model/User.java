@@ -13,7 +13,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // UUID est souvent préféré pour les clés primaires d'utilisateur
-    private String id;
+    private Long id;
 
     @Column(name = "profile_picture")
     private String profilePicture;

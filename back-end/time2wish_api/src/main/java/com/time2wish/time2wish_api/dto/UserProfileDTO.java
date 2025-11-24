@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 @Value
 public class UserProfileDTO {
-    private final String id;
+    private final Long id;
     private final String fullName;
     private final String email;
     private final String profilePicture;

@@ -14,7 +14,7 @@ public class UserLoginResponseDTO {
     private final Boolean success;
 
     // Informations utilisateur
-    private final String id;
+    private final Long id;
     private final String fullName;
     private final String email;
     private final String profilePicture;
