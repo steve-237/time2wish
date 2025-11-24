@@ -12,6 +12,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
@@ -20,6 +21,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.Cookie; // Import pour les Cookies
 import javax.servlet.http.HttpServletResponse; // Import pour la Réponse HTTP
 
@@ -204,7 +206,7 @@ public class UserController {
      * @param userDetails - Les nouvelles données de l'utilisateur
      * @return L'objet User mis à jour, ou null si non trouvé
      */
-    @PutMapping("/users/{id}")
+    @PutMapping("/{id}")
     public User updateUser(@PathVariable("id") final Long id, @RequestBody User userDetails) {
         Optional<User> userOptional = userService.getUser(id);
 
@@ -223,6 +225,45 @@ public class UserController {
             return userService.saveUser(userToUpdate);
         } else {
             return null; // Idéalement, retourner un 404 Not Found
+        }
+    }
+
+    /**
+     * Met à jour les informations de l'utilisateur.
+     * @param id L'ID de l'utilisateur à modifier (de l'URL).
+     * @param updatedUser L'objet User (ou DTO) avec les nouvelles données.
+     * @return L'utilisateur mis à jour.
+     */
+    @PutMapping("/users/{id}")
+    public ResponseEntity<?> updateUserDetails(@PathVariable("id") final Long id, @RequestBody User updatedUser) {
+
+        // 1. VÉRIFICATION DE SÉCURITÉ CRUCIALE
+        // Assurez-vous que l'ID dans l'URL correspond à l'ID de l'utilisateur connecté.
+        final String authenticatedUserId = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        System.out.print("Authenticated user:");
+        System.out.println(authenticatedUserId);
+        System.out.print("Updated user:");
+        System.out.println(updatedUser);
+        System.out.print("user id:");
+        System.out.println(id);
+
+        if (!String.valueOf(id).equals(authenticatedUserId)) {
+            // Si l'utilisateur essaie de modifier un autre profil que le sien
+            return new ResponseEntity<>("Accès refusé. Vous ne pouvez modifier que votre propre profil.", HttpStatus.FORBIDDEN);
+        }
+
+        try {
+            // 2. Appel du service pour la mise à jour
+            User savedUser = userService.updateUserDetails(id, updatedUser);
+
+            // 3. Retourner le DTO de l'utilisateur mis à jour
+            // Il est préférable de mapper l'entité User en DTO avant de la renvoyer.
+            UserProfileDTO userProfileDTO = UserProfileDTO.fromUser(savedUser);
+            return ResponseEntity.ok(userProfileDTO);
+
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 
