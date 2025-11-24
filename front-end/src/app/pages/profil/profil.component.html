@@ -124,8 +124,8 @@
       <!-- Nom complet -->
       <mat-form-field appearance="outline" class="w-full">
         <mat-label>{{ "profil.name" | transloco }}</mat-label>
-        <input matInput formControlName="name" />
-        @if (profileForm.get('name')?.hasError('required')) {
+        <input matInput formControlName="fullName" />
+        @if (profileForm.get('fullName')?.hasError('required')) {
         <mat-error>{{ "profil.errors.name" | transloco }}</mat-error>
         }
       </mat-form-field>
@@ -148,7 +148,7 @@
       </mat-form-field>
 
       <!-- Notifications -->
-      <mat-slide-toggle formControlName="notifications" color="primary">
+      <mat-slide-toggle formControlName="notificationsEnabled" color="primary">
         {{ "profil.notifications.received" | transloco }}
       </mat-slide-toggle>
 

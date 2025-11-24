@@ -56,6 +56,7 @@ export class ProfilComponent implements OnInit {
   originalFormValues: any;
   isLoading = true;
   currentUser: UserProfile | null = null;
+  userId: string = '';
 
   @ViewChild('fileInput') fileInput!: ElementRef;
 
@@ -78,6 +79,8 @@ export class ProfilComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadUserData();
+    this.userId = this.currentUser ? this.currentUser.id : '';
+    console.log('Current User ID: ', this.userId);
   }
 
   loadUserData() {
@@ -172,11 +175,11 @@ export class ProfilComponent implements OnInit {
       };
 
       // Appel du service pour mettre à jour le profil
-      this.authService.updateUserProfile(updatedProfile).subscribe({
+      this.authService.updateUserProfile(this.userId, updatedProfile).subscribe({
         next: (response) => {
           this.isLoading = false;
 
-          if (response.success && response.data) {
+          if (response) {
             this.snackBar.open('Profil mis à jour avec succès', 'Fermer', {
               duration: 3000,
               panelClass: ['success-snackbar'],
@@ -187,7 +190,7 @@ export class ProfilComponent implements OnInit {
             this.dialogRef.close(response.data);
           } else {
             this.snackBar.open(
-              response.message || 'Erreur lors de la mise à jour',
+              response || 'Erreur lors de la mise à jour',
               'Fermer',
               {
                 duration: 5000,
