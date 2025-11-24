@@ -7,6 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder; // Néc
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.time.Instant;
 import java.util.Optional;
 
@@ -162,5 +163,35 @@ public class UserService {
      */
     public User saveUser(User user) {
         return userRepository.save(user);
+    }
+
+    /**
+     * Met à jour les détails d'un utilisateur existant.
+     * @param userId L'ID de l'utilisateur à modifier (doit correspondre à l'ID du token).
+     * @param updatedDetails Un objet User contenant les champs à modifier.
+     * @return L'utilisateur mis à jour.
+     */
+    public User updateUserDetails(final Long userId, User updatedDetails) {
+        // 1. Trouver l'utilisateur existant ou lever une exception
+        User existingUser = userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("Utilisateur non trouvé avec l'ID: " + userId));
+
+        // 2. Mettre à jour uniquement les champs non-nulls fournis (PATCH-like behavior)
+        if (updatedDetails.getFullName() != null) {
+            existingUser.setFullName(updatedDetails.getFullName());
+        }
+        if (updatedDetails.getEmail() != null) {
+            // Note: Si vous permettez de changer l'email, vous devez gérer la complexité
+            // de la vérification de l'unicité et potentiellement de la re-vérification de l'email.
+            // Pour l'instant, on se contente de le mettre à jour.
+            existingUser.setEmail(updatedDetails.getEmail());
+        }
+        if (updatedDetails.getBio() != null) {
+            existingUser.setBio(updatedDetails.getBio());
+        }
+        // ... (Ajouter d'autres champs comme le thème si nécessaire)
+
+        // 3. Sauvegarder et retourner
+        return userRepository.save(existingUser);
     }
 }

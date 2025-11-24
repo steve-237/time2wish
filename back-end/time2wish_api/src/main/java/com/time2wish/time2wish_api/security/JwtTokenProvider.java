@@ -50,7 +50,7 @@ public class JwtTokenProvider {
         Date expiryDate = new Date(now.getTime() + jwtExpirationInMs);
 
         return Jwts.builder()
-                .setSubject(user.getId()) // Le sujet est l'ID de l'utilisateur (UUID String)
+                .setSubject(String.valueOf(user.getId())) // Le sujet est l'ID de l'utilisateur (UUID String)
                 .claim("email", user.getEmail()) // Ajoutez des informations utiles dans les claims
                 .setIssuedAt(now)
                 .setExpiration(expiryDate)
@@ -66,7 +66,7 @@ public class JwtTokenProvider {
         Date expiryDate = new Date(now.getTime() + accessTokenExpirationInMs);
 
         return Jwts.builder()
-                .setSubject(user.getId())
+                .setSubject(String.valueOf(user.getId()))
                 .claim("tokenType", "ACCESS") // Ajout du type de token
                 .claim("email", user.getEmail())
                 .setIssuedAt(now)
@@ -83,7 +83,7 @@ public class JwtTokenProvider {
         Date expiryDate = new Date(now.getTime() + refreshTokenExpirationInMs);
 
         return Jwts.builder()
-                .setSubject(user.getId())
+                .setSubject(String.valueOf(user.getId()))
                 .claim("tokenType", "REFRESH") // Ajout du type de token
                 .setIssuedAt(now)
                 .setExpiration(expiryDate)
@@ -123,5 +123,13 @@ public class JwtTokenProvider {
     public String getUserIdFromJWT(String token) {
         // NOTE: Ceci ne valide pas la signature ou l'expiration. Utilisez-le avec précaution.
         return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody().getSubject();
+    }
+
+    /**
+     * Extrait l'ID de l'utilisateur (le Subject) d'un objet Claims validé.
+     */
+    public String getUserIdFromClaims(Claims claims) {
+        // Le Subject (Subject) du JWT est l'ID utilisateur que nous avons défini.
+        return claims.getSubject();
     }
 }
