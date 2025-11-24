@@ -1,41 +1,74 @@
 package com.time2wish.time2wish_api.config;
 
+import com.time2wish.time2wish_api.security.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy; // Import pour la politique de session
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter; // Pour insérer notre filtre
 
-@Configuration // Ou sur la classe principale @SpringBootApplication
+@Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    // --- Beans de Sécurité ---
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * Déclaration du filtre JWT comme un Bean pour qu'il puisse être injecté.
+     */
+    @Bean
+    public JwtAuthenticationFilter jwtAuthenticationFilter() {
+        return new JwtAuthenticationFilter();
+    }
+
+    // --- Configuration des Règles HTTP et des Filtres ---
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                // 1. Désactiver la protection CSRF pour les requêtes API (souvent nécessaire pour Postman)
+                // 1. Désactiver la protection CSRF
+                // Nécessaire pour les API REST qui utilisent des tokens ou des cookies (avec CORS)
                 .csrf().disable()
 
-                // 2. Définir les autorisations de requêtes
-                .authorizeRequests()
-                // Autoriser l'accès SANS AUTHENTIFICATION à ces chemins
-                .antMatchers("/api/register", "/api/login", "/h2-console/**").permitAll()
+                // 2. Configurer CORS
+                // Votre CorsConfig.java gère déjà les règles, il suffit d'activer
+                .cors()
 
-                // Exiger l'authentification pour TOUTES les autres requêtes
-                .anyRequest().authenticated()
                 .and()
-                // 3. DÉSactiver la protection des frames (pour que la console H2 puisse s'afficher dans une iframe)
-                .headers().frameOptions().disable();
-        // 3. Vous pouvez aussi désactiver la fenêtre de connexion basique par défaut si vous l'avez.
-        // .and()
-        // .httpBasic().disable();
+                // 3. Configurer la gestion des sessions
+                // Le JWT est sans état (Stateless), nous désactivons la gestion des sessions
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
-        ; // Fin de la configuration
+                .and()
+                // 4. Définir les autorisations de requêtes
+                .authorizeRequests()
+
+                // Routes Publiques (Accessibles sans token)
+                .antMatchers(
+                        "/api/register",
+                        "/api/login",
+                        "/api/refresh", // Endpoint pour rafraîchir le token
+                        "/h2-console/**" // Console H2
+                ).permitAll()
+
+                // Exiger l'authentification (via le filtre JWT) pour toutes les autres requêtes
+                // ATTENTION: J'ai retiré "/api/users/**" de permitAll() pour le protéger !
+                .anyRequest().authenticated()
+
+                .and()
+                // 5. Désactiver la protection des frames (pour H2)
+                .headers().frameOptions().disable();
+
+        // 6. INSTALLER LE FILTRE JWT
+        // Nous ajoutons notre filtre JUSTE AVANT le filtre standard de Spring.
+        http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 }

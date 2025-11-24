@@ -779,6 +779,9 @@ export class AuthService {
   private useMockApi = false; // Basculer à false pour utiliser le vrai backend
   private apiUrl = 'http://localhost:9000/api';
 
+  // Clé utilisée pour stocker le token dans le localStorage
+  private readonly ACCESS_TOKEN_KEY = 'accessToken';
+
   constructor(private http: HttpClient) {}
 
   /**
@@ -864,15 +867,26 @@ export class AuthService {
     }
 
     return this.http
-      .post<ApiResponse<AuthResponse>>(`${this.apiUrl}/login`, loginData, { withCredentials: true })
+      .post<ApiResponse<AuthResponse>>(`${this.apiUrl}/login`, loginData, {
+        withCredentials: true,
+      })
       .pipe(
         tap((response) => {
           console.log('Login response from the service: ', response);
           if (response.success && response.data) {
             this.currentUserSubject.next(response.data.user);
+            localStorage.setItem(
+              this.ACCESS_TOKEN_KEY,
+              response.token ?? ''
+            );
           }
         })
       );
+  }
+
+  // Méthode pour récupérer le token
+  getAccessToken(): string | null {
+    return localStorage.getItem(this.ACCESS_TOKEN_KEY);
   }
 
   /**
@@ -925,6 +939,7 @@ export class AuthService {
    * Déconnexion de l'utilisateur
    */
   logout(): Observable<ApiResponse<void>> {
+    localStorage.removeItem(this.ACCESS_TOKEN_KEY);
     if (this.useMockApi) {
       return this.mockLogout();
     }
@@ -1005,6 +1020,7 @@ export class AuthService {
    * Mise à jour du profil utilisateur
    */
   updateUserProfile(
+    userId: string,
     userData: Partial<UserProfile>
   ): Observable<ApiResponse<UserProfile>> {
     if (this.useMockApi) {
@@ -1012,7 +1028,11 @@ export class AuthService {
     }
 
     return this.http
-      .put<ApiResponse<UserProfile>>(`${this.apiUrl}/profile`, userData)
+      .put<ApiResponse<UserProfile>>(
+        `${this.apiUrl}/users/${userId}`,
+        userData,
+        { withCredentials: true }
+      )
       .pipe(
         tap((response) => {
           if (response.success && response.data) {
