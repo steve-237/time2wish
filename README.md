@@ -65,7 +65,6 @@ Time2Wish is designed for anyone who wants to:
 ### 🖥️ User Interface
 
 - Clean dashboard showing upcoming birthdays.
-- Countdown timers for big events.
 - Multilingual support (i18n ready).
 - Accessible UI.
 
