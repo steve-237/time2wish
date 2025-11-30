@@ -175,42 +175,44 @@ export class ProfilComponent implements OnInit {
       };
 
       // Appel du service pour mettre à jour le profil
-      this.authService.updateUserProfile(this.userId, updatedProfile).subscribe({
-        next: (response) => {
-          this.isLoading = false;
+      this.authService
+        .updateUserProfile(this.userId, updatedProfile)
+        .subscribe({
+          next: (response) => {
+            this.isLoading = false;
 
-          if (response) {
-            this.snackBar.open('Profil mis à jour avec succès', 'Fermer', {
-              duration: 3000,
-              panelClass: ['success-snackbar'],
+            if (response) {
+              this.snackBar.open('Profil mis à jour avec succès', 'Fermer', {
+                duration: 3000,
+                panelClass: ['success-snackbar'],
+              });
+
+              this.originalFormValues = { ...this.profileForm.value };
+              this.editMode = false;
+              this.dialogRef.close(response.data);
+            } else {
+              this.snackBar.open(
+                response || 'Erreur lors de la mise à jour',
+                'Fermer',
+                {
+                  duration: 5000,
+                  panelClass: ['error-snackbar'],
+                }
+              );
+            }
+          },
+          error: (error) => {
+            this.isLoading = false;
+            const errorMessage =
+              error.error?.message ||
+              error.message ||
+              'Erreur lors de la mise à jour du profil';
+            this.snackBar.open(errorMessage, 'Fermer', {
+              duration: 5000,
+              panelClass: ['error-snackbar'],
             });
-
-            this.originalFormValues = { ...this.profileForm.value };
-            this.editMode = false;
-            this.dialogRef.close(response.data);
-          } else {
-            this.snackBar.open(
-              response || 'Erreur lors de la mise à jour',
-              'Fermer',
-              {
-                duration: 5000,
-                panelClass: ['error-snackbar'],
-              }
-            );
-          }
-        },
-        error: (error) => {
-          this.isLoading = false;
-          const errorMessage =
-            error.error?.message ||
-            error.message ||
-            'Erreur lors de la mise à jour du profil';
-          this.snackBar.open(errorMessage, 'Fermer', {
-            duration: 5000,
-            panelClass: ['error-snackbar'],
-          });
-        },
-      });
+          },
+        });
     } else {
       // Marquer tous les champs comme touchés pour afficher les erreurs
       this.markFormGroupTouched(this.profileForm);
@@ -237,5 +239,9 @@ export class ProfilComponent implements OnInit {
   }
   get bio() {
     return this.profileForm.get('bio');
+  }
+
+  deleteAccount() {
+    throw new Error('Method not implemented.');
   }
 }
