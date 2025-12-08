@@ -1,243 +1,333 @@
 openapi: 3.0.0
 info:
-  title: Birthday API
-  description: API for managing birthday records
-  version: 1.0.0
+  title: Time2Wish API
+  description: API for managing user accounts and personalized birthday records with JWT/Cookie authentication.
+  version: 1.1.0
 servers:
   - url: /api
     description: Main API server
 tags:
+  - name: Auth & Users
+    description: User registration, authentication, and profile management
   - name: Birthdays
-    description: Operations related to birthday management
+    description: Operations related to birthday management (linked to a user)
+
 paths:
-  /birthdays:
-    get:
-      tags: [Birthdays]
-      summary: Get all birthdays
-      description: Returns a list of all birthday records
-      responses:
-        '200':
-          description: A list of birthdays
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Birthday'
-        '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+# --------------------------------------------------------------------------
+# AUTHENTICATION ENDPOINTS
+# --------------------------------------------------------------------------
+  /register:
     post:
-      tags: [Birthdays]
-      summary: Create a new birthday
-      description: Adds a new birthday record to the system
+      tags: [Auth & Users]
+      summary: Register a new user
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/NewBirthday'
+              $ref: '#/components/schemas/UserRegistration'
+      responses:
+        '201':
+          description: User created successfully. Status PENDING.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfile'
+        '400':
+          description: Invalid input or Email already in use
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  
+  /login:
+    post:
+      tags: [Auth & Users]
+      summary: User login and session initiation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Login successful. Access Token returned in body and Refresh Token in HttpOnly cookie.
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+              description: Refresh Token cookie (HttpOnly, SameSite=Lax)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /refresh:
+    post:
+      tags: [Auth & Users]
+      summary: Refresh Access Token using Refresh Token (from cookie)
+      security:
+        - RefreshCookieAuth: []
+      responses:
+        '200':
+          description: New Access Token provided.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accessToken:
+                    type: string
+                    description: New short-lived Access Token
+        '401':
+          description: Refresh Token expired or invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+# --------------------------------------------------------------------------
+# USER PROFILE ENDPOINTS
+# --------------------------------------------------------------------------
+  /users/{id}:
+    parameters:
+      - name: id
+        in: path
+        description: ID of the user (UUID string)
+        required: true
+        schema:
+          type: string
+    get:
+      tags: [Auth & Users]
+      summary: Get user profile by ID (Secured)
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: User profile found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfile'
+        '403':
+          description: Forbidden (trying to access another user's profile)
+    put:
+      tags: [Auth & Users]
+      summary: Update user profile details (Secured)
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpdate'
+      responses:
+        '200':
+          description: Profile updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfile'
+        '403':
+          description: Forbidden (trying to modify another user's profile)
+
+# --------------------------------------------------------------------------
+# BIRTHDAY ENDPOINTS (NESTED)
+# --------------------------------------------------------------------------
+  /users/{userId}/birthdays:
+    parameters:
+      - name: userId
+        in: path
+        description: ID of the user owner (UUID string)
+        required: true
+        schema:
+          type: string
+    get:
+      tags: [Birthdays]
+      summary: Get all birthdays for the logged-in user (Secured)
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: A list of the user's birthdays
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BirthdayDTO'
+    post:
+      tags: [Birthdays]
+      summary: Create a new birthday for the user (Secured)
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewBirthdayDTO'
       responses:
         '201':
           description: Birthday created successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Birthday'
-        '400':
-          description: Invalid input
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /birthdays/{id}:
-    get:
-      tags: [Birthdays]
-      summary: Get a birthday by ID
-      description: Returns a single birthday record
-      parameters:
-        - name: id
-          in: path
-          description: ID of the birthday to retrieve
-          required: true
-          schema:
-            type: integer
-            format: int64
-      responses:
-        '200':
-          description: Birthday found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Birthday'
-        '404':
-          description: Birthday not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/BirthdayDTO'
+
+  /users/{userId}/birthdays/{birthdayId}:
+    parameters:
+      - name: userId
+        in: path
+        description: ID of the user owner (UUID string)
+        required: true
+        schema:
+          type: string
+      - name: birthdayId
+        in: path
+        description: ID of the specific birthday
+        required: true
+        schema:
+          type: integer
+          format: int64
     put:
       tags: [Birthdays]
-      summary: Update a birthday
-      description: Updates an existing birthday record
-      parameters:
-        - name: id
-          in: path
-          description: ID of the birthday to update
-          required: true
-          schema:
-            type: integer
-            format: int64
+      summary: Update a specific birthday (Secured)
+      security:
+        - BearerAuth: []
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Birthday'
+              $ref: '#/components/schemas/BirthdayDTO'
       responses:
         '200':
           description: Birthday updated successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Birthday'
-        '400':
-          description: Invalid input
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '404':
-          description: Birthday not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/BirthdayDTO'
+        '403':
+          description: Forbidden (trying to update a birthday not owned by the user)
     delete:
       tags: [Birthdays]
-      summary: Delete a birthday
-      description: Deletes a birthday record
-      parameters:
-        - name: id
-          in: path
-          description: ID of the birthday to delete
-          required: true
-          schema:
-            type: integer
-            format: int64
+      summary: Delete a specific birthday (Secured)
+      security:
+        - BearerAuth: []
       responses:
         '204':
           description: Birthday deleted successfully
-        '404':
-          description: Birthday not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden (trying to delete a birthday not owned by the user)
+
+# --------------------------------------------------------------------------
+# COMPONENTS (SCHEMAS AND SECURITY)
+# --------------------------------------------------------------------------
 components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Access Token (short-lived) provided in the Authorization header.
+    RefreshCookieAuth:
+      type: apiKey
+      in: cookie
+      name: refreshToken
+      description: Refresh Token (long-lived) stored in an HttpOnly cookie.
+
   schemas:
-    Birthday:
+    # --- AUTH & USER SCHEMAS ---
+    LoginRequest:
       type: object
-      required:
-        - id
-        - name
-        - date
+      required: [email, password]
       properties:
-        id:
-          type: integer
-          format: int64
-          description: Unique identifier for the birthday record
-          example: 1
-        name:
-          type: string
-          description: Name of the person
-          example: "John Doe"
-        date:
-          type: string
-          format: date-time
-          description: Date of birth
-          example: "1990-05-15T00:00:00.000Z"
-        notes:
-          type: string
-          description: Additional notes about the birthday
-          example: "Likes chocolate cake"
-        birthDate:
-          type: string
-          format: date-time
-          description: Alias for date (maintained for backward compatibility)
-          example: "1990-05-15T00:00:00.000Z"
-    NewBirthday:
+        email: {type: string, format: email, example: "user@example.com"}
+        password: {type: string, example: "secure-password-123"}
+
+    LoginResponse:
       type: object
-      required:
-        - name
-        - date
       properties:
-        name:
-          type: string
-          description: Name of the person
-          example: "Jane Smith"
-        date:
-          type: string
-          format: date-time
-          description: Date of birth
-          example: "1985-11-22T00:00:00.000Z"
-        notes:
-          type: string
-          description: Additional notes about the birthday
-          example: "Favorite color is blue"
-        birthDate:
-          type: string
-          format: date-time
-          description: Alias for date (maintained for backward compatibility)
-          example: "1985-11-22T00:00:00.000Z"
+        success: {type: boolean, example: true}
+        accessToken: {type: string, description: Short-lived token for header authorization.}
+        data:
+          type: object
+          properties:
+            user: { $ref: '#/components/schemas/UserProfile' }
+            birthday: 
+              type: array
+              items: { $ref: '#/components/schemas/BirthdayDTO' }
+
+    UserRegistration:
+      type: object
+      required: [fullName, email, password]
+      properties:
+        fullName: {type: string, example: "Alice Dupont"}
+        email: {type: string, format: email, example: "alice@example.com"}
+        password: {type: string, example: "SecurePassword123"}
+        theme: {type: string, enum: [LIGHT, DARK, SYSTEM], example: "DARK"}
+        language: {type: string, example: "fr"}
+        bio: {type: string, nullable: true}
+
+    UserProfile:
+      type: object
+      properties:
+        id: {type: string, description: User UUID, example: "0e7e1c8a-9a0d-4b8c-8c3b-51c3606f23b1"}
+        fullName: {type: string}
+        email: {type: string, format: email}
+        profilePicture: {type: string, nullable: true}
+        bio: {type: string, nullable: true}
+        theme: {type: string, enum: [LIGHT, DARK, SYSTEM]}
+        language: {type: string}
+        notificationsEnabled: {type: boolean}
+        status: {type: string, enum: [ACTIVE, PENDING]}
+
+    UserUpdate:
+      allOf:
+        - $ref: '#/components/schemas/UserProfile'
+        - properties:
+            id: { readOnly: true }
+            status: { readOnly: true }
+
+    # --- BIRTHDAY SCHEMAS (Updated with full fields) ---
+    NewBirthdayDTO:
+      type: object
+      required: [name, date]
+      properties:
+        name: {type: string, example: "Jean Dujardin"}
+        date: {type: string, format: date, example: "1972-06-19"}
+        category: {type: string, example: "FRIEND"}
+        email: {type: string, format: email, nullable: true}
+        phone: {type: string, nullable: true}
+        city: {type: string, nullable: true}
+        photo: {type: string, description: URL of the picture, nullable: true}
+        notes: {type: string, nullable: true}
+        enableReminders: {type: boolean, example: true}
+        preferences:
+          type: array
+          items: {type: string}
+          description: List of preferred gifts or items.
+        passed: {type: boolean, description: Is the birthday passed this year?, example: false}
+
+    BirthdayDTO:
+      allOf:
+        - $ref: '#/components/schemas/NewBirthdayDTO'
+        - properties:
+            id: {type: integer, format: int64, readOnly: true}
+
+    # --- ERROR SCHEMA ---
     Error:
       type: object
       properties:
-        statusCode:
-          type: integer
-          description: HTTP status code
-          example: 404
-        message:
-          type: string
-          description: Error message
-          example: "Birthday not found"
-        error:
-          type: string
-          description: Error type
-          example: "Not Found"
-        timestamp:
-          type: string
-          format: date-time
-          description: When the error occurred
-          example: "2023-05-15T12:34:56.789Z"
-        path:
-          type: string
-          description: Request path
-          example: "/api/birthdays/999"
+        statusCode: {type: integer, description: HTTP status code, example: 404}
+        message: {type: string, description: Error message, example: "Ressource non trouvée."}
+        error: {type: string, description: Error type, example: "Not Found"}
