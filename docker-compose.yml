@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  backend:
+    build: 
+      context: ./backend # Le chemin vers votre dossier Spring Boot
+      dockerfile: Dockerfile
+    image: time2wish-backend
+    container_name: time2wish-backend
+    ports:
+      - "9000:9000" # Mappe le port du conteneur au port de l'hôte
+    environment:
+      # Passer les variables d'environnement critiques au conteneur (JWT Secret, etc.)
+      - APP_JWT_SECRET=${APP_JWT_SECRET}
+      - SPRING_PROFILES_ACTIVE=prod # Pour utiliser le profil de production
+
+  frontend:
+    build:
+      context: ./frontend # Le chemin vers votre dossier Angular
+      dockerfile: Dockerfile
+    image: time2wish-frontend
+    container_name: time2wish-frontend
+    ports:
+      - "80:80" # Mappe le port du frontend au port 80 de l'hôte
+    depends_on:
+      - backend # Assure que le backend démarre avant le frontend
