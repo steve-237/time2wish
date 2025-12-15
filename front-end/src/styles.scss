@@ -395,3 +395,29 @@ mat-dialog-content,
     fill: var(--text-primary) !important;
   }
 }
+
+// Styles personnalisés pour le badge de statut
+
+// Badge Vert (ACTIVE)
+.status-active-badge {
+    .mat-badge-content {
+        background-color: #4CAF50 !important; // Vert
+        color: white !important;
+    }
+}
+
+// Badge Jaune/Orange (PENDING)
+.status-pending-badge {
+    .mat-badge-content {
+        background-color: #FFC107 !important; // Jaune/Ambre
+        color: black !important;
+    }
+}
+
+// Badge Rouge (INACTIVE)
+.status-inactive-badge {
+    .mat-badge-content {
+        background-color: #F44336 !important; // Rouge
+        color: white !important;
+    }
+}
