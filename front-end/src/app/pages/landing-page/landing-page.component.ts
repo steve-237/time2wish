@@ -41,7 +41,7 @@ import { BirthdayCardComponent } from '../../components/birthday-card/birthday-c
 import { AsideNavBarComponent } from '../../components/aside-nav-bar/aside-nav-bar.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { SetLanguageComponent } from '../../components/set-language/set-language.component';
-import { FooterComponent } from "../../components/footer/footer.component";
+import { FooterComponent } from '../../components/footer/footer.component';
 
 @Component({
   selector: 'app-landing-page',
@@ -80,8 +80,8 @@ import { FooterComponent } from "../../components/footer/footer.component";
     AsideNavBarComponent,
     MatAutocompleteModule,
     SetLanguageComponent,
-    FooterComponent
-],
+    FooterComponent,
+  ],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.css',
 })
@@ -357,5 +357,23 @@ export class LandingPageComponent {
 
   handleRefresh() {
     this.birthdays = this.birthdayService.birthdays$;
+  }
+
+  /**
+   * Mappe le statut utilisateur à une couleur de badge Material.
+   * @param status Le statut de l'utilisateur (ACTIVE, INACTIVE, PENDING)
+   * @returns La couleur Material (primary, accent, warn) ou une couleur personnalisée.
+   */
+  getBadgeClass(status: string): string {
+    switch (status) {
+      case 'ACTIVE':
+        return 'status-active-badge'; // Vert
+      case 'PENDING':
+        return 'status-pending-badge'; // Jaune/Orange
+      case 'INACTIVE':
+        return 'status-inactive-badge'; // Rouge
+      default:
+        return ''; // Aucune classe
+    }
   }
 }
