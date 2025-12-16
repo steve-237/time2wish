@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+  # ----------------------------------------
+  # SERVICE BACKEND (Spring Boot - Dev)
+  # ----------------------------------------
+  backend:
+    build: 
+      context: ./back-end/time2wish_api
+      dockerfile: Dockerfile
+    image: time2wish-backend-dev
+    container_name: time2wish-backend
+    ports:
+      - "9000:9000"
+    environment:
+      # Active le profil de développement
+      - SPRING_PROFILES_ACTIVE=dev
+      - APP_JWT_SECRET=NDA3ZjA0NTRjMjcwYmFhZjVlZTI5OGE4NTEyN2I2N2Y0YTJkMWJkMjM4NzlmYzA5NDUwNDQ3ZWIzZTYxYzE4Nw==
+    
+    # 💡 Volumes pour le développement :
+    volumes:
+      # 1. Montage du code source Java pour recompilation rapide
+      - ./backend/src:/app/src
+      # 2. Montage des fichiers de configuration Maven/Gradle
+      - ./backend/pom.xml:/app/pom.xml
+      # 3. Cache des dépendances Maven (pour un redémarrage rapide)
+      - ~/.m2:/root/.m2
+
+    # Utilise la commande Maven/Gradle pour démarrer avec la recompilation automatique
+    # Assurez-vous d'avoir une dépendance de devtools (comme Spring Boot DevTools)
+    # ou de configurer le redémarrage.
+    # Pour un projet Maven:
+    command: mvn spring-boot:run
+    # Si vous utilisez Gradle:
+    # command: gradle bootRun
+    
+    restart: unless-stopped
+
+  # ----------------------------------------
+  # SERVICE FRONTEND (Angular - Dev)
+  # ----------------------------------------
+  frontend:
+    build:
+      context: ./front-end 
+      dockerfile: Dockerfile # 👈 On utilise un Dockerfile spécial pour le dev
+    image: time2wish-frontend-dev
+    container_name: time2wish-frontend
+    # Le port standard 4200 pour le serveur de développement Angular CLI
+    ports:
+      - "4200:4200" 
+    
+    # Assure que le backend est prêt avant de démarrer
+    depends_on:
+      - backend 
+    
+    # 💡 Volumes pour le développement :
+    volumes:
+      # 1. Montage du code source (pour Hot Reloading)
+      - ./front-end:/app
+      # 2. Exclut le répertoire node_modules du montage (il est géré dans le conteneur)
+      - /app/node_modules 
+      
+    # Commande pour démarrer le serveur de développement Angular
+    command: npm run start
+    
+    restart: unless-stopped

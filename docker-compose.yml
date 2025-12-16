@@ -1,9 +1,7 @@
-version: '3.8'
-
 services:
   backend:
     build: 
-      context: ./backend # Le chemin vers votre dossier Spring Boot
+      context: ./back-end/time2wish_api # Le chemin vers votre dossier Spring Boot
       dockerfile: Dockerfile
     image: time2wish-backend
     container_name: time2wish-backend
@@ -11,12 +9,12 @@ services:
       - "9000:9000" # Mappe le port du conteneur au port de l'hôte
     environment:
       # Passer les variables d'environnement critiques au conteneur (JWT Secret, etc.)
-      - APP_JWT_SECRET=${APP_JWT_SECRET}
+      - APP_JWT_SECRET=NDA3ZjA0NTRjMjcwYmFhZjVlZTI5OGE4NTEyN2I2N2Y0YTJkMWJkMjM4NzlmYzA5NDUwNDQ3ZWIzZTYxYzE4Nw==
       - SPRING_PROFILES_ACTIVE=prod # Pour utiliser le profil de production
 
   frontend:
     build:
-      context: ./frontend # Le chemin vers votre dossier Angular
+      context: ./front-end # Le chemin vers votre dossier Angular
       dockerfile: Dockerfile
     image: time2wish-frontend
     container_name: time2wish-frontend
