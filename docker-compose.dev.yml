@@ -61,6 +61,6 @@ services:
       - /app/node_modules 
       
     # Commande pour démarrer le serveur de développement Angular
-    command: npm run start
+    command: npm run start -- --host 0.0.0.0 --port 4200
     
     restart: unless-stopped
