@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { LoginComponent } from './pages/login/login.component';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
@@ -9,6 +8,4 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
-  title = 'front-end';
-}
+export class AppComponent {}

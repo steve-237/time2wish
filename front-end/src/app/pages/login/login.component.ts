@@ -14,7 +14,9 @@ import { Subscription } from 'rxjs';
 import { TranslocoModule } from '@jsverse/transloco';
 import { SetLanguageComponent } from '../../components/set-language/set-language.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ApiResponse } from '../../models/apiResponse.model';
 import { AuthResponse } from '../../models/authResponse.model';
+import { LoginRequest } from '../../models/loginRequest.model';
 
 @Component({
   selector: 'app-login',
@@ -40,20 +42,6 @@ export class LoginComponent implements OnDestroy {
 
   router = inject(Router);
 
-  // Fake users pour faciliter les tests
-  fakeUsers = [
-    {
-      email: 'jean.dupont@email.com',
-      password: 'JD123456',
-      name: 'Jean Dupont',
-    },
-    {
-      email: 'sophie.lambert@email.com',
-      password: 'SL789012',
-      name: 'Sophie Lambert',
-    },
-  ];
-
   constructor(
     private dialog: DialogService,
     private authService: AuthService,
@@ -69,37 +57,37 @@ export class LoginComponent implements OnDestroy {
     this.isLoading = true;
     this.errorMessage = '';
 
-    const loginData = { email: email, password: password };
+    const loginData: LoginRequest = { email, password };
 
     this.loginSub = this.authService.login(loginData).subscribe({
-      next: (response: any) => {
+      next: (response: ApiResponse<AuthResponse>) => {
         this.isLoading = false;
 
         console.log('Login response:', response);
 
-        if (response) {
-          // Afficher un message de bienvenue
+        if (response?.success && response.data) {
           this.snackBar.open(
-            `Bienvenue ${response.data?.user.fullName} !`,
+            `Bienvenue ${response.data.user.fullName} !`,
             'Fermer',
             { duration: 3000 }
           );
 
-          // Rediriger vers la page des anniversaires
           this.router.navigate(['/landing-page']);
         } else {
-          this.errorMessage = response?.message || 'login.errors.invalid_credentials';
+          this.errorMessage =
+            response?.message || 'login.errors.invalid_credentials';
         }
       },
-      error: (err: any) => {
+      error: (err: unknown) => {
         this.isLoading = false;
         console.error('Login error:', err);
 
-        // Gestion des erreurs HTTP
-        if (err.error?.message) {
-          this.errorMessage = err.error.message;
-        } else if (err.message) {
-          this.errorMessage = err.message;
+        const anyErr = err as { error?: { message?: string }; message?: string };
+
+        if (anyErr.error?.message) {
+          this.errorMessage = anyErr.error.message;
+        } else if (anyErr.message) {
+          this.errorMessage = anyErr.message;
         } else {
           this.errorMessage = 'login.errors.generic';
         }
@@ -108,9 +96,7 @@ export class LoginComponent implements OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.loginSub) {
-      this.loginSub.unsubscribe();
-    }
+    this.loginSub?.unsubscribe();
   }
 
   openPasswordReset() {

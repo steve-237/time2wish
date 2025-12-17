@@ -1,37 +1,27 @@
 import { NotificationService } from './../../../shared/services/notification/notification.service';
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, Observable } from 'rxjs';
+import { Injectable, OnDestroy } from '@angular/core';
+import { BehaviorSubject, Subscription, map, Observable } from 'rxjs';
 import { Birthday } from '../../../models/birthday.model';
-import { HttpClient } from '@angular/common/http';
 import { TranslocoService } from '@jsverse/transloco';
 import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class BirthdayService {
+export class BirthdayService implements OnDestroy {
   private _birthdays = new BehaviorSubject<Birthday[]>([]);
   readonly birthdays$ = this._birthdays.asObservable();
+
+  private userSub: Subscription;
 
   // private apiUrl = '/mock/birthdays.json';  Remplacer par une vraie API si dispo
 
   constructor(
     private authService: AuthService,
-    private http: HttpClient,
     private translocoService: TranslocoService
-  ) {}
-
-  /* fetchBirthdays(): void {
-    this.http.get<Birthday[]>(this.apiUrl).subscribe(data => {
-      this._birthdays.next(data);
-    });
-  } */
-
-  /**
-   * Charge les birthdays de l'utilisateur courant
-   */
-  fetchBirthdays(): void {
-    this.authService.currentUser$.subscribe((user) => {
+  ) {
+    // S'abonner une seule fois au flux utilisateur courant
+    this.userSub = this.authService.currentUser$.subscribe((user) => {
       if (user) {
         console.log('fetching user... ', user);
         this._birthdays.next(user.birthdays || []);
@@ -41,19 +31,23 @@ export class BirthdayService {
     });
   }
 
+  ngOnDestroy(): void {
+    this.userSub.unsubscribe();
+  }
+
   getBirthdayById(id: number): Observable<Birthday | undefined> {
     return this.birthdays$.pipe(map((list) => list.find((b) => b.id === id)));
   }
 
   addBirthday(birthday: Birthday): void {
     const current = this._birthdays.value;
-    const newBirthday = {
+    const newBirthday: Birthday = {
       ...birthday,
       id: this.generateId(),
-      birthDate: new Date(birthday.date), // Ca doit etre une date
+      date: new Date(birthday.date),
     };
     this._birthdays.next([newBirthday, ...current]);
-    // l'appel HTTP ici:
+    // TODO: Appel HTTP réel ici si nécessaire
     // this.http.post('/api/birthdays', newBirthday).subscribe(...);
   }
 
@@ -67,9 +61,9 @@ export class BirthdayService {
           throw new Error('Birthday not found');
         }
 
-        const updatedBirthday = {
+        const updatedBirthday: Birthday = {
           ...updated,
-          birthDate: new Date(updated.date),
+          date: new Date(updated.date),
         };
 
         const updatedList = [...current];
