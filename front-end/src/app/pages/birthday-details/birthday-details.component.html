@@ -138,7 +138,7 @@
               class="mb-7"
               mat-mini-fab
               (click)="addLike()"
-              [disabled]="!newLike?.trim()"
+              [disabled]="newLike.trim() === ''"
               matTooltip="Ajouter"
             >
               <mat-icon>add</mat-icon>
