@@ -57,22 +57,13 @@ import { FooterComponent } from '../../components/footer/footer.component';
     MatBadgeModule,
     MatCardModule,
     MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatMenuModule,
-    MatBadgeModule,
-    MatCardModule,
     MatTableModule,
-    MatPaginatorModule,
     MatListModule,
     MatButtonToggleModule,
     MatToolbarModule,
     FormsModule,
     RouterLink,
     MatTooltipModule,
-    MatBadgeModule,
     TranslocoModule,
     MatProgressSpinnerModule,
     BirthdayTableComponent,
@@ -157,8 +148,6 @@ export class LandingPageComponent {
     setInterval(() => {
       this.currentDate = new Date();
     }, 60000);
-
-    this.birthdayService.fetchBirthdays();
 
     this.loading = false;
   }
