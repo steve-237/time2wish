@@ -1,4 +1,44 @@
 {
+  "toolbar": {
+    "logo_alt": "Time2Wish Logo",
+    "theme": "Thema wechseln",
+    "notifications": "Benachrichtigungen",
+    "view_cards": "Kartenansicht",
+    "view_table": "Tabellenansicht",
+    "help": "Hilfe",
+    "profile": "Mein Profil",
+    "logout": "Abmelden",
+    "languages": {
+      "gb": "English",
+      "fr": "French",
+      "de": "German"
+    },
+    "language": "Change language"
+  },
+  "search": {
+    "placeholder": "Geburtstag suchen...",
+    "tooltip": "Suche starten",
+    "filter_tooltip": "Erweiterte Filter",
+    "filter_by": "Filtern nach:",
+    "filtering_in": "Suche in:",
+    "columns": {
+      "all": "Alle Felder",
+      "name": "Name",
+      "date": "Datum",
+      "category": "Kategorie"
+    }
+  },
+  "anniversary": {
+    "coming": "Bevorstehend",
+    "passed": "Vergangen",
+    "loading": "Geburtstage werden geladen...",
+    "empty_coming": "Kein bevorstehender Geburtstag",
+    "empty_passed": "Kein vergangener Geburtstag"
+  },
+  "actions": {
+    "import": "Importieren",
+    "export": "Exportieren"
+  },
   "placeholder_search_bar": "Nach Geburtstag suchen....",
   "status": {
     "today": "Heute",
@@ -21,29 +61,6 @@
   "Friend": "Freund",
   "Colleague": "Kollege",
   "Business": "Geschäftlich",
-  "anniversary": {
-    "coming": "Kommender Jahrestag",
-    "passed": "Vergangener Jahrestag"
-  },
-  "toolbar": {
-    "theme": "Thema ändern",
-    "notifications": "Benachrichtigungen",
-    "view_cards": "Als Karten anzeigen",
-    "view_table": "Als Tabelle anzeigen",
-    "language": "Sprache",
-    "help": "Hilfe",
-    "profile": "Profil",
-    "logout": "Abmelden",
-    "languages": {
-      "us": "Englisch",
-      "fr": "Französisch",
-      "de": "Deutsch"
-    }
-  },
-  "search": {
-    "tooltip": "Suchen",
-    "filter": "Filter"
-  },
   "sidebar": {
     "menu": "Menü",
     "settings": "Einstellungen",
@@ -64,7 +81,7 @@
       "delete": "Geburtstag löschen"
     }
   },
-   "login": {
+  "login": {
     "welcome": "Willkommen bei Time2Wish",
     "description": "Time2Wish ist Ihre Lieblings-App zur Verwaltung von Geburtstagen. Behalten Sie alle wichtigen Geburtstage im Auge und verpassen Sie nie wieder die Gelegenheit, Ihre Lieben zu feiern.",
     "email": "E-Mail",
@@ -84,10 +101,10 @@
   "setting": {
     "setting": "Einstellungen",
     "notifications": {
-      "titel":"Benachrichtigungen",
+      "titel": "Benachrichtigungen",
       "allowNotifications": "Benachrichtigungen aktivieren",
       "birthdayReminders": "Geburtstagserinnerungen",
-      "reminderTime":{
+      "reminderTime": {
         "titel": "Erinnerungszeit",
         "morning": "Morgen (8h)",
         "afternoon": "Nachmittag (14h)",
@@ -95,11 +112,11 @@
       }
     },
     "appearance": {
-      "titel":"Erscheinungsbild",
-      "light":"Hell",
-      "dark":"Dunkel",
-      "system":"System",
-      "textSize":{
+      "titel": "Erscheinungsbild",
+      "light": "Hell",
+      "dark": "Dunkel",
+      "system": "System",
+      "textSize": {
         "titel": "Textgröße",
         "small": "klein",
         "medium": "Mittel",
@@ -119,7 +136,7 @@
       "name": "Vollständiger Name",
       "birthday": "Geburtsdatum",
       "relationship": {
-        "titel":  "Beziehung",
+        "titel": "Beziehung",
         "family": "Familie",
         "friend": "Freundschaft",
         "colleague": "Kollege(in)",
@@ -143,27 +160,34 @@
     }
   },
   "profil": {
-    "title": "Mein Profil",
-    "name": "Vollständiger Name",
-    "mail": "Email Adresse",
-    "bio": "Bio",
-    "noBio": "kein Bio",
-    "modification": "profil ändern",
-    "editing": "Bearbeitung deaktivieren",
-    "notifications":{
-      "title": "Benachrichtigungen",
-      "activated": "aktiviert",
-      "deactivated": "deaktiviert",
-      "received": "Benachrichtigungen erhalten"
+    "header": {
+      "title": "Profil",
+      "tooltip_view": "Bearbeitungsmodus aktiv",
+      "tooltip_edit": "Profil bearbeiten"
+    },
+    "fields": {
+      "name": "Vollständiger Name",
+      "email": "E-Mail",
+      "bio": "Bio",
+      "notifications_status": "Benachrichtigungen",
+      "receive_notifications": "Benachrichtigungen erhalten"
+    },
+    "status": {
+      "enabled": "aktiviert",
+      "disabled": "deaktiviert"
+    },
+    "placeholders": {
+      "no_bio": "Keine Biografie angegeben"
     },
     "errors": {
-      "name": "Der Name ist erforderlich.",
-      "mail": "Die Email Adresse ist erforderlich",
-      "falseEmail": "ungültige Email Adresse"
+      "name_required": "Name ist erforderlich",
+      "email_required": "E-Mail ist erforderlich",
+      "email_invalid": "Ungültiges E-Mail-Format"
     },
     "actions": {
+      "cancel": "Abbrechen",
       "save": "Speichern",
-      "cancel": "Abbrechen"
+      "delete_account": "Konto löschen"
     }
   },
   "birthday_form": {
@@ -171,7 +195,7 @@
     "date": "Geburtsdatum",
     "city": "Wohnsitz",
     "category": {
-      "titel":  "Beziehung",
+      "titel": "Beziehung",
       "family": "Familie",
       "friend": "Freundschaft",
       "colleague": "Kollege(in)",
@@ -198,9 +222,27 @@
     }
   },
   "notifications": {
-    "titel": "Benachrichtigungen",
-    "description": "Alles als gelesen markieren",
-    "button": "Alle Benachrichtigungen anzeigen"
+    "header": {
+      "title": "Benachrichtigungen",
+      "mark_all_read": "Alle als gelesen markieren"
+    },
+    "actions": {
+      "mark_as_read": "Als gelesen markieren",
+      "close": "Schließen"
+    },
+    "empty_state": "Keine neuen Benachrichtigungen",
+    "footer": {
+      "view_all": "Alle Benachrichtigungen anzeigen"
+    },
+    "types": {
+      "birthday": {
+        "title": "Geburtstag heute!",
+        "message": "Es ist {{name}}'s Geburtstag!"
+      },
+      "system": {
+        "success": "Erfolg"
+      }
+    }
   },
   "birthdayDetails": {
     "title": "Details zum Geburtstag",
@@ -210,7 +252,7 @@
       "name": "Wohnsitz",
       "nameError": "Nicht angegeben"
     },
-    "category":{
+    "category": {
       "title": "Kategorie",
       "categoryError": "Nicht angegeben"
     },
@@ -236,9 +278,32 @@
       "edit": "Bearbeiten"
     }
   },
+  "password_reset": {
+    "title": "Passwort zurücksetzen",
+    "subtitle": "Geben Sie Ihre E-Mail ein, um Anweisungen zum Zurücksetzen zu erhalten",
+    "fields": {
+      "email": "E-Mail"
+    },
+    "errors": {
+      "email_required": "E-Mail ist erforderlich",
+      "email_invalid": "Bitte geben Sie eine gültige E-Mail-Adresse ein"
+    },
+    "success_message": "Anweisungen zum Zurücksetzen wurden an Ihre E-Mail gesendet",
+    "actions": {
+      "send_button": "Link senden"
+    }
+  },
   "footer": {
     "help": "Hilfe",
     "conditions": "Bedingung",
     "confidentiality": "Datenschutz"
+  },
+  "errors": {
+    "404": {
+      "img_alt": "Seite nicht gefunden",
+      "title": "Seite nicht gefunden",
+      "description": "Ups! Die Seite, die Sie suchen, scheint verschoben oder nicht existiert.",
+      "back_home": "Zurück zur Startseite"
+    }
   }
 }

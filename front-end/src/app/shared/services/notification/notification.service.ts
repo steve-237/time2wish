@@ -45,7 +45,6 @@ export class NotificationService {
   private checkBirthdays(): void {
     if (!this.authService.isLoggedIn()) return;
 
-    // Récupération des anniversaires depuis le BirthdayService
     this.birthdayService.birthdays$.subscribe((birthdays) => {
       const today = new Date();
       const todayStr = `${today.getMonth() + 1}/${today.getDate()}`;
@@ -58,8 +57,9 @@ export class NotificationService {
         })
         .map((b) => ({
           id: `bday-${b.id}-${today.getFullYear()}`,
-          title: "Anniversaire aujourd'hui!",
-          message: `C'est l'anniversaire de ${b.name} !`,
+          // Utilisation de translate avec des paramètres pour le nom
+          title: this.translocoService.translate('notifications.types.birthday.title'),
+          message: this.translocoService.translate('notifications.types.birthday.message', { name: b.name }),
           read: false,
           date: new Date(),
           type: 'birthday' as const,
@@ -109,12 +109,12 @@ export class NotificationService {
     return this.notificationsSubject.value.filter((n) => !n.read);
   }
 
-  addSuccessNotification(message: string, icon: string = 'check_circle'): void {
+  addSuccessNotification(messageKey: string, icon: string = 'check_circle'): void {
     this.addNotifications([
       {
         id: `success-${Date.now()}`,
-        title: 'Succès',
-        message,
+        title: this.translocoService.translate('notifications.types.system.success'),
+        message: this.translocoService.translate(messageKey),
         read: false,
         date: new Date(),
         type: 'system',
@@ -125,7 +125,8 @@ export class NotificationService {
 
   showSuccess(messageKey: string): void {
     const message = this.translocoService.translate(messageKey);
-    this.snackBar.open(message, 'Fermer', {
+    const closeLabel = this.translocoService.translate('notifications.actions.close');
+    this.snackBar.open(message, closeLabel, {
       duration: 3000,
       panelClass: ['success-snackbar'],
       horizontalPosition: 'right',
@@ -135,7 +136,8 @@ export class NotificationService {
 
   showError(messageKey: string): void {
     const message = this.translocoService.translate(messageKey);
-    this.snackBar.open(message, 'Fermer', {
+    const closeLabel = this.translocoService.translate('notifications.actions.close');
+    this.snackBar.open(message, closeLabel, {
       duration: 5000,
       panelClass: ['error-snackbar'],
       horizontalPosition: 'right',
@@ -143,8 +145,10 @@ export class NotificationService {
     });
   }
 
-  showInfo(message: string): void {
-    this.snackBar.open(message, 'Fermer', {
+  showInfo(messageKey: string): void {
+    const message = this.translocoService.translate(messageKey);
+    const closeLabel = this.translocoService.translate('notifications.actions.close');
+    this.snackBar.open(message, closeLabel, {
       duration: 3000,
       panelClass: ['info-snackbar'],
       horizontalPosition: 'right',
@@ -154,7 +158,8 @@ export class NotificationService {
 
   showWarning(messageKey: string): void {
     const message = this.translocoService.translate(messageKey);
-    this.snackBar.open(message, 'Fermer', {
+    const closeLabel = this.translocoService.translate('notifications.actions.close');
+    this.snackBar.open(message, closeLabel, {
       duration: 4000,
       panelClass: ['warning-snackbar'],
       horizontalPosition: 'right',

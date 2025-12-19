@@ -1,4 +1,44 @@
 {
+  "toolbar": {
+    "logo_alt": "Logo Time2Wish",
+    "theme": "Changer le thème",
+    "notifications": "Notifications",
+    "view_cards": "Vue en cartes",
+    "view_table": "Vue en tableau",
+    "help": "Aide",
+    "profile": "Mon profil",
+    "logout": "Déconnexion",
+    "languages": {
+      "gb": "Anglais",
+      "fr": "Français",
+      "de": "Allemand"
+    },
+    "language": "Changer la langue"
+  },
+  "search": {
+    "placeholder": "Rechercher un anniversaire...",
+    "tooltip": "Lancer la recherche",
+    "filter_tooltip": "Filtres avancés",
+    "filter_by": "Filtrer par :",
+    "filtering_in": "Recherche dans :",
+    "columns": {
+      "all": "Tous les champs",
+      "name": "Nom",
+      "date": "Date",
+      "category": "Catégorie"
+    }
+  },
+  "anniversary": {
+    "coming": "À venir",
+    "passed": "Passés",
+    "loading": "Chargement des anniversaires...",
+    "empty_coming": "Aucun anniversaire à venir",
+    "empty_passed": "Aucun anniversaire passé"
+  },
+  "actions": {
+    "import": "Importer",
+    "export": "Exporter"
+  },
   "placeholder_search_bar": "Rechercher des anniversaires....",
   "status": {
     "today": "Aujourd'hui",
@@ -21,29 +61,6 @@
   "Friend": "Ami",
   "Colleague": "Collègue",
   "Business": "Professionnel",
-  "anniversary": {
-    "coming": "Anniversaire à venir",
-    "passed": "Anniversaire passé"
-  },
-  "toolbar": {
-    "theme": "Changer le thème",
-    "notifications": "Notifications",
-    "view_cards": "Vue en cartes",
-    "view_table": "Vue en tableau",
-    "language": "Langue",
-    "help": "Aide",
-    "profile": "Profil",
-    "logout": "Déconnexion",
-    "languages": {
-      "us": "Anglais",
-      "fr": "Français",
-      "de": "Allemand"
-    }
-  },
-  "search": {
-    "tooltip": "Rechercher",
-    "filter": "Filtrer"
-  },
   "sidebar": {
     "menu": "Menu",
     "settings": "Paramètres",
@@ -83,11 +100,11 @@
   },
   "setting": {
     "setting": "Paramètres de l'application",
-    "notifications":  {
-      "titel":"Notifications",
+    "notifications": {
+      "titel": "Notifications",
       "allowNotifications": "Activer les notifications",
       "birthdayReminders": "Rappels d'anniversaires",
-      "reminderTime":{
+      "reminderTime": {
         "titel": "Rappels d'anniversaires",
         "morning": "Matin (8h)",
         "afternoon": "Après-midi (14h)",
@@ -95,11 +112,11 @@
       }
     },
     "appearance": {
-      "titel":"Apparence",
-      "light":"Clair",
-      "dark":"Sombre",
-      "system":"System",
-      "textSize":{
+      "titel": "Apparence",
+      "light": "Clair",
+      "dark": "Sombre",
+      "system": "System",
+      "textSize": {
         "titel": "Taille du texte",
         "small": "Petit",
         "medium": "Grand",
@@ -143,64 +160,89 @@
     }
   },
   "profil": {
-    "title": "Mon profil",
-    "name": "Nom complet",
-    "mail": "Adresse e-mail",
-    "bio": "Bio",
-    "noBio": "Aucune bio",
-    "modification": "modifier le profil",
-    "editing": "Désactiver l’édition",
-    "notifications": {
-      "title": "Notifications",
-      "activated": "activées",
-      "deactivated": "désactivées",
-      "received": "Recevoir les notifications"
+    "header": {
+      "title": "Profil",
+      "tooltip_view": "Mode édition actif",
+      "tooltip_edit": "Modifier le profil"
+    },
+    "fields": {
+      "name": "Nom complet",
+      "email": "Email",
+      "bio": "Bio",
+      "notifications_status": "Notifications",
+      "receive_notifications": "Recevoir les notifications"
+    },
+    "status": {
+      "enabled": "activées",
+      "disabled": "désactivées"
+    },
+    "placeholders": {
+      "no_bio": "Aucune biographie renseignée"
     },
     "errors": {
-      "name": "Le nom est obligatoire.",
-      "mail": "L'adresse e-mail est obligatoire.",
-      "falseEmail": "Adresse e-mail invalide."
+      "name_required": "Le nom est obligatoire",
+      "email_required": "L'email est obligatoire",
+      "email_invalid": "Format d'email invalide"
     },
     "actions": {
+      "cancel": "Annuler",
       "save": "Enregistrer",
-      "cancel": "Annuler"
+      "delete_account": "Supprimer le compte"
     }
   },
   "birthday_form": {
-  "name": "Nom",
-  "date": "Date de naissance",
-  "city": "Lieu de résidence",
-  "category": {
-    "titel": "Relation",
-    "family": "Famille",
-    "friend": "Amitié",
-    "colleague": "Collègue",
-    "other": "Autre"
+    "name": "Nom",
+    "date": "Date de naissance",
+    "city": "Lieu de résidence",
+    "category": {
+      "titel": "Relation",
+      "family": "Famille",
+      "friend": "Amitié",
+      "colleague": "Collègue",
+      "other": "Autre"
+    },
+    "photo": "Photo de profil",
+    "notes": "Notes",
+    "actions": {
+      "save": "Enregistrer",
+      "update": "Modifier",
+      "cancel": "Annuler"
+    },
+    "errors": {
+      "name": "Le nom est obligatoire.",
+      "date": "La date de naissance est obligatoire."
+    }
   },
-  "photo": "Photo de profil",
-  "notes": "Notes",
-  "actions": {
-    "save": "Enregistrer",
-    "update": "Modifier",
-    "cancel": "Annuler"
-  },
-  "errors": {
-    "name": "Le nom est obligatoire.",
-    "date": "La date de naissance est obligatoire."
-  }
-},
   "delete_birthday": {
-  "title": "Confirmer la suppression",
-  "description": "Êtes-vous sûr de vouloir supprimer cet anniversaire ? Cette action est irréversible.",
-  "actions": {
-    "delete": "Supprimer",
-    "cancel": "Annuler"
-  }
-},
+    "title": "Confirmer la suppression",
+    "description": "Êtes-vous sûr de vouloir supprimer cet anniversaire ? Cette action est irréversible.",
+    "actions": {
+      "delete": "Supprimer",
+      "cancel": "Annuler"
+    }
+  },
   "notifications": {
-    "titel": "Notifications",
-    "description": "Tout marquer comme lu",
-    "button": "Voir toutes les notifications"
+    "header": {
+      "title": "Notifications",
+      "mark_all_read": "Tout marquer comme lu"
+    },
+    "actions": {
+      "mark_as_read": "Marquer comme lu",
+      "close": "Fermer"
+    },
+    "empty_state": "Aucune nouvelle notification",
+    "footer": {
+      "view_all": "Voir toutes les notifications"
+    },
+    "types": {
+      "birthday": {
+        "title": "Anniversaire aujourd'hui !",
+        "message": "C'est l'anniversaire de {{name}} !"
+      },
+      "system": {
+        "success": "Succès"
+      }
+    }
   },
   "birthdayDetails": {
     "title": "Détails de l'anniversaire",
@@ -236,9 +278,32 @@
       "edit": "Modifier"
     }
   },
+  "password_reset": {
+    "title": "Réinitialisation du mot de passe",
+    "subtitle": "Entrez votre email pour recevoir les instructions de réinitialisation",
+    "fields": {
+      "email": "Email"
+    },
+    "errors": {
+      "email_required": "L'email est obligatoire",
+      "email_invalid": "Veuillez entrer un email valide"
+    },
+    "success_message": "Les instructions de réinitialisation ont été envoyées à votre email",
+    "actions": {
+      "send_button": "Envoyer le lien"
+    }
+  },
   "footer": {
     "help": "Aide",
     "conditions": "Conditions",
     "confidentiality": "Confidentialité"
+  },
+  "errors": {
+    "404": {
+      "img_alt": "Page non trouvée",
+      "title": "Page introuvable",
+      "description": "Oups ! La page que vous cherchez semble avoir été déplacée ou n'existe pas.",
+      "back_home": "Retour à l'accueil"
+    }
   }
 }

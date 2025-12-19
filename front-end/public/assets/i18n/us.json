@@ -1,4 +1,44 @@
 {
+  "toolbar": {
+    "logo_alt": "Time2Wish Logo",
+    "theme": "Toggle theme",
+    "notifications": "Notifications",
+    "view_cards": "Card view",
+    "view_table": "Table view",
+    "help": "Help",
+    "profile": "My profile",
+    "logout": "Logout",
+    "languages": {
+      "gb": "English",
+      "fr": "French",
+      "de": "German"
+    },
+    "language": "Change language"
+  },
+  "search": {
+    "placeholder": "Search an anniversary...",
+    "tooltip": "Start search",
+    "filter_tooltip": "Advanced filters",
+    "filter_by": "Filter by:",
+    "filtering_in": "Filtering in:",
+    "columns": {
+      "all": "All fields",
+      "name": "Name",
+      "date": "Date",
+      "category": "Category"
+    }
+  },
+  "anniversary": {
+    "coming": "Coming",
+    "passed": "Passed",
+    "loading": "Loading anniversaries...",
+    "empty_coming": "No coming anniversary",
+    "empty_passed": "No passed anniversary"
+  },
+  "actions": {
+    "import": "Import",
+    "export": "Export"
+  },
   "placeholder_search_bar": "Search for birthday....",
   "status": {
     "today": "Today",
@@ -21,29 +61,6 @@
   "Friend": "Friend",
   "Colleague": "Colleague",
   "Business": "Business",
-  "anniversary": {
-    "coming": "Coming anniversary",
-    "passed": "Passed anniversary"
-  },
-  "toolbar": {
-    "theme": "Change theme",
-    "notifications": "Notifications",
-    "view_cards": "View as cards",
-    "view_table": "View as table",
-    "language": "Language",
-    "help": "Help",
-    "profile": "Profile",
-    "logout": "Logout",
-    "languages": {
-      "us": "English",
-      "fr": "French",
-      "de": "German"
-    }
-  },
-  "search": {
-    "tooltip": "Search",
-    "filter": "Filter"
-  },
   "sidebar": {
     "menu": "Menu",
     "settings": "Settings",
@@ -84,10 +101,10 @@
   "setting": {
     "setting": "settings",
     "notifications": {
-      "titel":"Notifications",
+      "titel": "Notifications",
       "allowNotifications": "Enable notifications",
       "birthdayReminders": "Birthday reminders",
-      "reminderTime":{
+      "reminderTime": {
         "titel": "Birthday reminders",
         "morning": "Morning (8h)",
         "afternoon": "Afternoon (14h)",
@@ -95,12 +112,12 @@
       }
     },
     "appearance": {
-      "titel":"Appearance",
-      "light":"Light",
-      "dark":"Dark",
-      "system":"System",
-      "textSize":{
-        "titel":"Text size",
+      "titel": "Appearance",
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System",
+      "textSize": {
+        "titel": "Text size",
         "small": "Small",
         "medium": "Medium",
         "large": "Large"
@@ -143,29 +160,36 @@
     }
   },
   "profil": {
-    "title": "My profile",
-    "name": "Full name",
-    "mail": "Email address",
-    "bio": "Bio",
-    "noBio": "No bio",
-    "modification": "edit profil",
-    "editing": "Disable editing",
-    "notifications": {
-      "title": "Notifications",
-      "activated": "enabled",
-      "deactivated": "disabled",
-      "received": "Notifications received"
+    "header": {
+      "title": "Profile",
+      "tooltip_view": "Edit mode active",
+      "tooltip_edit": "Edit profile"
+    },
+    "fields": {
+      "name": "Full Name",
+      "email": "Email",
+      "bio": "Bio",
+      "notifications_status": "Notifications",
+      "receive_notifications": "Receive notifications"
+    },
+    "status": {
+      "enabled": "enabled",
+      "disabled": "disabled"
+    },
+    "placeholders": {
+      "no_bio": "No biography provided"
     },
     "errors": {
-      "name": "Name is required.",
-      "mail": "Email address is required.",
-      "falseEmail": "Invalid email address."
+      "name_required": "Name is required",
+      "email_required": "Email is required",
+      "email_invalid": "Invalid email format"
     },
     "actions": {
+      "cancel": "Cancel",
       "save": "Save",
-      "cancel": "Cancel"
-  }
-    },
+      "delete_account": "Delete account"
+    }
+  },
   "birthday_form": {
     "name": "Name",
     "date": "Date of Birth",
@@ -198,9 +222,27 @@
     }
   },
   "notifications": {
-    "title": "Notifications",
-    "description": "Mark all as read",
-    "button": " See all notifications"
+    "header": {
+      "title": "Notifications",
+      "mark_all_read": "Mark all as read"
+    },
+    "actions": {
+      "mark_as_read": "Mark as read",
+      "close": "Close"
+    },
+    "empty_state": "No new notifications",
+    "footer": {
+      "view_all": "View all notifications"
+    },
+    "types": {
+      "birthday": {
+        "title": "Birthday Today!",
+        "message": "It's {{name}}'s birthday!"
+      },
+      "system": {
+        "success": "Success"
+      }
+    }
   },
   "birthdayDetails": {
     "title": "Birthday details",
@@ -236,9 +278,32 @@
       "edit": "Edit"
     }
   },
+  "password_reset": {
+    "title": "Password Reset",
+    "subtitle": "Enter your email to receive reset instructions",
+    "fields": {
+      "email": "Email"
+    },
+    "errors": {
+      "email_required": "Email is required",
+      "email_invalid": "Please enter a valid email"
+    },
+    "success_message": "Reset instructions sent to your email",
+    "actions": {
+      "send_button": "Send Reset Link"
+    }
+  },
   "footer": {
     "help": "Help",
     "conditions": "Conditions",
     "confidentiality": "Confidentiality"
+  },
+  "errors": {
+    "404": {
+      "img_alt": "Page not found",
+      "title": "Page not found",
+      "description": "Oops! The page you are looking for seems to have been moved or doesn't exist.",
+      "back_home": "Back to home"
+    }
   }
 }
