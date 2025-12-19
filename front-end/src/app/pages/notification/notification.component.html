@@ -1,16 +1,14 @@
 <div class="notification p-2 max-h-[70vh] flex flex-col">
-  <!-- Header -->
   <div class="flex justify-between items-center p-4 border-b border-gray-200">
     <h3 class="text-lg font-semibold flex items-center gap-2">
       <mat-icon>notifications</mat-icon>
-      {{ 'notifications.titel' | transloco }}
+      {{ 'notifications.header.title' | transloco }}
     </h3>
     <button mat-button (click)="notificationService.markAllAsRead()">
-      {{ 'notifications.description' | transloco }}
+      {{ 'notifications.header.mark_all_read' | transloco }}
     </button>
   </div>
 
-  <!-- Liste -->
   <div class="overflow-y-auto flex-grow">
     @for (notif of notificationService.notifications$ | async; track $index) {
     <div
@@ -19,26 +17,22 @@
     >
       <div class="flex items-start gap-3">
         <div class="flex-grow">
-          <!-- Ligne : titre + temps + cercle -->
           <div class="flex justify-between items-center gap-3 w-full">
-            <!-- Icône -->
-            <mat-icon class="text-blue-500 text-lg mb-5">{{
-              notif.icon
-            }}</mat-icon>
+            <mat-icon class="text-blue-500 text-lg mb-5">{{ notif.icon }}</mat-icon>
             <div>
               <h4 class="font-medium mb-1">{{ notif.title }}</h4>
-              <!-- Message juste en dessous du titre -->
               <p class="text-sm text-gray-600 ">{{ notif.message }}</p>
             </div>
 
             <div class="flex gap-2">
-              <span class="text-xs text-gray-500 whitespace-nowrap">{{
-                getTimeAgo(notif.date)
-              }}</span>
+              <span class="text-xs text-gray-500 whitespace-nowrap">
+                {{ getTimeAgo(notif.date) }}
+              </span>
               <button
                 mat-icon-button
                 class="p-0 h-4 w-4"
                 (click)="notificationService.markAsRead(notif.id)"
+                [matTooltip]="'notifications.actions.mark_as_read' | transloco"
               >
                 <mat-icon class="!text-xs leading-none">circle</mat-icon>
               </button>
@@ -47,14 +41,16 @@
         </div>
       </div>
     </div>
-
+    } @empty {
+      <div class="p-8 text-center text-gray-500">
+        {{ 'notifications.empty_state' | transloco }}
+      </div>
     }
   </div>
 
-  <!-- Footer -->
   <div class="p-2 border-t border-gray-200 text-center">
     <button mat-button color="primary" class="!text-sm">
-      {{ 'notifications.button'| transloco }}
+      {{ 'notifications.footer.view_all' | transloco }}
     </button>
   </div>
 </div>

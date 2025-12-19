@@ -1,15 +1,20 @@
 <div class="flex flex-col items-center justify-center min-h-screen bg-gray-50 p-4">
-    <img src="page_not_found.png" alt="Page not found" class="max-w-md w-full">
-    <h1 class="text-3xl font-bold text-gray-800 mt-8">Page introuvable</h1>
-    <p class="text-gray-600 mt-2 mb-6 text-center max-w-md">
-      Oups ! La page que vous cherchez semble avoir été déplacée ou n'existe pas.
-    </p>
-    <a 
-      mat-raised-button 
-      color="primary" 
-      routerLink="/"
-      class="!bg-blue-600 !text-white p-2 rounded-sm"
-    >
-      Retour à l'accueil
-    </a>
-  </div>
+  <img src="page_not_found.png" [alt]="'errors.404.img_alt' | transloco" class="max-w-md w-full">
+  
+  <h1 class="text-3xl font-bold text-gray-800 mt-8">
+    {{ 'errors.404.title' | transloco }}
+  </h1>
+  
+  <p class="text-gray-600 mt-2 mb-6 text-center max-w-md">
+    {{ 'errors.404.description' | transloco }}
+  </p>
+  
+  <a 
+    mat-raised-button 
+    color="primary" 
+    routerLink="/"
+    class="!bg-blue-600 !text-white p-2 rounded-sm"
+  >
+    {{ 'errors.404.back_home' | transloco }}
+  </a>
+</div>
