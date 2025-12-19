@@ -180,16 +180,19 @@ export class ProfilComponent implements OnInit {
         .subscribe({
           next: (response) => {
             this.isLoading = false;
+            const updatedData = response.data || response;
 
             if (response) {
               this.snackBar.open('Profil mis à jour avec succès', 'Fermer', {
                 duration: 3000,
                 panelClass: ['success-snackbar'],
               });
+              
+              this.authService.setCurrentUser(updatedData as UserProfile);
 
               this.originalFormValues = { ...this.profileForm.value };
+              this.currentUser = updatedData as UserProfile;
               this.editMode = false;
-              this.dialogRef.close(response.data);
             } else {
               this.snackBar.open(
                 response || 'Erreur lors de la mise à jour',
