@@ -196,7 +196,7 @@ export class LandingPageComponent {
 
   onProfil() {
     this.dialog.open(ProfilComponent, {
-      width: '500px',
+      width: '500px'
     });
   }
 

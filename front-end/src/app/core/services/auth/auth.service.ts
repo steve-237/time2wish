@@ -409,4 +409,13 @@ export class AuthService {
   getMockUsers(): UserProfile[] {
     return [...this.users];
   }
+
+  /**
+   * Méthode pour mettre à jour l'utilisateur courant
+   */
+  setCurrentUser(user: UserProfile) {
+    localStorage.setItem('user', JSON.stringify(user));
+    this.currentUserSubject.next(user);
+  }
+  
 }
