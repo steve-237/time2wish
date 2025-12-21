@@ -294,9 +294,10 @@
     }
   },
   "footer": {
+    "rights_reserved": "Tous droits réservés.",
     "help": "Aide",
-    "conditions": "Conditions",
-    "confidentiality": "Confidentialité"
+    "conditions": "Conditions d'utilisation",
+    "confidentiality": "Politique de confidentialité"
   },
   "errors": {
     "404": {
