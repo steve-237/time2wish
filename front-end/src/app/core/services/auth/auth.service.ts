@@ -1,4 +1,3 @@
-
 import { Injectable, Inject } from '@angular/core';
 import { BehaviorSubject, Observable, of, delay, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
@@ -26,7 +25,13 @@ export class AuthService {
   // Clé utilisée pour stocker le token dans le localStorage
   private readonly ACCESS_TOKEN_KEY = 'accessToken';
 
-  constructor(@Inject(HttpClient) private http: HttpClient) {}
+  constructor(@Inject(HttpClient) private http: HttpClient) {
+    const savedUser = localStorage.getItem('user');
+    if (savedUser) {
+      // Si on trouve un utilisateur dans le stockage, on le remet dans le Subject
+      this.currentUserSubject.next(JSON.parse(savedUser));
+    }
+  }
 
   /**
    * Inscription d'un nouvel utilisateur
@@ -119,10 +124,8 @@ export class AuthService {
           console.log('Login response from the service: ', response);
           if (response.success && response.data) {
             this.currentUserSubject.next(response.data.user);
-            localStorage.setItem(
-              this.ACCESS_TOKEN_KEY,
-              response.token ?? ''
-            );
+            localStorage.setItem(this.ACCESS_TOKEN_KEY, response.token ?? '');
+            localStorage.setItem('user', JSON.stringify(response.data.user));
           }
         })
       );
@@ -364,7 +367,10 @@ export class AuthService {
    * Vérification si l'utilisateur est connecté
    */
   isLoggedIn(): boolean {
-    return this.currentUserSubject.value !== null;
+    return (
+      !!this.currentUserSubject.value ||
+      !!localStorage.getItem(this.ACCESS_TOKEN_KEY)
+    );
   }
 
   /**
@@ -417,5 +423,4 @@ export class AuthService {
     localStorage.setItem('user', JSON.stringify(user));
     this.currentUserSubject.next(user);
   }
-  
 }
