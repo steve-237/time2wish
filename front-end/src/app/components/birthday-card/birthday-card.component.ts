@@ -22,7 +22,6 @@ import { TranslocoModule } from '@jsverse/transloco';
     TranslocoModule
   ],
   templateUrl: './birthday-card.component.html',
-  styleUrl: './birthday-card.component.css',
 })
 export class BirthdayCardComponent {
   @Input() item: any;

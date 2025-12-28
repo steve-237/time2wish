@@ -47,7 +47,6 @@ import { BirthdayTableComponent } from '../birthday-table/birthday-table.compone
     MatAutocompleteModule,
   ],
   templateUrl: './set-language.component.html',
-  styleUrl: './set-language.component.css',
 })
 export class SetLanguageComponent {
   languages = [

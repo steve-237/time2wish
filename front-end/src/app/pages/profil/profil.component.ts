@@ -47,7 +47,6 @@ import { CommonModule } from '@angular/common';
     TranslocoPipe,
   ],
   templateUrl: './profil.component.html',
-  styleUrl: './profil.component.css',
 })
 export class ProfilComponent implements OnInit {
   editMode = false;

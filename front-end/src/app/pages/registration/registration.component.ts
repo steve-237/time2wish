@@ -32,7 +32,6 @@ import { RegisterRequest } from '../../models/registerRequest.model';
     MatSnackBarModule,
   ],
   templateUrl: './registration.component.html',
-  styleUrl: './registration.component.css',
 })
 export class RegistrationComponent {
   registerForm: FormGroup;

@@ -74,7 +74,6 @@ import { FooterComponent } from '../../components/footer/footer.component';
     FooterComponent,
   ],
   templateUrl: './landing-page.component.html',
-  styleUrl: './landing-page.component.css',
 })
 export class LandingPageComponent {
   editBirthday() {

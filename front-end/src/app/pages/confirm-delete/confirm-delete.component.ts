@@ -9,7 +9,6 @@ import {TranslocoPipe} from "@jsverse/transloco";
   selector: 'app-confirm-delete',
   imports: [CommonModule, MatButtonModule, MatIconModule, MatDialogModule, TranslocoPipe],
   templateUrl: './confirm-delete.component.html',
-  styleUrl: './confirm-delete.component.css',
 })
 export class ConfirmDeleteComponent {
   constructor(private dialogRef: MatDialogRef<ConfirmDeleteComponent>) {}

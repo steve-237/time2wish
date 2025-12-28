@@ -22,7 +22,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatTooltipModule,
   ],
   templateUrl: './notification.component.html',
-  styleUrl: './notification.component.css',
 })
 export class NotificationComponent {
   constructor(public notificationService: NotificationService) {}

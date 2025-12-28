@@ -26,7 +26,6 @@ import {TranslocoModule} from "@jsverse/transloco";
     TranslocoModule,
   ],
   templateUrl: './setting.component.html',
-  styleUrl: './setting.component.css',
 })
 export class SettingComponent {
   constructor(public dialogRef: MatDialogRef<SettingComponent>) {}

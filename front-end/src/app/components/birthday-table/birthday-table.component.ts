@@ -18,7 +18,7 @@ import { DialogService } from '../../shared/services/dialog/dialog.service';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { NotificationService } from '../../shared/services/notification/notification.service';
-import { BirthdayFormComponent } from '../../birthday-form/birthday-form.component';
+import { BirthdayFormComponent } from '../birthday-form/birthday-form.component';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 
@@ -37,7 +37,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatNativeDateModule,
   ],
   templateUrl: './birthday-table.component.html',
-  styleUrl: './birthday-table.component.css',
 })
 export class BirthdayTableComponent {
   @Input() birthdays: any[] = [];

@@ -30,7 +30,6 @@ import { VersionService } from '../../shared/services/version/version.service';
     TranslocoModule,
   ],
   templateUrl: './aside-nav-bar.component.html',
-  styleUrl: './aside-nav-bar.component.css',
 })
 export class AsideNavBarComponent implements OnInit {
   expanded = false;

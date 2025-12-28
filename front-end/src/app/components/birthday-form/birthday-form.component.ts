@@ -32,7 +32,6 @@ import { TranslocoModule } from '@jsverse/transloco';
     MatIconModule,
   ],
   templateUrl: './birthday-form.component.html',
-  styleUrl: './birthday-form.component.css',
 })
 export class BirthdayFormComponent {
   birthdayForm: FormGroup;

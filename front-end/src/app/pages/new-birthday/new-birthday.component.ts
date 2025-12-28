@@ -43,7 +43,6 @@ import {TranslocoPipe} from "@jsverse/transloco";
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './new-birthday.component.html',
-  styleUrl: './new-birthday.component.css',
 })
 export class NewBirthdayComponent {
   profileForm: FormGroup;
