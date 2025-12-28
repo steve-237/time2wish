@@ -37,7 +37,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatNativeDateModule,
   ],
   templateUrl: './birthday-table.component.html',
-  styleUrl: './birthday-table.component.css',
 })
 export class BirthdayTableComponent {
   @Input() birthdays: any[] = [];

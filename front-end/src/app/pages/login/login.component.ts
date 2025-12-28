@@ -32,7 +32,6 @@ import { LoginRequest } from '../../models/loginRequest.model';
     SetLanguageComponent,
   ],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css',
 })
 export class LoginComponent implements OnDestroy {
   hidePassword = true;

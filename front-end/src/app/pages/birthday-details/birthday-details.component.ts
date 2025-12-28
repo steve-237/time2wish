@@ -34,7 +34,6 @@ import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
     TranslocoPipe,
   ],
   templateUrl: './birthday-details.component.html',
-  styleUrl: './birthday-details.component.css',
 })
 export class BirthdayDetailsComponent {
   newLike = '';

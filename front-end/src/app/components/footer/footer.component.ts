@@ -11,8 +11,7 @@ import { ConfidentialityComponent } from '../confidentiality/confidentiality.com
   selector: 'app-footer',
   imports: [MatIconModule, TranslocoModule, DatePipe],
   templateUrl: './footer.component.html',
-  styleUrl: './footer.component.css',
-})
+})  
 
 export class FooterComponent {
   currentDate: Date = new Date();

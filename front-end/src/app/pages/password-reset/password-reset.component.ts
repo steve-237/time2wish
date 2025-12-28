@@ -20,7 +20,6 @@ import { TranslocoModule } from '@jsverse/transloco';
     TranslocoModule,
   ],
   templateUrl: './password-reset.component.html',
-  styleUrls: ['./password-reset.component.css'],
 })
 export class PasswordResetComponent {
   resetForm: FormGroup;

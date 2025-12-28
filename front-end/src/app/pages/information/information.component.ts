@@ -8,6 +8,5 @@ import { MatExpansionModule } from '@angular/material/expansion';
   selector: 'app-information',
   imports: [MatCardModule, MatIconModule, MatExpansionModule, MatListModule],
   templateUrl: './information.component.html',
-  styleUrl: './information.component.css',
 })
 export class InformationComponent {}

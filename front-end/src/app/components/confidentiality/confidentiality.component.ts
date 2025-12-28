@@ -4,6 +4,5 @@ import { Component } from '@angular/core';
   selector: 'app-confidentiality',
   imports: [],
   templateUrl: './confidentiality.component.html',
-  styleUrl: './confidentiality.component.css',
 })
 export class ConfidentialityComponent {}
