@@ -306,5 +306,45 @@
       "description": "Oups ! La page que vous cherchez semble avoir été déplacée ou n'existe pas.",
       "back_home": "Retour à l'accueil"
     }
+  },
+  "help": {
+    "title": "Comment utiliser le rappel d'anniversaire",
+    "add": "Ajouter un anniversaire : Cliquez sur « Ajouter » et entrez les détails et la date.",
+    "view": "Voir les anniversaires : Visualisez tous les anniversaires à venir sur votre tableau de bord.",
+    "edit": "Modifier ou supprimer : Utilisez les icônes correspondantes à côté de chaque entrée.",
+    "reminders": "Rappels : Activez les notifications pour être prévenu avant un anniversaire.",
+    "support": "Besoin d'aide ? Contactez le support via le menu Aide."
+  },
+  "guide": {
+    "header": {
+      "title": "Guide d'utilisation",
+      "subtitle": "Découvrez comment tirer le meilleur parti de Time2Wish"
+    },
+    "sections": {
+      "add": {
+        "title": "Ajouter des anniversaires",
+        "step1_title": "Cliquez sur l'icône \"Ajouter\"",
+        "step1_desc": "Dans la barre latérale ou l'écran principal",
+        "step2_title": "Remplissez les informations",
+        "step2_desc": "Nom, date de naissance, photo et détails optionnels"
+      },
+      "reminders": {
+        "title": "Gérer les rappels",
+        "auto_title": "Rappels automatiques",
+        "auto_desc": "L'application vous notifie 7 jours avant chaque anniversaire",
+        "custom_title": "Personnalisation",
+        "custom_desc": "Modifiez les préférences dans Paramètres → Notifications"
+      },
+      "tips": {
+        "title": "Astuces pratiques",
+        "photos_title": "Ajoutez des photos",
+        "photos_desc": "Pour reconnaître facilement les contacts",
+        "categories_title": "Créez des catégories",
+        "categories_desc": "Famille, Amis, Collègues..."
+      }
+    },
+    "video": "Tutoriel vidéo",
+    "footer": "Besoin d'aide supplémentaire ?",
+    "contact": "Contactez-nous"
   }
 }

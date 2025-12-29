@@ -306,5 +306,42 @@
       "description": "Oops! The page you are looking for seems to have been moved or doesn't exist.",
       "back_home": "Back to home"
     }
+  },
+  "help": {
+    "title": "How to Use Birthday Reminder",
+    "add": "Add a Birthday: Click on 'Add Birthday' and enter the person's details and date.",
+    "view": "View Birthdays: See all upcoming birthdays on your dashboard.",
+    "edit": "Edit or Delete: Use the edit or delete icons next to each birthday entry.",
+    "reminders": "Set Reminders: Enable reminders to get notified before a birthday.",
+    "support": "Need More Help? Contact support via the Help menu."
+  },
+  "guide": {
+    "header": { "title": "User Guide", "subtitle": "Discover how to get the most out of Time2Wish" },
+    "sections": {
+      "add": {
+        "title": "Add Birthdays",
+        "step1_title": "Click the 'Add' icon",
+        "step1_desc": "In the sidebar or main screen",
+        "step2_title": "Fill in the information",
+        "step2_desc": "Name, date of birth, photo and optional details"
+      },
+      "reminders": {
+        "title": "Manage Reminders",
+        "auto_title": "Automatic Reminders",
+        "auto_desc": "The app notifies you 7 days before each birthday",
+        "custom_title": "Customization",
+        "custom_desc": "Change preferences in Settings → Notifications"
+      },
+      "tips": {
+        "title": "Practical Tips",
+        "photos_title": "Add Photos",
+        "photos_desc": "To easily recognize contacts",
+        "categories_title": "Create Categories",
+        "categories_desc": "Family, Friends, Colleagues..."
+      }
+    },
+    "video": "Video Tutorial",
+    "footer": "Need more help?",
+    "contact": "Contact us"
   }
 }
