@@ -1,119 +1,130 @@
-<div class="guide-container bg-gray-50">
-    <mat-card class="max-w-4xl mx-auto">
-      <!-- En-tête -->
-      <div class="p-6 border-b border-gray-200">
-        <h1 class="text-2xl font-bold flex items-center gap-2">
-          <mat-icon>help_outline</mat-icon>
-          Guide d'utilisation
-        </h1>
-        <p class="text-gray-600 mt-2">Découvrez comment tirer le meilleur parti de Time2Wish</p>
-      </div>
+<div class="guide-container bg-gray-50 p-4 h-full flex flex-col items-center justify-start overflow-hidden" *transloco="let t; read: 'guide'">
   
-      <!-- Contenu principal -->
-      <div class="p-6">
-        <!-- Section 1 : Création de profils -->
-        <mat-accordion class="w-full">
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title class="flex items-center gap-2">
-                <mat-icon>person_add</mat-icon>
-                <span>Ajouter des anniversaires</span>
-              </mat-panel-title>
-            </mat-expansion-panel-header>
-            
-            <div class="guide-step">
-              <div class="step-number">1</div>
-              <div>
-                <h3 class="font-medium">Cliquez sur l'icône "Ajouter"</h3>
-                <p class="text-gray-600">Dans la barre latérale ou l'écran principal</p>
-              </div>
-            </div>
-  
-            <div class="guide-step mt-4">
-              <div class="step-number">2</div>
-              <div>
-                <h3 class="font-medium">Remplissez les informations</h3>
-                <p class="text-gray-600">Nom, date de naissance, photo et détails optionnels</p>
-                <img src="assets/guide/add-profile.png" alt="Ajout de profil" class="mt-2 rounded-lg border border-gray-200 max-w-xs">
-              </div>
-            </div>
-          </mat-expansion-panel>
-  
-          <!-- Section 2 : Rappels -->
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title class="flex items-center gap-2">
-                <mat-icon>notifications</mat-icon>
-                <span>Gérer les rappels</span>
-              </mat-panel-title>
-            </mat-expansion-panel-header>
-  
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <mat-card>
-                <mat-card-header>
-                  <mat-icon mat-card-avatar>alarm</mat-icon>
-                  <mat-card-title>Rappels automatiques</mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
-                  <p>L'application vous notifie 7 jours avant chaque anniversaire</p>
-                </mat-card-content>
-              </mat-card>
-  
-              <mat-card>
-                <mat-card-header>
-                  <mat-icon mat-card-avatar>settings</mat-icon>
-                  <mat-card-title>Personnalisation</mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
-                  <p>Modifiez les préférences dans Paramètres → Notifications</p>
-                </mat-card-content>
-              </mat-card>
-            </div>
-          </mat-expansion-panel>
-  
-          <!-- Section 3 : Fonctionnalités avancées -->
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title class="flex items-center gap-2">
-                <mat-icon>star</mat-icon>
-                <span>Astuces pratiques</span>
-              </mat-panel-title>
-            </mat-expansion-panel-header>
-  
-            <mat-list>
-              <mat-list-item>
-                <mat-icon matListItemIcon>photo_camera</mat-icon>
-                <span matListItemTitle>Ajoutez des photos</span>
-                <span matListItemLine>Pour reconnaître facilement les contacts</span>
-              </mat-list-item>
-  
-              <mat-list-item>
-                <mat-icon matListItemIcon>category</mat-icon>
-                <span matListItemTitle>Créez des catégories</span>
-                <span matListItemLine>Famille, Amis, Collègues...</span>
-              </mat-list-item>
-            </mat-list>
-          </mat-expansion-panel>
-        </mat-accordion>
-  
-        <!-- Section vidéo -->
-        <div class="mt-8 bg-gray-100 rounded-lg p-6">
-          <h2 class="text-xl font-semibold flex items-center gap-2 mb-4">
-            <mat-icon>play_circle</mat-icon>
-            Tutoriel vidéo
-          </h2>
-          <div class="aspect-w-16 aspect-h-9 bg-black rounded-lg overflow-hidden">
-            <!-- Remplacez par votre lecteur vidéo -->
-            <div class="w-full h-full flex items-center justify-center text-white">
-              <mat-icon class="!w-16 !h-16">play_arrow</mat-icon>
+  <mat-card class="max-w-4xl w-full max-h-[90vh] flex flex-col shadow-lg">
+    
+    <div class="p-6 border-b border-gray-200 shrink-0">
+      <h1 class="text-2xl font-bold flex items-center gap-2">
+        <mat-icon>help_outline</mat-icon>
+        {{ t('header.title') }}
+      </h1>
+      <p class="text-gray-600 mt-2">{{ t('header.subtitle') }}</p>
+    </div>
+
+    <div class="p-6 overflow-y-auto custom-scrollbar">
+      <mat-accordion class="w-full">
+        
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title class="flex items-center gap-2">
+              <mat-icon>person_add</mat-icon>
+              <span>{{ t('sections.add.title') }}</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <div class="guide-step flex gap-4 items-start">
+            <div class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center shrink-0">1</div>
+            <div>
+              <h3 class="font-medium">{{ t('sections.add.step1_title') }}</h3>
+              <p class="text-gray-600">{{ t('sections.add.step1_desc') }}</p>
             </div>
           </div>
+
+          <div class="guide-step mt-4 flex gap-4 items-start">
+            <div class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center shrink-0">2</div>
+            <div>
+              <h3 class="font-medium">{{ t('sections.add.step2_title') }}</h3>
+              <p class="text-gray-600">{{ t('sections.add.step2_desc') }}</p>
+              <img src="assets/guide/add-profile.png" alt="Guide" class="mt-2 rounded-lg border border-gray-200 max-w-xs w-full">
+            </div>
+          </div>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title class="flex items-center gap-2">
+              <mat-icon>notifications</mat-icon>
+              <span>{{ t('sections.reminders.title') }}</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+        
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <mat-card class="bg-white border border-gray-100 shadow-none overflow-hidden h-full">
+              <mat-card-header class="flex items-center flex-nowrap min-w-0 p-4">
+                <mat-icon mat-card-avatar class="shrink-0 mr-3 text-blue-600">alarm</mat-icon>
+                
+                <div class="min-w-0 flex-1">
+                  <mat-card-title class="text-sm sm:text-base font-semibold leading-tight break-words">
+                    {{ t('sections.reminders.auto_title') }}
+                  </mat-card-title>
+                </div>
+              </mat-card-header>
+        
+              <mat-card-content class="px-4 pb-4">
+                <p class="text-xs sm:text-sm text-gray-600">
+                  {{ t('sections.reminders.auto_desc') }}
+                </p>
+              </mat-card-content>
+            </mat-card>
+        
+            <mat-card class="bg-white border border-gray-100 shadow-none overflow-hidden h-full">
+              <mat-card-header class="flex items-center flex-nowrap min-w-0 p-4">
+                <mat-icon mat-card-avatar class="shrink-0 mr-3 text-blue-600">settings</mat-icon>
+                
+                <div class="min-w-0 flex-1">
+                  <mat-card-title class="text-sm sm:text-base font-semibold leading-tight break-words">
+                    {{ t('sections.reminders.custom_title') }}
+                  </mat-card-title>
+                </div>
+              </mat-card-header>
+        
+              <mat-card-content class="px-4 pb-4">
+                <p class="text-xs sm:text-sm text-gray-600">
+                  {{ t('sections.reminders.custom_desc') }}
+                </p>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title class="flex items-center gap-2">
+              <mat-icon>star</mat-icon>
+              <span>{{ t('sections.tips.title') }}</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <mat-list>
+            <mat-list-item>
+              <mat-icon matListItemIcon>photo_camera</mat-icon>
+              <span matListItemTitle>{{ t('sections.tips.photos_title') }}</span>
+              <span matListItemLine>{{ t('sections.tips.photos_desc') }}</span>
+            </mat-list-item>
+            <mat-list-item>
+              <mat-icon matListItemIcon>category</mat-icon>
+              <span matListItemTitle>{{ t('sections.tips.categories_title') }}</span>
+              <span matListItemLine>{{ t('sections.tips.categories_desc') }}</span>
+            </mat-list-item>
+          </mat-list>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+      <div class="mt-8 bg-gray-100 rounded-lg p-6 text-center">
+        <h2 class="text-xl font-semibold flex items-center justify-center gap-2 mb-4">
+          <mat-icon>play_circle</mat-icon>
+          {{ t('video') }}
+        </h2>
+        <div class="aspect-video bg-black rounded-lg flex items-center justify-center text-white">
+          <mat-icon class="!w-12 !h-12 cursor-pointer hover:scale-110 transition-transform">play_arrow</mat-icon>
         </div>
       </div>
-  
-      <!-- Pied de page -->
-      <div class="p-4 border-t border-gray-200 text-center text-sm text-gray-500">
-        <p>Version 1.0.0 - Besoin d'aide supplémentaire ? <a href="#" class="text-blue-500">Contactez-nous</a></p>
-      </div>
-    </mat-card>
-  </div>
+    </div>
+
+    <div class="p-4 border-t border-gray-200 text-center text-sm text-gray-500 shrink-0">
+      <p>
+        Version 1.0.0 - {{ t('footer') }} 
+        <a href="#" class="text-blue-500 hover:underline">{{ t('contact') }}</a>
+      </p>
+    </div>
+  </mat-card>
+</div>

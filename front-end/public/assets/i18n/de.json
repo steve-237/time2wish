@@ -306,5 +306,42 @@
       "description": "Ups! Die Seite, die Sie suchen, scheint verschoben oder nicht existiert.",
       "back_home": "Zurück zur Startseite"
     }
+  },
+  "help": {
+    "title": "So nutzen Sie die Geburtstagserinnerung",
+    "add": "Geburtstag hinzufügen: Klicken Sie auf „Hinzufügen“ und geben Sie Details und Datum ein.",
+    "view": "Geburtstage anzeigen: Alle anstehenden Geburtstage im Dashboard sehen.",
+    "edit": "Bearbeiten oder Löschen: Nutzen Sie die Symbole neben jedem Eintrag.",
+    "reminders": "Erinnerungen einstellen: Aktivieren Sie Benachrichtigungen für anstehende Geburtstage.",
+    "support": "Brauchen Sie Hilfe? Kontaktieren Sie den Support über das Hilfe-Menü."
+  },
+  "guide": {
+    "header": { "title": "Bedienungsanleitung", "subtitle": "Erfahren Sie, wie Sie Time2Wish am besten nutzen" },
+    "sections": {
+      "add": {
+        "title": "Geburtstage hinzufügen",
+        "step1_title": "Klicken Sie auf das „Hinzufügen“-Symbol",
+        "step1_desc": "In der Seitenleiste oder im Hauptbildschirm",
+        "step2_title": "Informationen ausfüllen",
+        "step2_desc": "Name, Geburtsdatum, Foto und optionale Details"
+      },
+      "reminders": {
+        "title": "Erinnerungen verwalten",
+        "auto_title": "Automatische Erinnerungen",
+        "auto_desc": "Die App benachrichtigt Sie 7 Tage vor jedem Geburtstag",
+        "custom_title": "Personalisierung",
+        "custom_desc": "Einstellungen in Einstellungen → Benachrichtigungen ändern"
+      },
+      "tips": {
+        "title": "Praktische Tipps",
+        "photos_title": "Fotos hinzufügen",
+        "photos_desc": "Um Kontakte leicht wiederzuerkennen",
+        "categories_title": "Kategorien erstellen",
+        "categories_desc": "Familie, Freunde, Kollegen..."
+      }
+    },
+    "video": "Video-Anleitung",
+    "footer": "Benötigen Sie weitere Hilfe?",
+    "contact": "Kontaktiere uns"
   }
 }
