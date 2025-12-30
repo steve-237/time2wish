@@ -4,59 +4,55 @@
   [class.px-4]="expanded"
   [style.width]="expanded ? 'auto' : '6rem'"
 >
-  <div class="flex flex-col items-center gap-3 !mt-5 w-full">
-    <!-- Menu -->
-    <button
-      mat-icon-button
-      class="flex justify-center gap-3 px-2 cursor-pointer"
+  <div class="flex flex-col mt-10">
+    <div
+      class="flex items-center w-full hover:bg-gray-100 transition-colors cursor-pointer"
       (click)="toggleSidebar()"
     >
-      <mat-icon class="text-4xl" [matTooltip]="'sidebar.menu' | transloco"
-        >menu</mat-icon
-      >
-    </button>
-    <span
-      class="whitespace-nowrap transition-all duration-300"
-      [class.hidden]="!expanded"
-    >
-      {{ "sidebar.menu" | transloco }}
-    </span>
+      <div class="w-20 flex shrink-0 justify-center">
+        <button mat-icon-button type="button">
+          <mat-icon class="text-gray-600">menu</mat-icon>
+        </button>
+      </div>
+      @if (expanded) {
+      <span class="whitespace-nowrap font-medium text-gray-700">
+        {{ "sidebar.menu" | transloco }}
+      </span>
+      }
+    </div>
 
-    <!-- Paramètres -->
-    <button
-      mat-icon-button
-      class="flex items-center gap-3 h-10 px-2 cursor-pointer"
+    <div
+      class="flex items-center w-full hover:bg-gray-100 transition-colors cursor-pointer"
       (click)="onSetting()"
     >
-      <mat-icon class="text-2xl" [matTooltip]="'sidebar.settings' | transloco"
-        >settings</mat-icon
-      >
-    </button>
-    <span
-      class="whitespace-nowrap transition-all duration-300"
-      [class.hidden]="!expanded"
-    >
-      {{ "sidebar.settings" | transloco }}
-    </span>
+      <div class="w-20 flex shrink-0 justify-center">
+        <button mat-icon-button type="button">
+          <mat-icon class="text-gray-600">settings</mat-icon>
+        </button>
+      </div>
+      @if (expanded) {
+      <span class="whitespace-nowrap font-medium text-gray-700">
+        {{ "sidebar.settings" | transloco }}
+      </span>
+      }
+    </div>
 
-    <!-- Ajouter utilisateur -->
-    <button
-      mat-icon-button
-      class="flex items-center gap-3 h-10 px-2 cursor-pointer"
+    <div
+      class="flex items-center w-full hover:bg-gray-100 transition-colors cursor-pointer"
       (click)="onAddBirthday()"
     >
-      <mat-icon
-        [matTooltip]="'sidebar.add_birthday' | transloco"
-        >person_add</mat-icon
-      >
-    </button>
+      <div class="w-20 flex shrink-0 justify-center">
+        <button mat-icon-button type="button">
+          <mat-icon class="text-gray-600">person_add</mat-icon>
+        </button>
+      </div>
+      @if (expanded) {
+      <span class="whitespace-nowrap font-medium text-gray-700">
+        {{ "sidebar.add_user" | transloco }}
+      </span>
+      }
+    </div>
   </div>
-  <span
-    class="whitespace-nowrap transition-all duration-300"
-    [class.hidden]="!expanded"
-  >
-    {{ "sidebar.add_user" | transloco }}
-  </span>
 
   <!-- Logo en bas -->
   <div class="w-full p-4 mt-auto">
@@ -79,7 +75,7 @@
         class="text-xs text-gray-500 whitespace-nowrap transition-all duration-300 mt-1"
         [class.hidden]="!expanded"
       >
-        {{ "sidebar.version" | transloco }} : {{version}}
+        {{ "sidebar.version" | transloco }} : {{ version }}
       </div>
     </div>
   </div>
