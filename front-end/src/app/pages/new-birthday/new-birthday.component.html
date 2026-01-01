@@ -1,48 +1,26 @@
-<mat-card
-  class="max-w-2xl mx-auto p-4"
-  style="max-height: 90vh; overflow-y: auto"
->
-  <!-- En-tête -->
-  <mat-card-header class="mb-6">
+<mat-card class="max-w-2xl mx-auto flex flex-col" style="height: 90vh; overflow: hidden;">
+  
+  <mat-card-header class="p-4 shrink-0 border-b border-gray-100">
     <mat-card-title class="!text-2xl !font-bold flex items-center gap-2">
       <mat-icon>person_add</mat-icon>
       {{ 'newBirthday.titel' | transloco }}
     </mat-card-title>
-    <mat-card-subtitle
-      > {{ 'newBirthday.subtitle' | transloco }}</mat-card-subtitle
-    >
+    <mat-card-subtitle>
+      {{ 'newBirthday.subtitle' | transloco }}
+    </mat-card-subtitle>
   </mat-card-header>
 
-  <mat-divider></mat-divider>
-
-  <mat-card-content class="mt-6">
-    <form
-      [formGroup]="profileForm"
-      class="grid grid-cols-1 md:grid-cols-2 gap-6"
-    >
-      <!-- Photo de profil -->
-      <div class="md:col-span-2 flex flex-col items-center">
-        <div class="relative mb-4"></div>
-
+  <mat-card-content class="flex-1 overflow-y-auto p-6 custom-scrollbar">
+    <form [formGroup]="profileForm" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      
+      <div class="md:col-span-2 flex flex-col items-center mb-4">
         @if(profileImage) {
-        <img
-          [src]="profileImage"
-          alt="Profile photo"
-          class="w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg mb-4"
-        />
+          <img [src]="profileImage" alt="Profile" class="w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg mb-4" />
         } @else {
-        <mat-icon matPrefix class="!text-6xl !h-15 !w-15 !mb-2"
-          >account_circle</mat-icon
-        >
+          <mat-icon class="!text-7xl !h-20 !w-20 text-gray-300">account_circle</mat-icon>
         }
 
-        <input
-          #fileInput
-          type="file"
-          accept="image/*"
-          hidden
-          (change)="onFileSelected($event)"
-        />
+        <input #fileInput type="file" accept="image/*" hidden (change)="onFileSelected($event)" />
 
         <button mat-stroked-button type="button" (click)="fileInput.click()">
           <mat-icon>add_a_photo</mat-icon>
@@ -50,16 +28,15 @@
         </button>
       </div>
 
-      <!-- Nom complet -->
       <mat-form-field appearance="outline" class="w-full">
         <mat-label>{{ 'newBirthday.form.name' | transloco }}</mat-label>
         <input matInput formControlName="fullName" required />
         <mat-icon matPrefix>person</mat-icon>
         @if (profileForm.get('fullName')?.hasError('required')) {
-        <mat-error> {{ 'newBirthday.form.errors.errorName' | transloco }} </mat-error>}
+          <mat-error>{{ 'newBirthday.form.errors.errorName' | transloco }}</mat-error>
+        }
       </mat-form-field>
 
-      <!-- Date d'anniversaire -->
       <mat-form-field appearance="outline" class="w-full">
         <mat-label>{{ 'newBirthday.form.birthday' | transloco }}</mat-label>
         <input matInput [matDatepicker]="picker" formControlName="birthdate" />
@@ -68,7 +45,6 @@
         <mat-icon matPrefix>cake</mat-icon>
       </mat-form-field>
 
-      <!-- Relation -->
       <mat-form-field appearance="outline" class="w-full">
         <mat-label>{{ 'newBirthday.form.relationship.titel' | transloco }}</mat-label>
         <mat-select formControlName="relation">
@@ -80,51 +56,43 @@
         <mat-icon matPrefix>group</mat-icon>
       </mat-form-field>
 
-      <!-- Email -->
       <mat-form-field appearance="outline" class="w-full">
         <mat-label>{{ 'newBirthday.form.mail' | transloco }}</mat-label>
         <input matInput formControlName="email" type="email" />
         <mat-icon matPrefix>email</mat-icon>
       </mat-form-field>
 
-      <!-- Téléphone -->
       <mat-form-field appearance="outline" class="w-full">
         <mat-label>{{ 'newBirthday.form.phone' | transloco }}</mat-label>
         <input matInput formControlName="phone" />
         <mat-icon matPrefix>phone</mat-icon>
       </mat-form-field>
 
-      <!-- Ville -->
       <mat-form-field appearance="outline" class="w-full">
         <mat-label>{{ 'newBirthday.form.city' | transloco }}</mat-label>
         <input matInput formControlName="city" />
         <mat-icon matPrefix>location_city</mat-icon>
       </mat-form-field>
 
-      <!-- Notes -->
       <mat-form-field appearance="outline" class="md:col-span-2 w-full">
         <mat-label>{{ 'newBirthday.form.notes' | transloco }}</mat-label>
         <textarea matInput formControlName="notes" rows="3"></textarea>
         <mat-icon matPrefix>note</mat-icon>
       </mat-form-field>
 
-      <!-- Rappels -->
-      <div class="md:col-span-2">
+      <div class="md:col-span-2 p-3 bg-gray-50 rounded-lg">
         <mat-slide-toggle formControlName="enableReminders" color="primary">
           {{ 'newBirthday.form.reminders.titel' | transloco }}
         </mat-slide-toggle>
-        <p class="text-sm text-gray-500 mt-1">
+        <p class="text-xs text-gray-500 mt-1 pl-10">
           {{ 'newBirthday.form.reminders.subtitel' | transloco }}
         </p>
       </div>
     </form>
   </mat-card-content>
 
-  <mat-divider class="mb-6"></mat-divider>
-
-  <!-- Actions -->
-  <mat-card-actions class="flex justify-end gap-2">
-    <button  mat-raised-button color="primary" (click)="cancel()">
+  <mat-card-actions class="p-4 m-2 shrink-0 border-t border-gray-100 flex justify-end gap-3 bg-white">
+    <button mat-button (click)="cancel()">
       <mat-icon>cancel</mat-icon>
       {{ 'newBirthday.actions.cancel' | transloco }}
     </button>
@@ -132,7 +100,8 @@
       mat-raised-button
       color="primary"
       (click)="saveProfile()"
-      [disabled]="!profileForm.valid"
+      [disabled]="profileForm.invalid"
+      class="px-8 shadow-md"
     >
       <mat-icon>save</mat-icon>
       {{ 'newBirthday.actions.save' | transloco }}
