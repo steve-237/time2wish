@@ -4,10 +4,13 @@
   [class.px-4]="expanded"
   [style.width]="expanded ? '280px' : '5rem'"
 >
-  <div class="flex flex-col mt-10 w-full">
+  <div class="flex flex-col mt-10 w-full gap-2">
+    
     <div
-      class="flex items-center w-full hover:bg-gray-100 transition-colors cursor-pointer"
+      class="flex items-center w-full hover:bg-gray-100 transition-colors cursor-pointer rounded-lg"
       (click)="toggleSidebar()"
+      [matTooltip]="!expanded ? ('sidebar.menu' | transloco) : ''"
+      matTooltipPosition="right"
     >
       <div class="w-20 flex shrink-0 justify-center">
         <button mat-icon-button type="button">
@@ -22,8 +25,10 @@
     </div>
 
     <div
-      class="flex items-center w-full hover:bg-gray-100 transition-colors cursor-pointer"
+      class="flex items-center w-full hover:bg-gray-100 transition-colors cursor-pointer rounded-lg"
       (click)="onSetting()"
+      [matTooltip]="!expanded ? ('sidebar.settings' | transloco) : ''"
+      matTooltipPosition="right"
     >
       <div class="w-20 flex shrink-0 justify-center">
         <button mat-icon-button type="button">
@@ -38,8 +43,10 @@
     </div>
 
     <div
-      class="flex items-center w-full hover:bg-gray-100 transition-colors cursor-pointer"
+      class="flex items-center w-full hover:bg-gray-100 transition-colors cursor-pointer rounded-lg"
       (click)="onAddBirthday()"
+      [matTooltip]="!expanded ? ('sidebar.add_user' | transloco) : ''"
+      matTooltipPosition="right"
     >
       <div class="w-20 flex shrink-0 justify-center">
         <button mat-icon-button type="button">
@@ -52,9 +59,12 @@
       </span>
       }
     </div>
+
     <div
-      class="flex items-center w-full hover:bg-gray-100 transition-colors cursor-pointer"
+      class="flex items-center w-full hover:bg-gray-100 transition-colors cursor-pointer rounded-lg"
       (click)="onStatistics()"
+      [matTooltip]="!expanded ? ('sidebar.statistics' | transloco) : ''"
+      matTooltipPosition="right"
     >
       <div class="w-20 flex shrink-0 justify-center">
         <button mat-icon-button type="button">
@@ -79,19 +89,16 @@
           [class.hidden]="expanded"
         />
         @if (expanded) {
-        <span
-          class="text-lg font-semibold whitespace-nowrap transition-all duration-300"
-        >
+        <span class="text-lg font-semibold whitespace-nowrap transition-all duration-300">
           {{ "sidebar.app_name" | transloco }}
         </span>
         }
       </div>
-      <div
-        class="text-xs text-gray-500 whitespace-nowrap transition-all duration-300 mt-1"
-        [class.hidden]="!expanded"
-      >
+      @if (expanded) {
+      <div class="text-xs text-gray-500 whitespace-nowrap transition-all duration-300 mt-1">
         {{ "sidebar.version" | transloco }} : {{ version }}
       </div>
+      }
     </div>
   </div>
 </aside>
