@@ -1,10 +1,10 @@
 <aside
-  class="sticky top-0 left-0 h-screen bg-white flex flex-col items-center transition-all duration-100 ease-in-out"
+  class="sticky top-0 left-0 h-screen bg-white flex flex-col items-center transition-all duration-100 ease-in-out shadow-sm border-r border-gray-100"
   [class.w-16]="!expanded"
   [class.px-4]="expanded"
-  [style.width]="expanded ? 'auto' : '6rem'"
+  [style.width]="expanded ? '280px' : '5rem'"
 >
-  <div class="flex flex-col mt-10">
+  <div class="flex flex-col mt-10 w-full">
     <div
       class="flex items-center w-full hover:bg-gray-100 transition-colors cursor-pointer"
       (click)="toggleSidebar()"
@@ -52,9 +52,23 @@
       </span>
       }
     </div>
+    <div
+      class="flex items-center w-full hover:bg-gray-100 transition-colors cursor-pointer"
+      (click)="onStatistics()"
+    >
+      <div class="w-20 flex shrink-0 justify-center">
+        <button mat-icon-button type="button">
+          <mat-icon class="text-gray-600">bar_chart</mat-icon>
+        </button>
+      </div>
+      @if (expanded) {
+      <span class="whitespace-nowrap font-medium text-gray-700">
+        {{ "sidebar.statistics" | transloco }}
+      </span>
+      }
+    </div>
   </div>
 
-  <!-- Logo en bas -->
   <div class="w-full p-4 mt-auto">
     <div class="flex flex-col items-center">
       <div class="flex items-center justify-center gap-2">
@@ -64,12 +78,13 @@
           class="h-16 w-16 object-contain transition-transform duration-300"
           [class.hidden]="expanded"
         />
+        @if (expanded) {
         <span
           class="text-lg font-semibold whitespace-nowrap transition-all duration-300"
-          [class.hidden]="!expanded"
         >
           {{ "sidebar.app_name" | transloco }}
         </span>
+        }
       </div>
       <div
         class="text-xs text-gray-500 whitespace-nowrap transition-all duration-300 mt-1"
