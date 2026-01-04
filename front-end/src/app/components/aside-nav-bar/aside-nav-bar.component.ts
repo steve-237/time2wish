@@ -32,6 +32,9 @@ import { VersionService } from '../../shared/services/version/version.service';
   templateUrl: './aside-nav-bar.component.html',
 })
 export class AsideNavBarComponent implements OnInit {
+onStatistics() {
+throw new Error('Method not implemented.');
+}
   expanded = false;
   version = '';
 
