@@ -347,5 +347,14 @@
     "video": "Tutoriel vidéo",
     "footer": "Besoin d'aide supplémentaire ?",
     "contact": "Contactez-nous"
+  },
+  "statistics": {
+    "completion_rate": "Profils complétés",
+    "top_names": "Prénoms favoris",
+    "monthly_trend": "Tendance des anniversaires par mois",
+    "zodiac_distribution": "Répartition astrologique",
+    "gender_repartition": "Répartition par genre",
+    "major_milestones": "Anniversaires marquants (Dizaines)",
+    "last_update": "Mis à jour à"
   }
 }

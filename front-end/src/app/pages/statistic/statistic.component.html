@@ -1,0 +1,76 @@
+<div class="p-6 bg-gray-50 min-h-screen space-y-8" *transloco="let t; read: 'statistics'">
+  
+    <header class="flex justify-between items-center">
+      <h1 class="text-2xl font-bold flex items-center gap-2">
+        <mat-icon>insights</mat-icon> {{ t('title') }}
+      </h1>
+      <div class="text-sm bg-blue-100 text-blue-700 px-3 py-1 rounded-full font-medium">
+        {{ t('last_update') }} : {{ today | date:'shortTime' }}
+      </div>
+    </header>
+  
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <mat-card class="p-4 shadow-sm bg-gradient-to-r from-blue-600 to-blue-400 text-white">
+        <p class="text-xs opacity-80 uppercase font-bold">{{ t('completion_rate') }}</p>
+        <div class="flex items-end gap-2">
+          <h2 class="text-3xl font-bold">{{ stats.completionRate }}%</h2>
+          <mat-icon class="mb-1">verified</mat-icon>
+        </div>
+      </mat-card>
+  
+      <mat-card class="p-4 shadow-sm">
+        <p class="text-xs text-gray-400 uppercase font-bold">{{ t('top_names') }}</p>
+        <div class="flex gap-2 mt-1">
+          @for (name of stats.topNames; track name) {
+            <span class="bg-gray-100 px-2 py-1 rounded text-xs font-medium">{{ name }}</span>
+          }
+        </div>
+      </mat-card>
+  
+      </div>
+  
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      
+      <mat-card class="lg:col-span-8 p-6 shadow-sm">
+        <mat-card-title class="text-base font-bold mb-4">{{ t('monthly_trend') }}</mat-card-title>
+        <div class="h-64">
+          <canvas baseChart [data]="lineChartData" [options]="lineChartOptions" [type]="'line'"></canvas>
+        </div>
+      </mat-card>
+  
+      <mat-card class="lg:col-span-4 p-6 shadow-sm">
+        <mat-card-title class="text-base font-bold mb-4">{{ t('zodiac_distribution') }}</mat-card-title>
+        <div class="h-64">
+          <canvas baseChart [data]="zodiacChartData" [type]="'polarArea'"></canvas>
+        </div>
+      </mat-card>
+  
+      <mat-card class="lg:col-span-4 p-6 shadow-sm">
+        <mat-card-title class="text-base font-bold mb-4">{{ t('gender_repartition') }}</mat-card-title>
+        <div class="h-64">
+          <canvas baseChart [data]="genderChartData" [type]="'doughnut'"></canvas>
+        </div>
+      </mat-card>
+  
+      <mat-card class="lg:col-span-4 p-6 shadow-sm">
+        <mat-card-title class="text-base font-bold mb-4">{{ t('relation_chart') }}</mat-card-title>
+        <div class="h-64">
+          <canvas baseChart [data]="lineChartData" [type]="'pie'"></canvas>
+        </div>
+      </mat-card>
+  
+      <mat-card class="lg:col-span-4 p-6 shadow-sm overflow-hidden">
+        <mat-card-title class="text-base font-bold mb-4 text-orange-600">{{ t('major_milestones') }}</mat-card-title>
+        <div class="space-y-4">
+          <div class="flex items-center gap-3 p-2 bg-orange-50 rounded border-l-4 border-orange-400">
+            <mat-icon class="text-orange-600">cake</mat-icon>
+            <div>
+              <p class="text-sm font-bold">Jean-Luc</p>
+              <p class="text-xs text-gray-500">Fête ses 50 ans le 12 Mars</p>
+            </div>
+          </div>
+          </div>
+      </mat-card>
+  
+    </div>
+  </div>
