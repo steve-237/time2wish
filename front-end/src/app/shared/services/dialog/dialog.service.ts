@@ -17,7 +17,7 @@ export class DialogService {
     }
 
     const dialogRef = this.dialog.open(component, {
-      width: config.width || '500px',
+      minWidth: config.width || '500px',
       data: config.data || null,
       disableClose: false,
       autoFocus: false,

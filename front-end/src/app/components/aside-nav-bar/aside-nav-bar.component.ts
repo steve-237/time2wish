@@ -13,6 +13,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslocoModule } from '@jsverse/transloco';
 import { VersionService } from '../../shared/services/version/version.service';
+import { StatisticComponent } from '../../pages/statistic/statistic.component';
 
 @Component({
   selector: 'app-aside-nav-bar',
@@ -32,13 +33,14 @@ import { VersionService } from '../../shared/services/version/version.service';
   templateUrl: './aside-nav-bar.component.html',
 })
 export class AsideNavBarComponent implements OnInit {
-onStatistics() {
-throw new Error('Method not implemented.');
-}
   expanded = false;
   version = '';
 
-  constructor(private dialog: DialogService, public authService: AuthService, private versionService: VersionService) {}
+  constructor(
+    private dialog: DialogService,
+    public authService: AuthService,
+    private versionService: VersionService
+  ) {}
 
   ngOnInit(): void {
     this.version = this.versionService.version;
@@ -50,6 +52,10 @@ throw new Error('Method not implemented.');
 
   onAddBirthday() {
     this.dialog.open(NewBirthdayComponent);
+  }
+
+  onStatistics() {
+    this.dialog.open(StatisticComponent);
   }
 
   toggleSidebar() {

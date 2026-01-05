@@ -347,5 +347,13 @@
     "video": "Tutoriel vidéo",
     "footer": "Besoin d'aide supplémentaire ?",
     "contact": "Contactez-nous"
-  }
+  },
+  "statistics": {
+  "title": "Analytique des Anniversaires",
+  "total_label": "Total Enregistrés",
+  "this_month": "Ce mois-ci",
+  "upcoming": "7 prochains jours",
+  "common_sign": "Signe dominant",
+  "distribution_chart": "Répartition annuelle des anniversaires"
+}
 }
