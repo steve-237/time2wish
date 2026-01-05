@@ -11,6 +11,7 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { TranslocoHttpLoader } from './transloco-loader';
 import { provideTransloco } from '@jsverse/transloco';
 import { provideNativeDateAdapter } from '@angular/material/core';
+import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 
 
 export const appConfig: ApplicationConfig = {
@@ -30,5 +31,6 @@ export const appConfig: ApplicationConfig = {
       },
       loader: TranslocoHttpLoader,
     }),
+    provideCharts(withDefaultRegisterables())
   ],
 };
