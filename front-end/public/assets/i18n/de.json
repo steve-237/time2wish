@@ -318,7 +318,10 @@
     "support": "Brauchen Sie Hilfe? Kontaktieren Sie den Support über das Hilfe-Menü."
   },
   "guide": {
-    "header": { "title": "Bedienungsanleitung", "subtitle": "Erfahren Sie, wie Sie Time2Wish am besten nutzen" },
+    "header": {
+      "title": "Bedienungsanleitung",
+      "subtitle": "Erfahren Sie, wie Sie Time2Wish am besten nutzen"
+    },
     "sections": {
       "add": {
         "title": "Geburtstage hinzufügen",
@@ -345,5 +348,14 @@
     "video": "Video-Anleitung",
     "footer": "Benötigen Sie weitere Hilfe?",
     "contact": "Kontaktiere uns"
+  },
+  "activity": {
+    "title": "Aktivitätsprotokoll",
+    "empty": "Keine aktuellen Aktivitäten",
+    "actions": {
+      "create": "Hinzufügen",
+      "update": "Bearbeitung",
+      "delete": "Löschung"
+    }
   }
 }
