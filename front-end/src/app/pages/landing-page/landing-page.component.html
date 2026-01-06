@@ -96,6 +96,10 @@
                 <mat-icon>person</mat-icon>
                 <span>{{ t('toolbar.profile') }}</span>
               </button>
+              <button mat-menu-item (click)="openActivityLogs()">
+                <mat-icon>history</mat-icon>
+                <span>{{ 'toolbar.activity_log' | transloco }}</span>
+              </button>
               <button mat-menu-item [routerLink]="['/login']">
                 <mat-icon>logout</mat-icon>
                 <span>{{ t('toolbar.logout') }}</span>

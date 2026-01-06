@@ -8,6 +8,7 @@
     "help": "Aide",
     "profile": "Mon profil",
     "logout": "Déconnexion",
+    "activity_log": "Historique d'activité",
     "languages": {
       "gb": "Anglais",
       "fr": "Français",
@@ -356,5 +357,14 @@
     "gender_repartition": "Répartition par genre",
     "major_milestones": "Anniversaires marquants (Dizaines)",
     "last_update": "Mis à jour à"
+  },
+  "activity": {
+    "title": "Historique des activités",
+    "empty": "Aucune activité récente",
+    "actions": {
+      "create": "Ajout",
+      "update": "Modification",
+      "delete": "Suppression"
+    }
   }
 }

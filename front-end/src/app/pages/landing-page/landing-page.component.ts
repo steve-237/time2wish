@@ -42,6 +42,7 @@ import { AsideNavBarComponent } from '../../components/aside-nav-bar/aside-nav-b
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { SetLanguageComponent } from '../../components/set-language/set-language.component';
 import { FooterComponent } from '../../components/footer/footer.component';
+import { ActivityLogsComponent } from '../activity-logs/activity-logs.component';
 
 @Component({
   selector: 'app-landing-page',
@@ -76,6 +77,7 @@ import { FooterComponent } from '../../components/footer/footer.component';
   templateUrl: './landing-page.component.html',
 })
 export class LandingPageComponent {
+
   editBirthday() {
     throw new Error('Method not implemented.');
   }
@@ -363,5 +365,12 @@ export class LandingPageComponent {
       default:
         return ''; // Aucune classe
     }
+  }
+
+  openActivityLogs(): void {
+    this.dialog.open(ActivityLogsComponent, {
+      width: '650px', // Un peu plus large pour voir les détails
+      data: { filter: 'all' }
+    });
   }
 }

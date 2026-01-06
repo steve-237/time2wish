@@ -8,6 +8,7 @@
     "help": "Help",
     "profile": "My profile",
     "logout": "Logout",
+    "activity_log": "Activity Log",
     "languages": {
       "gb": "English",
       "fr": "French",
@@ -317,7 +318,10 @@
     "support": "Need More Help? Contact support via the Help menu."
   },
   "guide": {
-    "header": { "title": "User Guide", "subtitle": "Discover how to get the most out of Time2Wish" },
+    "header": {
+      "title": "User Guide",
+      "subtitle": "Discover how to get the most out of Time2Wish"
+    },
     "sections": {
       "add": {
         "title": "Add Birthdays",
@@ -344,5 +348,14 @@
     "video": "Video Tutorial",
     "footer": "Need more help?",
     "contact": "Contact us"
+  },
+  "activity": {
+    "title": "Historique des activités",
+    "empty": "Aucune activité récente",
+    "actions": {
+      "create": "Ajout",
+      "update": "Modification",
+      "delete": "Suppression"
+    }
   }
 }
