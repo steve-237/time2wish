@@ -77,6 +77,9 @@ import { ActivityLogsComponent } from '../activity-logs/activity-logs.component'
   templateUrl: './landing-page.component.html',
 })
 export class LandingPageComponent {
+logout() {
+throw new Error('Method not implemented.');
+}
 
   editBirthday() {
     throw new Error('Method not implemented.');
