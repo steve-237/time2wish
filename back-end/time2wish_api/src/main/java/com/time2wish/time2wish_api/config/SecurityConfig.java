@@ -55,6 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(
                         "/api/register",
                         "/api/login",
+                        "/api/logout",
                         "/api/refresh", // Endpoint pour rafraîchir le token
                         "/h2-console/**" // Console H2
                 ).permitAll()
