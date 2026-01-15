@@ -326,4 +326,22 @@ public class UserController {
             return null; // Anniversaire non trouvé (404 Not Found)
         }
     }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(HttpServletResponse response) {
+        // 1. Créer un cookie identique au refresh_token mais avec une durée de vie de 0
+        Cookie cookie = new Cookie("refreshToken", null);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(true); // À mettre à true en production (HTTPS)
+        cookie.setPath("/");
+        cookie.setMaxAge(0); // Expire immédiatement
+
+        // 2. Ajouter le cookie à la réponse pour que le navigateur le supprime
+        response.addCookie(cookie);
+
+        // 3. Optionnel : Nettoyer le SecurityContext de Spring
+        SecurityContextHolder.clearContext();
+
+        return ResponseEntity.ok(new MessageResponse("Déconnexion réussie"));
+    }
 }
