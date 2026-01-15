@@ -373,4 +373,11 @@ export class LandingPageComponent {
       data: { filter: 'all' }
     });
   }
+
+  onLogout(): void {
+    this.authService.logout().subscribe({
+      next: () => console.log('Déconnecté du serveur'),
+      error: (err) => console.error('Erreur lors du logout backend', err)
+    });
+  }
 }
