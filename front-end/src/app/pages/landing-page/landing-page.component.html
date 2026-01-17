@@ -100,7 +100,7 @@
                 <mat-icon>history</mat-icon>
                 <span>{{ 'toolbar.activity_log' | transloco }}</span>
               </button>
-              <button mat-menu-item (click)="logout()" [routerLink]="['/login']">
+              <button mat-menu-item (click)="onLogout()" [routerLink]="['/login']">
                 <mat-icon>logout</mat-icon>
                 <span>{{ t('toolbar.logout') }}</span>
               </button>

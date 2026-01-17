@@ -8,6 +8,7 @@ import { RegisterRequest } from '../../../models/registerRequest.model';
 import { UserProfile } from '../../../models/user.model';
 import { environment } from '../../../../environments/environment';
 import { FAKE_USERS } from './auth.mock-data';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +26,7 @@ export class AuthService {
   // Clé utilisée pour stocker le token dans le localStorage
   private readonly ACCESS_TOKEN_KEY = 'accessToken';
 
-  constructor(@Inject(HttpClient) private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
     const savedUser = localStorage.getItem('user');
     if (savedUser) {
       // Si on trouve un utilisateur dans le stockage, on le remet dans le Subject
@@ -191,13 +192,25 @@ export class AuthService {
       return this.mockLogout();
     }
 
-    return this.http.post<ApiResponse<void>>(`${this.apiUrl}/logout`, {}).pipe(
+    return this.http.post<ApiResponse<void>>(`${this.apiUrl}/logout`, {}, { withCredentials: true }).pipe(
       tap((response: ApiResponse<void>) => {
         if (response.success) {
-          this.currentUserSubject.next(null);
+          this.cleanLocalData();
         }
       })
     );
+  }
+
+  private cleanLocalData() {
+    // Supprimer les jetons et infos utilisateur
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('user');
+    
+    // Notifier toute l'application que l'utilisateur est null
+    this.currentUserSubject.next(null);
+    
+    // Rediriger vers la page de login
+    this.router.navigateByUrl('/login');
   }
 
   private mockLogout(): Observable<ApiResponse<void>> {
@@ -368,7 +381,7 @@ export class AuthService {
    */
   isLoggedIn(): boolean {
     return (
-      !!this.currentUserSubject.value ||
+      !!this.currentUserSubject.value &&
       !!localStorage.getItem(this.ACCESS_TOKEN_KEY)
     );
   }

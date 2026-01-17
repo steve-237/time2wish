@@ -7,7 +7,7 @@ import { PasswordResetComponent } from './pages/password-reset/password-reset.co
 import { AuthGuard } from './core/guard/auth/auth.guard';
 
 export const routes: Routes = [
-  { path: 'landing-page', component: LandingPageComponent, canActivate: [AuthGuard] },
+  { path: '', component: LandingPageComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegistrationComponent },
   { path: 'password-reset', component: PasswordResetComponent },
