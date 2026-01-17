@@ -381,7 +381,7 @@ export class AuthService {
    */
   isLoggedIn(): boolean {
     return (
-      !!this.currentUserSubject.value ||
+      !!this.currentUserSubject.value &&
       !!localStorage.getItem(this.ACCESS_TOKEN_KEY)
     );
   }
