@@ -71,7 +71,7 @@ export class LoginComponent implements OnDestroy {
             { duration: 3000 }
           );
 
-          this.router.navigate(['/landing-page']);
+          this.router.navigate(['/']);
         } else {
           this.errorMessage =
             response?.message || 'login.errors.invalid_credentials';
