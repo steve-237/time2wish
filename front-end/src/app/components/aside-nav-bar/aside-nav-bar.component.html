@@ -77,6 +77,24 @@
       </span>
       }
     </div>
+    
+    <div
+      class="flex items-center w-full hover:bg-gray-100 transition-colors cursor-pointer rounded-lg"
+      (click)="onPricing()"
+      [matTooltip]="!expanded ? ('sidebar.pricing' | transloco) : ''"
+      matTooltipPosition="right"
+    >
+      <div class="w-20 flex shrink-0 justify-center">
+        <button mat-icon-button type="button">
+          <mat-icon class="text-gray-600">monetization_on</mat-icon>
+        </button>
+      </div>
+      @if (expanded) {
+      <span class="whitespace-nowrap font-medium text-gray-700">
+        {{ "sidebar.pricing" | transloco }}
+      </span>
+      }
+    </div>
   </div>
 
   <div class="w-full p-4 mt-auto">
