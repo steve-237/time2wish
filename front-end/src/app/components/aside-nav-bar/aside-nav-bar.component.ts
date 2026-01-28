@@ -14,6 +14,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslocoModule } from '@jsverse/transloco';
 import { VersionService } from '../../shared/services/version/version.service';
 import { StatisticComponent } from '../../pages/statistic/statistic.component';
+import { PricingComponent } from '../../pages/pricing/pricing.component';
 
 @Component({
   selector: 'app-aside-nav-bar',
@@ -60,5 +61,9 @@ export class AsideNavBarComponent implements OnInit {
 
   toggleSidebar() {
     this.expanded = !this.expanded;
+  }
+
+  onPricing() {
+    this.dialog.open(PricingComponent);
   }
 }
