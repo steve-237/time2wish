@@ -64,6 +64,7 @@
   "Business": "Geschäftlich",
   "sidebar": {
     "menu": "Menü",
+    "pricing": "Preise",
     "settings": "Einstellungen",
     "add_user": "Benutzer hinzufügen",
     "add_birthday": "Geburtstag hinzufügen",
@@ -356,6 +357,19 @@
       "create": "Hinzufügen",
       "update": "Bearbeitung",
       "delete": "Löschung"
+    }
+  },
+  "pricing": {
+    "title": "Preise",
+    "subtitle": "Wählen Sie den Plan, der zu Ihnen passt",
+    "description": "Time2Wish hilft Ihnen, jeden wichtigen Moment stressfrei zu feiern.",
+    "most_popular": "Am beliebtesten",
+    "per_month": "/Monat",
+    "footer_note": "Alle Preise enthalten die MwSt. Kündigen Sie Ihr Abonnement jederzeit.",
+    "plans": {
+      "free": "Gratis",
+      "pro": "Pro",
+      "family": "Familie"
     }
   }
 }
