@@ -64,6 +64,7 @@
   "Business": "Business",
   "sidebar": {
     "menu": "Menu",
+    "pricing": "Pricing",
     "settings": "Settings",
     "add_user": "Add user",
     "add_birthday": "Add new birthday",
@@ -356,6 +357,19 @@
       "create": "Ajout",
       "update": "Modification",
       "delete": "Suppression"
+    }
+  },
+  "pricing": {
+    "title": "Pricing",
+    "subtitle": "Choose the plan that suits you",
+    "description": "Time2Wish helps you enjoy each important moment without stress.",
+    "most_popular": "Most popular",
+    "per_month": "/month",
+    "footer_note": "All prices include VAT. Cancel your subscription at any time.",
+    "plans": {
+      "free": "Free",
+      "pro": "Pro",
+      "family": "Family"
     }
   }
 }

@@ -64,6 +64,7 @@
   "Business": "Professionnel",
   "sidebar": {
     "menu": "Menu",
+    "pricing": "Tarifs",
     "settings": "Paramètres",
     "add_user": "Ajouter utilisateur",
     "add_birthday": "Ajouter anniversaire",
@@ -365,6 +366,19 @@
       "create": "Ajout",
       "update": "Modification",
       "delete": "Suppression"
+    }
+  },
+  "pricing": {
+    "title": "Tarifs",
+    "subtitle": "Choisissez le plan qui vous convient",
+    "description": "Time2Wish vous aide à profiter de chaque moment important sans stress.",
+    "most_popular": "Le plus populaire",
+    "per_month": "/mois",
+    "footer_note": "Tous les prix incluent la TVA. Annulez votre abonnement à tout moment.",
+    "plans": {
+      "free": "Gratuit",
+      "pro": "Pro",
+      "family": "Famille"
     }
   }
 }
