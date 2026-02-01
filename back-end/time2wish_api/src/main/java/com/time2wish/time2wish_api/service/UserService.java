@@ -9,13 +9,18 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
+
+    @Autowired
+    private EmailService emailService;
 
     /**
      * Injection des dépendances par constructeur.
@@ -193,5 +198,27 @@ public class UserService {
 
         // 3. Sauvegarder et retourner
         return userRepository.save(existingUser);
+    }
+
+    public void createPasswordResetToken(String email) {
+        userRepository.findByEmail(email).ifPresent(user -> {
+            String token = UUID.randomUUID().toString();
+            user.setResetToken(token);
+            user.setResetTokenExpiry(LocalDateTime.now().plusMinutes(15));
+            userRepository.save(user);
+
+            emailService.sendResetPasswordEmail(user.getEmail(), token);
+        });
+    }
+
+    public void updatePassword(String token, String newPassword) {
+        User user = userRepository.findByResetToken(token)
+                .filter(u -> u.getResetTokenExpiry().isAfter(LocalDateTime.now()))
+                .orElseThrow(() -> new RuntimeException("Token invalide ou expiré"));
+
+        user.setPassword(passwordEncoder.encode(newPassword));
+        user.setResetToken(null);
+        user.setResetTokenExpiry(null);
+        userRepository.save(user);
     }
 }
