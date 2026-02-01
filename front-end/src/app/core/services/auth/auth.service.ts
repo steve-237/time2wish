@@ -436,4 +436,26 @@ export class AuthService {
     localStorage.setItem('user', JSON.stringify(user));
     this.currentUserSubject.next(user);
   }
+
+  /**
+   * 1. Demande l'envoi du lien de réinitialisation
+   * @param email L'adresse de l'utilisateur
+   */
+  requestPasswordReset(email: string): Observable<any> {
+    // Correspond au ForgotPasswordRequest du backend
+    return this.http.post(`${this.apiUrl}/forgot-password`, { email });
+  }
+
+  /**
+   * 2. Envoie le nouveau mot de passe avec le token
+   * @param token Le jeton récupéré dans l'URL
+   * @param newPassword Le nouveau mot de passe saisi
+   */
+  resetPassword(token: string, newPassword: string): Observable<any> {
+    // Correspond au ResetPasswordRequest du backend
+    return this.http.post(`${this.apiUrl}/reset-password`, { 
+      token, 
+      newPassword 
+    });
+  }
 }
