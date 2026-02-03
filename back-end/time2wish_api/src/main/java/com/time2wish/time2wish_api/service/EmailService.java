@@ -10,6 +10,7 @@ import javax.annotation.PostConstruct;
 
 @Service
 public class EmailService {
+//TODO: Fix the error occuring while sending and email
 
     @Autowired
     private JavaMailSender mailSender;
