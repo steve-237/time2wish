@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TranslocoModule } from '@jsverse/transloco';
 import { AuthService } from '../../core/services/auth/auth.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-password-reset',
@@ -19,12 +20,14 @@ import { AuthService } from '../../core/services/auth/auth.service';
     MatButtonModule,
     ReactiveFormsModule,
     TranslocoModule,
+    MatProgressSpinnerModule,
   ],
   templateUrl: './password-reset.component.html',
 })
 export class PasswordResetComponent {
   resetForm: FormGroup;
   resetSent = false;
+  isLoading = false;
 
   constructor(private fb: FormBuilder, private authService: AuthService) {
     this.resetForm = this.fb.group({
@@ -39,15 +42,18 @@ export class PasswordResetComponent {
     //TODO: Gérer le succès de l'envoi du lien de réinitialisation
     if (this.resetForm.valid) {
       console.log('Reset requested for:', this.resetForm.value.email);
+      this.isLoading = true;
 
       this.authService.requestPasswordReset(this.resetForm.value.email).subscribe({
         next: (res) => {
           // Afficher un message de succès (le lien est envoyé)
           this.resetSent = true;
+          this.isLoading = false;
         },
         error: (err) => {
           // Gérer l'erreur (ex: serveur injoignable)
           console.error(err);
+          this.isLoading = false;
         }
       });
     }
