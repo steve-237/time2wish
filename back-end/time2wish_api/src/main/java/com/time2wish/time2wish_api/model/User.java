@@ -1,9 +1,12 @@
 package com.time2wish.time2wish_api.model;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -55,6 +58,16 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private UserStatus status;
+
+    @Setter
+    @Getter
+    @Column(name = "reset_token")
+    private String resetToken;
+
+    @Getter
+    @Setter
+    @Column(name = "reset_token_expiry")
+    private LocalDateTime resetTokenExpiry;
 
     // --- Enums pour Theme et Status ---
 

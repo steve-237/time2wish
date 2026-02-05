@@ -13,6 +13,6 @@ public interface UserRepository extends CrudRepository<User, Long> {
     // Nouvelle méthode pour charger l'utilisateur ET ses anniversaires
     @Query("SELECT u FROM User u JOIN FETCH u.birthdays b WHERE u.email = :email")
     Optional<User> findByEmailWithBirthdays(@Param("email") String email);
-
     Optional<User> findByEmail(String email);
+    Optional<User> findByResetToken(String resetToken);
 }

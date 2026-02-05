@@ -344,4 +344,27 @@ public class UserController {
 
         return ResponseEntity.ok(new MessageResponse("Déconnexion réussie"));
     }
+
+    // 1. Demander la réinitialisation (envoi de l'email via le service)
+    @PostMapping("/forgot-password")
+    public ResponseEntity<?> forgotPassword(@RequestBody ForgotPasswordRequestDTO request) {
+        // Le UserService s'occupe de chercher l'user, générer le token et envoyer le mail
+        userService.createPasswordResetToken(request.getEmail());
+
+        // On renvoie un message neutre pour la sécurité (évite l'énumération d'emails)
+        return ResponseEntity.ok(new MessageResponse("Si cet email existe, un lien de réinitialisation a été envoyé."));
+    }
+
+    // 2. Valider le changement de mot de passe effectif
+    @PostMapping("/reset-password")
+    public ResponseEntity<?> resetPassword(@RequestBody ResetPasswordRequestDTO request) {
+        try {
+            userService.updatePassword(request.getToken(), request.getNewPassword());
+            return ResponseEntity.ok(new MessageResponse("Le mot de passe a été mis à jour avec succès."));
+        } catch (RuntimeException e) {
+            // Gère le cas où le token est expiré ou invalide
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new MessageResponse(e.getMessage()));
+        }
+    }
 }

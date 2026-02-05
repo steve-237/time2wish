@@ -57,7 +57,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/login",
                         "/api/logout",
                         "/api/refresh", // Endpoint pour rafraîchir le token
-                        "/h2-console/**" // Console H2
+                        "/h2-console/**", // Console H2
+                        "/api/forgot-password",
+                        "/api/reset-password"
                 ).permitAll()
 
                 // Exiger l'authentification (via le filtre JWT) pour toutes les autres requêtes
