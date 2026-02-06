@@ -5,13 +5,14 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 import { RegistrationComponent } from './pages/registration/registration.component';
 import { PasswordResetComponent } from './pages/password-reset/password-reset.component';
 import { AuthGuard } from './core/guard/auth/auth.guard';
+import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 
 export const routes: Routes = [
   { path: '', component: LandingPageComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegistrationComponent },
   { path: 'password-reset', component: PasswordResetComponent },
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'page-not-found', component: PageNotFoundComponent, canActivate: [AuthGuard] },
-  { path: '**', redirectTo: '/login' },
+  { path: 'reset-password', component: ResetPasswordComponent },
+  { path: 'page-not-found', component: PageNotFoundComponent},
+  { path: '**', redirectTo: '' },
 ];
