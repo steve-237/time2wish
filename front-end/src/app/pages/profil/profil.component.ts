@@ -1,37 +1,27 @@
-import {
-  Component,
-  ElementRef,
-  Inject,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
-import {
-  FormGroup,
-  FormBuilder,
-  Validators,
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { Component, ElementRef, inject, OnInit, ViewChild, signal, computed } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+
+// Material Imports
 import { MatButtonModule } from '@angular/material/button';
-import {
-  MatDialogRef,
-  MAT_DIALOG_DATA,
-  MatDialogModule,
-} from '@angular/material/dialog';
+import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { AuthService } from '../../core/services/auth/auth.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatTooltip } from '@angular/material/tooltip';
-import { TranslocoPipe } from '@jsverse/transloco';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBar } from '@angular/material/snack-bar';
+
+// Services & Models
+import { TranslocoService } from '@jsverse/transloco';
+import { AuthService } from '../../core/services/auth/auth.service';
 import { UserProfile } from '../../models/user.model';
-import { CommonModule } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-profil',
+  standalone: true,
   imports: [
     CommonModule,
     MatDialogModule,
@@ -43,207 +33,134 @@ import { CommonModule } from '@angular/common';
     FormsModule,
     ReactiveFormsModule,
     MatProgressSpinnerModule,
-    MatTooltip,
-    TranslocoPipe,
+    MatTooltipModule,
   ],
   templateUrl: './profil.component.html',
 })
 export class ProfilComponent implements OnInit {
-  editMode = false;
-  profileForm: FormGroup;
-  profileImage: string | ArrayBuffer | null = null;
-  originalFormValues: any;
-  isLoading = true;
-  currentUser: UserProfile | null = null;
-  userId: string = '';
+  // Functional Injection
+  private readonly fb = inject(FormBuilder);
+  protected readonly authService = inject(AuthService);
+  private readonly snackBar = inject(MatSnackBar);
+  private readonly transloco = inject(TranslocoService);
+  public readonly dialogRef = inject(MatDialogRef<ProfilComponent>);
 
-  @ViewChild('fileInput') fileInput!: ElementRef;
+  // Local State Management with Signals
+  readonly editMode = signal(false);
+  readonly isLoading = signal(false);
+  
+  // Temporal image signal for preview during edit
+  private readonly _previewImage = signal<string | ArrayBuffer | null>(null);
 
-  constructor(
-    private fb: FormBuilder,
-    public dialogRef: MatDialogRef<ProfilComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    private authService: AuthService,
-    private snackBar: MatSnackBar
-  ) {
-    this.profileForm = this.fb.group({
-      fullName: ['', [Validators.required, Validators.minLength(2)]],
-      email: ['', [Validators.required, Validators.email]],
-      bio: [''],
-      notificationsEnabled: [true],
-      language: ['fr'],
-      theme: ['light'],
-    });
-  }
+  // Computed signal: prioritizes preview if editing, otherwise uses service data
+  readonly profileImage = computed(() => 
+    this._previewImage() ?? this.authService.currentUser()?.profilePicture ?? null
+  );
+
+  readonly profileForm: FormGroup = this.fb.group({
+    fullName: ['', [Validators.required, Validators.minLength(2)]],
+    email: [{ value: '', disabled: true }], // Email is usually non-editable
+    bio: [''],
+    notificationsEnabled: [true],
+    language: ['fr'],
+    theme: ['light'],
+  });
+
+  private originalFormValues!: Partial<UserProfile>;
+
+  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
   ngOnInit(): void {
-    this.loadUserData();
-    this.userId = this.currentUser ? this.currentUser.id : '';
-    console.log('Current User ID: ', this.userId);
-  }
-
-  loadUserData() {
-    this.isLoading = true;
-
-    // Récupération de l'utilisateur courant via le service
-    this.currentUser = this.authService.getCurrentUserValue();
-
-    if (this.currentUser) {
-      this.profileImage = this.currentUser.profilePicture || null;
-
-      this.profileForm.patchValue({
-        fullName: this.currentUser.fullName,
-        email: this.currentUser.email,
-        bio: this.currentUser.bio || '',
-        notificationsEnabled: this.currentUser.notificationsEnabled ?? true,
-        language: this.currentUser.language || 'fr',
-        theme: this.currentUser.theme || 'light',
-      });
-
-      // Sauvegarder les valeurs originales
-      this.originalFormValues = { ...this.profileForm.value };
+    const user = this.authService.currentUser();
+    if (user) {
+      this.populateForm(user);
     }
-
-    this.isLoading = false;
   }
 
-  toggleEditMode() {
-    this.editMode = !this.editMode;
-    if (!this.editMode) {
+  private populateForm(user: UserProfile): void {
+    this.profileForm.patchValue({
+      fullName: user.fullName,
+      email: user.email,
+      bio: user.bio || '',
+      notificationsEnabled: user.notificationsEnabled ?? true,
+      language: user.language || 'fr',
+      theme: user.theme || 'light',
+    });
+    this.originalFormValues = this.profileForm.getRawValue();
+  }
+
+  toggleEditMode(): void {
+    this.editMode.update(val => !val);
+    if (!this.editMode()) {
       this.cancelEdit();
     }
   }
 
-  cancelEdit() {
-    if (this.originalFormValues) {
-      this.profileForm.patchValue(this.originalFormValues);
-    }
-    this.editMode = false;
+  cancelEdit(): void {
+    this.profileForm.patchValue(this.originalFormValues);
+    this._previewImage.set(null);
+    this.editMode.set(false);
   }
 
-  onFileSelected(event: any): void {
-    const file = event.target.files[0];
-    if (file) {
-      // Vérification du type de fichier
-      if (!file.type.match('image.*')) {
-        this.snackBar.open('Veuillez sélectionner une image', 'Fermer', {
-          duration: 3000,
-          panelClass: ['error-snackbar'],
-        });
-        return;
+  onFileSelected(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    const file = target.files?.[0];
+    if (!file) return;
+
+    if (file.size > 2 * 1024 * 1024) {
+      this.showSnackBar('errors.image_too_large', 'error-snackbar');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => this._previewImage.set(reader.result);
+    reader.readAsDataURL(file);
+  }
+
+  saveProfile(): void {
+    if (this.profileForm.invalid) return;
+  
+    this.isLoading.set(true);
+    const user = this.authService.currentUser();
+    
+    // 1. Déclaration de l'objet (ici il est "utilisé" par l'appel ci-dessous)
+    const updatedProfile: Partial<UserProfile> = {
+      ...this.profileForm.getRawValue(),
+      profilePicture: (this._previewImage() as string) ?? user?.profilePicture
+    };
+  
+    // 2. Utilisation effective de la variable
+    this.authService.updateUserProfile(user!.id, updatedProfile).subscribe({
+      next: () => {
+        this.isLoading.set(false);
+        this.editMode.set(false);
+        this._previewImage.set(null); // Reset preview after success
+        
+        this.snackBar.open(
+          this.transloco.translate('profile.update_success'), 
+          'OK', 
+          { duration: 3000 }
+        );
+  
+        // On met à jour les valeurs de référence pour le prochain "Annuler"
+        this.originalFormValues = this.profileForm.getRawValue();
+      },
+      error: (err: HttpErrorResponse) => {
+        this.isLoading.set(false);
+        this.snackBar.open(err.error?.message || 'Error', 'OK', { duration: 5000 });
       }
-
-      // Vérification de la taille (max 5MB)
-      if (file.size > 5 * 1024 * 1024) {
-        this.snackBar.open("L'image ne doit pas dépasser 5MB", 'Fermer', {
-          duration: 3000,
-          panelClass: ['error-snackbar'],
-        });
-        return;
-      }
-
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.profileImage = reader.result;
-      };
-      reader.readAsDataURL(file);
-    }
+    });
   }
 
-  triggerFileInput(): void {
-    this.fileInput.nativeElement.click();
-  }
-
-  removeProfileImage(): void {
-    this.profileImage = null;
-  }
-
-  saveProfile() {
-    if (this.profileForm.valid && this.currentUser) {
-      this.isLoading = true;
-
-      const formData = this.profileForm.value;
-      const updatedProfile: Partial<UserProfile> = {
-        fullName: formData.fullName,
-        email: formData.email,
-        bio: formData.bio,
-        notificationsEnabled: formData.notificationsEnabled,
-        language: formData.language,
-        theme: formData.theme,
-        profilePicture: this.profileImage as string,
-      };
-
-      // Appel du service pour mettre à jour le profil
-      this.authService
-        .updateUserProfile(this.userId, updatedProfile)
-        .subscribe({
-          next: (response) => {
-            this.isLoading = false;
-            const updatedData = response.data || response;
-
-            if (response) {
-              this.snackBar.open('Profil mis à jour avec succès', 'Fermer', {
-                duration: 3000,
-                panelClass: ['success-snackbar'],
-              });
-              
-              this.authService.setCurrentUser(updatedData as UserProfile);
-
-              this.originalFormValues = { ...this.profileForm.value };
-              this.currentUser = updatedData as UserProfile;
-              this.editMode = false;
-            } else {
-              this.snackBar.open(
-                response || 'Erreur lors de la mise à jour',
-                'Fermer',
-                {
-                  duration: 5000,
-                  panelClass: ['error-snackbar'],
-                }
-              );
-            }
-          },
-          error: (error) => {
-            this.isLoading = false;
-            const errorMessage =
-              error.error?.message ||
-              error.message ||
-              'Erreur lors de la mise à jour du profil';
-            this.snackBar.open(errorMessage, 'Fermer', {
-              duration: 5000,
-              panelClass: ['error-snackbar'],
-            });
-          },
-        });
-    } else {
-      // Marquer tous les champs comme touchés pour afficher les erreurs
-      this.markFormGroupTouched(this.profileForm);
-    }
-  }
-
-  private markFormGroupTouched(formGroup: FormGroup) {
-    Object.keys(formGroup.controls).forEach((key) => {
-      const control = formGroup.get(key);
-      control?.markAsTouched();
+  private showSnackBar(messageKey: string, panelClass: string): void {
+    this.snackBar.open(this.transloco.translate(messageKey), 'OK', {
+      duration: 3000,
+      panelClass: [panelClass],
     });
   }
 
   onCancel(): void {
     this.dialogRef.close();
   }
-
-  // Getters pour accéder facilement aux contrôles du formulaire
-  get fullName() {
-    return this.profileForm.get('fullName');
-  }
-  get email() {
-    return this.profileForm.get('email');
-  }
-  get bio() {
-    return this.profileForm.get('bio');
-  }
-
-  deleteAccount() {
-    throw new Error('Method not implemented.');
-  }
+  onDeleteAccount(): void {console.log('onDeleteAccount');}
 }

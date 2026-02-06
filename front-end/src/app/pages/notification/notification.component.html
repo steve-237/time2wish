@@ -1,16 +1,16 @@
-<div class="notification p-2 max-h-[70vh] flex flex-col">
+<div class="notification p-2 max-h-[70vh] flex flex-col" *transloco="let t">
   <div class="flex justify-between items-center p-4 border-b border-gray-200">
     <h3 class="text-lg font-semibold flex items-center gap-2">
       <mat-icon>notifications</mat-icon>
-      {{ 'notifications.header.title' | transloco }}
+      {{ t('notifications.header.title') }}
     </h3>
     <button mat-button (click)="notificationService.markAllAsRead()">
-      {{ 'notifications.header.mark_all_read' | transloco }}
+      {{ t('notifications.header.mark_all_read') }}
     </button>
   </div>
 
   <div class="overflow-y-auto flex-grow">
-    @for (notif of notificationService.notifications$ | async; track $index) {
+    @for (notif of notificationService.notifications(); track notif.id) {
     <div
       class="p-4 border-b border-gray-100 hover:bg-gray-50 transition-colors bg-white"
       [class.bg-blue-50]="!notif.read"
@@ -21,36 +21,40 @@
             <mat-icon class="text-blue-500 text-lg mb-5">{{ notif.icon }}</mat-icon>
             <div>
               <h4 class="font-medium mb-1">{{ notif.title }}</h4>
-              <p class="text-sm text-gray-600 ">{{ notif.message }}</p>
+              <p class="text-sm text-gray-600">{{ notif.message }}</p>
             </div>
 
             <div class="flex gap-2">
               <span class="text-xs text-gray-500 whitespace-nowrap">
                 {{ getTimeAgo(notif.date) }}
               </span>
-              <button
-                mat-icon-button
-                class="p-0 h-4 w-4"
-                (click)="notificationService.markAsRead(notif.id)"
-                [matTooltip]="'notifications.actions.mark_as_read' | transloco"
-              >
-                <mat-icon class="!text-xs leading-none">circle</mat-icon>
-              </button>
+              
+              @if (!notif.read) {
+                <button
+                  mat-icon-button
+                  class="p-0 h-4 w-4"
+                  (click)="notificationService.markAsRead(notif.id)"
+                  [matTooltip]="t('notifications.actions.mark_as_read')"
+                >
+                  <mat-icon class="!text-xs leading-none text-blue-500">circle</mat-icon>
+                </button>
+              }
             </div>
           </div>
         </div>
       </div>
     </div>
     } @empty {
-      <div class="p-8 text-center text-gray-500">
-        {{ 'notifications.empty_state' | transloco }}
+      <div class="p-8 text-center text-gray-500 flex flex-col items-center gap-2">
+        <mat-icon class="text-4xl text-gray-300">notifications_off</mat-icon>
+        <p>{{ t('notifications.empty_state') }}</p>
       </div>
     }
   </div>
 
   <div class="p-2 border-t border-gray-200 text-center">
     <button mat-button color="primary" class="!text-sm">
-      {{ 'notifications.footer.view_all' | transloco }}
+      {{ t('notifications.footer.view_all') }}
     </button>
   </div>
 </div>

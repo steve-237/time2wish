@@ -1,8 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { SettingComponent } from '../../pages/setting/setting.component';
-import { NewBirthdayComponent } from '../../pages/new-birthday/new-birthday.component';
-import { DialogService } from '../../shared/services/dialog/dialog.service';
-import { AuthService } from '../../core/services/auth/auth.service';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,19 +8,23 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslocoModule } from '@jsverse/transloco';
+
+import { SettingComponent } from '../../pages/setting/setting.component';
+import { NewBirthdayComponent } from '../../pages/new-birthday/new-birthday.component';
+import { DialogService } from '../../shared/services/dialog/dialog.service';
+import { AuthService } from '../../core/services/auth/auth.service';
 import { VersionService } from '../../shared/services/version/version.service';
 import { StatisticComponent } from '../../pages/statistic/statistic.component';
 import { PricingComponent } from '../../pages/pricing/pricing.component';
 
 @Component({
   selector: 'app-aside-nav-bar',
+  standalone: true,
   imports: [
     CommonModule,
     MatButtonModule,
     MatIconModule,
     MatFormFieldModule,
-    MatButtonModule,
-    MatIconModule,
     MatMenuModule,
     MatToolbarModule,
     FormsModule,
@@ -34,36 +34,37 @@ import { PricingComponent } from '../../pages/pricing/pricing.component';
   templateUrl: './aside-nav-bar.component.html',
 })
 export class AsideNavBarComponent implements OnInit {
-  expanded = false;
-  version = '';
+  // Functional Injection
+  private readonly dialog = inject(DialogService);
+  private readonly versionService = inject(VersionService);
+  readonly authService = inject(AuthService);
 
-  constructor(
-    private dialog: DialogService,
-    public authService: AuthService,
-    private versionService: VersionService
-  ) {}
+  // Signals for local state management
+  readonly expanded = signal(false);
+  readonly version = signal('');
 
   ngOnInit(): void {
-    this.version = this.versionService.version;
+    // Setting signal value from service
+    this.version.set(this.versionService.version);
   }
 
-  onSetting() {
+  toggleSidebar(): void {
+    this.expanded.update((val) => !val);
+  }
+
+  onSetting(): void {
     this.dialog.open(SettingComponent);
   }
 
-  onAddBirthday() {
+  onAddBirthday(): void {
     this.dialog.open(NewBirthdayComponent);
   }
 
-  onStatistics() {
+  onStatistics(): void {
     this.dialog.open(StatisticComponent);
   }
 
-  toggleSidebar() {
-    this.expanded = !this.expanded;
-  }
-
-  onPricing() {
+  onPricing(): void {
     this.dialog.open(PricingComponent);
   }
 }

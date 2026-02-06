@@ -1,10 +1,14 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject, signal, ElementRef, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+
+// Material Imports
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -13,21 +17,24 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatNativeDateModule } from '@angular/material/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { provideNativeDateAdapter } from '@angular/material/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
+
+// Services & Models
 import { BirthdayService } from '../../core/services/birthday/birthday.service';
 import { Birthday } from '../../models/birthday.model';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ConfettiService } from '../../shared/services/confetti/confetti.service';
 import { NotificationService } from '../../shared/services/notification/notification.service';
-import {TranslocoPipe} from "@jsverse/transloco";
+import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 
 @Component({
   selector: 'app-new-birthday',
+  standalone: true,
   imports: [
+    CommonModule,
+    MatDialogModule,
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
@@ -37,92 +44,111 @@ import {TranslocoPipe} from "@jsverse/transloco";
     MatDatepickerModule,
     MatSelectModule,
     MatSlideToggleModule,
-    MatNativeDateModule,
     MatDividerModule,
-    TranslocoPipe,
+    TranslocoModule,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './new-birthday.component.html',
 })
 export class NewBirthdayComponent {
-  profileForm: FormGroup;
-  profileImage: string | ArrayBuffer | null = null;
+  // Functional Injection
+  private readonly fb = inject(FormBuilder);
+  private readonly birthdayService = inject(BirthdayService);
+  private readonly snackBar = inject(MatSnackBar);
+  private readonly router = inject(Router);
+  private readonly confetti = inject(ConfettiService);
+  private readonly notificationService = inject(NotificationService);
+  private readonly transloco = inject(TranslocoService);
+  public readonly dialogRef = inject(MatDialogRef<NewBirthdayComponent>);
+  public readonly data = inject(MAT_DIALOG_DATA, { optional: true });
 
-  constructor(
-    private fb: FormBuilder,
-    private birthdayService: BirthdayService,
-    private snackBar: MatSnackBar,
-    private router: Router,
-    private confetti: ConfettiService,
-    public dialogRef: MatDialogRef<NewBirthdayComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    public notificationService: NotificationService
-  ) {
-    this.profileForm = this.fb.group({
-      fullName: ['', Validators.required],
-      birthdate: ['', Validators.required],
-      relation: ['friend', Validators.required],
-      email: [''],
-      phone: [''],
-      notes: [''],
-      city: [''],
-      enableReminders: [true],
-    });
-  }
+  // State Management with Signals
+  readonly profileImage = signal<string | ArrayBuffer | null>(null);
 
+  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
+
+  // Form definition
+  readonly profileForm: FormGroup = this.fb.group({
+    fullName: ['', Validators.required],
+    birthdate: ['', Validators.required],
+    relation: ['friend', Validators.required],
+    email: ['', Validators.email],
+    phone: [''],
+    notes: [''],
+    city: [''],
+    enableReminders: [true],
+  });
+
+  /**
+   * Handle file selection and convert to Base64
+   */
   onFileSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files[0]) {
+    const target = event.target as HTMLInputElement;
+    const file = target.files?.[0];
+    if (file) {
       const reader = new FileReader();
       reader.onload = () => {
-        this.profileImage = reader.result;
+        this.profileImage.set(reader.result);
       };
-      reader.readAsDataURL(input.files[0]);
+      reader.readAsDataURL(file);
     }
   }
 
+  /**
+   * Create and save the new birthday record
+   */
   saveProfile(): void {
-    if (this.profileForm.valid) {
-      const formValue = this.profileForm.value;
-
-      const newBirthday: Birthday = {
-        id: 0, // sera généré par le service
-        name: formValue.fullName,
-        date: new Date(formValue.birthdate),
-        category: formValue.relation,
-        email: formValue.email,
-        phone: formValue.phone,
-        notes: formValue.notes,
-        enableReminders: formValue.enableReminders,
-        photo: this.profileImage as string,
-        passed: this.isBirthdayPassed(formValue.birthdate),
-        city: formValue.city
-      };
-
-      this.birthdayService.addBirthday(newBirthday);
-
-      this.snackBar.open('Anniversaire ajouté avec succès', 'Fermer', {
-        duration: 3000,
-        panelClass: ['success-snackbar'],
-      });
-
-      this.confetti.fireConfetti();
-      this.notificationService.addSuccessNotification("Nouvel anniversaire ajoute avec succes")
-
-      this.router.navigate(['/landing-page']);
-      this.dialogRef.close();
+    if (this.profileForm.invalid) {
+      this.profileForm.markAllAsTouched();
+      return;
     }
+
+    const formValue = this.profileForm.value;
+
+    const newBirthday: Birthday = {
+      id: 0, // Generated by the service
+      name: formValue.fullName,
+      date: new Date(formValue.birthdate),
+      category: formValue.relation,
+      email: formValue.email,
+      phone: formValue.phone,
+      notes: formValue.notes,
+      enableReminders: formValue.enableReminders,
+      photo: this.profileImage() as string,
+      passed: this.isBirthdayPassed(formValue.birthdate),
+      city: formValue.city
+    };
+
+    this.birthdayService.addBirthday(newBirthday);
+
+    this.snackBar.open(
+      this.transloco.translate('notifications.success_add'), 
+      this.transloco.translate('common.close'), 
+      { duration: 3000, panelClass: ['success-snackbar'] }
+    );
+
+    this.confetti.fireConfetti();
+    this.notificationService.addNotifications([{
+      id: 'success_add',
+      title: this.transloco.translate('notifications.success_add'),
+      message: this.transloco.translate('notifications.success_add'),
+      date: new Date(),
+      type: 'system' as const,
+      read: false,
+      icon: 'check_circle'
+    }]);
+
+    this.dialogRef.close(true);
   }
 
-  private isBirthdayPassed(birthdate: string): boolean {
+  private isBirthdayPassed(birthdate: Date): boolean {
     const today = new Date();
     const bDate = new Date(birthdate);
-    bDate.setFullYear(today.getFullYear()); // Comparaison sans l'année
+    bDate.setFullYear(today.getFullYear());
     return bDate < today;
   }
 
   cancel(): void {
-    this.router.navigate(['/landing-page']);
     this.dialogRef.close();
   }
 }
