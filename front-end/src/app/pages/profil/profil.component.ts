@@ -1,6 +1,7 @@
 import { Component, ElementRef, inject, OnInit, ViewChild, signal, computed } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { TranslocoModule } from '@jsverse/transloco';
 
 // Material Imports
 import { MatButtonModule } from '@angular/material/button';
@@ -34,6 +35,7 @@ import { HttpErrorResponse } from '@angular/common/http';
     ReactiveFormsModule,
     MatProgressSpinnerModule,
     MatTooltipModule,
+    TranslocoModule
   ],
   templateUrl: './profil.component.html',
 })
