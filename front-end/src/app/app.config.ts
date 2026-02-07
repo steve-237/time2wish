@@ -23,7 +23,7 @@ export const appConfig: ApplicationConfig = {
     provideNativeDateAdapter(),
     provideTransloco({
       config: {
-        availableLangs: ['us', 'fr', 'de'],
+        availableLangs: ['en', 'fr', 'de'],
         defaultLang: 'fr',
         // Remove this option if your application doesn't support changing language in runtime.
         reRenderOnLangChange: true,

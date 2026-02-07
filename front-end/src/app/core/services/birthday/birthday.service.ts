@@ -1,105 +1,105 @@
-import { NotificationService } from './../../../shared/services/notification/notification.service';
-import { Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, Subscription, map, Observable } from 'rxjs';
+import { Injectable, inject, signal, effect } from '@angular/core';
 import { Birthday } from '../../../models/birthday.model';
 import { TranslocoService } from '@jsverse/transloco';
 import { AuthService } from '../auth/auth.service';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
-export class BirthdayService implements OnDestroy {
-  private _birthdays = new BehaviorSubject<Birthday[]>([]);
-  readonly birthdays$ = this._birthdays.asObservable();
+export class BirthdayService {
+  // Use functional inject() for dependencies
+  private readonly authService = inject(AuthService);
+  private readonly translocoService = inject(TranslocoService);
 
-  private userSub: Subscription;
+  // Define a private writable signal and a public read-only signal
+  private readonly _birthdays = signal<Birthday[]>([]);
+  readonly birthdays = this._birthdays.asReadonly();
 
-  // private apiUrl = '/mock/birthdays.json';  Remplacer par une vraie API si dispo
-
-  constructor(
-    private authService: AuthService,
-    private translocoService: TranslocoService
-  ) {
-    // S'abonner une seule fois au flux utilisateur courant
-    this.userSub = this.authService.currentUser$.subscribe((user) => {
+  constructor() {
+    /**
+     * Use effect() to reactively synchronize birthdays whenever 
+     * the authService.currentUser signal changes.
+     * This eliminates the need for manual subscriptions and Unsubscribe logic.
+     */
+    effect(() => {
+      const user = this.authService.currentUser();
       if (user) {
-        console.log('fetching user... ', user);
-        this._birthdays.next(user.birthdays || []);
+        console.log('Fetching birthdays for user:', user.fullName);
+        this._birthdays.set(user.birthdays || []);
       } else {
-        this._birthdays.next([]);
+        this._birthdays.set([]);
       }
     });
   }
 
-  ngOnDestroy(): void {
-    this.userSub.unsubscribe();
+  /**
+   * Retrieval by ID using signal accessor
+   */
+  getBirthdayById(id: number): Birthday | undefined {
+    return this._birthdays().find((b) => b.id === id);
   }
 
-  getBirthdayById(id: number): Observable<Birthday | undefined> {
-    return this.birthdays$.pipe(map((list) => list.find((b) => b.id === id)));
-  }
-
+  /**
+   * Adds a birthday and updates the signal state
+   */
   addBirthday(birthday: Birthday): void {
-    const current = this._birthdays.value;
     const newBirthday: Birthday = {
       ...birthday,
       id: this.generateId(),
       date: new Date(birthday.date),
     };
-    this._birthdays.next([newBirthday, ...current]);
-    // TODO: Appel HTTP réel ici si nécessaire
-    // this.http.post('/api/birthdays', newBirthday).subscribe(...);
+
+    // Update the signal using the update() method (immutable update)
+    this._birthdays.update((prev) => [newBirthday, ...prev]);
+    
+    // TODO: Real HTTP call: this.http.post(...)
   }
 
+  /**
+   * Updates an existing birthday in the signal state
+   */
   updateBirthday(updated: Birthday): Observable<Birthday> {
-    return new Observable<Birthday>((subscriber) => {
-      try {
-        const current = this._birthdays.value;
-        const index = current.findIndex((b) => b.id === updated.id);
+    const updatedBirthday: Birthday = {
+      ...updated,
+      date: new Date(updated.date),
+    };
 
-        if (index === -1) {
-          throw new Error('Birthday not found');
-        }
-
-        const updatedBirthday: Birthday = {
-          ...updated,
-          date: new Date(updated.date),
-        };
-
-        const updatedList = [...current];
-        updatedList[index] = updatedBirthday;
-
-        this._birthdays.next(updatedList);
-
-        subscriber.next(updatedBirthday);
-        subscriber.complete();
-
-        // TODO: Remplacer par un vrai appel API plus tard
-        // return this.http.put<Birthday>(`${this.apiUrl}/${updated.id}`, updated);
-      } catch (error) {
-        subscriber.error(error);
-      }
+    this._birthdays.update((list) => {
+      const index = list.findIndex((b) => b.id === updated.id);
+      if (index === -1) throw new Error('Birthday not found');
+      
+      const newList = [...list];
+      newList[index] = updatedBirthday;
+      return newList;
     });
+
+    return of(updatedBirthday);
   }
 
+  /**
+   * Deletes a birthday from the signal state
+   */
   deleteBirthday(id: number): void {
-    const current = this._birthdays.value.filter((b) => b.id !== id);
-    this._birthdays.next(current);
+    this._birthdays.update((list) => list.filter((b) => b.id !== id));
   }
 
   private generateId(): number {
-    const current = this._birthdays.value;
+    const current = this._birthdays();
     return current.length ? Math.max(...current.map((b) => b.id)) + 1 : 1;
   }
 
-  getBirthdayStatus(birthdayDate: Date): {
-    text: string;
-    icon: string;
-    color: string;
-  } {
+  /**
+   * UI Logic for birthday status
+   */
+  getBirthdayStatus(birthdayDate: Date) {
     const today = new Date();
     const date = new Date(birthdayDate);
     date.setFullYear(today.getFullYear());
+
+    // Normalize dates to midnight for accurate calculation
+    today.setHours(0, 0, 0, 0);
+    date.setHours(0, 0, 0, 0);
 
     const diffDays = Math.ceil(
       (date.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
@@ -107,9 +107,7 @@ export class BirthdayService implements OnDestroy {
 
     if (diffDays > 0) {
       return {
-        text: this.translocoService.translate('status.coming', {
-          count: diffDays,
-        }),
+        text: this.translocoService.translate('status.coming', { count: diffDays }),
         icon: 'event_upcoming',
         color: 'text-green-500',
       };
@@ -128,19 +126,18 @@ export class BirthdayService implements OnDestroy {
     }
   }
 
+  /**
+   * Helper to calculate current age
+   */
   calculateAge(birthDate: Date): number {
     const today = new Date();
-    const birthDateObj = new Date(birthDate);
-    let age = today.getFullYear() - birthDateObj.getFullYear();
-    const monthDiff = today.getMonth() - birthDateObj.getMonth();
+    const birth = new Date(birthDate);
+    let age = today.getFullYear() - birth.getFullYear();
+    const monthDiff = today.getMonth() - birth.getMonth();
 
-    if (
-      monthDiff < 0 ||
-      (monthDiff === 0 && today.getDate() < birthDateObj.getDate())
-    ) {
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
       age--;
     }
-
     return age;
   }
 }

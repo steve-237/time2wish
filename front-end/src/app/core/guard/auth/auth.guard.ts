@@ -1,30 +1,27 @@
-import { Injectable } from '@angular/core';
-import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
+import { inject } from '@angular/core';
+import { CanActivateFn, Router } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class AuthGuard implements CanActivate {
+/**
+ * Functional Guard to protect private routes.
+ * It uses the AuthService signals to check the current authentication state.
+ */
+export const AuthGuard: CanActivateFn = (route, state) => {
+  const authService = inject(AuthService);
+  const router = inject(Router);
 
-  constructor(private authService: AuthService, private router: Router) {}
-
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-
-    // 1. Vérification de l'état de connexion local
-    if (this.authService.isLoggedIn()) {
-      // Si la session est active (le localStorage contient les données de l'utilisateur),
-      // nous autorisons l'accès à la route.
-      return true;
-    }
-
-    // 2. Si non connecté, redirection
-    // L'utilisateur est redirigé vers la page de login.
-    console.log('Accès refusé. Redirection vers la page de connexion.');
-    this.router.navigate(['/login']);
-    return false;
+  // 1. Check authentication status using the signal from AuthService
+  // Since isAuthenticated is a computed signal, this check is high-performance
+  if (authService.isAuthenticated()) {
+    return true;
   }
-}
+
+  // 2. Access denied logic
+  console.warn('Access denied. Redirecting to login page.');
+  
+  // We return a UrlTree to handle the redirection directly within the router flow
+  // We can also append the 'returnUrl' to redirect back after a successful login
+  return router.createUrlTree(['/login'], { 
+    queryParams: { returnUrl: state.url } 
+  });
+};

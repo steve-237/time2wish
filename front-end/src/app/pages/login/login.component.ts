@@ -1,25 +1,25 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnDestroy } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslocoModule } from '@jsverse/transloco';
+import { HttpErrorResponse } from '@angular/common/http';
+
 import { PasswordResetComponent } from '../password-reset/password-reset.component';
 import { RegistrationComponent } from '../registration/registration.component';
 import { DialogService } from '../../shared/services/dialog/dialog.service';
 import { AuthService } from '../../core/services/auth/auth.service';
-import { Subscription } from 'rxjs';
-import { TranslocoModule } from '@jsverse/transloco';
 import { SetLanguageComponent } from '../../components/set-language/set-language.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { ApiResponse } from '../../models/apiResponse.model';
-import { AuthResponse } from '../../models/authResponse.model';
 import { LoginRequest } from '../../models/loginRequest.model';
 
 @Component({
   selector: 'app-login',
+  standalone: true,
   imports: [
     CommonModule,
     MatFormFieldModule,
@@ -33,36 +33,44 @@ import { LoginRequest } from '../../models/loginRequest.model';
   ],
   templateUrl: './login.component.html',
 })
-export class LoginComponent implements OnDestroy {
-  hidePassword = true;
-  isLoading = false;
-  errorMessage = '';
-  private loginSub: Subscription | null = null;
+export class LoginComponent {
+  // Services injection using the modern inject() function
+  private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
+  private readonly dialog = inject(DialogService);
+  private readonly snackBar = inject(MatSnackBar);
 
-  router = inject(Router);
+  // State management using Signals (replaces plain variables)
+  readonly hidePassword = signal(true);
+  readonly isLoading = signal(false);
+  readonly errorMessage = signal('');
 
-  constructor(
-    private dialog: DialogService,
-    private authService: AuthService,
-    private snackBar: MatSnackBar
-  ) {}
+  /**
+   * Toggles password visibility in the input field
+   */
+  togglePasswordVisibility(): void {
+    this.hidePassword.update((val) => !val);
+  }
 
-  onLogin(email: string, password: string) {
+  /**
+   * Handles the login logic
+   * Note: No need for manual Subscription/OnDestroy thanks to signal integration 
+   * and clean handling of the AuthService session.
+   */
+  onLogin(email: string, password: string): void {
     if (!email || !password) {
-      this.errorMessage = 'login.errors.required';
+      this.errorMessage.set('login.errors.required');
       return;
     }
 
-    this.isLoading = true;
-    this.errorMessage = '';
+    this.isLoading.set(true);
+    this.errorMessage.set('');
 
     const loginData: LoginRequest = { email, password };
 
-    this.loginSub = this.authService.login(loginData).subscribe({
-      next: (response: ApiResponse<AuthResponse>) => {
-        this.isLoading = false;
-
-        console.log('Login response:', response);
+    this.authService.login(loginData).subscribe({
+      next: (response) => {
+        this.isLoading.set(false);
 
         if (response?.success && response.data) {
           this.snackBar.open(
@@ -70,39 +78,27 @@ export class LoginComponent implements OnDestroy {
             'Fermer',
             { duration: 3000 }
           );
-
           this.router.navigate(['/']);
         } else {
-          this.errorMessage =
-            response?.message || 'login.errors.invalid_credentials';
+          this.errorMessage.set(response?.message || 'login.errors.invalid_credentials');
         }
       },
-      error: (err: unknown) => {
-        this.isLoading = false;
+      error: (err: HttpErrorResponse) => {
+        this.isLoading.set(false);
         console.error('Login error:', err);
-
-        const anyErr = err as { error?: { message?: string }; message?: string };
-
-        if (anyErr.error?.message) {
-          this.errorMessage = anyErr.error.message;
-        } else if (anyErr.message) {
-          this.errorMessage = anyErr.message;
-        } else {
-          this.errorMessage = 'login.errors.generic';
-        }
+        
+        // Extract server error message or use generic translation key
+        const serverMsg = err.error?.message || err.message;
+        this.errorMessage.set(serverMsg || 'login.errors.generic');
       },
     });
   }
 
-  ngOnDestroy() {
-    this.loginSub?.unsubscribe();
-  }
-
-  openPasswordReset() {
+  openPasswordReset(): void {
     this.dialog.open(PasswordResetComponent);
   }
 
-  openRegister() {
+  openRegister(): void {
     this.dialog.open(RegistrationComponent);
   }
 }
