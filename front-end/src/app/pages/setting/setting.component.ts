@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatRadioModule } from '@angular/material/radio';
@@ -28,7 +28,7 @@ import {TranslocoModule} from "@jsverse/transloco";
   templateUrl: './setting.component.html',
 })
 export class SettingComponent {
-  constructor(public dialogRef: MatDialogRef<SettingComponent>) {}
+  private readonly dialogRef = inject(MatDialogRef<SettingComponent>);
   closeModal() {
     this.dialogRef.close();
   }

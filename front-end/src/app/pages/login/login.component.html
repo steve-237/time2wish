@@ -1,112 +1,96 @@
 <div
   class="h-screen bg-cover bg-center bg-fixed flex items-center justify-center"
-  style="background-image: url('https://images.unsplash.com/photo-1618150892876-506d91d141e7?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"
+  style="background-image: url('https://images.unsplash.com/photo-1618150892876-506d91d141e7?q=80&w=1332&auto=format&fit=crop')"
 >
-  <div
-    class="bg-white rounded-2xl shadow-lg flex flex-col-reverse md:flex-row max-w-4xl w-full mx-4 md:mx-0"
-  >
-    <!-- Section gauche -->
-    <div
-      class="bg-gray-800 text-white p-8 rounded-b-2xl md:rounded-l-2xl md:rounded-br-none md:w-1/2 flex flex-col justify-center"
-    >
+  <div class="bg-white rounded-2xl shadow-lg flex flex-col-reverse md:flex-row max-w-4xl w-full mx-4 md:mx-0">
+    
+    <div class="bg-gray-800 text-white p-8 rounded-b-2xl md:rounded-l-2xl md:rounded-br-none md:w-1/2 flex flex-col justify-center">
       <h1 class="text-3xl font-bold mb-4 text-center">
         {{ "login.welcome" | transloco }}
       </h1>
       <p class="text-sm text-justify">
         {{ "login.description" | transloco }}
       </p>
-      <p class="text-sm text-center">
+      <p class="text-sm text-center mt-4">
         {{ "login.language" | transloco }}
         <app-set-language></app-set-language>
       </p>
     </div>
 
-    <!-- Section droite -->
     <div class="p-8 md:w-1/2 flex flex-col items-center justify-center">
-      <img
-        src="time2wish-logo.png"
-        width="160"
-        height="160"
-        alt="logo time2wish"
-      />
+      <img src="time2wish-logo.png" width="160" height="160" alt="logo time2wish" class="mb-6" />
 
       <form (ngSubmit)="onLogin(email.value, password.value)" class="w-full">
-        <!-- Email Field -->
+        
         <mat-form-field appearance="outline" class="w-full mb-4">
           <mat-label>{{ "login.email" | transloco }}</mat-label>
-          <input
-            matInput
-            #email
-            type="email"
-            [placeholder]="'login.email' | transloco"
-            required
-          />
+          <input matInput #email type="email" [placeholder]="'login.email' | transloco" required />
           <mat-icon matPrefix>email</mat-icon>
           <mat-error>{{ "login.errors.required" | transloco }}</mat-error>
         </mat-form-field>
 
-        <!-- Password Field -->
         <mat-form-field appearance="outline" class="w-full mb-4">
           <mat-label>{{ "login.password" | transloco }}</mat-label>
           <mat-icon matPrefix>lock</mat-icon>
           <input
             matInput
             #password
-            [type]="hidePassword ? 'password' : 'text'"
+            [type]="hidePassword() ? 'password' : 'text'"
             required
           />
           <button
             mat-icon-button
             matSuffix
             type="button"
-            (click)="hidePassword = !hidePassword"
+            (click)="togglePasswordVisibility()"
           >
-            <mat-icon>{{
-              hidePassword ? "visibility_off" : "visibility"
-            }}</mat-icon>
+            <mat-icon>{{ hidePassword() ? "visibility_off" : "visibility" }}</mat-icon>
           </button>
           <mat-error>{{ "login.errors.required" | transloco }}</mat-error>
         </mat-form-field>
 
-        <!-- Login Button -->
         <button
           mat-flat-button
           color="primary"
           class="w-full py-2"
           type="submit"
-          [disabled]="isLoading"
+          [disabled]="isLoading()"
         >
-          @if (!isLoading) {
-          <span>{{ "login.login_button" | transloco }}</span>
-          }@else {
-          <span>{{ "login.loading" | transloco }}</span>
+          @if (!isLoading()) {
+            <span>{{ "login.login_button" | transloco }}</span>
+          } @else {
+            <span>{{ "login.loading" | transloco }}</span>
           }
         </button>
 
-        <!-- Error Message -->
-        <div *ngIf="errorMessage" class="text-red-500 text-center mt-2">
-          {{ errorMessage | transloco }}
-        </div>
+        @if (errorMessage()) {
+          <div class="text-red-500 text-center mt-2 animate-fade-in">
+            {{ errorMessage() | transloco }}
+          </div>
+        }
       </form>
 
-      <div class="text-sm text-center mt-4">
-        <a
-          (click)="openPasswordReset()"
-          class="text-blue-500 cursor-pointer hover:underline"
+      <div class="text-sm text-center mt-6">
+        <button 
+          type="button"
+          (click)="openPasswordReset()" 
+          class="text-blue-500 cursor-pointer hover:underline bg-transparent border-none p-0 inline font-inherit"
         >
           {{ "login.forgot_password" | transloco }}
-        </a>
+        </button>
       </div>
-
+      
       <div class="text-sm text-center mt-2">
         <span>{{ "login.no_account" | transloco }}</span>
-        <a
-          (click)="openRegister()"
-          class="text-blue-500 cursor-pointer hover:underline ml-1"
+        <button 
+          type="button"
+          (click)="openRegister()" 
+          class="text-blue-500 cursor-pointer hover:underline ml-1 bg-transparent border-none p-0 inline font-inherit"
         >
           {{ "login.sign_up" | transloco }}
-        </a>
+        </button>
       </div>
+
     </div>
   </div>
 </div>

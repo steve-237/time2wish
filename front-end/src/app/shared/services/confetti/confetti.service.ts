@@ -6,8 +6,6 @@ import confetti from 'canvas-confetti';
 })
 export class ConfettiService {
 
-  constructor() { }
-
   public fireConfetti(): void {
     confetti({
       particleCount: 150,

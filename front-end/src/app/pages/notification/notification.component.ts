@@ -1,16 +1,17 @@
-import { Component } from '@angular/core';
-import { NotificationService } from '../../shared/services/notification/notification.service';
+import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { CommonModule } from '@angular/common';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
-import { TranslocoPipe } from '@jsverse/transloco';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { TranslocoModule } from '@jsverse/transloco';
+import { NotificationService } from '../../shared/services/notification/notification.service';
 
 @Component({
   selector: 'app-notification',
+  standalone: true,
   imports: [
     CommonModule,
     MatBadgeModule,
@@ -18,14 +19,20 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatIconModule,
     MatMenuModule,
     MatDividerModule,
-    TranslocoPipe,
     MatTooltipModule,
+    TranslocoModule, // Standard Transloco module for pipes
   ],
   templateUrl: './notification.component.html',
 })
 export class NotificationComponent {
-  constructor(public notificationService: NotificationService) {}
+  // Functional injection of the service
+  public readonly notificationService = inject(NotificationService);
 
+  /**
+   * Helper to format the time
+   * Note: In a real production app, consider using a custom Signal-based 
+   * "TimeAgo" pipe for better performance.
+   */
   getTimeAgo(date: Date): string {
     return new Date(date).toLocaleTimeString([], {
       hour: '2-digit',
