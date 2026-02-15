@@ -1,12 +1,12 @@
-import { 
-  Component, 
-  inject, 
-  ViewChild, 
-  signal, 
-  computed, 
-  effect, 
-  OnInit, 
-  AfterViewInit 
+import {
+  Component,
+  inject,
+  ViewChild,
+  signal,
+  computed,
+  effect,
+  OnInit,
+  AfterViewInit
 } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -50,6 +50,7 @@ import { BirthdayCardComponent } from '../../components/birthday-card/birthday-c
 import { AsideNavBarComponent } from '../../components/aside-nav-bar/aside-nav-bar.component';
 import { SetLanguageComponent } from '../../components/set-language/set-language.component';
 import { FooterComponent } from '../../components/footer/footer.component';
+import {ThemeService} from "../../core/services/themeService/theme.service";
 
 @Component({
   selector: 'app-landing-page',
@@ -71,6 +72,7 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
   protected readonly translocoService = inject(TranslocoService);
   readonly authService = inject(AuthService);
   readonly notificationService = inject(NotificationService);
+  protected readonly themeService = inject(ThemeService);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -82,7 +84,7 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
   readonly isLoading = signal(false);
   readonly currentDate = signal(new Date());
   readonly suggestions = signal<string[]>([]);
-  
+
   // Advanced Filter state
   readonly advancedFilter = signal({ column: 'all' });
 
@@ -99,11 +101,11 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
   // Computed Signal: Replaces combineLatest to automatically filter the list
   readonly filteredBirthdays = computed(() => {
     // birthdays() is now a Signal in our modernized BirthdayService
-    const allBirthdays = this.birthdayService.birthdays(); 
+    const allBirthdays = this.birthdayService.birthdays();
     const activeMode = this.activeButton();
     const query = this.searchQuery().toLowerCase();
     const filterColumn = this.advancedFilter().column;
-    
+
     const now = new Date();
     now.setHours(0, 0, 0, 0);
 
@@ -117,7 +119,7 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
       // 2. Filter by search query logic
       if (!query) return dateMatch;
       const searchMatch = this.matchesAdvancedFilter(b, query, filterColumn);
-      
+
       return dateMatch && searchMatch;
     });
   });
@@ -162,8 +164,7 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
   }
 
   toggleTheme(): void {
-    this.isDarkTheme.update(val => !val);
-    document.documentElement.classList.toggle('dark', this.isDarkTheme());
+    this.themeService.toggleTheme(this.isDarkTheme());
   }
 
   toggleView(mode: 'table' | 'cards'): void {
