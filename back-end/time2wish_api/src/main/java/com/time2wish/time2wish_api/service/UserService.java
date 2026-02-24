@@ -72,6 +72,7 @@ public class UserService {
      * @return L'objet User sauvegardé.
      * @throws IllegalArgumentException si l'email est déjà utilisé ou si le mot de passe est invalide.
      */
+    @Transactional
     public User registerUser(User user) {
         System.out.print(user);
         // 1. ✅ Validation de l'email unique
@@ -96,6 +97,7 @@ public class UserService {
 
         // 5. Sauvegarder l'utilisateur (création du compte PENDING)
         User createdUser = userRepository.save(user);
+        System.out.println("CreatedUser : " + createdUser);
 
         // 6. ✅ Envoi d'email de confirmation (SIMULATION)
         sendConfirmationEmail(createdUser);
@@ -113,6 +115,7 @@ public class UserService {
     public Optional<User> authenticate(String email, String rawPassword) {
         // 1. Chercher l'utilisateur par email
         Optional<User> userOptional = userRepository.findByEmailWithBirthdays(email);
+        System.out.println("UserOptional : " + userOptional);
 
         if (userOptional.isPresent()) {
             User user = userOptional.get();
