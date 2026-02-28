@@ -371,5 +371,97 @@
       "pro": "Pro",
       "family": "Familie"
     }
+  },
+  "landing": {
+    "subtitle": "Intelligente Plattform für Geburtstagserinnerungen",
+    "actions": {
+      "login": "Anmelden",
+      "sign_up": "Registrieren"
+    },
+    "badge": "Moderne Organisation wichtiger Termine",
+    "hero": {
+      "title": "Die vollständige Landingpage von",
+      "title_suffix": "damit du keinen Geburtstag mehr vergisst.",
+      "description": "Time2Wish bündelt Geburtstagsverwaltung, Benachrichtigungen, Analyseansichten und kollaborative Aktionen in einer modernen Angular- und Tailwind-Erfahrung. Du steuerst deine Ereignisse mit wenigen Klicks in einem konsistenten, schnellen und produktivitätsorientierten Design."
+    },
+    "stats": {
+      "features": "Wichtige Funktionen sofort einsatzbereit",
+      "focus": "Fokus auf das Vermeiden vergessener Termine"
+    },
+    "objectives": {
+      "title": "Ziele der Anwendung",
+      "items": {
+        "precise": "Präzise Nachverfolgung persönlicher und beruflicher Geburtstage sicherstellen.",
+        "anticipation": "Bessere Planung durch Erinnerungen, Filter und Kategorisierung.",
+        "usability": "Tägliche Verwaltung mit klaren und responsiven Oberflächen vereinfachen.",
+        "security": "Eine sichere Umgebung für Benutzerdaten bieten."
+      }
+    },
+    "features": {
+      "title": "Hauptfunktionen",
+      "subtitle": "Jedes Modul erfüllt einen konkreten Bedarf: Übersicht, schnelle Aktionen, Personalisierung und zuverlässige Nachverfolgung.",
+      "items": {
+        "centralized": {
+          "title": "Zentrale Geburtstagsverwaltung",
+          "description": "Füge Geburtstage von Familie, Kollegen oder Kunden in einem einzigen Dashboard hinzu, bearbeite und verfolge sie."
+        },
+        "alerts": {
+          "title": "Intelligente Benachrichtigungen",
+          "description": "Erhalte Erinnerungen vor jedem Ereignis, damit kein wichtiges Datum vergessen wird."
+        },
+        "views": {
+          "title": "Tabellen- und Kartenansicht",
+          "description": "Wechsle einfach zwischen detaillierter und visueller Ansicht je nach Arbeitsweise."
+        },
+        "multilingual": {
+          "title": "Mehrsprachige Erfahrung",
+          "description": "Die App unterstützt mehrere Sprachen für eine schnelle Einführung in internationalen Teams."
+        },
+        "logs": {
+          "title": "Nachvollziehbarkeit von Aktionen",
+          "description": "Prüfe Aktivitätsprotokolle, um wichtige Änderungen nachzuverfolgen."
+        },
+        "security": {
+          "title": "Sicherheit und kontrollierter Zugriff",
+          "description": "Dedizierte Authentifizierung, Benutzerverwaltung und geschützte Navigation für sensible Daten."
+        }
+      }
+    },
+    "why": {
+      "title": "Warum Time2Wish nutzen?",
+      "items": {
+        "time": "Zeit sparen mit einer klaren und modernen Benutzeroberfläche.",
+        "relationship": "Beziehungen zu Familie, Kunden oder Teams durch bessere Planung stärken.",
+        "reminders": "Vergessene Termine durch kontextbezogene Erinnerungen vermeiden.",
+        "platform": "Ereignisverfolgung in einer einzigen Plattform standardisieren."
+      }
+    },
+    "target": {
+      "title": "Zielgruppe",
+      "items": {
+        "individuals": "Privatpersonen, die Familiengeburtstage verwalten möchten.",
+        "assistants": "Administrative Assistenten und HR-Teams, die Team-Events organisieren.",
+        "managers": "Vertriebsleiter, die Kundenbeziehungen pflegen.",
+        "communities": "Vereine und Gemeinschaften mit vielen Mitgliedern."
+      }
+    },
+    "interfaces": {
+      "title": "Vorschau der Benutzeroberflächen",
+      "subtitle": "Visualisierungen der wichtigsten Nutzerwege: Authentifizierung, Dashboard-Steuerung und Benachrichtigungen.",
+      "items": {
+        "login": {
+          "title": "Anmeldebildschirm",
+          "description": "Einfacher, sicherer und schneller Zugriff auf den persönlichen Bereich."
+        },
+        "dashboard": {
+          "title": "Haupt-Dashboard",
+          "description": "Vollständige Übersicht über kommende und vergangene Geburtstage sowie verfügbare Aktionen."
+        },
+        "notifications": {
+          "title": "Benachrichtigungszentrale",
+          "description": "Bündle Erinnerungen und Prioritäten in einer dedizierten Oberfläche."
+        }
+      }
+    }
   }
 }
