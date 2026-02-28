@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoModule } from '@jsverse/transloco';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -37,6 +37,7 @@ export class LoginComponent {
   // Services injection using the modern inject() function
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
   private readonly dialog = inject(DialogService);
   private readonly snackBar = inject(MatSnackBar);
 
@@ -78,7 +79,8 @@ export class LoginComponent {
             'Fermer',
             { duration: 3000 }
           );
-          this.router.navigate(['/']);
+          const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/dashboard';
+          this.router.navigateByUrl(returnUrl);
         } else {
           this.errorMessage.set(response?.message || 'login.errors.invalid_credentials');
         }

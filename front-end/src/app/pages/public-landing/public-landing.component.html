@@ -1,0 +1,113 @@
+<div class="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] transition-colors duration-300">
+  <header class="sticky top-0 z-20 border-b border-[var(--border-color)] bg-[var(--bg-primary)]/95 backdrop-blur">
+    <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-10">
+      <div class="flex items-center gap-3">
+        <img src="time2wish-logo.png" [alt]="t('toolbar.logo_alt')" class="h-10 w-10 rounded-lg bg-white p-1" />
+        <div>
+          <p class="text-lg font-bold tracking-wide">Time2Wish</p>
+          <p class="text-xs text-[var(--text-secondary)]">{{ 'landing.subtitle' | transloco }}</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button mat-icon-button class="!text-[var(--text-primary)]" (click)="toggleTheme()" [attr.aria-label]="'toolbar.theme' | transloco">
+          <mat-icon>{{ isDarkTheme() ? 'light_mode' : 'dark_mode' }}</mat-icon>
+        </button>
+        <app-set-language></app-set-language>
+        <a mat-stroked-button routerLink="/login" class="!border-cyan-400 !text-cyan-400">{{ 'landing.actions.login' | transloco }}</a>
+        <button mat-flat-button class="!bg-cyan-400 !text-slate-950" (click)="openRegistrationModal()">
+          {{ 'landing.actions.sign_up' | transloco }}
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="mx-auto grid max-w-7xl gap-10 px-6 py-16 lg:grid-cols-2 lg:px-10">
+      <div>
+        <p class="mb-4 inline-flex rounded-full border border-cyan-400/40 bg-cyan-400/10 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-cyan-400">
+          {{ 'landing.badge' | transloco }}
+        </p>
+        <h1 class="text-4xl font-black leading-tight md:text-5xl">
+          {{ 'landing.hero.title' | transloco }} <span class="text-cyan-400">Time2Wish</span> {{ 'landing.hero.title_suffix' | transloco }}
+        </h1>
+        <p class="mt-6 text-lg text-[var(--text-secondary)]">
+          {{ 'landing.hero.description' | transloco }}
+        </p>
+
+        <div class="mt-8 grid gap-4 sm:grid-cols-2">
+          <div class="rounded-2xl border border-[var(--border-color)] bg-[var(--bg-secondary)]/80 p-4">
+            <p class="text-2xl font-bold text-cyan-400">+6</p>
+            <p class="text-sm text-[var(--text-secondary)]">{{ 'landing.stats.features' | transloco }}</p>
+          </div>
+          <div class="rounded-2xl border border-[var(--border-color)] bg-[var(--bg-secondary)]/80 p-4">
+            <p class="text-2xl font-bold text-cyan-400">100%</p>
+            <p class="text-sm text-[var(--text-secondary)]">{{ 'landing.stats.focus' | transloco }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-3xl border border-cyan-400/30 bg-gradient-to-br from-cyan-500/10 to-transparent p-6 shadow-2xl shadow-cyan-500/10">
+        <h2 class="text-xl font-bold">{{ 'landing.objectives.title' | transloco }}</h2>
+        <ul class="mt-5 space-y-3 text-[var(--text-primary)]">
+          <li class="flex gap-3"><mat-icon class="!text-cyan-400">check_circle</mat-icon><span>{{ 'landing.objectives.items.precise' | transloco }}</span></li>
+          <li class="flex gap-3"><mat-icon class="!text-cyan-400">check_circle</mat-icon><span>{{ 'landing.objectives.items.anticipation' | transloco }}</span></li>
+          <li class="flex gap-3"><mat-icon class="!text-cyan-400">check_circle</mat-icon><span>{{ 'landing.objectives.items.usability' | transloco }}</span></li>
+          <li class="flex gap-3"><mat-icon class="!text-cyan-400">check_circle</mat-icon><span>{{ 'landing.objectives.items.security' | transloco }}</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-7xl px-6 py-6 lg:px-10">
+      <h2 class="text-3xl font-extrabold">{{ 'landing.features.title' | transloco }}</h2>
+      <p class="mt-2 max-w-4xl text-[var(--text-secondary)]">{{ 'landing.features.subtitle' | transloco }}</p>
+
+      <div class="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        @for (feature of features; track feature.titleKey) {
+          <article class="rounded-2xl border border-[var(--border-color)] bg-[var(--bg-secondary)]/80 p-5 transition hover:-translate-y-1 hover:border-cyan-400/50">
+            <mat-icon class="!mb-3 !text-3xl !h-8 !w-8 !text-cyan-400">{{ feature.icon }}</mat-icon>
+            <h3 class="text-lg font-bold">{{ t(feature.titleKey) }}</h3>
+            <p class="mt-2 text-sm text-[var(--text-secondary)]">{{ t(feature.descriptionKey) }}</p>
+          </article>
+        }
+      </div>
+    </section>
+
+    <section class="mx-auto grid max-w-7xl gap-6 px-6 py-12 lg:grid-cols-2 lg:px-10">
+      <article class="rounded-2xl border border-[var(--border-color)] bg-[var(--bg-secondary)]/80 p-6">
+        <h3 class="text-2xl font-bold">{{ 'landing.why.title' | transloco }}</h3>
+        <ul class="mt-4 space-y-3 text-[var(--text-primary)]">
+          @for (reason of reasons; track reason) {
+            <li class="flex items-start gap-3"><mat-icon class="!text-cyan-400">bolt</mat-icon><span>{{ t(reason) }}</span></li>
+          }
+        </ul>
+      </article>
+
+      <article class="rounded-2xl border border-[var(--border-color)] bg-[var(--bg-secondary)]/80 p-6">
+        <h3 class="text-2xl font-bold">{{ 'landing.target.title' | transloco }}</h3>
+        <ul class="mt-4 space-y-3 text-[var(--text-primary)]">
+          @for (target of targetAudience; track target) {
+            <li class="flex items-start gap-3"><mat-icon class="!text-cyan-400">groups</mat-icon><span>{{ t(target) }}</span></li>
+          }
+        </ul>
+      </article>
+    </section>
+
+    <section class="mx-auto max-w-7xl px-6 pb-16 lg:px-10">
+      <h2 class="text-3xl font-extrabold">{{ 'landing.interfaces.title' | transloco }}</h2>
+      <p class="mt-2 text-[var(--text-secondary)]">{{ 'landing.interfaces.subtitle' | transloco }}</p>
+
+      <div class="mt-8 grid gap-5 lg:grid-cols-3">
+        @for (ui of interfaces; track ui.titleKey) {
+          <article class="overflow-hidden rounded-2xl border border-[var(--border-color)] bg-[var(--bg-secondary)]/80">
+            <img [src]="ui.image" [alt]="t(ui.titleKey)" class="h-48 w-full object-cover" />
+            <div class="p-4">
+              <h3 class="font-bold">{{ t(ui.titleKey) }}</h3>
+              <p class="mt-1 text-sm text-[var(--text-secondary)]">{{ t(ui.descriptionKey) }}</p>
+            </div>
+          </article>
+        }
+      </div>
+    </section>
+  </main>
+</div>
