@@ -23,6 +23,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 })
 export class SetLanguageComponent {
   private readonly translocoService = inject(TranslocoService);
+  private readonly STORAGE_KEY = 'language';
 
   // Liste des langues supportées
   readonly languages = [
@@ -34,6 +35,10 @@ export class SetLanguageComponent {
   // Signal pour la langue actuelle
   readonly currentLanguage = signal(this.translocoService.getActiveLang());
 
+  constructor() {
+    this.initializeLanguage();
+  }
+
   /**
    * Change la langue active de l'application
    * @param langCode Code de la langue (fr, en, de)
@@ -41,6 +46,16 @@ export class SetLanguageComponent {
   changeLanguage(langCode: string): void {
     this.translocoService.setActiveLang(langCode);
     this.currentLanguage.set(langCode);
+    localStorage.setItem(this.STORAGE_KEY, langCode);
+  }
+
+  private initializeLanguage(): void {
+    const persistedLanguage = localStorage.getItem(this.STORAGE_KEY);
+    const isSupportedLanguage = this.languages.some((lang) => lang.code === persistedLanguage);
+    if (persistedLanguage && isSupportedLanguage) {
+      this.translocoService.setActiveLang(persistedLanguage);
+      this.currentLanguage.set(persistedLanguage);
+    }
   }
 
   // Getter pour obtenir le drapeau de la langue active

@@ -371,5 +371,97 @@
       "pro": "Pro",
       "family": "Family"
     }
+  },
+  "landing": {
+    "subtitle": "Smart Birthday Reminder Platform",
+    "actions": {
+      "login": "Log in",
+      "sign_up": "Sign up"
+    },
+    "badge": "Modern organization of important dates",
+    "hero": {
+      "title": "The complete landing page of",
+      "title_suffix": "so you never miss a birthday again.",
+      "description": "Time2Wish centralizes birthday management, notifications, analytics views, and collaborative actions in a modern Angular + Tailwind experience. You can manage events in just a few clicks with a consistent, fast, and productivity-focused design."
+    },
+    "stats": {
+      "features": "Key features ready to use",
+      "focus": "Focused on preventing missed dates"
+    },
+    "objectives": {
+      "title": "Application goals",
+      "items": {
+        "precise": "Ensure precise tracking of personal and professional birthdays.",
+        "anticipation": "Improve anticipation with reminders, filters, and categorization.",
+        "usability": "Simplify daily management with clear and responsive interfaces.",
+        "security": "Provide a secure environment for user data."
+      }
+    },
+    "features": {
+      "title": "Core features",
+      "subtitle": "Each module addresses a concrete need: visibility, quick actions, personalization, and reliable follow-up.",
+      "items": {
+        "centralized": {
+          "title": "Centralized birthday management",
+          "description": "Add, edit, and track birthdays of family, colleagues, or clients from one unified dashboard."
+        },
+        "alerts": {
+          "title": "Smart alerts",
+          "description": "Get reminders before each event so you never miss an important date."
+        },
+        "views": {
+          "title": "Table and card views",
+          "description": "Switch easily between detailed and visual modes depending on how you work."
+        },
+        "multilingual": {
+          "title": "Multilingual experience",
+          "description": "The app supports multiple languages for quick adoption across international teams."
+        },
+        "logs": {
+          "title": "Action traceability",
+          "description": "Review activity logs to keep a history of important updates."
+        },
+        "security": {
+          "title": "Security and controlled access",
+          "description": "Dedicated authentication, user management, and protected navigation for sensitive data."
+        }
+      }
+    },
+    "why": {
+      "title": "Why use Time2Wish?",
+      "items": {
+        "time": "Save time with a clean and modern interface.",
+        "relationship": "Strengthen relationships with family, clients, or teams through better anticipation.",
+        "reminders": "Avoid forgotten dates with contextual reminders.",
+        "platform": "Standardize event follow-up in a single platform."
+      }
+    },
+    "target": {
+      "title": "Target audience",
+      "items": {
+        "individuals": "Individuals who want to manage family birthdays.",
+        "assistants": "Administrative assistants and HR teams managing team events.",
+        "managers": "Sales managers nurturing client relationships.",
+        "communities": "Associations and communities with many members."
+      }
+    },
+    "interfaces": {
+      "title": "Interface previews",
+      "subtitle": "Visuals dedicated to key user journeys: authentication, dashboard operations, and notifications.",
+      "items": {
+        "login": {
+          "title": "Login screen",
+          "description": "Simple, secure, and fast access to your personal space."
+        },
+        "dashboard": {
+          "title": "Main dashboard",
+          "description": "Full view of upcoming and past birthdays with available actions."
+        },
+        "notifications": {
+          "title": "Notification center",
+          "description": "Gather your reminders and priorities in one dedicated interface."
+        }
+      }
+    }
   }
 }
