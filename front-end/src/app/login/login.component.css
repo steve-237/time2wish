@@ -1,0 +1,165 @@
+:host {
+  display: block;
+}
+
+.login-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  background:
+    linear-gradient(120deg, rgba(37, 99, 235, 0.82), rgba(125, 211, 252, 0.72)),
+    url('https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=2070&q=80') center / cover fixed;
+}
+
+.login-card {
+  width: min(980px, 100%);
+  min-height: 610px;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background-color: #fff;
+  box-shadow: 0 24px 56px rgba(15, 23, 42, 0.28);
+}
+
+.brand-panel {
+  background: linear-gradient(170deg, #1d4ed8, #2563eb 45%, #0ea5e9);
+  color: #fff;
+  padding: 2.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.brand-badge {
+  width: fit-content;
+  margin: 0;
+  padding: 0.3rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+}
+
+.brand-panel h1 {
+  margin: 0;
+  font-size: clamp(1.6rem, 2vw + 1rem, 2.4rem);
+  line-height: 1.15;
+}
+
+.brand-text {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.brand-panel ul {
+  margin: 0.25rem 0 0;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: 0.35rem;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.form-panel {
+  padding: 2.4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  margin-bottom: 0.4rem;
+}
+
+.form-panel h2 {
+  margin: 0;
+  color: #111827;
+}
+
+.subtitle {
+  margin: 0.4rem 0 1.6rem;
+  color: #6b7280;
+}
+
+.login-form {
+  width: min(380px, 100%);
+  display: grid;
+  gap: 1rem;
+}
+
+.login-form label {
+  display: grid;
+  gap: 0.45rem;
+  font-size: 0.92rem;
+  color: #374151;
+}
+
+.login-form input {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 0.65rem;
+  padding: 0.72rem 0.8rem;
+  font-size: 0.95rem;
+}
+
+.login-form input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+.password-input {
+  position: relative;
+}
+
+.password-input button {
+  position: absolute;
+  top: 50%;
+  right: 0.45rem;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.forgot-password {
+  justify-self: end;
+  text-decoration: none;
+  font-size: 0.9rem;
+  color: #2563eb;
+}
+
+.login-btn {
+  margin-top: 0.4rem;
+  border: none;
+  border-radius: 0.65rem;
+  padding: 0.76rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: #fff;
+  background: linear-gradient(120deg, #2563eb, #1d4ed8);
+}
+
+.signup-link {
+  margin-top: 1.3rem;
+  color: #6b7280;
+}
+
+.signup-link a {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+@media (max-width: 900px) {
+  .login-card {
+    grid-template-columns: 1fr;
+  }
+
+  .brand-panel {
+    padding: 2rem;
+  }
+}
