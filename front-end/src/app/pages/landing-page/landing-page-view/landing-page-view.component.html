@@ -1,0 +1,46 @@
+<div class="flex">
+  <app-aside-nav-bar></app-aside-nav-bar>
+
+  <div class="h-screen w-screen flex items-center justify-center bg-gray-200 overflow-hidden">
+    <main class="h-full w-full flex flex-col p-4 shadow-lg rounded-lg">
+      <app-landing-page-header
+        [viewMode]="viewMode"
+        [activeButton]="activeButton"
+        [searchQuery]="searchQuery"
+        [isDarkTheme]="isDarkTheme"
+        [currentDate]="currentDate"
+        [suggestions]="suggestions"
+        [advancedFilterColumn]="advancedFilterColumn"
+        [availableColumns]="availableColumns"
+        [unreadNotifications]="unreadNotifications"
+        [currentUser]="currentUser"
+        (searchChange)="searchChange.emit($event)"
+        (clearSearch)="clearSearch.emit()"
+        (suggestionSelected)="suggestionSelected.emit($event)"
+        (advancedFilterChange)="advancedFilterChange.emit($event)"
+        (themeToggle)="themeToggle.emit()"
+        (notificationOpen)="notificationOpen.emit()"
+        (viewToggle)="viewToggle.emit($event)"
+        (informationOpen)="informationOpen.emit()"
+        (profileOpen)="profileOpen.emit()"
+        (activityLogsOpen)="activityLogsOpen.emit()"
+        (logout)="logout.emit()"
+        (activeButtonChange)="activeButtonChange.emit($event)"
+      ></app-landing-page-header>
+
+      <app-landing-page-content
+        [isLoading]="isLoading"
+        [viewMode]="viewMode"
+        [hasBirthdays]="hasBirthdays"
+        [filteredBirthdays]="filteredBirthdays"
+        [activeButton]="activeButton"
+        (birthdayEdit)="birthdayEdit.emit()"
+        (birthdayDelete)="birthdayDelete.emit($event)"
+        (birthdayDetails)="birthdayDetails.emit($event)"
+        (refresh)="refresh.emit()"
+      ></app-landing-page-content>
+
+      <app-footer></app-footer>
+    </main>
+  </div>
+</div>
