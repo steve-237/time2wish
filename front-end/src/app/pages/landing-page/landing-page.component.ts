@@ -50,6 +50,7 @@ import { BirthdayCardComponent } from '../../components/birthday-card/birthday-c
 import { AsideNavBarComponent } from '../../components/aside-nav-bar/aside-nav-bar.component';
 import { SetLanguageComponent } from '../../components/set-language/set-language.component';
 import { FooterComponent } from '../../components/footer/footer.component';
+import { ThemeService } from '../../shared/services/theme/theme.service';
 
 @Component({
   selector: 'app-landing-page',
@@ -78,7 +79,8 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
   readonly viewMode = signal<'table' | 'cards'>('table');
   readonly activeButton = signal<'coming' | 'passed'>('coming');
   readonly searchQuery = signal('');
-  readonly isDarkTheme = signal(false);
+  readonly themeService = inject(ThemeService);
+  readonly isDarkTheme = this.themeService.isDarkTheme;
   readonly isLoading = signal(false);
   readonly currentDate = signal(new Date());
   readonly suggestions = signal<string[]>([]);
@@ -162,8 +164,7 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
   }
 
   toggleTheme(): void {
-    this.isDarkTheme.update(val => !val);
-    document.documentElement.classList.toggle('dark', this.isDarkTheme());
+    this.themeService.toggleTheme();
   }
 
   toggleView(mode: 'table' | 'cards'): void {
