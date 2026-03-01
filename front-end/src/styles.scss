@@ -5,11 +5,7 @@
 @import 'tailwindcss/theme.css' layer(theme);
 @import 'tailwindcss/utilities.css' layer(utilities);
 
-/*
-  Material Design 3 theme setup
-  - light theme by default
-  - dark theme enabled when `.dark` is present on `<html>`
-*/
+/* Material Design 3 themes */
 html {
   color-scheme: light;
 
@@ -50,73 +46,127 @@ body {
   font-family: Roboto, 'Helvetica Neue', sans-serif;
   background-color: var(--mat-sys-surface);
   color: var(--mat-sys-on-surface);
-  transition: background-color 240ms ease, color 240ms ease;
+  transition: background-color 220ms ease, color 220ms ease;
 }
 
-/*
-  App semantic tokens mapped to Material system tokens.
-  Existing templates rely on these CSS vars.
-*/
+/* App-wide semantic variables used by templates */
 :root {
   --bg-primary: var(--mat-sys-surface);
   --bg-secondary: var(--mat-sys-surface-container-low);
   --bg-tertiary: var(--mat-sys-surface-container);
+  --bg-selected: var(--mat-sys-surface-container-high);
   --text-primary: var(--mat-sys-on-surface);
   --text-secondary: var(--mat-sys-on-surface-variant);
   --border-color: var(--mat-sys-outline-variant);
   --accent-color: var(--mat-sys-primary);
   --hover-color: color-mix(in srgb, var(--mat-sys-on-surface) 8%, transparent);
   --pg-selected: var(--mat-sys-secondary-container);
-  --bg-selected: var(--mat-sys-surface-container-high);
 }
 
 html.dark {
   --hover-color: color-mix(in srgb, var(--mat-sys-on-surface) 14%, transparent);
 }
 
-/* Material + Tailwind coexistence fixes */
-.mat-mdc-card,
+/* Core app shell */
+.app-shell,
+.mat-drawer-container,
+.mat-drawer-content,
+.mat-mdc-table,
+.mat-mdc-paginator,
+.mat-mdc-tab-group,
+.mat-mdc-dialog-container,
 .mat-mdc-menu-panel,
-.mat-mdc-dialog-surface,
 .mat-mdc-select-panel,
-.mat-expansion-panel {
+.mat-expansion-panel,
+.mat-mdc-card {
   background-color: var(--bg-primary);
   color: var(--text-primary);
 }
 
-.mat-mdc-menu-item,
+/* Maintain compatibility with existing utility classes in templates */
+.bg-white {
+  background-color: var(--bg-primary) !important;
+}
+
+.bg-gray-200 {
+  background-color: var(--bg-secondary) !important;
+}
+
+.bg-gray-100 {
+  background-color: var(--bg-tertiary) !important;
+}
+
+.text-gray-700,
+.text-gray-800,
+.text-gray-900 {
+  color: var(--text-primary) !important;
+}
+
+.text-gray-500,
+.text-gray-600 {
+  color: var(--text-secondary) !important;
+}
+
+.border,
+.border-gray-200,
+.border-gray-300 {
+  border-color: var(--border-color) !important;
+}
+
+/* Material/MDC typography and controls */
+.mat-icon,
 .mat-expansion-panel-header-title,
-.mat-mdc-select-min-line,
+.mdc-form-field,
+.mdc-floating-label,
 .mdc-list-item__primary-text,
+.mat-mdc-select-min-line,
+.mat-mdc-menu-item,
 .mat-mdc-input-element,
-.mdc-floating-label {
-  color: var(--text-primary);
+.mdc-button,
+mat-dialog-content {
+  color: var(--text-primary) !important;
+}
+
+.mat-mdc-form-field-subscript-wrapper,
+.mat-mdc-form-field-hint-wrapper,
+.mat-mdc-form-field-error-wrapper,
+.mat-mdc-form-field .mat-mdc-form-field-hint,
+.mat-mdc-form-field .mat-mdc-form-field-error {
+  color: var(--text-secondary);
 }
 
 .mdc-icon-button:hover,
-.mat-mdc-menu-item:hover {
+.mat-mdc-menu-item:hover,
+.mat-mdc-row:hover,
+.mat-row:hover {
   background-color: var(--hover-color);
 }
 
-.mat-mdc-tooltip .mdc-tooltip__surface {
-  background-color: var(--mat-sys-inverse-surface) !important;
-  color: var(--mat-sys-inverse-on-surface) !important;
-  border-radius: 0.5rem;
+/* Tables */
+.mat-mdc-table,
+.mat-table {
+  background-color: var(--bg-primary);
 }
 
-.grid-color {
-  background-color: var(--bg-selected);
-  color: var(--text-primary);
+.mat-mdc-header-row,
+.mat-header-row {
+  background-color: var(--bg-secondary) !important;
 }
 
-.mdc-list-item--selected {
-  background-color: var(--pg-selected) !important;
-
-  .mdc-list-item__primary-text {
-    color: var(--mat-sys-on-secondary-container) !important;
-  }
+.mat-mdc-header-cell,
+.mat-header-cell,
+.mat-mdc-cell,
+.mat-cell {
+  color: var(--text-primary) !important;
+  border-bottom-color: var(--border-color) !important;
 }
 
+.mat-mdc-row:nth-child(even),
+.mat-row:nth-child(even) {
+  background-color: var(--bg-tertiary);
+}
+
+/* Paginator + selects */
 .mat-mdc-paginator,
 .max-h-full mat-paginator {
   background-color: var(--bg-primary) !important;
@@ -128,18 +178,72 @@ html.dark {
   fill: var(--text-primary) !important;
 }
 
+.mdc-list-item--selected {
+  background-color: var(--pg-selected) !important;
+
+  .mdc-list-item__primary-text {
+    color: var(--mat-sys-on-secondary-container) !important;
+  }
+}
+
+/* Datepicker + tabs */
+.mat-calendar-body-cell-content,
+.mat-datepicker-toggle-default-icon,
+.mat-mdc-tab .mdc-tab__text-label {
+  color: var(--text-primary) !important;
+}
+
+.mat-mdc-tab-header {
+  background-color: var(--bg-primary);
+}
+
+/* Dialogs, cards, forms */
+.settings-modal,
+.profile-modal,
+.notification,
+form,
+.mat-mdc-dialog-surface,
+.mat-mdc-card,
+.mat-mdc-select-panel,
+.mat-mdc-menu-content,
+.mat-expansion-panel,
+.mat-mdc-form-field {
+  background-color: var(--bg-primary) !important;
+}
+
+.grid-color {
+  background-color: var(--bg-selected);
+  color: var(--text-primary) !important;
+}
+
+.mat-mdc-tooltip .mdc-tooltip__surface {
+  background-color: var(--mat-sys-inverse-surface) !important;
+  color: var(--mat-sys-inverse-on-surface) !important;
+  border-radius: 6px;
+  font-size: 12px !important;
+}
+
+/* Buttons */
+.mdc-button--outlined {
+  box-shadow: 0 4px 6px rgb(0 0 0 / 10%);
+  border: none !important;
+  transition: box-shadow 0.3s ease;
+}
+
 .mat-mdc-button:disabled,
 .mat-mdc-unelevated-button:disabled,
-.mat-mdc-outlined-button:disabled {
-  cursor: not-allowed;
+.mat-mdc-outlined-button:disabled,
+.mat-mdc-button-disabled {
+  cursor: not-allowed !important;
+  pointer-events: auto !important;
 }
 
-/* Keep logos readable in dark mode */
+/* Logo readability in dark mode */
 html.dark img[src*='logo'] {
-  filter: brightness(1.05) saturate(0.9);
+  filter: brightness(1.1);
 }
 
-/* Status badge colors */
+/* Status badges */
 .status-active-badge .mat-badge-content {
   background-color: #4caf50 !important;
   color: #fff !important;
