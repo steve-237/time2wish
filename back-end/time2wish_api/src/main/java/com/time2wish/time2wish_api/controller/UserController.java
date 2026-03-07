@@ -76,7 +76,10 @@ public class UserController {
         String email = credentials.get("email");
         String password = credentials.get("password");
 
+        System.out.println("Email : "+ email + " Password : "+ password);
+
         Optional<User> authenticatedUser = userService.authenticate(email, password);
+        System.out.println("AuthenticatedUser : " + authenticatedUser);
 
         if (authenticatedUser.isPresent()) {
             User user = authenticatedUser.get();
