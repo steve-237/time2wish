@@ -1,11 +1,11 @@
-<div class="mt-4 flex-1 overflow-hidden bg-white rounded-lg shadow-lg p-4 mb-4" *transloco="let t">
+<div class="mt-4 min-h-0 flex-1 overflow-hidden bg-white rounded-lg shadow-lg p-4" *transloco="let t">
   @if (isLoading) {
     <div class="bg-white flex flex-col flex-1 items-center justify-center h-full">
       <mat-spinner diameter="50" color="primary"></mat-spinner>
       <p class="text-gray-600 text-sm mt-2">{{ t('anniversary.loading') }}</p>
     </div>
   } @else {
-    <div class="flex flex-col h-full">
+    <div class="flex min-h-0 flex-col h-full">
       @if (viewMode === 'table') {
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 p-4 border-b border-gray-200 shrink-0">
           <div class="flex justify-center flex-wrap gap-2">
@@ -15,10 +15,10 @@
         </div>
       }
 
-      <div class="flex-1 overflow-y-auto">
+      <div class="min-h-0 flex-1 overflow-y-auto">
         @if (hasBirthdays) {
           @if (viewMode === 'table') {
-            <app-birthday-table class="flex-1" [birthdays]="filteredBirthdays" (edit)="birthdayEdit.emit()" (delete)="birthdayDelete.emit($event)" (refresh)="refresh.emit()"></app-birthday-table>
+            <app-birthday-table class="block h-full" [birthdays]="filteredBirthdays" (edit)="birthdayEdit.emit()" (delete)="birthdayDelete.emit($event)" (refresh)="refresh.emit()"></app-birthday-table>
           } @else {
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
               @for (item of filteredBirthdays; track item.id) {
