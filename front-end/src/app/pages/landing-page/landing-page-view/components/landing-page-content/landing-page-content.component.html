@@ -1,37 +1,47 @@
-<div class="mt-4 flex-1 overflow-hidden bg-white rounded-lg shadow-lg p-4 mb-4" *transloco="let t">
+<div class="mt-4 flex-1 bg-white rounded-lg shadow-lg overflow-hidden flex flex-col h-full" *transloco="let t">
+  
   @if (isLoading) {
-    <div class="bg-white flex flex-col flex-1 items-center justify-center h-full">
+    <div class="flex flex-col flex-1 items-center justify-center">
       <mat-spinner diameter="50" color="primary"></mat-spinner>
       <p class="text-gray-600 text-sm mt-2">{{ t('anniversary.loading') }}</p>
     </div>
   } @else {
-    <div class="flex flex-col h-full">
+    <div class="flex flex-col h-full min-h-0">
+      
       @if (viewMode === 'table') {
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 p-4 border-b border-gray-200 shrink-0">
-          <div class="flex justify-center flex-wrap gap-2">
-            <button mat-button class="flex items-center gap-1"><mat-icon>file_upload</mat-icon> {{ t('actions.import') }}</button>
-            <button mat-button class="flex items-center gap-1"><mat-icon>file_download</mat-icon> {{ t('actions.export') }}</button>
+        <div class="p-4 border-b border-gray-200 shrink-0 bg-white z-20">
+          <div class="flex gap-2">
+            <button mat-button class="flex items-center gap-1 border border-gray-200 px-3 py-1 rounded-md">
+              <mat-icon>file_upload</mat-icon> {{ t('actions.import') }}
+            </button>
+            <button mat-button class="flex items-center gap-1 border border-gray-200 px-3 py-1 rounded-md">
+              <mat-icon>file_download</mat-icon> {{ t('actions.export') }}
+            </button>
           </div>
         </div>
       }
 
-      <div class="flex-1 overflow-y-auto">
+      <div class="flex-1 min-h-0 overflow-hidden relative">
         @if (hasBirthdays) {
           @if (viewMode === 'table') {
-            <app-birthday-table class="flex-1" [birthdays]="filteredBirthdays" (edit)="birthdayEdit.emit()" (delete)="birthdayDelete.emit($event)" (refresh)="refresh.emit()"></app-birthday-table>
+            <app-birthday-table 
+              class="block h-full" 
+              [birthdays]="filteredBirthdays" 
+              (edit)="birthdayEdit.emit()" 
+              (delete)="birthdayDelete.emit($event)" 
+              (refresh)="refresh.emit()">
+            </app-birthday-table>
           } @else {
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+            <div class="h-full overflow-y-auto p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 custom-scrollbar">
               @for (item of filteredBirthdays; track item.id) {
-                <app-birthday-card [item]="item" (edit)="birthdayEdit.emit()" (delete)="birthdayDelete.emit(item.id)" (details)="birthdayDetails.emit(item)"></app-birthday-card>
+                <app-birthday-card [item]="item" ...></app-birthday-card>
               }
             </div>
           }
         } @else {
           <div class="p-8 text-center text-gray-500 flex flex-col items-center justify-center h-full">
-            <mat-icon class="text-4xl w-12 h-12 mb-2">event_busy</mat-icon>
-            <p class="text-lg">
-              {{ activeButton === 'coming' ? t('anniversary.empty_coming') : t('anniversary.empty_passed') }}
-            </p>
+            <mat-icon class="text-4xl mb-2">event_busy</mat-icon>
+            <p>{{ t('anniversary.empty_coming') }}</p>
           </div>
         }
       </div>

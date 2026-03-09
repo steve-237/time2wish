@@ -1,9 +1,12 @@
-<div class="flex">
-  <app-aside-nav-bar></app-aside-nav-bar>
+<div class="flex h-screen w-full overflow-hidden bg-gray-200">
+  <app-aside-nav-bar class="h-full shrink-0"></app-aside-nav-bar>
 
-  <div class="h-screen w-screen flex items-center justify-center bg-gray-200 overflow-hidden">
-    <main class="h-full w-full flex flex-col p-4 shadow-lg rounded-lg">
+  <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+    
+    <main class="flex-1 flex flex-col p-4 overflow-hidden">
+      
       <app-landing-page-header
+        class="shrink-0"
         [viewMode]="viewMode"
         [activeButton]="activeButton"
         [searchQuery]="searchQuery"
@@ -28,19 +31,23 @@
         (activeButtonChange)="activeButtonChange.emit($event)"
       ></app-landing-page-header>
 
-      <app-landing-page-content
-        [isLoading]="isLoading"
-        [viewMode]="viewMode"
-        [hasBirthdays]="hasBirthdays"
-        [filteredBirthdays]="filteredBirthdays"
-        [activeButton]="activeButton"
-        (birthdayEdit)="birthdayEdit.emit()"
-        (birthdayDelete)="birthdayDelete.emit($event)"
-        (birthdayDetails)="birthdayDetails.emit($event)"
-        (refresh)="refresh.emit()"
-      ></app-landing-page-content>
+      <div class="flex-1 overflow-hidden mt-4 rounded-lg bg-white shadow-sm flex flex-col">
+        <app-landing-page-content
+          class="flex-1 flex flex-col min-h-0" 
+          [isLoading]="isLoading"
+          [viewMode]="viewMode"
+          [hasBirthdays]="hasBirthdays"
+          [filteredBirthdays]="filteredBirthdays"
+          [activeButton]="activeButton"
+          (birthdayEdit)="birthdayEdit.emit()"
+          (birthdayDelete)="birthdayDelete.emit($event)"
+          (birthdayDetails)="birthdayDetails.emit($event)"
+          (refresh)="refresh.emit()"
+        ></app-landing-page-content>
+      </div>
 
-      <app-footer></app-footer>
+      <app-footer class="shrink-0 pt-4"></app-footer>
+      
     </main>
   </div>
 </div>
