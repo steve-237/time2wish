@@ -1,0 +1,53 @@
+<div class="flex h-screen w-full overflow-hidden bg-gray-200">
+  <app-aside-nav-bar class="h-full shrink-0"></app-aside-nav-bar>
+
+  <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+    
+    <main class="flex-1 flex flex-col p-4 overflow-hidden">
+      
+      <app-landing-page-header
+        class="shrink-0"
+        [viewMode]="viewMode"
+        [activeButton]="activeButton"
+        [searchQuery]="searchQuery"
+        [isDarkTheme]="isDarkTheme"
+        [currentDate]="currentDate"
+        [suggestions]="suggestions"
+        [advancedFilterColumn]="advancedFilterColumn"
+        [availableColumns]="availableColumns"
+        [unreadNotifications]="unreadNotifications"
+        [currentUser]="currentUser"
+        (searchChange)="searchChange.emit($event)"
+        (clearSearch)="clearSearch.emit()"
+        (suggestionSelected)="suggestionSelected.emit($event)"
+        (advancedFilterChange)="advancedFilterChange.emit($event)"
+        (themeToggle)="themeToggle.emit()"
+        (notificationOpen)="notificationOpen.emit()"
+        (viewToggle)="viewToggle.emit($event)"
+        (informationOpen)="informationOpen.emit()"
+        (profileOpen)="profileOpen.emit()"
+        (activityLogsOpen)="activityLogsOpen.emit()"
+        (logout)="logout.emit()"
+        (activeButtonChange)="activeButtonChange.emit($event)"
+      ></app-landing-page-header>
+
+      <div class="flex-1 overflow-hidden mt-4 rounded-lg bg-white shadow-sm flex flex-col">
+        <app-landing-page-content
+          class="flex-1 flex flex-col min-h-0" 
+          [isLoading]="isLoading"
+          [viewMode]="viewMode"
+          [hasBirthdays]="hasBirthdays"
+          [filteredBirthdays]="filteredBirthdays"
+          [activeButton]="activeButton"
+          (birthdayEdit)="birthdayEdit.emit()"
+          (birthdayDelete)="birthdayDelete.emit($event)"
+          (birthdayDetails)="birthdayDetails.emit($event)"
+          (refresh)="refresh.emit()"
+        ></app-landing-page-content>
+      </div>
+
+      <app-footer class="shrink-0 pt-4"></app-footer>
+      
+    </main>
+  </div>
+</div>

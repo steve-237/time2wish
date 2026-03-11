@@ -380,5 +380,97 @@
       "pro": "Pro",
       "family": "Famille"
     }
+  },
+  "landing": {
+    "subtitle": "Plateforme intelligente de rappels d'anniversaires",
+    "actions": {
+      "login": "Se connecter",
+      "sign_up": "S'inscrire"
+    },
+    "badge": "Organisation moderne des dates importantes",
+    "hero": {
+      "title": "La landing page complète de",
+      "title_suffix": "pour ne plus jamais oublier un anniversaire.",
+      "description": "Time2Wish centralise la gestion des anniversaires, notifications, vues analytiques et actions collaboratives dans une expérience Angular + Tailwind moderne. Vous pilotez vos événements en quelques clics avec un design cohérent, rapide et orienté productivité."
+    },
+    "stats": {
+      "features": "Fonctionnalités clés prêtes à l'emploi",
+      "focus": "Focus sur la prévention des oublis"
+    },
+    "objectives": {
+      "title": "Objectifs de l’application",
+      "items": {
+        "precise": "Assurer le suivi précis des anniversaires personnels et professionnels.",
+        "anticipation": "Optimiser l’anticipation avec rappels, filtres et catégorisation.",
+        "usability": "Faciliter la gestion quotidienne via des interfaces lisibles et responsives.",
+        "security": "Offrir un environnement sécurisé pour les données utilisateurs."
+      }
+    },
+    "features": {
+      "title": "Fonctionnalités principales",
+      "subtitle": "Chaque module répond à un besoin concret: visualisation, action rapide, personnalisation et suivi fiable.",
+      "items": {
+        "centralized": {
+          "title": "Gestion centralisée des anniversaires",
+          "description": "Ajoutez, modifiez et suivez les anniversaires de vos proches, collègues ou clients depuis un tableau unique."
+        },
+        "alerts": {
+          "title": "Alertes intelligentes",
+          "description": "Recevez des rappels avant chaque événement pour ne jamais rater une date importante."
+        },
+        "views": {
+          "title": "Vue table et vue cartes",
+          "description": "Naviguez facilement entre une vue détaillée et une vue visuelle selon votre façon de travailler."
+        },
+        "multilingual": {
+          "title": "Expérience multilingue",
+          "description": "L’application prend en charge plusieurs langues pour une adoption rapide dans des équipes internationales."
+        },
+        "logs": {
+          "title": "Traçabilité des actions",
+          "description": "Consultez les logs d’activité pour garder un historique des mises à jour importantes."
+        },
+        "security": {
+          "title": "Sécurité et accès contrôlé",
+          "description": "Authentification dédiée, gestion utilisateur et navigation protégée pour vos données sensibles."
+        }
+      }
+    },
+    "why": {
+      "title": "Pourquoi utiliser Time2Wish ?",
+      "items": {
+        "time": "Gagner du temps avec une interface claire et moderne.",
+        "relationship": "Améliorer la relation avec vos proches, clients ou équipes grâce à une meilleure anticipation.",
+        "reminders": "Éviter les oublis grâce à des rappels contextualisés.",
+        "platform": "Uniformiser le suivi des événements dans une seule plateforme."
+      }
+    },
+    "target": {
+      "title": "Public cible",
+      "items": {
+        "individuals": "Particuliers qui souhaitent gérer les anniversaires familiaux.",
+        "assistants": "Assistants administratifs et RH qui gèrent les événements d’équipe.",
+        "managers": "Managers commerciaux qui entretiennent la relation client.",
+        "communities": "Associations et communautés avec des membres nombreux."
+      }
+    },
+    "interfaces": {
+      "title": "Aperçu des interfaces",
+      "subtitle": "Des visuels dédiés aux principaux parcours utilisateurs: authentification, pilotage et notifications.",
+      "items": {
+        "login": {
+          "title": "Écran de connexion",
+          "description": "Un accès simple, sécurisé et rapide à votre espace personnel."
+        },
+        "dashboard": {
+          "title": "Tableau de bord principal",
+          "description": "Vue complète des anniversaires à venir, passés, et des actions disponibles."
+        },
+        "notifications": {
+          "title": "Centre de notifications",
+          "description": "Concentrez vos rappels et priorités dans une interface dédiée."
+        }
+      }
+    }
   }
 }
