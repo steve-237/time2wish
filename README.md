@@ -1,6 +1,8 @@
 # 🎉 Time2Wish – Birthday Reminder Application
 
 > A smart and stylish way to never forget the special moments of your loved ones.
+
+time2wish-v1.0.0
 <img width="2545" height="1302" alt="image" src="https://github.com/user-attachments/assets/1ba18752-b903-47e2-8fdb-068c460067b8" />
 
 ### Light mode
