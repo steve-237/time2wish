@@ -2,7 +2,7 @@
 
 > A smart and stylish way to never forget the special moments of your loved ones.
 
-### time2wish-v1.0.1
+### time2wish-v1.0.1 - dark mode
 <img width="1886" height="914" alt="image" src="https://github.com/user-attachments/assets/825bfb27-e417-4bab-86b1-82bec1cf9797" />
 
 
