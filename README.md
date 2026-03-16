@@ -109,7 +109,7 @@ The project is currently in early-stage development. Core architecture and featu
 - ✅ PWA support for mobile use
 - 🧠 AI-powered birthday message generator
 - 📅 Calendar integrations (Google, Outlook)
-- 🎁 Group gift reminders and planning
+- 🎁 Group gift reminders and planning (to be decided)
 - 🗂️ Birthday history and wish archive
 
 ---
