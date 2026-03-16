@@ -10,7 +10,6 @@ import io.jsonwebtoken.JwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -89,11 +88,7 @@ public class UserController {
             String refreshToken = tokenProvider.generateRefreshToken(user);
 
             // 2. CRÉATION DU COOKIE (REFRESH TOKEN)
-            String cookieValue = String.format("refreshToken=%s; Path=/; Max-Age=%d; HttpOnly; SameSite=Lax",
-                    refreshToken,
-                    tokenProvider.getRefreshTokenExpirationInSeconds()); // Utiliser la durée longue
-
-            response.addHeader("Set-Cookie", cookieValue);
+            response.addHeader("Set-Cookie", buildRefreshTokenCookieHeader(refreshToken, tokenProvider.getRefreshTokenExpirationInSeconds()));
 
             // 3. CRÉATION DU DTO DE RÉPONSE
             List<BirthdayDTO> birthdayDTOs = user.getBirthdays().stream()
@@ -120,7 +115,7 @@ public class UserController {
      * POST /api/refresh
      */
     @PostMapping("/refresh")
-    public ResponseEntity<?> refreshAccessToken(HttpServletRequest request) {
+    public ResponseEntity<?> refreshAccessToken(HttpServletRequest request, HttpServletResponse response) {
 
         String refreshToken = null;
 
@@ -153,14 +148,23 @@ public class UserController {
             // 3. Récupérer l'ID utilisateur à partir des claims
             String userId = claims.getSubject();
 
-            // 4. Récupérer l'utilisateur et générer un nouveau token...
+            if (tokenProvider.isRefreshTokenInactive(claims)) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                        .body(Collections.singletonMap("message", "Session expirée après inactivité. Veuillez vous reconnecter."));
+            }
+
+            // 4. Récupérer l'utilisateur et régénérer la paire de tokens
             Optional<User> userOptional = userService.getUser(Long.valueOf(userId));
 
             if (userOptional.isPresent()) {
                 User user = userOptional.get();
 
-                // Générer un NOUVEL Access Token
+                // Générer un NOUVEL Access Token + ROTATION DU REFRESH TOKEN
                 String newAccessToken = tokenProvider.generateAccessToken(user);
+                String newRefreshToken = tokenProvider.generateRefreshToken(user);
+
+                // Mettre à jour le cookie HttpOnly avec le nouveau refresh token
+                response.addHeader("Set-Cookie", buildRefreshTokenCookieHeader(newRefreshToken, tokenProvider.getRefreshTokenExpirationInSeconds()));
 
                 // Retourner le nouvel Access Token dans le corps
                 return ResponseEntity.ok(Collections.singletonMap("accessToken", newAccessToken));
@@ -346,6 +350,12 @@ public class UserController {
         SecurityContextHolder.clearContext();
 
         return ResponseEntity.ok(new MessageResponse("Déconnexion réussie"));
+    }
+
+    private String buildRefreshTokenCookieHeader(String refreshToken, int maxAgeInSeconds) {
+        return String.format("refreshToken=%s; Path=/; Max-Age=%d; HttpOnly; SameSite=Lax",
+                refreshToken,
+                maxAgeInSeconds);
     }
 
     // 1. Demander la réinitialisation (envoi de l'email via le service)

@@ -31,6 +31,9 @@ public class JwtTokenProvider {
     @Value("${app.refreshTokenExpirationInMs}")
     private int refreshTokenExpirationInMs; // Pour le Token de rafraîchissement
 
+    @Value("${app.refreshTokenInactivityTimeoutInMs:180000}")
+    private int refreshTokenInactivityTimeoutInMs; // 3 minutes par défaut
+
     // 3. Clé JWT interne (sécurisée)
     private SecretKey key;
 
@@ -85,6 +88,7 @@ public class JwtTokenProvider {
         return Jwts.builder()
                 .setSubject(String.valueOf(user.getId()))
                 .claim("tokenType", "REFRESH") // Ajout du type de token
+                .claim("lastActivityAt", now.getTime())
                 .setIssuedAt(now)
                 .setExpiration(expiryDate)
                 .signWith(key, SignatureAlgorithm.HS512)
@@ -94,6 +98,16 @@ public class JwtTokenProvider {
     // Ajout d'une méthode pour l'expiration du cookie (en secondes)
     public int getRefreshTokenExpirationInSeconds() {
         return refreshTokenExpirationInMs / 1000;
+    }
+
+    public boolean isRefreshTokenInactive(Claims claims) {
+        Long lastActivityAt = claims.get("lastActivityAt", Long.class);
+        if (lastActivityAt == null) {
+            return true;
+        }
+
+        long inactiveForMs = System.currentTimeMillis() - lastActivityAt;
+        return inactiveForMs > refreshTokenInactivityTimeoutInMs;
     }
 
     /**
