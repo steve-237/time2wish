@@ -4,6 +4,20 @@ A full-stack web application to manage birthdays, automate reminders, and centra
 
 ---
 
+### time2wish-v1.0.1 - dark mode
+<img width="1886" height="914" alt="image" src="https://github.com/user-attachments/assets/825bfb27-e417-4bab-86b1-82bec1cf9797" />
+
+
+
+### time2wish-v1.0.0
+<img width="2545" height="1302" alt="image" src="https://github.com/user-attachments/assets/1ba18752-b903-47e2-8fdb-068c460067b8" />
+
+### Light mode
+<img width="2549" height="1306" alt="image" src="https://github.com/user-attachments/assets/d868085d-0bea-4f47-bb93-a59af19b979d" />
+
+### Dark mode
+<img width="2554" height="1299" alt="image" src="https://github.com/user-attachments/assets/6d5d84fb-4eb9-4c95-a530-6383a138bf41" />
+
 ## 1) Project Vision
 
 **Time2Wish** helps users never miss important birthdays by combining:
@@ -204,6 +218,48 @@ cd back-end/time2wish_api
 
 ---
 
-## 10) License
+---
 
-Internal project under active development. Add an explicit license before public release.
+## 🛠️ Technical Stack
+
+| Layer         | Technologies                                | Status          |
+|---------------|---------------------------------------------|-----------------|
+| **Frontend**  | Angular 19+ with TypeScript                 | 🚧 In Progress  |
+| **Backend**   | Spring Boot (2.3.2.RELEASE) | 🚧 In Progress  |
+| **Database**  | Firestore / MongoDB / PostgreSQL            | 🟡 To be decided |
+| **Notifications** | Web Push API / Firebase Cloud Messaging | 🟡 To be decided |
+| **APIs**      | Twilio / SendGrid or similar messaging APIs | 🟡 To be decided |
+
+---
+
+---
+
+## 🚀 Project Status
+
+The project is currently in early-stage development. Core architecture and features are being built.
+
+> 🔧 Contributions and ideas are welcome!
+
+---
+
+## 📌 Future Enhancements (Roadmap)
+
+- ✅ PWA support for mobile use
+- 🧠 AI-powered birthday message generator
+- 📅 Calendar integrations (Google, Outlook)
+- 🎁 Group gift reminders and planning (to be decided)
+- 🗂️ Birthday history and wish archive
+
+---
+
+## 🙌 Contribution
+
+Want to contribute or support the project?
+
+- 🐛 [Open an issue](#) to report bugs or suggest features.
+- 🚀 Submit a pull request.
+- 💬 Share feedback and ideas.
+
+## Usefull link
+- Login and logout workflow explain: https://hasura.io/blog/best-practices-of-using-jwt-with-graphql
+---
