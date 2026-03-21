@@ -1,0 +1,35 @@
+name: Backend CI
+
+on:
+  push:
+    paths:
+      - 'back-end/**'
+      - 'worflow/backend-ci.yml'
+  pull_request:
+    paths:
+      - 'back-end/**'
+      - 'worflow/backend-ci.yml'
+
+jobs:
+  backend-quality:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: back-end/time2wish_api
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 8
+          cache: maven
+
+      - name: Run tests
+        run: ./mvnw test
+
+      - name: Package
+        run: ./mvnw -DskipTests package
