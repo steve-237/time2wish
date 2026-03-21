@@ -1,17 +1,37 @@
-@use "@angular/material" as mat;
-@use "theme-colors" as custom;
+@use '@angular/material' as mat;
+@use 'theme-colors' as custom;
 
 @layer theme, utilities;
-@import "tailwindcss/theme.css" layer(theme);
-@import "tailwindcss/utilities.css" layer(utilities);
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' layer(utilities);
 
+/* Material Design 3 themes */
 html {
   color-scheme: light;
+
   @include mat.theme(
     (
-      color: custom.$primary-palette,
+      color: (
+        theme-type: light,
+        primary: custom.$primary-palette,
+        tertiary: custom.$tertiary-palette,
+      ),
       typography: Roboto,
       density: 0,
+    )
+  );
+}
+
+html.dark {
+  color-scheme: dark;
+
+  @include mat.theme(
+    (
+      color: (
+        theme-type: dark,
+        primary: custom.$primary-palette,
+        tertiary: custom.$tertiary-palette,
+      ),
     )
   );
 }
@@ -20,70 +40,50 @@ html,
 body {
   height: 100%;
 }
+
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+  transition: background-color 220ms ease, color 220ms ease;
 }
 
-// Variables pour les thèmes
+/* App-wide semantic variables used by templates */
 :root {
-  // Light Theme
-  --light-bg-primary: #ffffff;
-  --light-bg-secondary: #f3f4f6;
-  --light-bg-tertiary: #e5e7eb;
-  --light-text-primary: #111827;
-  --light-text-secondary: #6b7280;
-  --light-border: #e5e7eb;
-  --light-accent: #3b82f6;
-  --light-bg-hover: #0D0D0D0D;
-  --light-pg-selected: #050c14;
-  --light-bg: #F9FAFB;
-  // Dark Theme
-  --dark-bg-primary: #1a1a1a;
-  --dark-bg-secondary: #2d2d2d;
-  --dark-bg-tertiary: #3d3d3d;
-  --dark-text-primary: #f5f5f5;
-  --dark-text-secondary: #b0b0b0;
-  --dark-border: #4d4d4d;
-  --dark-accent: #5d9cf8;
-  --dark-bg-hover: #FFFFFF14;
-  --dark-pg-selected: #ffffff;
-  --dark-bg:#4d4d4d;
-  // Appliquer le thème par défaut
-  --bg-primary: var(--light-bg-primary);
-  --bg-secondary: var(--light-bg-secondary);
-  --bg-tertiary: var(--light-bg-tertiary);
-  --text-primary: var(--light-text-primary);
-  --text-secondary: var(--light-text-secondary);
-  --border-color: var(--light-border);
-  --accent-color: var(--light-accent);
-  --hover-color: var(--light-bg-hover);
-  --pg-selected: var(--light-pg-selected);
-  --bg-selected: var(--light-bg);
+  --bg-primary: var(--mat-sys-surface);
+  --bg-secondary: var(--mat-sys-surface-container-low);
+  --bg-tertiary: var(--mat-sys-surface-container);
+  --bg-selected: var(--mat-sys-surface-container-high);
+  --text-primary: var(--mat-sys-on-surface);
+  --text-secondary: var(--mat-sys-on-surface-variant);
+  --border-color: var(--mat-sys-outline-variant);
+  --accent-color: var(--mat-sys-primary);
+  --hover-color: color-mix(in srgb, var(--mat-sys-on-surface) 8%, transparent);
+  --pg-selected: var(--mat-sys-secondary-container);
 }
 
-// Dark Mode
-.dark {
-  --bg-primary: var(--dark-bg-primary);
-  --bg-secondary: var(--dark-bg-secondary);
-  --bg-tertiary: var(--dark-bg-tertiary);
-  --text-primary: var(--dark-text-primary);
-  --text-secondary: var(--dark-text-secondary);
-  --border-color: var(--dark-border);
-  --accent-color: var(--dark-accent);
-  --hover-color: var(--dark-bg-hover);
-  --pg-selected: var(--dark-pg-selected);
-  --bg-selected: var(--dark-bg);
+html.dark {
+  --hover-color: color-mix(in srgb, var(--mat-sys-on-surface) 14%, transparent);
 }
 
-// Application des styles globaux
-body {
+/* Core app shell */
+.app-shell,
+.mat-drawer-container,
+.mat-drawer-content,
+.mat-mdc-table,
+.mat-mdc-paginator,
+.mat-mdc-tab-group,
+.mat-mdc-dialog-container,
+.mat-mdc-menu-panel,
+.mat-mdc-select-panel,
+.mat-expansion-panel,
+.mat-mdc-card {
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-// Classes utilitaires
+/* Maintain compatibility with existing utility classes in templates */
 .bg-white {
   background-color: var(--bg-primary) !important;
 }
@@ -96,115 +96,24 @@ body {
   background-color: var(--bg-tertiary) !important;
 }
 
-.text-gray-700, .text-gray-800, .text-gray-900 {
+.text-gray-700,
+.text-gray-800,
+.text-gray-900 {
   color: var(--text-primary) !important;
 }
 
-.text-gray-500, .text-gray-600 {
+.text-gray-500,
+.text-gray-600 {
   color: var(--text-secondary) !important;
 }
 
-.border, .border-gray-200, .border-gray-300 {
+.border,
+.border-gray-200,
+.border-gray-300 {
   border-color: var(--border-color) !important;
 }
 
-// Styles pour Angular Material
-.mat-card {
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  border: 1px solid var(--border-color);
-}
-
-.mat-menu-panel {
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-
-  .mat-menu-item {
-    color: var(--text-primary);
-
-    &:hover {
-      background-color: var(--bg-secondary);
-    }
-  }
-}
-
-.mat-button-toggle {
-  background-color: var(--bg-secondary);
-  color: var(--text-primary);
-
-  &-checked {
-    background-color: var(--accent-color);
-    color: white;
-  }
-}
-
-.mat-table {
-  background-color: var(--bg-primary);
-
-  .mat-header-cell {
-    color: var(--text-primary);
-    background-color: var(--bg-secondary);
-  }
-
-  .mat-cell {
-    color: var(--text-primary);
-    border-bottom-color: var(--border-color);
-  }
-
-  .mat-row:hover {
-    background-color: var(--bg-secondary);
-  }
-}
-
-.mat-paginator {
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-}
-
-.mat-dialog-container {
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-}
-
-.mat-form-field {
-  .mat-input-element {
-    color: var(--text-primary);
-  }
-
-  .mat-form-field-label {
-    color: var(--text-secondary);
-  }
-
-  .mat-form-field-underline {
-    background-color: var(--border-color);
-  }
-}
-
-.mat-select-panel {
-  background-color: var(--bg-primary);
-
-  .mat-option {
-    color: var(--text-primary);
-
-    &:hover {
-      background-color: var(--bg-secondary);
-    }
-  }
-}
-//Dark styles pour la popup des parametres
-.settings-modal,
-.mat-expansion-panel,
-.mat-mdc-form-field,
-.mat-primary,
-.mat-mdc-menu-content,
-.profile-modal,
-.mat-mdc-card,
-.mat-mdc-select-panel,
-.notification,
-form
-{
-  background-color: var(--bg-primary)!important;
-}
+/* Material/MDC typography and controls */
 .mat-icon,
 .mat-expansion-panel-header-title,
 .mdc-form-field,
@@ -212,96 +121,145 @@ form
 .mdc-list-item__primary-text,
 .mat-mdc-select-min-line,
 .mat-mdc-menu-item,
-.profile-modal,
 .mat-mdc-input-element,
-.font-medium,
-.mat-expansion-panel-body,
 .mdc-button,
-mat-dialog-content,
-{
-  color: var(--text-primary)!important;
-}
-//Styles pour les details de l'anniversaire
-.grid-color{
-  background-color:  var(--bg-selected);
-  color: var(--text-primary)!important;
-}
-
-// Styles spécifiques pour les icônes
-.mat-icon {
-  color: var(--text-secondary);
-
-  &.mat-primary {
-    color: var(--accent-color);
-  }
-}
-// Styles spécifiques pour les boutons lors de la suppression d'un birthday
-.mdc-button--outlined{
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border: none !important;
-  transition: box-shadow 0.3s ease;
-
-}
-//styles pour le background color des mattooltip
-.mat-mdc-tooltip  {
-  background-color: var(--text-primary) !important;
-  color: var(--bg-primary) !important;
-  font-size: 12px !important;
-  border-radius: 6px !important;
-  .mdc-tooltip__surface{
-    background-color: var(--text-primary) !important;
-    color: var(--bg-primary) !important;
-    font-size: 12px !important;
-    border-radius: 5px !important;
-  }
-}
-
-// Styles pour les boutons
-.mat-button, .mat-raised-button, .mat-icon-button, {
-  &.mat-primary {
-    background-color: var(--accent-color);
-  }
-}
-// Styles pour les icon de navigations
-.mdc-icon-button:hover{
-  background-color: var(--hover-color);
-}
-//styles pour la date d'anniversaire
-.mat-calendar-body-cell-content, .mat-datepicker-toggle-default-icon{
+mat-dialog-content {
   color: var(--text-primary) !important;
 }
-// Styles pour les onglets
-.mat-tab-group {
-  .mat-tab-header {
-    background-color: var(--bg-primary);
-  }
 
-  .mat-tab-label {
-    color: var(--text-primary);
-  }
+.mat-mdc-form-field-subscript-wrapper,
+.mat-mdc-form-field-hint-wrapper,
+.mat-mdc-form-field-error-wrapper,
+.mat-mdc-form-field .mat-mdc-form-field-hint,
+.mat-mdc-form-field .mat-mdc-form-field-error {
+  color: var(--text-secondary);
+}
 
-  .mat-ink-bar {
-    background-color: var(--accent-color);
+.mdc-icon-button:hover,
+.mat-mdc-menu-item:hover,
+.mat-mdc-row:hover,
+.mat-row:hover {
+  background-color: var(--hover-color);
+}
+
+/* Tables */
+.mat-mdc-table,
+.mat-table {
+  background-color: var(--bg-primary);
+}
+
+.mat-mdc-header-row,
+.mat-header-row {
+  background-color: var(--bg-secondary) !important;
+}
+
+.mat-mdc-header-cell,
+.mat-header-cell,
+.mat-mdc-cell,
+.mat-cell {
+  color: var(--text-primary) !important;
+  border-bottom-color: var(--border-color) !important;
+}
+
+.mat-mdc-row:nth-child(even),
+.mat-row:nth-child(even) {
+  background-color: var(--bg-tertiary);
+}
+
+/* Paginator + selects */
+.mat-mdc-paginator,
+.max-h-full mat-paginator {
+  background-color: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
+  border-top: 1px solid var(--border-color);
+}
+
+.mat-mdc-paginator-icon {
+  fill: var(--text-primary) !important;
+}
+
+.mdc-list-item--selected {
+  background-color: var(--pg-selected) !important;
+
+  .mdc-list-item__primary-text {
+    color: var(--mat-sys-on-secondary-container) !important;
   }
 }
 
-//style pour le bouton désactivé
+/* Datepicker + tabs */
+.mat-calendar-body-cell-content,
+.mat-datepicker-toggle-default-icon,
+.mat-mdc-tab .mdc-tab__text-label {
+  color: var(--text-primary) !important;
+}
+
+.mat-mdc-tab-header {
+  background-color: var(--bg-primary);
+}
+
+/* Dialogs, cards, forms */
+.settings-modal,
+.profile-modal,
+.notification,
+form,
+.mat-mdc-dialog-surface,
+.mat-mdc-card,
+.mat-mdc-select-panel,
+.mat-mdc-menu-content,
+.mat-expansion-panel,
+.mat-mdc-form-field {
+  background-color: var(--bg-primary) !important;
+}
+
+.grid-color {
+  background-color: var(--bg-selected);
+  color: var(--text-primary) !important;
+}
+
+.mat-mdc-tooltip .mdc-tooltip__surface {
+  background-color: var(--mat-sys-inverse-surface) !important;
+  color: var(--mat-sys-inverse-on-surface) !important;
+  border-radius: 6px;
+  font-size: 12px !important;
+}
+
+/* Buttons */
+.mdc-button--outlined {
+  box-shadow: 0 4px 6px rgb(0 0 0 / 10%);
+  border: none !important;
+  transition: box-shadow 0.3s ease;
+}
+
+.mat-mdc-button:disabled,
+.mat-mdc-unelevated-button:disabled,
+.mat-mdc-outlined-button:disabled,
 .mat-mdc-button-disabled {
   cursor: not-allowed !important;
-  pointer-events: auto !important; // pour que le curseur change même si clic bloqué
-}
-// Correction pour les images/logo en dark mode
-.dark {
-  img:not([data-no-invert]) {
-    filter: brightness(0.8) contrast(1.2);
-  }
-
-  img[src*="logo"] {
-    filter: invert(1) brightness(1.5);
-  }
+  pointer-events: auto !important;
 }
 
-// Scrollbar personnalisée
+/* Logo readability in dark mode */
+html.dark img[src*='logo'] {
+  filter: brightness(1.1);
+}
+
+/* Status badges */
+.status-active-badge .mat-badge-content {
+  background-color: #4caf50 !important;
+  color: #fff !important;
+}
+
+.status-pending-badge .mat-badge-content {
+  background-color: #ffc107 !important;
+  color: #111 !important;
+}
+
+.status-inactive-badge .mat-badge-content {
+  background-color: #f44336 !important;
+  color: #fff !important;
+}
+
+/* Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -314,110 +272,8 @@ mat-dialog-content,
 ::-webkit-scrollbar-thumb {
   background: var(--text-secondary);
   border-radius: 4px;
-
-  &:hover {
-    background: var(--accent-color);
-  }
 }
 
-// Thème pour mat-table
-.mat-table {
-  background-color: var(--bg-primary);
-
-  .mat-header-cell {
-    color: var(--text-primary);
-    background-color: var(--bg-secondary);
-    font-weight: 600;
-  }
-
-  .mat-cell {
-    color: var(--text-primary);
-    border-bottom-color: var(--border-color);
-  }
-
-  .mat-row {
-    background-color: var(--bg-primary);
-
-    &:hover {
-      background-color: var(--bg-secondary) !important;
-    }
-
-    &:nth-child(even) {
-      background-color: var(--bg-tertiary);
-    }
-  }
-}
-
-// Correction spécifique pour le header du tableau
-.mat-header-row {
-  background-color: var(--bg-secondary) !important;
-}
-//styles pour le background du paginator
-.mdc-list-item--selected {
-  background-color: var(--pg-selected) !important;
-  color: var(--bg-primary) !important;
-  .mdc-list-item__primary-text{
-    color: var(--bg-primary) !important;
-  }
-}
-
-// Styles pour le paginator
-.mat-paginator {
-  background-color: var(--bg-primary) !important;
-  color: var(--text-primary) !important;
-  border-top: 1px solid var(--border-color);
-}
-
-// Styles pour les cellules sélectionnées
-.mat-row.mat-row-selected {
-  background-color: var(--accent-color) !important;
-
-  .mat-cell {
-    color: white !important;
-  }
-}
-
-// Thème pour les table
-.mat-elevation-z8 {
-  table {
-    background-color: var(--bg-primary) !important;
-  }
-}
-
-// Thème pour les paginators
-.max-h-full {
-  mat-paginator {
-    background-color: var(--bg-primary) !important;
-    color: var(--text-primary) !important;
-  }
-
-  .mat-mdc-paginator-icon {
-    fill: var(--text-primary) !important;
-  }
-}
-
-// Styles personnalisés pour le badge de statut
-
-// Badge Vert (ACTIVE)
-.status-active-badge {
-    .mat-badge-content {
-        background-color: #4CAF50 !important; // Vert
-        color: white !important;
-    }
-}
-
-// Badge Jaune/Orange (PENDING)
-.status-pending-badge {
-    .mat-badge-content {
-        background-color: #FFC107 !important; // Jaune/Ambre
-        color: black !important;
-    }
-}
-
-// Badge Rouge (INACTIVE)
-.status-inactive-badge {
-    .mat-badge-content {
-        background-color: #F44336 !important; // Rouge
-        color: white !important;
-    }
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-color);
 }
