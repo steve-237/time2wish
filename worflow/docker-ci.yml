@@ -1,0 +1,30 @@
+name: Docker Compose Validation
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'docker-compose.yml'
+      - 'docker-compose.dev.yml'
+      - 'front-end/Dockerfile'
+      - 'back-end/time2wish_api/Dockerfile'
+      - 'worflow/docker-ci.yml'
+
+jobs:
+  validate-docker-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build frontend image
+        run: docker build -t time2wish-frontend-test ./front-end
+
+      - name: Build backend image
+        run: docker build -t time2wish-backend-test ./back-end/time2wish_api
+
+      - name: Validate compose files
+        run: |
+          docker compose -f docker-compose.yml config
+          docker compose -f docker-compose.dev.yml config
