@@ -2,32 +2,36 @@
   <div class="flex flex-col md:flex-row justify-between items-center">
     <div class="mb-2 md:mb-0">
       <p class="text-gray-600 text-xs mt-1">
-        © {{ currentDate | date : "yyyy" }} Time2Wish. {{ 'footer.rights_reserved' | transloco }}
+        © {{ currentDate | date : "yyyy" }} Time2Wish.
+        {{ 'footer.rights_reserved' | transloco }}
       </p>
     </div>
 
     <div class="flex space-x-2">
-      <a
+      <button
+        type="button"
         (click)="openModal('help')"
-        class="text-gray-600 hover:text-blue-600 transition text-xs flex items-center cursor-pointer"
+        class="text-gray-600 hover:text-blue-600 transition text-xs flex items-center"
       >
         <mat-icon class="text-base">help_outline</mat-icon>
-        <span class="ml-1">{{ "footer.help" | transloco }}</span>
-      </a>
-      <a
+        <span class="ml-1">{{ 'footer.help' | transloco }}</span>
+      </button>
+      <button
+        type="button"
         (click)="openModal('conditions')"
-        class="text-gray-600 hover:text-blue-600 transition text-xs flex items-center cursor-pointer"
+        class="text-gray-600 hover:text-blue-600 transition text-xs flex items-center"
       >
         <mat-icon class="text-base">description</mat-icon>
-        <span class="ml-1">{{ "footer.conditions" | transloco }}</span>
-      </a>
-      <a
+        <span class="ml-1">{{ 'footer.conditions' | transloco }}</span>
+      </button>
+      <button
+        type="button"
         (click)="openModal('confidentiality')"
-        class="text-gray-600 hover:text-blue-600 transition text-xs flex items-center cursor-pointer"
+        class="text-gray-600 hover:text-blue-600 transition text-xs flex items-center"
       >
         <mat-icon class="text-base">privacy_tip</mat-icon>
-        <span class="ml-1">{{ "footer.confidentiality" | transloco }}</span>
-      </a>
+        <span class="ml-1">{{ 'footer.confidentiality' | transloco }}</span>
+      </button>
     </div>
   </div>
 </footer>
