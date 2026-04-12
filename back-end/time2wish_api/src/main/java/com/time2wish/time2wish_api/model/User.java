@@ -3,6 +3,7 @@ package com.time2wish.time2wish_api.model;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -37,6 +38,7 @@ public class User {
     private Boolean notificationsEnabled;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @ToString.Exclude
     private List<Birthday> birthdays;
 
     @Enumerated(EnumType.STRING)
