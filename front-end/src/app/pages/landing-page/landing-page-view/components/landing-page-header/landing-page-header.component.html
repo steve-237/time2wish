@@ -1,127 +1,126 @@
-<div class="!rounded-lg !shadow-md !p-4 bg-white mt-4" *transloco="let t">
-  <div class="flex items-center justify-between w-full">
-    <div class="flex items-center">
-      <img src="time2wish-logo.png" [alt]="t('toolbar.logo_alt')" class="h-12 md:h-16 ml-2 md:ml-7" />
-    </div>
+<div class="space-y-4" *transloco="let t">
+  <section class="rounded-2xl border border-gray-200/70 bg-white p-3 shadow-[0_10px_28px_rgba(15,23,42,0.05)] md:p-4">
+    <div class="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
+      <div class="flex items-center gap-3">
+        <img src="time2wish-logo.png" [alt]="t('toolbar.logo_alt')" class="h-10 w-auto md:h-12" />
+        <div class="hidden text-sm text-gray-500 md:block">{{ t('sidebar.app_name') }}</div>
+      </div>
 
-    <div class="group flex items-center w-full max-w-2xl rounded-full bg-gray-200 transition-all duration-300 focus-within:bg-white focus-within:shadow-md border border-gray-300">
-      <button mat-icon-button class="!w-10 !h-10 flex items-center justify-center m-2">
-        <mat-icon [matTooltip]="t('search.tooltip')">search</mat-icon>
-      </button>
-
-      <input
-        matInput
-        [placeholder]="t('search.placeholder')"
-        class="flex-1 bg-transparent border-none focus:outline-none py-2"
-        [ngModel]="searchQuery"
-        (ngModelChange)="searchChange.emit($event)"
-        [matAutocomplete]="auto"
-      />
-
-      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="suggestionSelected.emit($event.option.value)">
-        @for (suggestion of suggestions; track suggestion) {
-          <mat-option [value]="suggestion">{{ suggestion }}</mat-option>
-        }
-      </mat-autocomplete>
-
-      @if (searchQuery) {
-        <button mat-icon-button class="!w-10 !h-10 flex items-center justify-center m-2" (click)="clearSearch.emit()">
-          <mat-icon>close</mat-icon>
+      <div class="group flex w-full items-center rounded-xl border border-gray-300 bg-gray-200/70 px-2 transition-all duration-300 focus-within:border-blue-300 focus-within:bg-white focus-within:shadow-md xl:max-w-2xl">
+        <button mat-icon-button class="!h-9 !w-9" [matTooltip]="t('search.tooltip')">
+          <mat-icon>search</mat-icon>
         </button>
-      } @else {
-        <button mat-icon-button [matMenuTriggerFor]="filterMenu" class="!w-10 !h-10 flex items-center justify-center m-2">
-          <mat-icon class="text-gray-500" [matTooltip]="t('search.filter_tooltip')">tune</mat-icon>
-        </button>
-      }
 
-      <mat-menu #filterMenu="matMenu">
-        <button mat-menu-item disabled><span class="font-medium">{{ t('search.filter_by') }}</span></button>
-        <mat-divider></mat-divider>
-        @for (col of availableColumns; track col.value) {
-          <button mat-menu-item (click)="advancedFilterChange.emit(col.value)" [class.bg-blue-50]="advancedFilterColumn === col.value">
-            <mat-icon>{{ col.icon }}</mat-icon>
-            <span>{{ t('search.columns.' + col.value) }}</span>
-            @if (advancedFilterColumn === col.value) {
-              <mat-icon class="ml-auto text-blue-500">check</mat-icon>
-            }
+        <input
+          matInput
+          [placeholder]="t('search.placeholder')"
+          class="min-w-0 flex-1 bg-transparent py-2 text-sm outline-none"
+          [ngModel]="searchQuery"
+          (ngModelChange)="searchChange.emit($event)"
+          [matAutocomplete]="auto"
+        />
+
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="suggestionSelected.emit($event.option.value)">
+          @for (suggestion of suggestions; track suggestion) {
+            <mat-option [value]="suggestion">{{ suggestion }}</mat-option>
+          }
+        </mat-autocomplete>
+
+        @if (searchQuery) {
+          <button mat-icon-button class="!h-9 !w-9" (click)="clearSearch.emit()">
+            <mat-icon>close</mat-icon>
+          </button>
+        } @else {
+          <button mat-icon-button [matMenuTriggerFor]="filterMenu" class="!h-9 !w-9">
+            <mat-icon [matTooltip]="t('search.filter_tooltip')">tune</mat-icon>
           </button>
         }
-      </mat-menu>
+
+        <mat-menu #filterMenu="matMenu">
+          <button mat-menu-item disabled><span class="font-medium">{{ t('search.filter_by') }}</span></button>
+          <mat-divider></mat-divider>
+          @for (col of availableColumns; track col.value) {
+            <button mat-menu-item (click)="advancedFilterChange.emit(col.value)" [class.bg-blue-50]="advancedFilterColumn === col.value">
+              <mat-icon>{{ col.icon }}</mat-icon>
+              <span>{{ t('search.columns.' + col.value) }}</span>
+              @if (advancedFilterColumn === col.value) {
+                <mat-icon class="ml-auto text-blue-500">check</mat-icon>
+              }
+            </button>
+          }
+        </mat-menu>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-end gap-1 md:gap-2">
+        <button mat-icon-button class="!h-9 !w-9 rounded-lg" (click)="themeToggle.emit()" [matTooltip]="t('toolbar.theme')">
+          <mat-icon>{{ isDarkTheme ? 'light_mode' : 'dark_mode' }}</mat-icon>
+        </button>
+
+        <button
+          mat-icon-button
+          class="!h-9 !w-9 rounded-lg"
+          [matBadge]="unreadNotifications"
+          [matBadgeHidden]="unreadNotifications === 0"
+          matBadgeColor="warn"
+          matBadgeSize="large"
+          (click)="notificationOpen.emit()"
+          [matTooltip]="t('toolbar.notifications')"
+        >
+          <mat-icon>notifications</mat-icon>
+        </button>
+
+        <button mat-icon-button class="!h-9 !w-9 rounded-lg" (click)="viewToggle.emit(nextViewMode)" [matTooltip]="viewMode === 'table' ? t('toolbar.view_cards') : t('toolbar.view_table')">
+          <mat-icon>{{ viewMode === 'table' ? 'view_module' : 'table_chart' }}</mat-icon>
+        </button>
+
+        <app-set-language></app-set-language>
+
+        <button mat-icon-button class="!h-9 !w-9 rounded-lg" (click)="informationOpen.emit()" [matTooltip]="t('toolbar.help')">
+          <mat-icon>help_outline</mat-icon>
+        </button>
+
+        @if (currentUser) {
+          <span [matBadge]="currentUser.status" [matBadgeHidden]="!currentUser.status" [ngClass]="getBadgeClass(currentUser.status)" matBadgeSize="large" matBadgeOverlap="true">
+            <button mat-icon-button [matMenuTriggerFor]="profileMenu" class="!h-9 !w-9 rounded-lg" [matTooltip]="t('toolbar.profile')">
+              @if (currentUser.profilePicture) {
+                <img [src]="currentUser.profilePicture" class="h-8 w-8 rounded-full object-cover" [alt]="t('toolbar.profile')" />
+              } @else {
+                <mat-icon>account_circle</mat-icon>
+              }
+            </button>
+          </span>
+        }
+
+        <mat-menu #profileMenu="matMenu">
+          <button mat-menu-item (click)="profileOpen.emit()"><mat-icon>person</mat-icon><span>{{ t('toolbar.profile') }}</span></button>
+          <button mat-menu-item (click)="activityLogsOpen.emit()"><mat-icon>history</mat-icon><span>{{ 'toolbar.activity_log' | transloco }}</span></button>
+          <button mat-menu-item (click)="logout.emit()" [routerLink]="['/login']"><mat-icon>logout</mat-icon><span>{{ t('toolbar.logout') }}</span></button>
+        </mat-menu>
+      </div>
     </div>
 
-    <div class="flex items-center gap-1 md:gap-4">
-      <button mat-icon-button (click)="themeToggle.emit()" class="!w-10 !h-10 flex items-center justify-center" [matTooltip]="t('toolbar.theme')">
-        <mat-icon>{{ isDarkTheme ? 'light_mode' : 'dark_mode' }}</mat-icon>
-      </button>
+    @if (advancedFilterColumn !== 'all') {
+      <div class="mt-2 inline-flex items-center rounded-full bg-gray-200 px-3 py-1 text-xs text-gray-600">
+        <mat-icon class="!text-sm">filter_alt</mat-icon>
+        <span class="ml-1">{{ t('search.filtering_in') }}</span>
+        <span class="ml-1 font-semibold">{{ t('search.columns.' + advancedFilterColumn) }}</span>
+      </div>
+    }
+  </section>
 
-      <button
-        mat-icon-button
-        [matBadge]="unreadNotifications"
-        [matBadgeHidden]="unreadNotifications === 0"
-        matBadgeColor="warn"
-        matBadgeSize="large"
-        class="!w-10 !h-10 flex items-center justify-center relative"
-        (click)="notificationOpen.emit()"
-        [matTooltip]="t('toolbar.notifications')"
-      >
-        <mat-icon>notifications</mat-icon>
-      </button>
+  <section class="grid grid-cols-1 gap-3 rounded-2xl border border-gray-200/70 bg-white p-3 shadow-[0_6px_18px_rgba(15,23,42,0.04)] md:grid-cols-3 md:items-center md:p-4">
+    <mat-button-toggle-group [value]="activeButton" (change)="activeButtonChange.emit($event.value)" class="!flex !w-full !border-none rounded-xl bg-gray-200 p-1 md:col-span-1">
+      <mat-button-toggle value="coming" class="!flex-1 !rounded-lg !border-none !font-medium">{{ t('anniversary.coming') }}</mat-button-toggle>
+      <mat-button-toggle value="passed" class="!flex-1 !rounded-lg !border-none !font-medium">{{ t('anniversary.passed') }}</mat-button-toggle>
+    </mat-button-toggle-group>
 
-      <button mat-icon-button (click)="viewToggle.emit(nextViewMode)" [matTooltip]="viewMode === 'table' ? t('toolbar.view_cards') : t('toolbar.view_table')">
-        <mat-icon>{{ viewMode === 'table' ? 'view_module' : 'table_chart' }}</mat-icon>
-      </button>
-
-      <app-set-language></app-set-language>
-
-      <button mat-icon-button class="!w-10 !h-10 flex items-center justify-center" (click)="informationOpen.emit()" [matTooltip]="t('toolbar.help')">
-        <mat-icon>help_outline</mat-icon>
-      </button>
-
-      @if (currentUser) {
-        <span [matBadge]="currentUser.status" [matBadgeHidden]="!currentUser.status" [ngClass]="getBadgeClass(currentUser.status)" matBadgeSize="large" matBadgeOverlap="true">
-          <button mat-icon-button [matMenuTriggerFor]="profileMenu" class="flex items-center justify-center" [matTooltip]="t('toolbar.profile')">
-            @if (currentUser.profilePicture) {
-              <img [src]="currentUser.profilePicture" class="rounded-full h-8 w-8" [alt]="t('toolbar.profile')" />
-            } @else {
-              <mat-icon>account_circle</mat-icon>
-            }
-          </button>
-        </span>
-      }
-
-      <mat-menu #profileMenu="matMenu">
-        <button mat-menu-item (click)="profileOpen.emit()"><mat-icon>person</mat-icon><span>{{ t('toolbar.profile') }}</span></button>
-        <button mat-menu-item (click)="activityLogsOpen.emit()"><mat-icon>history</mat-icon><span>{{ 'toolbar.activity_log' | transloco }}</span></button>
-        <button mat-menu-item (click)="logout.emit()" [routerLink]="['/login']"><mat-icon>logout</mat-icon><span>{{ t('toolbar.logout') }}</span></button>
-      </mat-menu>
+    <div class="flex items-center justify-center gap-2 rounded-xl bg-gray-200/50 px-3 py-2">
+      <mat-icon class="text-gray-500">calendar_today</mat-icon>
+      <span class="text-sm font-semibold text-gray-800">{{ currentDate | date : 'dd.MM.yyyy' }}</span>
     </div>
-  </div>
-
-  @if (advancedFilterColumn !== 'all') {
-    <div class="text-sm text-gray-500 mt-1 ml-60 flex items-center">
-      <mat-icon class="!text-sm mr-1">filter_alt</mat-icon>
-      {{ t('search.filtering_in') }}
-      <span class="font-medium ml-1">{{ t('search.columns.' + advancedFilterColumn) }}</span>
+    <div class="flex items-center justify-center gap-2 rounded-xl bg-gray-200/50 px-3 py-2">
+      <mat-icon class="text-gray-500">schedule</mat-icon>
+      <span class="text-sm font-semibold text-gray-800">{{ currentDate | date : 'HH:mm' }}</span>
     </div>
-  }
-</div>
-
-<div class="bg-white flex shadow-md justify-center gap-5 rounded-lg p-4 mt-4" *transloco="let t">
-  <mat-button-toggle-group [value]="activeButton" (change)="activeButtonChange.emit($event.value)" class="!border-none rounded-full bg-gray-200 p-1">
-    <mat-button-toggle value="coming" class="!rounded-full !font-medium !px-4 !py-2 !border-none" [class.!bg-white]="activeButton === 'coming'">
-      {{ t('anniversary.coming') }}
-    </mat-button-toggle>
-    <mat-button-toggle value="passed" class="!rounded-full !font-medium !px-4 !py-2 !border-none" [class.!bg-white]="activeButton === 'passed'">
-      {{ t('anniversary.passed') }}
-    </mat-button-toggle>
-  </mat-button-toggle-group>
-
-  <div class="flex items-center gap-2">
-    <mat-icon class="text-gray-500">calendar_today</mat-icon>
-    <span class="font-medium text-gray-800">{{ currentDate | date : 'dd.MM.yyyy' }}</span>
-  </div>
-  <div class="flex items-center gap-2">
-    <mat-icon class="text-gray-500">schedule</mat-icon>
-    <span class="font-medium text-gray-800">{{ currentDate | date : 'HH:mm' }}</span>
-  </div>
+  </section>
 </div>

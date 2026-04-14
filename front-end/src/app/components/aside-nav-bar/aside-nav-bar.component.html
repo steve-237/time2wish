@@ -1,116 +1,80 @@
 <aside
-  class="sticky top-0 left-0 h-screen bg-white flex flex-col items-center transition-all duration-100 ease-in-out shadow-sm border-r border-gray-100"
-  [class.w-16]="!expanded()"
-  [class.px-4]="expanded()"
-  [style.width]="expanded() ? '280px' : '5rem'"
+  class="sticky top-0 left-0 flex h-screen flex-col border-r border-gray-200/70 bg-white/90 px-2 py-4 shadow-[0_12px_30px_rgba(15,23,42,0.06)] backdrop-blur transition-all duration-300 ease-in-out"
+  [style.width]="expanded() ? '280px' : '84px'"
 >
-  <div class="flex flex-col mt-10 w-full gap-2" *transloco="let t">
-    
+  <div class="flex h-full flex-col gap-2" *transloco="let t">
     <button
       type="button"
-      class="flex items-center w-full hover:bg-gray-100 transition-colors rounded-lg bg-transparent border-none p-0 text-left"
+      class="group flex w-full items-center rounded-xl border border-transparent px-2 py-2 text-left transition-all hover:border-gray-200 hover:bg-gray-200/70"
       (click)="toggleSidebar()"
       [matTooltip]="!expanded() ? t('sidebar.menu') : ''"
       matTooltipPosition="right"
     >
-      <div class="w-20 flex shrink-0 justify-center py-2">
-        <mat-icon class="text-gray-600">menu</mat-icon>
-      </div>
+      <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gray-200/80">
+        <mat-icon class="text-gray-700">menu_open</mat-icon>
+      </span>
       @if (expanded()) {
-        <span class="whitespace-nowrap font-medium text-gray-700">
-          {{ t('sidebar.menu') }}
-        </span>
+        <span class="ml-3 font-medium text-gray-700">{{ t('sidebar.menu') }}</span>
       }
     </button>
 
     <button
       type="button"
-      class="flex items-center w-full hover:bg-gray-100 transition-colors rounded-lg bg-transparent border-none p-0 text-left"
+      class="group flex w-full items-center rounded-xl border border-transparent px-2 py-2 text-left transition-all hover:border-gray-200 hover:bg-gray-200/70"
       (click)="onSetting()"
       [matTooltip]="!expanded() ? t('sidebar.settings') : ''"
       matTooltipPosition="right"
     >
-      <div class="w-20 flex shrink-0 justify-center py-2">
-        <mat-icon class="text-gray-600">settings</mat-icon>
-      </div>
+      <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gray-200/80"><mat-icon class="text-gray-700">settings</mat-icon></span>
       @if (expanded()) {
-        <span class="whitespace-nowrap font-medium text-gray-700">
-          {{ t('sidebar.settings') }}
-        </span>
+        <span class="ml-3 font-medium text-gray-700">{{ t('sidebar.settings') }}</span>
       }
     </button>
 
     <button
       type="button"
-      class="flex items-center w-full hover:bg-gray-100 transition-colors rounded-lg bg-transparent border-none p-0 text-left"
+      class="group flex w-full items-center rounded-xl border border-transparent px-2 py-2 text-left transition-all hover:border-gray-200 hover:bg-gray-200/70"
       (click)="onAddBirthday()"
       [matTooltip]="!expanded() ? t('sidebar.add_user') : ''"
       matTooltipPosition="right"
     >
-      <div class="w-20 flex shrink-0 justify-center py-2">
-        <mat-icon class="text-gray-600">person_add</mat-icon>
-      </div>
+      <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gray-200/80"><mat-icon class="text-gray-700">person_add</mat-icon></span>
       @if (expanded()) {
-        <span class="whitespace-nowrap font-medium text-gray-700">
-          {{ t('sidebar.add_user') }}
-        </span>
+        <span class="ml-3 font-medium text-gray-700">{{ t('sidebar.add_user') }}</span>
       }
     </button>
 
     <button
       type="button"
-      class="flex items-center w-full hover:bg-gray-100 transition-colors rounded-lg bg-transparent border-none p-0 text-left"
+      class="group flex w-full items-center rounded-xl border border-transparent px-2 py-2 text-left transition-all hover:border-gray-200 hover:bg-gray-200/70"
       (click)="onStatistics()"
       [matTooltip]="!expanded() ? t('sidebar.statistics') : ''"
       matTooltipPosition="right"
     >
-      <div class="w-20 flex shrink-0 justify-center py-2">
-        <mat-icon class="text-gray-600">bar_chart</mat-icon>
-      </div>
+      <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gray-200/80"><mat-icon class="text-gray-700">bar_chart</mat-icon></span>
       @if (expanded()) {
-        <span class="whitespace-nowrap font-medium text-gray-700">
-          {{ t('sidebar.statistics') }}
-        </span>
+        <span class="ml-3 font-medium text-gray-700">{{ t('sidebar.statistics') }}</span>
       }
     </button>
-    
+
     <button
       type="button"
-      class="flex items-center w-full hover:bg-gray-100 transition-colors rounded-lg bg-transparent border-none p-0 text-left"
+      class="group flex w-full items-center rounded-xl border border-transparent px-2 py-2 text-left transition-all hover:border-gray-200 hover:bg-gray-200/70"
       (click)="onPricing()"
       [matTooltip]="!expanded() ? t('sidebar.pricing') : ''"
       matTooltipPosition="right"
     >
-      <div class="w-20 flex shrink-0 justify-center py-2">
-        <mat-icon class="text-gray-600">monetization_on</mat-icon>
-      </div>
+      <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gray-200/80"><mat-icon class="text-gray-700">workspace_premium</mat-icon></span>
       @if (expanded()) {
-        <span class="whitespace-nowrap font-medium text-gray-700">
-          {{ t('sidebar.pricing') }}
-        </span>
+        <span class="ml-3 font-medium text-gray-700">{{ t('sidebar.pricing') }}</span>
       }
     </button>
-  </div>
 
-  <div class="w-full p-4 mt-auto">
-    <div class="flex flex-col items-center" *transloco="let t">
-      <div class="flex items-center justify-center gap-2">
-        <img
-          src="time2wish-logo.png"
-          alt="Logo"
-          class="h-16 w-16 object-contain transition-transform duration-300"
-          [class.hidden]="expanded()"
-        />
-        @if (expanded()) {
-          <span class="text-lg font-semibold whitespace-nowrap transition-all duration-300">
-            {{ t('sidebar.app_name') }}
-          </span>
-        }
-      </div>
+    <div class="mt-auto rounded-xl border border-gray-200/70 bg-gray-200/40 p-3 text-center">
+      <img src="time2wish-logo.png" alt="Logo" class="mx-auto h-12 w-12 object-contain" [class.h-10]="!expanded()" [class.w-10]="!expanded()" />
       @if (expanded()) {
-        <div class="text-xs text-gray-500 whitespace-nowrap transition-all duration-300 mt-1">
-          {{ t('sidebar.version') }} : {{ version() }}
-        </div>
+        <p class="mt-2 text-sm font-semibold text-gray-800">{{ t('sidebar.app_name') }}</p>
+        <p class="text-xs text-gray-500">{{ t('sidebar.version') }}: {{ version() }}</p>
       }
     </div>
   </div>

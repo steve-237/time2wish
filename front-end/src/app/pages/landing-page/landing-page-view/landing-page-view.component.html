@@ -1,10 +1,8 @@
-<div class="flex h-screen w-full overflow-hidden bg-gray-200">
+<div class="flex min-h-screen w-full overflow-hidden bg-gray-200/60">
   <app-aside-nav-bar class="h-full shrink-0"></app-aside-nav-bar>
 
-  <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
-    
-    <main class="flex-1 flex flex-col p-4 overflow-hidden">
-      
+  <div class="flex min-w-0 flex-1 flex-col overflow-hidden">
+    <main class="mx-auto flex h-full w-full max-w-[1680px] flex-1 flex-col gap-4 p-3 md:p-5 lg:p-6">
       <app-landing-page-header
         class="shrink-0"
         [viewMode]="viewMode"
@@ -31,9 +29,9 @@
         (activeButtonChange)="activeButtonChange.emit($event)"
       ></app-landing-page-header>
 
-      <div class="flex-1 overflow-hidden mt-4 rounded-lg bg-white shadow-sm flex flex-col">
+      <section class="relative flex min-h-0 flex-1 overflow-hidden rounded-2xl border border-gray-200/70 bg-white shadow-[0_10px_40px_rgba(15,23,42,0.06)]">
         <app-landing-page-content
-          class="flex-1 flex flex-col min-h-0" 
+          class="flex min-h-0 flex-1 flex-col"
           [isLoading]="isLoading"
           [viewMode]="viewMode"
           [hasBirthdays]="hasBirthdays"
@@ -44,10 +42,9 @@
           (birthdayDetails)="birthdayDetails.emit($event)"
           (refresh)="refresh.emit()"
         ></app-landing-page-content>
-      </div>
+      </section>
 
-      <app-footer class="shrink-0 pt-4"></app-footer>
-      
+      <app-footer class="shrink-0"></app-footer>
     </main>
   </div>
 </div>

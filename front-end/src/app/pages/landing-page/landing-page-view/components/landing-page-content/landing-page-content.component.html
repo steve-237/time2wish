@@ -1,47 +1,53 @@
-<div class="mt-4 flex-1 bg-white rounded-lg shadow-lg overflow-hidden flex flex-col h-full" *transloco="let t">
-  
+<div class="flex h-full flex-1 flex-col" *transloco="let t">
   @if (isLoading) {
-    <div class="flex flex-col flex-1 items-center justify-center">
-      <mat-spinner diameter="50" color="primary"></mat-spinner>
-      <p class="text-gray-600 text-sm mt-2">{{ t('anniversary.loading') }}</p>
+    <div class="flex flex-1 flex-col items-center justify-center gap-3">
+      <mat-spinner diameter="48" color="primary"></mat-spinner>
+      <p class="text-sm text-gray-500">{{ t('anniversary.loading') }}</p>
     </div>
   } @else {
-    <div class="flex flex-col h-full min-h-0">
-      
+    <div class="flex min-h-0 flex-1 flex-col">
       @if (viewMode === 'table') {
-        <div class="p-4 border-b border-gray-200 shrink-0 bg-white z-20">
+        <div class="flex shrink-0 flex-wrap items-center justify-between gap-3 border-b border-gray-200/70 bg-white/80 px-4 py-3 backdrop-blur">
+          <div>
+            <h2 class="text-base font-semibold text-gray-900">{{ activeButton === 'coming' ? t('anniversary.coming') : t('anniversary.passed') }}</h2>
+            <p class="text-xs text-gray-500">{{ filteredBirthdays.length }} records</p>
+          </div>
           <div class="flex gap-2">
-            <button mat-button class="flex items-center gap-1 border border-gray-200 px-3 py-1 rounded-md">
-              <mat-icon>file_upload</mat-icon> {{ t('actions.import') }}
+            <button mat-stroked-button class="!rounded-lg">
+              <mat-icon>file_upload</mat-icon>
+              {{ t('actions.import') }}
             </button>
-            <button mat-button class="flex items-center gap-1 border border-gray-200 px-3 py-1 rounded-md">
-              <mat-icon>file_download</mat-icon> {{ t('actions.export') }}
+            <button mat-stroked-button class="!rounded-lg">
+              <mat-icon>file_download</mat-icon>
+              {{ t('actions.export') }}
             </button>
           </div>
         </div>
       }
 
-      <div class="flex-1 min-h-0 overflow-hidden relative">
+      <div class="relative min-h-0 flex-1 overflow-hidden">
         @if (hasBirthdays) {
           @if (viewMode === 'table') {
-            <app-birthday-table 
-              class="block h-full" 
-              [birthdays]="filteredBirthdays" 
-              (edit)="birthdayEdit.emit()" 
-              (delete)="birthdayDelete.emit($event)" 
-              (refresh)="refresh.emit()">
-            </app-birthday-table>
+            <app-birthday-table
+              class="block h-full"
+              [birthdays]="filteredBirthdays"
+              (edit)="birthdayEdit.emit()"
+              (delete)="birthdayDelete.emit($event)"
+              (refresh)="refresh.emit()"
+            ></app-birthday-table>
           } @else {
-            <div class="h-full overflow-y-auto p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 custom-scrollbar">
+            <div class="custom-scrollbar grid h-full grid-cols-1 gap-4 overflow-y-auto p-4 md:grid-cols-2 2xl:grid-cols-3">
               @for (item of filteredBirthdays; track item.id) {
-                <app-birthday-card [item]="item" ...></app-birthday-card>
+                <app-birthday-card [item]="item"></app-birthday-card>
               }
             </div>
           }
         } @else {
-          <div class="p-8 text-center text-gray-500 flex flex-col items-center justify-center h-full">
-            <mat-icon class="text-4xl mb-2">event_busy</mat-icon>
-            <p>{{ t('anniversary.empty_coming') }}</p>
+          <div class="flex h-full flex-col items-center justify-center px-6 text-center text-gray-500">
+            <div class="mb-3 rounded-full bg-gray-200 p-4">
+              <mat-icon class="!h-8 !w-8 !text-3xl">event_busy</mat-icon>
+            </div>
+            <p class="text-sm">{{ t(activeButton === 'coming' ? 'anniversary.empty_coming' : 'anniversary.empty_passed') }}</p>
           </div>
         }
       </div>
