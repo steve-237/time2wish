@@ -7,17 +7,17 @@
   } @else {
     <div class="flex min-h-0 flex-1 flex-col">
       @if (viewMode === 'table') {
-        <div class="flex shrink-0 flex-wrap items-center justify-between gap-3 border-b border-gray-200/70 bg-white/80 px-4 py-3 backdrop-blur">
+        <div class="flex shrink-0 flex-wrap items-center justify-between gap-3 border-b border-gray-200/70 bg-white/90 px-4 py-3">
           <div>
             <h2 class="text-base font-semibold text-gray-900">{{ activeButton === 'coming' ? t('anniversary.coming') : t('anniversary.passed') }}</h2>
             <p class="text-xs text-gray-500">{{ filteredBirthdays.length }} records</p>
           </div>
           <div class="flex gap-2">
-            <button mat-stroked-button class="!rounded-lg">
+            <button mat-stroked-button class="dashboard-action-btn">
               <mat-icon>file_upload</mat-icon>
               {{ t('actions.import') }}
             </button>
-            <button mat-stroked-button class="!rounded-lg">
+            <button mat-stroked-button class="dashboard-action-btn">
               <mat-icon>file_download</mat-icon>
               {{ t('actions.export') }}
             </button>
@@ -44,7 +44,7 @@
           }
         } @else {
           <div class="flex h-full flex-col items-center justify-center px-6 text-center text-gray-500">
-            <div class="mb-3 rounded-full bg-gray-200 p-4">
+            <div class="mb-3 rounded-full border border-gray-200 bg-gray-200 p-4">
               <mat-icon class="!h-8 !w-8 !text-3xl">event_busy</mat-icon>
             </div>
             <p class="text-sm">{{ t(activeButton === 'coming' ? 'anniversary.empty_coming' : 'anniversary.empty_passed') }}</p>

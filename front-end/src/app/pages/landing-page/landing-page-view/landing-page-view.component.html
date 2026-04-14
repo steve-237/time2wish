@@ -1,8 +1,8 @@
-<div class="flex min-h-screen w-full overflow-hidden bg-gray-200/60">
+<div class="dashboard-shell flex h-screen w-full overflow-hidden bg-gray-200/60">
   <app-aside-nav-bar class="h-full shrink-0"></app-aside-nav-bar>
 
   <div class="flex min-w-0 flex-1 flex-col overflow-hidden">
-    <main class="mx-auto flex h-full w-full max-w-[1680px] flex-1 flex-col gap-4 p-3 md:p-5 lg:p-6">
+    <main class="flex h-full w-full flex-1 flex-col gap-4 p-3 md:gap-5 md:p-5 lg:p-6">
       <app-landing-page-header
         class="shrink-0"
         [viewMode]="viewMode"
@@ -29,7 +29,7 @@
         (activeButtonChange)="activeButtonChange.emit($event)"
       ></app-landing-page-header>
 
-      <section class="relative flex min-h-0 flex-1 overflow-hidden rounded-2xl border border-gray-200/70 bg-white shadow-[0_10px_40px_rgba(15,23,42,0.06)]">
+      <section class="dashboard-card relative flex min-h-0 flex-1 overflow-hidden rounded-2xl border border-gray-200/70 bg-white">
         <app-landing-page-content
           class="flex min-h-0 flex-1 flex-col"
           [isLoading]="isLoading"

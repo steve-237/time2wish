@@ -1,13 +1,13 @@
 <div class="space-y-4" *transloco="let t">
-  <section class="rounded-2xl border border-gray-200/70 bg-white p-3 shadow-[0_10px_28px_rgba(15,23,42,0.05)] md:p-4">
-    <div class="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
+  <section class="dashboard-card rounded-2xl border border-gray-200/70 bg-white p-3 md:p-4">
+    <div class="flex flex-col gap-3 2xl:flex-row 2xl:items-center 2xl:justify-between">
       <div class="flex items-center gap-3">
         <img src="time2wish-logo.png" [alt]="t('toolbar.logo_alt')" class="h-10 w-auto md:h-12" />
         <div class="hidden text-sm text-gray-500 md:block">{{ t('sidebar.app_name') }}</div>
       </div>
 
-      <div class="group flex w-full items-center rounded-xl border border-gray-300 bg-gray-200/70 px-2 transition-all duration-300 focus-within:border-blue-300 focus-within:bg-white focus-within:shadow-md xl:max-w-2xl">
-        <button mat-icon-button class="!h-9 !w-9" [matTooltip]="t('search.tooltip')">
+      <div class="group flex w-full items-center rounded-xl border border-gray-300 bg-gray-200/80 px-2 transition-all duration-300 focus-within:border-blue-400 focus-within:bg-white xl:max-w-2xl">
+        <button mat-icon-button class="dashboard-icon-btn" [matTooltip]="t('search.tooltip')">
           <mat-icon>search</mat-icon>
         </button>
 
@@ -27,11 +27,11 @@
         </mat-autocomplete>
 
         @if (searchQuery) {
-          <button mat-icon-button class="!h-9 !w-9" (click)="clearSearch.emit()">
+          <button mat-icon-button class="dashboard-icon-btn" (click)="clearSearch.emit()">
             <mat-icon>close</mat-icon>
           </button>
         } @else {
-          <button mat-icon-button [matMenuTriggerFor]="filterMenu" class="!h-9 !w-9">
+          <button mat-icon-button [matMenuTriggerFor]="filterMenu" class="dashboard-icon-btn">
             <mat-icon [matTooltip]="t('search.filter_tooltip')">tune</mat-icon>
           </button>
         }
@@ -51,14 +51,14 @@
         </mat-menu>
       </div>
 
-      <div class="flex flex-wrap items-center justify-end gap-1 md:gap-2">
-        <button mat-icon-button class="!h-9 !w-9 rounded-lg" (click)="themeToggle.emit()" [matTooltip]="t('toolbar.theme')">
+      <div class="flex flex-wrap items-center justify-end gap-2">
+        <button mat-icon-button class="dashboard-icon-btn" (click)="themeToggle.emit()" [matTooltip]="t('toolbar.theme')">
           <mat-icon>{{ isDarkTheme ? 'light_mode' : 'dark_mode' }}</mat-icon>
         </button>
 
         <button
           mat-icon-button
-          class="!h-9 !w-9 rounded-lg"
+          class="dashboard-icon-btn"
           [matBadge]="unreadNotifications"
           [matBadgeHidden]="unreadNotifications === 0"
           matBadgeColor="warn"
@@ -69,19 +69,19 @@
           <mat-icon>notifications</mat-icon>
         </button>
 
-        <button mat-icon-button class="!h-9 !w-9 rounded-lg" (click)="viewToggle.emit(nextViewMode)" [matTooltip]="viewMode === 'table' ? t('toolbar.view_cards') : t('toolbar.view_table')">
+        <button mat-icon-button class="dashboard-icon-btn" (click)="viewToggle.emit(nextViewMode)" [matTooltip]="viewMode === 'table' ? t('toolbar.view_cards') : t('toolbar.view_table')">
           <mat-icon>{{ viewMode === 'table' ? 'view_module' : 'table_chart' }}</mat-icon>
         </button>
 
         <app-set-language></app-set-language>
 
-        <button mat-icon-button class="!h-9 !w-9 rounded-lg" (click)="informationOpen.emit()" [matTooltip]="t('toolbar.help')">
+        <button mat-icon-button class="dashboard-icon-btn" (click)="informationOpen.emit()" [matTooltip]="t('toolbar.help')">
           <mat-icon>help_outline</mat-icon>
         </button>
 
         @if (currentUser) {
           <span [matBadge]="currentUser.status" [matBadgeHidden]="!currentUser.status" [ngClass]="getBadgeClass(currentUser.status)" matBadgeSize="large" matBadgeOverlap="true">
-            <button mat-icon-button [matMenuTriggerFor]="profileMenu" class="!h-9 !w-9 rounded-lg" [matTooltip]="t('toolbar.profile')">
+            <button mat-icon-button [matMenuTriggerFor]="profileMenu" class="dashboard-icon-btn" [matTooltip]="t('toolbar.profile')">
               @if (currentUser.profilePicture) {
                 <img [src]="currentUser.profilePicture" class="h-8 w-8 rounded-full object-cover" [alt]="t('toolbar.profile')" />
               } @else {
@@ -100,7 +100,7 @@
     </div>
 
     @if (advancedFilterColumn !== 'all') {
-      <div class="mt-2 inline-flex items-center rounded-full bg-gray-200 px-3 py-1 text-xs text-gray-600">
+      <div class="mt-2 inline-flex items-center rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-xs text-blue-700">
         <mat-icon class="!text-sm">filter_alt</mat-icon>
         <span class="ml-1">{{ t('search.filtering_in') }}</span>
         <span class="ml-1 font-semibold">{{ t('search.columns.' + advancedFilterColumn) }}</span>
@@ -108,19 +108,24 @@
     }
   </section>
 
-  <section class="grid grid-cols-1 gap-3 rounded-2xl border border-gray-200/70 bg-white p-3 shadow-[0_6px_18px_rgba(15,23,42,0.04)] md:grid-cols-3 md:items-center md:p-4">
+  <section class="dashboard-card grid grid-cols-1 gap-3 rounded-2xl border border-gray-200/70 bg-white p-3 md:grid-cols-3 md:items-center md:p-4">
     <mat-button-toggle-group [value]="activeButton" (change)="activeButtonChange.emit($event.value)" class="!flex !w-full !border-none rounded-xl bg-gray-200 p-1 md:col-span-1">
       <mat-button-toggle value="coming" class="!flex-1 !rounded-lg !border-none !font-medium">{{ t('anniversary.coming') }}</mat-button-toggle>
       <mat-button-toggle value="passed" class="!flex-1 !rounded-lg !border-none !font-medium">{{ t('anniversary.passed') }}</mat-button-toggle>
     </mat-button-toggle-group>
 
-    <div class="flex items-center justify-center gap-2 rounded-xl bg-gray-200/50 px-3 py-2">
-      <mat-icon class="text-gray-500">calendar_today</mat-icon>
-      <span class="text-sm font-semibold text-gray-800">{{ currentDate | date : 'dd.MM.yyyy' }}</span>
+    <div class="rounded-xl border border-gray-200 bg-gray-200/50 px-3 py-2 text-center">
+      <div class="flex items-center justify-center gap-2">
+        <mat-icon class="text-gray-500">calendar_today</mat-icon>
+        <span class="text-sm font-semibold text-gray-800">{{ currentDate | date : 'dd.MM.yyyy' }}</span>
+      </div>
     </div>
-    <div class="flex items-center justify-center gap-2 rounded-xl bg-gray-200/50 px-3 py-2">
-      <mat-icon class="text-gray-500">schedule</mat-icon>
-      <span class="text-sm font-semibold text-gray-800">{{ currentDate | date : 'HH:mm' }}</span>
+
+    <div class="rounded-xl border border-gray-200 bg-gray-200/50 px-3 py-2 text-center">
+      <div class="flex items-center justify-center gap-2">
+        <mat-icon class="text-gray-500">schedule</mat-icon>
+        <span class="text-sm font-semibold text-gray-800">{{ currentDate | date : 'HH:mm' }}</span>
+      </div>
     </div>
   </section>
 </div>

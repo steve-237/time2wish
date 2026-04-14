@@ -1,16 +1,16 @@
 <aside
-  class="sticky top-0 left-0 flex h-screen flex-col border-r border-gray-200/70 bg-white/90 px-2 py-4 shadow-[0_12px_30px_rgba(15,23,42,0.06)] backdrop-blur transition-all duration-300 ease-in-out"
-  [style.width]="expanded() ? '280px' : '84px'"
+  class="sticky top-0 left-0 flex h-screen flex-col border-r border-gray-200/70 bg-white/95 px-2 py-4 shadow-[0_8px_24px_rgba(15,23,42,0.08)] transition-all duration-300 ease-in-out"
+  [style.width]="expanded() ? '260px' : '72px'"
 >
   <div class="flex h-full flex-col gap-2" *transloco="let t">
     <button
       type="button"
-      class="group flex w-full items-center rounded-xl border border-transparent px-2 py-2 text-left transition-all hover:border-gray-200 hover:bg-gray-200/70"
+      class="dashboard-nav-btn"
       (click)="toggleSidebar()"
       [matTooltip]="!expanded() ? t('sidebar.menu') : ''"
       matTooltipPosition="right"
     >
-      <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gray-200/80">
+      <span class="dashboard-nav-icon">
         <mat-icon class="text-gray-700">menu_open</mat-icon>
       </span>
       @if (expanded()) {
@@ -18,60 +18,36 @@
       }
     </button>
 
-    <button
-      type="button"
-      class="group flex w-full items-center rounded-xl border border-transparent px-2 py-2 text-left transition-all hover:border-gray-200 hover:bg-gray-200/70"
-      (click)="onSetting()"
-      [matTooltip]="!expanded() ? t('sidebar.settings') : ''"
-      matTooltipPosition="right"
-    >
-      <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gray-200/80"><mat-icon class="text-gray-700">settings</mat-icon></span>
+    <button type="button" class="dashboard-nav-btn" (click)="onSetting()" [matTooltip]="!expanded() ? t('sidebar.settings') : ''" matTooltipPosition="right">
+      <span class="dashboard-nav-icon"><mat-icon class="text-gray-700">settings</mat-icon></span>
       @if (expanded()) {
         <span class="ml-3 font-medium text-gray-700">{{ t('sidebar.settings') }}</span>
       }
     </button>
 
-    <button
-      type="button"
-      class="group flex w-full items-center rounded-xl border border-transparent px-2 py-2 text-left transition-all hover:border-gray-200 hover:bg-gray-200/70"
-      (click)="onAddBirthday()"
-      [matTooltip]="!expanded() ? t('sidebar.add_user') : ''"
-      matTooltipPosition="right"
-    >
-      <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gray-200/80"><mat-icon class="text-gray-700">person_add</mat-icon></span>
+    <button type="button" class="dashboard-nav-btn" (click)="onAddBirthday()" [matTooltip]="!expanded() ? t('sidebar.add_user') : ''" matTooltipPosition="right">
+      <span class="dashboard-nav-icon"><mat-icon class="text-gray-700">person_add</mat-icon></span>
       @if (expanded()) {
         <span class="ml-3 font-medium text-gray-700">{{ t('sidebar.add_user') }}</span>
       }
     </button>
 
-    <button
-      type="button"
-      class="group flex w-full items-center rounded-xl border border-transparent px-2 py-2 text-left transition-all hover:border-gray-200 hover:bg-gray-200/70"
-      (click)="onStatistics()"
-      [matTooltip]="!expanded() ? t('sidebar.statistics') : ''"
-      matTooltipPosition="right"
-    >
-      <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gray-200/80"><mat-icon class="text-gray-700">bar_chart</mat-icon></span>
+    <button type="button" class="dashboard-nav-btn" (click)="onStatistics()" [matTooltip]="!expanded() ? t('sidebar.statistics') : ''" matTooltipPosition="right">
+      <span class="dashboard-nav-icon"><mat-icon class="text-gray-700">bar_chart</mat-icon></span>
       @if (expanded()) {
         <span class="ml-3 font-medium text-gray-700">{{ t('sidebar.statistics') }}</span>
       }
     </button>
 
-    <button
-      type="button"
-      class="group flex w-full items-center rounded-xl border border-transparent px-2 py-2 text-left transition-all hover:border-gray-200 hover:bg-gray-200/70"
-      (click)="onPricing()"
-      [matTooltip]="!expanded() ? t('sidebar.pricing') : ''"
-      matTooltipPosition="right"
-    >
-      <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gray-200/80"><mat-icon class="text-gray-700">workspace_premium</mat-icon></span>
+    <button type="button" class="dashboard-nav-btn" (click)="onPricing()" [matTooltip]="!expanded() ? t('sidebar.pricing') : ''" matTooltipPosition="right">
+      <span class="dashboard-nav-icon"><mat-icon class="text-gray-700">workspace_premium</mat-icon></span>
       @if (expanded()) {
         <span class="ml-3 font-medium text-gray-700">{{ t('sidebar.pricing') }}</span>
       }
     </button>
 
-    <div class="mt-auto rounded-xl border border-gray-200/70 bg-gray-200/40 p-3 text-center">
-      <img src="time2wish-logo.png" alt="Logo" class="mx-auto h-12 w-12 object-contain" [class.h-10]="!expanded()" [class.w-10]="!expanded()" />
+    <div class="mt-auto rounded-xl border border-gray-200/80 bg-gray-200/50 p-3 text-center">
+      <img src="time2wish-logo.png" alt="Logo" class="mx-auto h-10 w-10 object-contain md:h-12 md:w-12" />
       @if (expanded()) {
         <p class="mt-2 text-sm font-semibold text-gray-800">{{ t('sidebar.app_name') }}</p>
         <p class="text-xs text-gray-500">{{ t('sidebar.version') }}: {{ version() }}</p>
