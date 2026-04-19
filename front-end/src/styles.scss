@@ -370,6 +370,39 @@ mat-dialog-content,
   border: 1px solid var(--border-color);
   border-radius: 0.75rem;
 }
+
+.dashboard-icon-btn {
+  border-radius: 0.75rem !important;
+  border: 1px solid var(--border-color);
+  background-color: color-mix(in srgb, var(--bg-primary) 84%, transparent);
+  transition: all 0.2s ease;
+
+  &:hover,
+  &:focus-visible {
+    background-color: var(--bg-secondary) !important;
+    border-color: var(--accent-color);
+    transform: translateY(-1px);
+  }
+}
+
+.dashboard-action-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.4rem;
+  border: 1px solid var(--border-color) !important;
+  background-color: color-mix(in srgb, var(--bg-primary) 95%, var(--accent-color) 5%) !important;
+  color: var(--text-primary) !important;
+  border-radius: 0.6rem !important;
+  padding: 0.45rem 0.8rem !important;
+  font-weight: 600 !important;
+  transition: all 0.2s ease !important;
+
+  &:hover,
+  &:focus-visible {
+    background-color: var(--bg-secondary) !important;
+    border-color: var(--accent-color) !important;
+  }
+}
 //styles pour le background du paginator
 .mdc-list-item--selected {
   background-color: var(--pg-selected) !important;

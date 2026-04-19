@@ -1,18 +1,18 @@
-<div class="rounded-xl border border-gray-200 shadow-sm p-3 md:p-4 bg-white mt-3 md:mt-4" *transloco="let t">
+<div class="rounded-2xl border border-gray-200/80 shadow-md p-3 md:p-4 bg-white/95 backdrop-blur-sm mt-3 md:mt-4" *transloco="let t">
   <div class="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between w-full">
     <div class="flex items-center justify-center xl:justify-start">
       <img src="time2wish-logo.png" [alt]="t('toolbar.logo_alt')" class="h-11 md:h-14 ml-1 md:ml-2" />
     </div>
 
-    <div class="group flex items-center w-full xl:max-w-2xl rounded-xl bg-gray-200 transition-all duration-200 focus-within:bg-white focus-within:shadow-md border border-gray-300">
-      <button mat-icon-button class="!w-10 !h-10 flex items-center justify-center m-1" [attr.aria-label]="t('search.tooltip')">
+    <div class="group flex items-center w-full xl:max-w-2xl rounded-xl bg-slate-100/90 transition-all duration-200 focus-within:bg-white focus-within:shadow-md border border-slate-300/80">
+      <button mat-icon-button class="dashboard-icon-btn !w-10 !h-10 flex items-center justify-center m-1" [attr.aria-label]="t('search.tooltip')">
         <mat-icon [matTooltip]="t('search.tooltip')">search</mat-icon>
       </button>
 
       <input
         matInput
         [placeholder]="t('search.placeholder')"
-        class="flex-1 bg-transparent border-none focus:outline-none py-2 text-sm md:text-base"
+        class="flex-1 bg-transparent border-none focus:outline-none py-2 text-sm md:text-base font-medium"
         [ngModel]="searchQuery"
         (ngModelChange)="searchChange.emit($event)"
         [matAutocomplete]="auto"
@@ -26,11 +26,11 @@
       </mat-autocomplete>
 
       @if (searchQuery) {
-        <button mat-icon-button class="!w-10 !h-10 flex items-center justify-center m-1" (click)="clearSearch.emit()" [attr.aria-label]="t('search.placeholder')">
+        <button mat-icon-button class="dashboard-icon-btn !w-10 !h-10 flex items-center justify-center m-1" (click)="clearSearch.emit()" [attr.aria-label]="t('search.placeholder')">
           <mat-icon>close</mat-icon>
         </button>
       } @else {
-        <button mat-icon-button [matMenuTriggerFor]="filterMenu" class="!w-10 !h-10 flex items-center justify-center m-1" [attr.aria-label]="t('search.filter_tooltip')">
+        <button mat-icon-button [matMenuTriggerFor]="filterMenu" class="dashboard-icon-btn !w-10 !h-10 flex items-center justify-center m-1" [attr.aria-label]="t('search.filter_tooltip')">
           <mat-icon class="text-gray-500" [matTooltip]="t('search.filter_tooltip')">tune</mat-icon>
         </button>
       }
@@ -50,8 +50,8 @@
       </mat-menu>
     </div>
 
-    <div class="flex items-center justify-center xl:justify-end flex-wrap gap-1 md:gap-2 lg:gap-3">
-      <button mat-icon-button (click)="themeToggle.emit()" class="!w-10 !h-10 flex items-center justify-center" [matTooltip]="t('toolbar.theme')">
+    <div class="flex items-center justify-center xl:justify-end flex-wrap gap-1.5 md:gap-2 lg:gap-3">
+      <button mat-icon-button (click)="themeToggle.emit()" class="dashboard-icon-btn !w-10 !h-10 flex items-center justify-center" [matTooltip]="t('toolbar.theme')">
         <mat-icon>{{ isDarkTheme ? 'light_mode' : 'dark_mode' }}</mat-icon>
       </button>
 
@@ -61,26 +61,26 @@
         [matBadgeHidden]="unreadNotifications === 0"
         matBadgeColor="warn"
         matBadgeSize="large"
-        class="!w-10 !h-10 flex items-center justify-center relative"
+        class="dashboard-icon-btn !w-10 !h-10 flex items-center justify-center relative"
         (click)="notificationOpen.emit()"
         [matTooltip]="t('toolbar.notifications')"
       >
         <mat-icon>notifications</mat-icon>
       </button>
 
-      <button mat-icon-button (click)="viewToggle.emit(nextViewMode)" [matTooltip]="viewMode === 'table' ? t('toolbar.view_cards') : t('toolbar.view_table')" [attr.aria-label]="viewMode === 'table' ? t('toolbar.view_cards') : t('toolbar.view_table')">
+      <button mat-icon-button class="dashboard-icon-btn !w-10 !h-10" (click)="viewToggle.emit(nextViewMode)" [matTooltip]="viewMode === 'table' ? t('toolbar.view_cards') : t('toolbar.view_table')" [attr.aria-label]="viewMode === 'table' ? t('toolbar.view_cards') : t('toolbar.view_table')">
         <mat-icon>{{ viewMode === 'table' ? 'view_module' : 'table_chart' }}</mat-icon>
       </button>
 
       <app-set-language></app-set-language>
 
-      <button mat-icon-button class="!w-10 !h-10 flex items-center justify-center" (click)="informationOpen.emit()" [matTooltip]="t('toolbar.help')">
+      <button mat-icon-button class="dashboard-icon-btn !w-10 !h-10 flex items-center justify-center" (click)="informationOpen.emit()" [matTooltip]="t('toolbar.help')">
         <mat-icon>help_outline</mat-icon>
       </button>
 
       @if (currentUser) {
         <span [matBadge]="currentUser.status" [matBadgeHidden]="!currentUser.status" [ngClass]="getBadgeClass(currentUser.status)" matBadgeSize="large" matBadgeOverlap="true">
-          <button mat-icon-button [matMenuTriggerFor]="profileMenu" class="flex items-center justify-center" [matTooltip]="t('toolbar.profile')">
+          <button mat-icon-button [matMenuTriggerFor]="profileMenu" class="dashboard-icon-btn flex items-center justify-center" [matTooltip]="t('toolbar.profile')">
             @if (currentUser.profilePicture) {
               <img [src]="currentUser.profilePicture" class="rounded-full h-8 w-8" [alt]="t('toolbar.profile')" />
             } @else {
@@ -99,7 +99,7 @@
   </div>
 
   @if (advancedFilterColumn !== 'all') {
-    <div class="text-xs sm:text-sm text-gray-500 mt-2 flex items-center gap-1">
+    <div class="text-xs sm:text-sm text-gray-500 mt-2 flex items-center gap-1 rounded-lg bg-indigo-50 px-3 py-1.5 w-fit">
       <mat-icon class="!text-sm mr-1">filter_alt</mat-icon>
       {{ t('search.filtering_in') }}
       <span class="font-medium ml-1">{{ t('search.columns.' + advancedFilterColumn) }}</span>
@@ -107,8 +107,8 @@
   }
 </div>
 
-<div class="bg-white border border-gray-200 flex flex-col sm:flex-row items-center shadow-sm justify-between gap-3 rounded-xl p-3 md:p-4 mt-4" *transloco="let t">
-  <mat-button-toggle-group [value]="activeButton" (change)="activeButtonChange.emit($event.value)" class="!border-none rounded-full bg-gray-200 p-1 shadow-sm">
+<div class="bg-white/95 border border-gray-200/80 flex flex-col lg:flex-row lg:items-center shadow-sm justify-between gap-3 rounded-2xl p-3 md:p-4 mt-4" *transloco="let t">
+  <mat-button-toggle-group [value]="activeButton" (change)="activeButtonChange.emit($event.value)" class="!border-none rounded-full bg-slate-100 p-1 shadow-sm">
     <mat-button-toggle value="coming" class="!rounded-full !font-medium !px-4 !py-2 !border-none" [class.!bg-white]="activeButton === 'coming'">
       {{ t('anniversary.coming') }}
     </mat-button-toggle>
@@ -117,12 +117,12 @@
     </mat-button-toggle>
   </mat-button-toggle-group>
 
-  <div class="flex items-center gap-2 text-sm md:text-base">
-    <mat-icon class="text-gray-500">calendar_today</mat-icon>
+  <div class="flex items-center gap-2 text-sm md:text-base rounded-lg bg-slate-100 px-3 py-1.5">
+    <mat-icon class="text-indigo-500">calendar_today</mat-icon>
     <span class="font-medium text-gray-800">{{ currentDate | date : 'dd.MM.yyyy' }}</span>
   </div>
-  <div class="flex items-center gap-2 text-sm md:text-base">
-    <mat-icon class="text-gray-500">schedule</mat-icon>
+  <div class="flex items-center gap-2 text-sm md:text-base rounded-lg bg-slate-100 px-3 py-1.5">
+    <mat-icon class="text-indigo-500">schedule</mat-icon>
     <span class="font-medium text-gray-800">{{ currentDate | date : 'HH:mm' }}</span>
   </div>
 </div>
