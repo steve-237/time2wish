@@ -1,14 +1,17 @@
 <aside
-  class="sticky top-0 left-0 h-screen bg-white flex flex-col items-center transition-all duration-100 ease-in-out shadow-sm border-r border-gray-100"
+  class="sticky top-0 left-0 h-screen bg-white flex flex-col items-center transition-all duration-200 ease-in-out shadow-sm border-r border-gray-100"
   [class.w-16]="!expanded()"
   [class.px-4]="expanded()"
   [style.width]="expanded() ? '280px' : '5rem'"
 >
-  <div class="flex flex-col mt-10 w-full gap-2" *transloco="let t">
+  <div class="flex flex-col mt-6 w-full gap-1.5 px-2" *transloco="let t">
     
     <button
       type="button"
-      class="flex items-center w-full hover:bg-gray-100 transition-colors rounded-lg bg-transparent border-none p-0 text-left"
+      class="flex items-center w-full hover:bg-gray-100 transition-all duration-200 rounded-xl bg-transparent border-none p-0 text-left"
+      [class.bg-indigo-50]="activeItem() === 'menu'"
+      [class.ring-1]="activeItem() === 'menu'"
+      [class.ring-indigo-200]="activeItem() === 'menu'"
       (click)="toggleSidebar()"
       [matTooltip]="!expanded() ? t('sidebar.menu') : ''"
       matTooltipPosition="right"
@@ -25,7 +28,10 @@
 
     <button
       type="button"
-      class="flex items-center w-full hover:bg-gray-100 transition-colors rounded-lg bg-transparent border-none p-0 text-left"
+      class="flex items-center w-full hover:bg-gray-100 transition-all duration-200 rounded-xl bg-transparent border-none p-0 text-left"
+      [class.bg-indigo-50]="activeItem() === 'settings'"
+      [class.ring-1]="activeItem() === 'settings'"
+      [class.ring-indigo-200]="activeItem() === 'settings'"
       (click)="onSetting()"
       [matTooltip]="!expanded() ? t('sidebar.settings') : ''"
       matTooltipPosition="right"
@@ -42,7 +48,10 @@
 
     <button
       type="button"
-      class="flex items-center w-full hover:bg-gray-100 transition-colors rounded-lg bg-transparent border-none p-0 text-left"
+      class="flex items-center w-full hover:bg-gray-100 transition-all duration-200 rounded-xl bg-transparent border-none p-0 text-left"
+      [class.bg-indigo-50]="activeItem() === 'add'"
+      [class.ring-1]="activeItem() === 'add'"
+      [class.ring-indigo-200]="activeItem() === 'add'"
       (click)="onAddBirthday()"
       [matTooltip]="!expanded() ? t('sidebar.add_user') : ''"
       matTooltipPosition="right"
@@ -59,7 +68,10 @@
 
     <button
       type="button"
-      class="flex items-center w-full hover:bg-gray-100 transition-colors rounded-lg bg-transparent border-none p-0 text-left"
+      class="flex items-center w-full hover:bg-gray-100 transition-all duration-200 rounded-xl bg-transparent border-none p-0 text-left"
+      [class.bg-indigo-50]="activeItem() === 'stats'"
+      [class.ring-1]="activeItem() === 'stats'"
+      [class.ring-indigo-200]="activeItem() === 'stats'"
       (click)="onStatistics()"
       [matTooltip]="!expanded() ? t('sidebar.statistics') : ''"
       matTooltipPosition="right"
@@ -76,7 +88,10 @@
     
     <button
       type="button"
-      class="flex items-center w-full hover:bg-gray-100 transition-colors rounded-lg bg-transparent border-none p-0 text-left"
+      class="flex items-center w-full hover:bg-gray-100 transition-all duration-200 rounded-xl bg-transparent border-none p-0 text-left"
+      [class.bg-indigo-50]="activeItem() === 'pricing'"
+      [class.ring-1]="activeItem() === 'pricing'"
+      [class.ring-indigo-200]="activeItem() === 'pricing'"
       (click)="onPricing()"
       [matTooltip]="!expanded() ? t('sidebar.pricing') : ''"
       matTooltipPosition="right"

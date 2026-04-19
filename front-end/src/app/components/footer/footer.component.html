@@ -1,17 +1,17 @@
-<footer class="shadow p-2 bg-white">
-  <div class="flex flex-col md:flex-row justify-between items-center">
-    <div class="mb-2 md:mb-0">
+<footer class="shadow-sm border border-gray-200 rounded-xl p-3 bg-white">
+  <div class="flex flex-col gap-3 md:gap-1 md:flex-row justify-between items-center">
+    <div class="mb-0">
       <p class="text-gray-600 text-xs mt-1">
         © {{ currentDate | date : "yyyy" }} Time2Wish.
         {{ 'footer.rights_reserved' | transloco }}
       </p>
     </div>
 
-    <div class="flex space-x-2">
+    <div class="flex flex-wrap justify-center gap-2">
       <button
         type="button"
         (click)="openModal('help')"
-        class="text-gray-600 hover:text-blue-600 transition text-xs flex items-center"
+        class="text-gray-600 hover:text-blue-600 hover:bg-gray-100 transition-all duration-200 text-xs flex items-center rounded-lg px-2 py-1"
       >
         <mat-icon class="text-base">help_outline</mat-icon>
         <span class="ml-1">{{ 'footer.help' | transloco }}</span>
@@ -19,7 +19,7 @@
       <button
         type="button"
         (click)="openModal('conditions')"
-        class="text-gray-600 hover:text-blue-600 transition text-xs flex items-center"
+        class="text-gray-600 hover:text-blue-600 hover:bg-gray-100 transition-all duration-200 text-xs flex items-center rounded-lg px-2 py-1"
       >
         <mat-icon class="text-base">description</mat-icon>
         <span class="ml-1">{{ 'footer.conditions' | transloco }}</span>
@@ -27,7 +27,7 @@
       <button
         type="button"
         (click)="openModal('confidentiality')"
-        class="text-gray-600 hover:text-blue-600 transition text-xs flex items-center"
+        class="text-gray-600 hover:text-blue-600 hover:bg-gray-100 transition-all duration-200 text-xs flex items-center rounded-lg px-2 py-1"
       >
         <mat-icon class="text-base">privacy_tip</mat-icon>
         <span class="ml-1">{{ 'footer.confidentiality' | transloco }}</span>

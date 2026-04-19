@@ -42,6 +42,7 @@ export class AsideNavBarComponent implements OnInit {
   // Signals for local state management
   readonly expanded = signal(false);
   readonly version = signal('');
+  readonly activeItem = signal<'menu' | 'settings' | 'add' | 'stats' | 'pricing'>('menu');
 
   ngOnInit(): void {
     // Setting signal value from service
@@ -49,22 +50,27 @@ export class AsideNavBarComponent implements OnInit {
   }
 
   toggleSidebar(): void {
+    this.activeItem.set('menu');
     this.expanded.update((val) => !val);
   }
 
   onSetting(): void {
+    this.activeItem.set('settings');
     this.dialog.open(SettingComponent);
   }
 
   onAddBirthday(): void {
+    this.activeItem.set('add');
     this.dialog.open(NewBirthdayComponent);
   }
 
   onStatistics(): void {
+    this.activeItem.set('stats');
     this.dialog.open(StatisticComponent);
   }
 
   onPricing(): void {
+    this.activeItem.set('pricing');
     this.dialog.open(PricingComponent);
   }
 }
