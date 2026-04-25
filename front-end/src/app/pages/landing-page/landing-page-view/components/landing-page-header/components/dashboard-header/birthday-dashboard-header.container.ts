@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, comput
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { TranslocoModule } from '@jsverse/transloco';
 
 import { BirthdayService } from '../../../../../../../core/services/birthday/birthday.service';
 import { Birthday } from '../../../../../../../models/birthday.model';
@@ -12,7 +13,7 @@ import { StatsCardsComponent, DashboardStatCard } from './stats-cards/stats-card
 @Component({
   selector: 'app-birthday-dashboard-header-container',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatIconModule, ToggleSwitchComponent, StatsCardsComponent],
+  imports: [CommonModule, MatButtonModule, MatIconModule, TranslocoModule, ToggleSwitchComponent, StatsCardsComponent],
   templateUrl: './birthday-dashboard-header.container.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -32,42 +33,38 @@ export class BirthdayDashboardHeaderContainerComponent {
     return [
       {
         id: 'weekly',
-        label: 'Anniversaires cette semaine',
+        labelKey: 'dashboard_header.stats.weekly',
         value: this.countBirthdaysInRange(birthdays, 0, 6),
         icon: 'cake',
         iconClass: 'text-indigo-600',
-        cardClass: '',
+        cardClass: 'from-indigo-50 to-indigo-100/40',
       },
       {
         id: 'today',
-        label: 'Aujourd’hui',
+        labelKey: 'dashboard_header.stats.today',
         value: this.countBirthdaysInRange(birthdays, 0, 0),
         icon: 'celebration',
         iconClass: 'text-rose-600',
-        cardClass: '',
+        cardClass: 'from-rose-50 to-rose-100/40',
       },
       {
         id: 'next-7-days',
-        label: 'Dans les 7 prochains jours',
+        labelKey: 'dashboard_header.stats.next_7_days',
         value: this.countBirthdaysInRange(birthdays, 1, 7),
         icon: 'event_available',
         iconClass: 'text-blue-600',
-        cardClass: '',
+        cardClass: 'from-blue-50 to-blue-100/40',
       },
       {
         id: 'total',
-        label: 'Total des contacts',
+        labelKey: 'dashboard_header.stats.total_contacts',
         value: birthdays.length,
         icon: 'groups',
         iconClass: 'text-violet-600',
-        cardClass: '',
+        cardClass: 'from-violet-50 to-violet-100/40',
       },
     ];
   });
-
-  get subtitle(): string {
-    return this.activeButton === 'coming' ? 'À venir prochainement' : 'Anniversaires passés';
-  }
 
   onModeChange(mode: LandingFilterMode): void {
     this.activeButtonChange.emit(mode);

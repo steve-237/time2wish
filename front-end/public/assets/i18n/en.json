@@ -36,6 +36,22 @@
     "empty_coming": "No coming anniversary",
     "empty_passed": "No passed anniversary"
   },
+  "dashboard_header": {
+    "title": "Birthdays",
+    "add_birthday": "Add birthday",
+    "subtitle_coming": "Coming up soon",
+    "subtitle_passed": "Past birthdays",
+    "toggle": {
+      "coming": "Upcoming",
+      "passed": "Past"
+    },
+    "stats": {
+      "weekly": "Birthdays this week",
+      "today": "Today",
+      "next_7_days": "In the next 7 days",
+      "total_contacts": "Total contacts"
+    }
+  },
   "actions": {
     "import": "Import",
     "export": "Export"

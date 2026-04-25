@@ -13,7 +13,7 @@
       @if (activeMode === 'coming') {
         <mat-icon class="!h-3 !w-3 !text-[10px]">done</mat-icon>
       }
-      À venir
+      {{ 'dashboard_header.toggle.coming' | transloco }}
     </span>
   </button>
 
@@ -27,6 +27,6 @@
     role="tab"
     (click)="select('passed')"
   >
-    Passés
+    {{ 'dashboard_header.toggle.passed' | transloco }}
   </button>
 </div>

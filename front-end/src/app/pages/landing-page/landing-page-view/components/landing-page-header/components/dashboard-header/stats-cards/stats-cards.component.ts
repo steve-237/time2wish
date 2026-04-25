@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { TranslocoModule } from '@jsverse/transloco';
 
 export interface DashboardStatCard {
   id: string;
-  label: string;
+  labelKey: string;
   value: number;
   icon: string;
   iconClass: string;
@@ -14,7 +15,7 @@ export interface DashboardStatCard {
 @Component({
   selector: 'app-stats-cards',
   standalone: true,
-  imports: [CommonModule, MatIconModule],
+  imports: [CommonModule, MatIconModule, TranslocoModule],
   templateUrl: './stats-cards.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
