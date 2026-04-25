@@ -1,0 +1,53 @@
+<section class="bg-transparent py-1" aria-label="En-tête tableau de bord anniversaires">
+  <div class="flex flex-col gap-3">
+    <div class="flex flex-wrap items-center justify-between gap-2">
+      <div class="flex flex-wrap items-center gap-2.5">
+        <h2 class="text-[15px] font-semibold text-slate-900">{{ 'dashboard_header.title' | transloco }}</h2>
+        <app-toggle-switch [activeMode]="activeButton" (modeChange)="onModeChange($event)"></app-toggle-switch>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button
+          type="button"
+          mat-stroked-button
+          class="!rounded-md !border-slate-300 !px-2.5 !py-1 !text-[10px] !font-semibold !text-slate-700 hover:!bg-slate-100"
+          (click)="toggleStatsVisibility()"
+        >
+          <span class="inline-flex items-center gap-1">
+            <mat-icon class="!h-3 !w-3 !text-sm">{{ isStatsVisible() ? 'visibility_off' : 'visibility' }}</mat-icon>
+            {{
+              (isStatsVisible()
+                ? 'dashboard_header.hide_section'
+                : 'dashboard_header.show_section') | transloco
+            }}
+          </span>
+        </button>
+
+        <button
+          type="button"
+          mat-flat-button
+          class="!rounded-md !bg-gradient-to-r !from-teal-700 !to-cyan-700 !px-2.5 !py-1 !text-[10px] !font-semibold !text-white !shadow-sm hover:!from-teal-800 hover:!to-cyan-800"
+        >
+          <span class="inline-flex items-center gap-1">
+            <mat-icon class="!h-3 !w-3 !text-sm">add</mat-icon>
+            {{ 'dashboard_header.add_birthday' | transloco }}
+          </span>
+        </button>
+      </div>
+    </div>
+
+    @if (isStatsVisible()) {
+      <p class="text-[11px] font-semibold text-slate-700">
+        {{
+          (activeButton === 'coming'
+            ? 'dashboard_header.subtitle_coming'
+            : 'dashboard_header.subtitle_passed') | transloco
+        }}
+      </p>
+
+      <div>
+        <app-stats-cards [cards]="statsCards()"></app-stats-cards>
+      </div>
+    }
+  </div>
+</section>
