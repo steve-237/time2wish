@@ -29,12 +29,16 @@ export class BirthdayDashboardHeaderContainerComponent {
 
   readonly statsCards = computed<DashboardStatCard[]>(() => {
     const birthdays = this.allBirthdays();
+    const weeklyCount = this.countBirthdaysInRange(birthdays, 0, 6);
+    const todayCount = this.countBirthdaysInRange(birthdays, 0, 0);
+    const nextSevenDaysCount = this.countBirthdaysInRange(birthdays, 1, 7);
+    const totalContactsCount = Array.isArray(birthdays) ? birthdays.length : 0;
 
     return [
       {
         id: 'weekly',
         labelKey: 'dashboard_header.stats.weekly',
-        value: this.countBirthdaysInRange(birthdays, 0, 6),
+        value: weeklyCount,
         icon: 'cake',
         iconClass: 'text-indigo-600',
         cardClass: 'from-indigo-50 to-indigo-100/40',
@@ -42,7 +46,7 @@ export class BirthdayDashboardHeaderContainerComponent {
       {
         id: 'today',
         labelKey: 'dashboard_header.stats.today',
-        value: this.countBirthdaysInRange(birthdays, 0, 0),
+        value: todayCount,
         icon: 'celebration',
         iconClass: 'text-rose-600',
         cardClass: 'from-rose-50 to-rose-100/40',
@@ -50,7 +54,7 @@ export class BirthdayDashboardHeaderContainerComponent {
       {
         id: 'next-7-days',
         labelKey: 'dashboard_header.stats.next_7_days',
-        value: this.countBirthdaysInRange(birthdays, 1, 7),
+        value: nextSevenDaysCount,
         icon: 'event_available',
         iconClass: 'text-blue-600',
         cardClass: 'from-blue-50 to-blue-100/40',
@@ -58,7 +62,7 @@ export class BirthdayDashboardHeaderContainerComponent {
       {
         id: 'total',
         labelKey: 'dashboard_header.stats.total_contacts',
-        value: birthdays.length,
+        value: totalContactsCount,
         icon: 'groups',
         iconClass: 'text-violet-600',
         cardClass: 'from-violet-50 to-violet-100/40',
@@ -71,6 +75,10 @@ export class BirthdayDashboardHeaderContainerComponent {
   }
 
   private countBirthdaysInRange(birthdays: Birthday[], minDays: number, maxDays: number): number {
+    if (!Array.isArray(birthdays) || birthdays.length === 0) {
+      return 0;
+    }
+
     return birthdays.filter((birthday) => {
       const days = this.getDaysUntilBirthday(birthday.date);
       return days >= minDays && days <= maxDays;
@@ -78,10 +86,15 @@ export class BirthdayDashboardHeaderContainerComponent {
   }
 
   private getDaysUntilBirthday(date: Date): number {
+    const validDate = this.asValidDate(date);
+    if (!validDate) {
+      return Number.POSITIVE_INFINITY;
+    }
+
     const now = new Date(this.currentDate);
     now.setHours(0, 0, 0, 0);
 
-    const normalizedDate = new Date(date);
+    const normalizedDate = new Date(validDate);
     normalizedDate.setFullYear(now.getFullYear());
     normalizedDate.setHours(0, 0, 0, 0);
 
@@ -91,5 +104,10 @@ export class BirthdayDashboardHeaderContainerComponent {
 
     const diffMs = normalizedDate.getTime() - now.getTime();
     return Math.floor(diffMs / (1000 * 60 * 60 * 24));
+  }
+
+  private asValidDate(input: Date): Date | null {
+    const date = new Date(input);
+    return Number.isNaN(date.getTime()) ? null : date;
   }
 }
