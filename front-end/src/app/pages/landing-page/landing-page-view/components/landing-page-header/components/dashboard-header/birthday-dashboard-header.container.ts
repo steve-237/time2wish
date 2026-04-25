@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
 import { BirthdayService } from '../../../../../../../core/services/birthday/birthday.service';
@@ -7,12 +8,11 @@ import { Birthday } from '../../../../../../../models/birthday.model';
 import { LandingFilterMode } from '../../../../../landing-page.component';
 import { ToggleSwitchComponent } from './toggle-switch/toggle-switch.component';
 import { StatsCardsComponent, DashboardStatCard } from './stats-cards/stats-cards.component';
-import { DateTimeDisplayComponent } from './date-time-display/date-time-display.component';
 
 @Component({
   selector: 'app-birthday-dashboard-header-container',
   standalone: true,
-  imports: [CommonModule, MatIconModule, ToggleSwitchComponent, StatsCardsComponent, DateTimeDisplayComponent],
+  imports: [CommonModule, MatButtonModule, MatIconModule, ToggleSwitchComponent, StatsCardsComponent],
   templateUrl: './birthday-dashboard-header.container.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -64,6 +64,10 @@ export class BirthdayDashboardHeaderContainerComponent {
       },
     ];
   });
+
+  get subtitle(): string {
+    return this.activeButton === 'coming' ? 'À venir prochainement' : 'Anniversaires passés';
+  }
 
   onModeChange(mode: LandingFilterMode): void {
     this.activeButtonChange.emit(mode);
