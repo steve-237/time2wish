@@ -106,22 +106,9 @@
   }
 </div>
 
-<div class="bg-white flex shadow-md justify-center gap-5 rounded-lg p-4 mt-4" *transloco="let t">
-  <mat-button-toggle-group [value]="activeButton" (change)="activeButtonChange.emit($event.value)" class="!border-none rounded-full bg-gray-200 p-1">
-    <mat-button-toggle value="coming" class="!rounded-full !font-medium !px-4 !py-2 !border-none" [class.!bg-white]="activeButton === 'coming'">
-      {{ t('anniversary.coming') }}
-    </mat-button-toggle>
-    <mat-button-toggle value="passed" class="!rounded-full !font-medium !px-4 !py-2 !border-none" [class.!bg-white]="activeButton === 'passed'">
-      {{ t('anniversary.passed') }}
-    </mat-button-toggle>
-  </mat-button-toggle-group>
-
-  <div class="flex items-center gap-2">
-    <mat-icon class="text-gray-500">calendar_today</mat-icon>
-    <span class="font-medium text-gray-800">{{ currentDate | date : 'dd.MM.yyyy' }}</span>
-  </div>
-  <div class="flex items-center gap-2">
-    <mat-icon class="text-gray-500">schedule</mat-icon>
-    <span class="font-medium text-gray-800">{{ currentDate | date : 'HH:mm' }}</span>
-  </div>
-</div>
+<app-birthday-dashboard-header-container
+  class="mt-4 block"
+  [activeButton]="activeButton"
+  [currentDate]="currentDate"
+  (activeButtonChange)="activeButtonChange.emit($event)"
+></app-birthday-dashboard-header-container>

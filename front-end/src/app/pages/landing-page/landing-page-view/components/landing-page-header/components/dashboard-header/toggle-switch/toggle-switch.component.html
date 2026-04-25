@@ -1,0 +1,32 @@
+<div class="inline-flex w-full rounded-full bg-slate-100 p-1" role="tablist" aria-label="Filtrer les anniversaires">
+  <button
+    type="button"
+    class="flex-1 rounded-full px-4 py-2 text-sm font-semibold transition-all duration-200 hover:bg-white/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500"
+    [class.bg-white]="activeMode === 'coming'"
+    [class.text-teal-700]="activeMode === 'coming'"
+    [class.shadow-sm]="activeMode === 'coming'"
+    [attr.aria-selected]="activeMode === 'coming'"
+    role="tab"
+    (click)="select('coming')"
+  >
+    <span class="inline-flex items-center gap-1.5">
+      @if (activeMode === 'coming') {
+        <mat-icon class="!h-4 !w-4 !text-base">done</mat-icon>
+      }
+      À venir
+    </span>
+  </button>
+
+  <button
+    type="button"
+    class="flex-1 rounded-full px-4 py-2 text-sm font-semibold transition-all duration-200 hover:bg-white/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500"
+    [class.bg-white]="activeMode === 'passed'"
+    [class.text-slate-800]="activeMode === 'passed'"
+    [class.shadow-sm]="activeMode === 'passed'"
+    [attr.aria-selected]="activeMode === 'passed'"
+    role="tab"
+    (click)="select('passed')"
+  >
+    Passés
+  </button>
+</div>

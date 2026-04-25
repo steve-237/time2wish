@@ -1,5 +1,5 @@
 import { CommonModule, DatePipe, NgClass } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { TranslocoModule } from '@jsverse/transloco';
@@ -7,7 +7,6 @@ import { TranslocoModule } from '@jsverse/transloco';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -17,6 +16,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { SetLanguageComponent } from '../../../../../components/set-language/set-language.component';
 import { UserProfile } from '../../../../../models/user.model';
 import type { LandingFilterMode, LandingViewMode } from '../../../landing-page.component';
+import { BirthdayDashboardHeaderContainerComponent } from './components/dashboard-header/birthday-dashboard-header.container';
 
 @Component({
   selector: 'app-landing-page-header',
@@ -28,7 +28,6 @@ import type { LandingFilterMode, LandingViewMode } from '../../../landing-page.c
     MatAutocompleteModule,
     MatBadgeModule,
     MatButtonModule,
-    MatButtonToggleModule,
     MatDividerModule,
     MatIconModule,
     MatInputModule,
@@ -37,9 +36,11 @@ import type { LandingFilterMode, LandingViewMode } from '../../../landing-page.c
     NgClass,
     RouterLink,
     SetLanguageComponent,
+    BirthdayDashboardHeaderContainerComponent,
     TranslocoModule,
   ],
   templateUrl: './landing-page-header.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LandingPageHeaderComponent {
   @Input({ required: true }) viewMode!: LandingViewMode;
