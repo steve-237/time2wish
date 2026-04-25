@@ -31,7 +31,7 @@ export class BirthdayDashboardHeaderContainerComponent {
     const birthdays = this.allBirthdays();
     const weeklyCount = this.countBirthdaysInRange(birthdays, 0, 6);
     const todayCount = this.countBirthdaysInRange(birthdays, 0, 0);
-    const nextSevenDaysCount = this.countBirthdaysInRange(birthdays, 1, 7);
+    const nextFourteenDaysCount = this.countBirthdaysInRange(birthdays, 1, 14);
     const totalContactsCount = Array.isArray(birthdays) ? birthdays.length : 0;
 
     return [
@@ -52,9 +52,9 @@ export class BirthdayDashboardHeaderContainerComponent {
         cardClass: 'from-rose-50 to-rose-100/40',
       },
       {
-        id: 'next-7-days',
-        labelKey: 'dashboard_header.stats.next_7_days',
-        value: nextSevenDaysCount,
+        id: 'next-14-days',
+        labelKey: 'dashboard_header.stats.next_14_days',
+        value: nextFourteenDaysCount,
         icon: 'event_available',
         iconClass: 'text-blue-600',
         cardClass: 'from-blue-50 to-blue-100/40',

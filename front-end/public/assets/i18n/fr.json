@@ -48,8 +48,9 @@
     "stats": {
       "weekly": "Anniversaires cette semaine",
       "today": "Aujourd’hui",
-      "next_7_days": "Dans les 7 prochains jours",
-      "total_contacts": "Total des contacts"
+      "next_14_days": "Dans les 14 prochains jours",
+      "total_contacts": "Total des contacts",
+      "counter": "{{count}} anniversaire(s)"
     }
   },
   "actions": {

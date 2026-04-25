@@ -48,8 +48,9 @@
     "stats": {
       "weekly": "Birthdays this week",
       "today": "Today",
-      "next_7_days": "In the next 7 days",
-      "total_contacts": "Total contacts"
+      "next_14_days": "In the next 14 days",
+      "total_contacts": "Total contacts",
+      "counter": "{{count}} birthday(ies)"
     }
   },
   "actions": {

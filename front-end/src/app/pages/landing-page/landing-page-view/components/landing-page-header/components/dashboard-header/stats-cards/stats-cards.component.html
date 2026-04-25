@@ -10,6 +10,7 @@
       </div>
       <p class="text-lg font-bold leading-5 text-slate-900">{{ card.value }}</p>
       <p class="text-[10px] font-medium leading-4 text-slate-600">{{ card.labelKey | transloco }}</p>
+      <p class="mt-0.5 text-[10px] text-slate-500">{{ 'dashboard_header.stats.counter' | transloco: { count: card.value } }}</p>
     </article>
   }
 </div>
