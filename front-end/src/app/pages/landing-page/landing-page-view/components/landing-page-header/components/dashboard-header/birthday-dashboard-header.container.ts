@@ -36,7 +36,7 @@ export class BirthdayDashboardHeaderContainerComponent {
         value: this.countBirthdaysInRange(birthdays, 0, 6),
         icon: 'cake',
         iconClass: 'text-indigo-600',
-        cardClass: 'bg-indigo-50 border-indigo-100',
+        cardClass: '',
       },
       {
         id: 'today',
@@ -44,7 +44,7 @@ export class BirthdayDashboardHeaderContainerComponent {
         value: this.countBirthdaysInRange(birthdays, 0, 0),
         icon: 'celebration',
         iconClass: 'text-rose-600',
-        cardClass: 'bg-rose-50 border-rose-100',
+        cardClass: '',
       },
       {
         id: 'next-7-days',
@@ -52,7 +52,7 @@ export class BirthdayDashboardHeaderContainerComponent {
         value: this.countBirthdaysInRange(birthdays, 1, 7),
         icon: 'event_available',
         iconClass: 'text-blue-600',
-        cardClass: 'bg-blue-50 border-blue-100',
+        cardClass: '',
       },
       {
         id: 'total',
@@ -60,7 +60,7 @@ export class BirthdayDashboardHeaderContainerComponent {
         value: birthdays.length,
         icon: 'groups',
         iconClass: 'text-violet-600',
-        cardClass: 'bg-violet-50 border-violet-100',
+        cardClass: '',
       },
     ];
   });
