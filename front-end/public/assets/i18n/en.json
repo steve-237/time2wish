@@ -39,6 +39,8 @@
   "dashboard_header": {
     "title": "Birthdays",
     "add_birthday": "Add birthday",
+    "hide_section": "Hide",
+    "show_section": "Show",
     "subtitle_coming": "Coming up soon",
     "subtitle_passed": "Past birthdays",
     "toggle": {

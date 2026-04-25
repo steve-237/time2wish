@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -24,6 +24,7 @@ export class BirthdayDashboardHeaderContainerComponent {
   @Input({ required: true }) currentDate!: Date;
 
   @Output() activeButtonChange = new EventEmitter<LandingFilterMode>();
+  readonly isStatsVisible = signal(true);
 
   readonly allBirthdays = computed(() => this.birthdayService.birthdays());
 
@@ -72,6 +73,10 @@ export class BirthdayDashboardHeaderContainerComponent {
 
   onModeChange(mode: LandingFilterMode): void {
     this.activeButtonChange.emit(mode);
+  }
+
+  toggleStatsVisibility(): void {
+    this.isStatsVisible.update((visible) => !visible);
   }
 
   private countBirthdaysInRange(birthdays: Birthday[], minDays: number, maxDays: number): number {

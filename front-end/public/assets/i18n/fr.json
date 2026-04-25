@@ -39,6 +39,8 @@
   "dashboard_header": {
     "title": "Anniversaires",
     "add_birthday": "Ajouter un anniversaire",
+    "hide_section": "Masquer",
+    "show_section": "Afficher",
     "subtitle_coming": "À venir prochainement",
     "subtitle_passed": "Anniversaires passés",
     "toggle": {

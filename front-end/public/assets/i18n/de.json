@@ -39,6 +39,8 @@
   "dashboard_header": {
     "title": "Geburtstage",
     "add_birthday": "Geburtstag hinzufügen",
+    "hide_section": "Ausblenden",
+    "show_section": "Einblenden",
     "subtitle_coming": "Demnächst anstehend",
     "subtitle_passed": "Vergangene Geburtstage",
     "toggle": {
