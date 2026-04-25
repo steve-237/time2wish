@@ -1,0 +1,16 @@
+<div class="grid grid-cols-2 gap-2 md:grid-cols-4" aria-label="Résumé des statistiques">
+  @for (card of cards; track card.id) {
+    <article
+      class="rounded-lg border border-slate-200 bg-gradient-to-br p-2.5 shadow-[0_1px_2px_rgba(15,23,42,0.04)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm"
+      [ngClass]="card.cardClass"
+      [attr.aria-label]="(card.labelKey | transloco) + ': ' + card.value"
+    >
+      <div class="mb-1 inline-flex rounded-md bg-white p-1">
+        <mat-icon [ngClass]="card.iconClass" class="!h-3.5 !w-3.5 !text-sm">{{ card.icon }}</mat-icon>
+      </div>
+      <p class="text-lg font-bold leading-5 text-slate-900">{{ card.value }}</p>
+      <p class="text-[10px] font-medium leading-4 text-slate-600">{{ card.labelKey | transloco }}</p>
+      <p class="mt-0.5 text-[10px] text-slate-500">{{ 'dashboard_header.stats.counter' | transloco: { count: card.value } }}</p>
+    </article>
+  }
+</div>
