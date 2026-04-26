@@ -24,7 +24,7 @@ export class BirthdayDashboardHeaderContainerComponent {
   @Input({ required: true }) currentDate!: Date;
 
   @Output() activeButtonChange = new EventEmitter<LandingFilterMode>();
-  readonly isStatsVisible = signal(true);
+  readonly isStatsVisible = signal(false);
 
   readonly allBirthdays = computed(() => this.birthdayService.birthdays());
 
@@ -41,33 +41,33 @@ export class BirthdayDashboardHeaderContainerComponent {
         labelKey: 'dashboard_header.stats.weekly',
         value: weeklyCount,
         icon: 'cake',
-        iconClass: 'text-indigo-600',
-        cardClass: 'from-indigo-50 to-indigo-100/40',
+        iconClass: '!text-indigo-600', 
+        cardClass: 'border-b-2 border-indigo-500 bg-white hover:bg-indigo-50/30 transition-all shadow-sm',
       },
       {
         id: 'today',
         labelKey: 'dashboard_header.stats.today',
         value: todayCount,
-        icon: 'celebration',
-        iconClass: 'text-rose-600',
-        cardClass: 'from-rose-50 to-rose-100/40',
+        icon: 'auto_awesome',
+        iconClass: '!text-rose-600',
+        cardClass: 'border-b-2 border-rose-500 bg-white hover:bg-rose-50/30 transition-all shadow-sm',
       },
       {
         id: 'next-14-days',
         labelKey: 'dashboard_header.stats.next_14_days',
         value: nextFourteenDaysCount,
-        icon: 'event_available',
-        iconClass: 'text-blue-600',
-        cardClass: 'from-blue-50 to-blue-100/40',
+        icon: 'calendar_month',
+        iconClass: '!text-blue-600',
+        cardClass: 'border-b-2 border-blue-500 bg-white hover:bg-blue-50/30 transition-all shadow-sm',
       },
       {
         id: 'total',
         labelKey: 'dashboard_header.stats.total_contacts',
         value: totalContactsCount,
-        icon: 'groups',
-        iconClass: 'text-violet-600',
-        cardClass: 'from-violet-50 to-violet-100/40',
-      },
+        icon: 'people',
+        iconClass: '!text-violet-600',
+        cardClass: 'border-b-2 border-violet-500 bg-white hover:bg-violet-50/30 transition-all shadow-sm',
+      }
     ];
   });
 

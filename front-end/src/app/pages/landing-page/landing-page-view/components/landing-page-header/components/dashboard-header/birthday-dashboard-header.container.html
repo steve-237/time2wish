@@ -1,53 +1,81 @@
-<section class="bg-transparent py-1" aria-label="En-tête tableau de bord anniversaires">
-  <div class="flex flex-col gap-3">
-    <div class="flex flex-wrap items-center justify-between gap-2">
-      <div class="flex flex-wrap items-center gap-2.5">
-        <h2 class="text-[15px] font-semibold text-slate-900">{{ 'dashboard_header.title' | transloco }}</h2>
-        <app-toggle-switch [activeMode]="activeButton" (modeChange)="onModeChange($event)"></app-toggle-switch>
+<section
+  class="bg-transparent py-2 select-none"
+  aria-label="En-tête tableau de bord anniversaires"
+>
+  <div class="flex flex-col gap-4">
+    <div class="flex flex-wrap items-center justify-between gap-4">
+      <div class="flex flex-wrap items-center gap-4">
+        <div class="flex flex-col">
+          <h2 class="text-lg font-bold tracking-tight text-slate-800">
+            {{ 'dashboard_header.title' | transloco }}
+          </h2>
+        </div>
+
+        <app-toggle-switch
+          [activeMode]="activeButton"
+          (modeChange)="onModeChange($event)"
+        ></app-toggle-switch>
       </div>
 
-      <div class="flex items-center gap-2">
+      <div class="flex items-center gap-4">
+  
         <button
           type="button"
-          mat-stroked-button
-          class="!rounded-md !border-slate-300 !px-2.5 !py-1 !text-[10px] !font-semibold !text-slate-700 hover:!bg-slate-100"
+          mat-button
           (click)="toggleStatsVisibility()"
+          class="!h-11 !rounded-2xl !px-5 transition-all duration-300 group
+                 !bg-slate-100 !text-slate-600 hover:!bg-indigo-50 hover:!text-indigo-600 active:scale-95"
         >
-          <span class="inline-flex items-center gap-1">
-            <mat-icon class="!h-3 !w-3 !text-sm">{{ isStatsVisible() ? 'visibility_off' : 'visibility' }}</mat-icon>
-            {{
-              (isStatsVisible()
-                ? 'dashboard_header.hide_section'
-                : 'dashboard_header.show_section') | transloco
-            }}
-          </span>
+          <div class="flex items-center gap-2.5">
+            <mat-icon 
+              class="!h-5 !w-5 !text-[20px] transition-all duration-500 group-hover:rotate-[360deg]"
+              [class.text-indigo-500]="isStatsVisible()"
+            >
+              {{ isStatsVisible() ? 'visibility_off' : 'bubble_chart' }}
+            </mat-icon>
+            <span class="text-xs font-black uppercase tracking-widest">
+              {{ (isStatsVisible() ? 'dashboard_header.hide_section' : 'dashboard_header.show_section') | transloco }}
+            </span>
+          </div>
         </button>
-
+      
         <button
           type="button"
           mat-flat-button
-          class="!rounded-md !bg-gradient-to-r !from-teal-700 !to-cyan-700 !px-2.5 !py-1 !text-[10px] !font-semibold !text-white !shadow-sm hover:!from-teal-800 hover:!to-cyan-800"
+          class="!h-11 !rounded-2xl !px-6 !bg-indigo-600 !text-white 
+                 !shadow-[0_8px_20px_-6px_rgba(79,70,229,0.5)] 
+                 transition-all duration-300 hover:!shadow-[0_12px_25px_-5px_rgba(79,70,229,0.6)]
+                 hover:-translate-y-0.5 active:scale-95"
         >
-          <span class="inline-flex items-center gap-1">
-            <mat-icon class="!h-3 !w-3 !text-sm">add</mat-icon>
-            {{ 'dashboard_header.add_birthday' | transloco }}
-          </span>
+          <div class="flex items-center gap-2">
+            <mat-icon class="!h-5 !w-5 !text-[20px] animate-pulse">add_circle</mat-icon>
+            <span class="text-xs font-black uppercase tracking-widest">
+              {{ 'dashboard_header.add_birthday' | transloco }}
+            </span>
+          </div>
         </button>
+      
       </div>
     </div>
 
     @if (isStatsVisible()) {
-      <p class="text-[11px] font-semibold text-slate-700">
-        {{
-          (activeButton === 'coming'
-            ? 'dashboard_header.subtitle_coming'
-            : 'dashboard_header.subtitle_passed') | transloco
-        }}
-      </p>
-
-      <div>
-        <app-stats-cards [cards]="statsCards()"></app-stats-cards>
+    <div
+      class="flex flex-col gap-4 animate-in fade-in slide-in-from-top-2 duration-300"
+    >
+      <div class="relative">
+        <app-stats-cards
+          [cards]="statsCards()"
+          class="relative z-10"
+        ></app-stats-cards>
       </div>
+    </div>
     }
+
+    <div class="flex items-center gap-2 px-1">
+      <p class="text-[11px] font-bold uppercase tracking-widest text-slate-500">
+        {{ (activeButton === 'coming' ? 'dashboard_header.subtitle_coming' :
+        'dashboard_header.subtitle_passed') | transloco }}
+      </p>
+    </div>
   </div>
 </section>

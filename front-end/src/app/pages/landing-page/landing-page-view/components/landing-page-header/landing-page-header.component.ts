@@ -1,4 +1,4 @@
-import { CommonModule, DatePipe, NgClass } from '@angular/common';
+import { CommonModule, NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
@@ -23,7 +23,6 @@ import { BirthdayDashboardHeaderContainerComponent } from './components/dashboar
   standalone: true,
   imports: [
     CommonModule,
-    DatePipe,
     FormsModule,
     MatAutocompleteModule,
     MatBadgeModule,
