@@ -9,7 +9,7 @@
     value="coming" 
     [class.is-active]="activeMode === 'coming'"
     class="!rounded-xl transition-all duration-300"
-    [ngClass]="activeMode === 'coming' ? '!bg-green-300 !shadow-md' : '!bg-transparent'"
+    [ngClass]="activeMode === 'coming' ? '!bg-white !shadow-md' : '!bg-transparent'"
   >
     <div class="flex items-center gap-2 px-3 h-full">
       @if (activeMode === 'coming') {
@@ -29,7 +29,7 @@
     value="passed" 
     [class.is-active]="activeMode === 'passed'"
     class="!rounded-xl transition-all duration-300"
-    [ngClass]="activeMode === 'passed' ? '!bg-gray-300 !shadow-md' : '!bg-transparent'"
+    [ngClass]="activeMode === 'passed' ? '!bg-white !shadow-md' : '!bg-transparent'"
   >
     <div class="flex items-center gap-2 px-3 h-full">
       @if (activeMode === 'passed') {
