@@ -18,42 +18,40 @@
       </div>
 
       <div class="flex items-center gap-4">
-  
         <button
           type="button"
           mat-button
           (click)="toggleStatsVisibility()"
-          class="!h-11 !rounded-2xl !px-5 transition-all duration-300 group
-                 !bg-slate-100 !text-slate-600 hover:!bg-white hover:!text-black active:scale-95"
+          class="!h-11 !rounded-2xl !px-5 transition-all duration-300 group !bg-slate-100 !text-slate-600 hover:!bg-white hover:!text-black active:scale-95"
         >
           <div class="flex items-center gap-2.5">
-            <mat-icon 
+            <mat-icon
               class="!h-5 !w-5 !text-[20px] transition-all duration-500 group-hover:rotate-[360deg]"
               [class.text-indigo-500]="isStatsVisible()"
             >
               {{ isStatsVisible() ? 'visibility_off' : 'bubble_chart' }}
             </mat-icon>
             <span class="text-xs font-black uppercase tracking-widest">
-              {{ (isStatsVisible() ? 'dashboard_header.hide_section' : 'dashboard_header.show_section') | transloco }}
+              {{ (isStatsVisible() ? 'dashboard_header.hide_section' :
+              'dashboard_header.show_section') | transloco }}
             </span>
           </div>
         </button>
-      
+
         <button
           type="button"
-          mat-flat-button
-          class="!h-11 !rounded-2xl !px-6 !bg-white !text-black 
-                 transition-all duration-300
-                 hover:-translate-y-0.5 active:scale-95"
+          mat-raised-button
+          class="!h-11 !rounded-2xl !px-6 !bg-white !text-slate-800 !shadow-sm !border !border-slate-100 transition-all duration-300 hover:!shadow-md hover:!text-black hover:-translate-y-0.5 active:scale-95"
         >
           <div class="flex items-center gap-2">
-            <mat-icon class="!h-5 !w-5 !text-[20px] animate-pulse">add_circle</mat-icon>
+            <mat-icon class="!h-5 !w-5 !text-[20px] text-slate-700"
+              >add_circle</mat-icon
+            >
             <span class="text-xs font-black uppercase tracking-widest">
               {{ 'dashboard_header.add_birthday' | transloco }}
             </span>
           </div>
         </button>
-      
       </div>
     </div>
 
@@ -61,20 +59,13 @@
     <div
       class="flex flex-col gap-4 animate-in fade-in slide-in-from-top-2 duration-300"
     >
-      <div class="relative">
+      <div class="relative w-full">
         <app-stats-cards
           [cards]="statsCards()"
-          class="relative z-10"
+          class="block relative z-10"
         ></app-stats-cards>
       </div>
     </div>
     }
-
-    <div class="flex items-center gap-2 px-1">
-      <p class="text-[11px] font-bold uppercase tracking-widest text-slate-500">
-        {{ (activeButton === 'coming' ? 'dashboard_header.subtitle_coming' :
-        'dashboard_header.subtitle_passed') | transloco }}
-      </p>
-    </div>
   </div>
 </section>
