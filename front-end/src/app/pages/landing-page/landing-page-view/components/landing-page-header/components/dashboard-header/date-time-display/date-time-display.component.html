@@ -1,0 +1,11 @@
+<div class="grid w-full gap-2 rounded-2xl bg-slate-50 p-3 text-sm shadow-inner md:w-auto">
+  <div class="flex items-center gap-2 text-slate-700">
+    <mat-icon class="!h-4 !w-4 !text-base">calendar_today</mat-icon>
+    <time [attr.datetime]="currentDate.toISOString()" class="font-semibold">{{ currentDate | date : 'dd.MM.yyyy' }}</time>
+  </div>
+
+  <div class="flex items-center gap-2 text-slate-700">
+    <mat-icon class="!h-4 !w-4 !text-base">schedule</mat-icon>
+    <span class="font-semibold">{{ currentDate | date : 'HH:mm' }}</span>
+  </div>
+</div>

@@ -36,6 +36,25 @@
     "empty_coming": "Kein bevorstehender Geburtstag",
     "empty_passed": "Kein vergangener Geburtstag"
   },
+  "dashboard_header": {
+    "title": "Geburtstage",
+    "add_birthday": "Geburtstag hinzufügen",
+    "hide_section": "Ausblenden",
+    "show_section": "Einblenden",
+    "subtitle_coming": "Demnächst anstehend",
+    "subtitle_passed": "Vergangene Geburtstage",
+    "toggle": {
+      "coming": "Bevorstehend",
+      "passed": "Vergangen"
+    },
+    "stats": {
+      "weekly": "Geburtstage diese Woche",
+      "today": "Heute",
+      "next_14_days": "In den nächsten 14 Tagen",
+      "total_contacts": "Kontakte gesamt",
+      "counter": "{{count}} Geburtstag(e)"
+    }
+  },
   "actions": {
     "import": "Importieren",
     "export": "Exportieren"

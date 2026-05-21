@@ -1,0 +1,36 @@
+<div
+  class="grid grid-cols-2 gap-3 md:grid-cols-4"
+  aria-label="Résumé des statistiques"
+>
+  @for (card of cards; track card.id) {
+    <article
+      class="group rounded-2xl border border-slate-100 bg-white p-4 shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-1"
+      [ngClass]="card.cardClass"
+    >
+      <p
+        class="mb-2 text-[10px] font-bold uppercase tracking-wider text-slate-400 group-hover:text-slate-500"
+      >
+        {{ card.labelKey | transloco }}
+      </p>
+
+      <div class="flex items-center gap-3">
+        <mat-icon
+          [ngClass]="card.iconClass"
+          class=" !h-9 !w-9 !text-[36px] transition-transform duration-300 group-hover:scale-110"
+        >
+          {{ card.icon }}
+        </mat-icon>
+
+        <span class="text-3xl font-black tracking-tight text-slate-800">
+          {{ card.value }}
+        </span>
+      </div>
+
+      <p class="mt-2 text-[9px] font-medium text-slate-400">
+        {{
+          "dashboard_header.stats.counter" | transloco: { count: card.value }
+        }}
+      </p>
+    </article>
+  }
+</div>

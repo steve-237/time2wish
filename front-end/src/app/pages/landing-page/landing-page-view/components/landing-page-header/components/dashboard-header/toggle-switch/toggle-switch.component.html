@@ -1,0 +1,48 @@
+<mat-button-toggle-group 
+  [value]="activeMode" 
+  (change)="onSelectionChange($event.value)"
+  name="birthdayViewFilter" 
+  class="!border-none !bg-slate-100 !rounded-2xl !p-1 !h-11 shadow-inner select-none"
+>
+  
+  <mat-button-toggle 
+    value="coming" 
+    [class.is-active]="activeMode === 'coming'"
+    class="!rounded-xl transition-all duration-300"
+    [ngClass]="activeMode === 'coming' ? '!bg-white !shadow-md' : '!bg-transparent'"
+  >
+    <div class="flex items-center gap-2 px-3 h-full">
+      @if (activeMode === 'coming') {
+        <mat-icon class="!h-4 !w-4 !text-[18px] !text-slate-900 animate-in zoom-in">check_circle</mat-icon>
+      }
+      <span 
+        class="text-[10px] font-black uppercase tracking-widest transition-colors duration-300"
+        [class.text-slate-900]="activeMode === 'coming'"
+        [class.text-slate-500]="activeMode !== 'coming'"
+      >
+        {{ 'dashboard_header.toggle.coming' | transloco }}
+      </span>
+    </div>
+  </mat-button-toggle>
+
+  <mat-button-toggle 
+    value="passed" 
+    [class.is-active]="activeMode === 'passed'"
+    class="!rounded-xl transition-all duration-300"
+    [ngClass]="activeMode === 'passed' ? '!bg-white !shadow-md' : '!bg-transparent'"
+  >
+    <div class="flex items-center gap-2 px-3 h-full">
+      @if (activeMode === 'passed') {
+        <mat-icon class="!h-4 !w-4 !text-[18px] !text-slate-900 animate-in zoom-in">history</mat-icon>
+      }
+      <span 
+        class="text-[10px] font-black uppercase tracking-widest transition-colors duration-300"
+        [class.text-slate-900]="activeMode === 'passed'"
+        [class.text-slate-500]="activeMode !== 'passed'"
+      >
+        {{ 'dashboard_header.toggle.passed' | transloco }}
+      </span>
+    </div>
+  </mat-button-toggle>
+
+</mat-button-toggle-group>
